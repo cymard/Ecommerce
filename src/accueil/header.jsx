@@ -1,28 +1,33 @@
 
-function Logo({src, alt}){
+
+function Logo({src, alt = null}){
     return <img src={src} alt={alt}/>
 }
 
 function Button({children}){
-    return <button className='btn btn-success my-2 my-sm-0'>
+    return <a href="#" className="btn btn-primary">
         {children}
-    </button>
+    </a>
+
+
 }
 
 function SearchBar({children}){
-    return <input type="search" placeholder={children} className="form-control mr-sm-2" aria-label="Search"/>
-   
+    return <input type="search" placeholder={children} className="form-control" aria-label="Search"/>
 
 }
 
 
 function NavBar (){
-    return <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Logo src="../../public/logo512.png" alt="le logo du site web"></Logo>
-        <SearchBar>rechercher ...</SearchBar>
+
+
+    
+    return <nav id="navbar">
+        <Logo src="../../public/logo512.png" ></Logo>
+        <SearchBar>Rechercher ...</SearchBar>
         <Button>Compte</Button>
         <Button>Panier</Button>
     </nav>
 }
 
-export default NavBar;
+export {NavBar,SearchBar,Button,Logo};
