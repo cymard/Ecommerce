@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {NavBar,SearchBar,Button,Logo} from "./accueil/header.jsx"
-import {Content,AProduct} from "./accueil/content.jsx"
-import {Footer} from "./accueil/footer.jsx"
+import {Home} from "./accueil/App.jsx" //NavBar,SearchBar,Button,Logo,Content,AProduct,Context,Footer,Home
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <NavBar></NavBar>
-    <Content></Content>
-    <Footer></Footer>
+    <Home></Home>
   </React.StrictMode>,
+    
+   
   document.getElementById('root')
 );
 
