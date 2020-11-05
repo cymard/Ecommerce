@@ -1,18 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import NavBar from "./accueil/header.jsx"
-import Content from "./accueil/content.jsx"
 import reportWebVitals from './reportWebVitals';
+import App from './Components/App/App.jsx'
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <NavBar></NavBar>
-    <Content></Content>
+    <App></App>
   </React.StrictMode>,
+    
   document.getElementById('root')
 );
+
+
+
+
+
+
+
+
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
