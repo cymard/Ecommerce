@@ -1,8 +1,9 @@
 import React from 'react';
+import { Container,Form,Button  } from 'react-bootstrap';
 
 function Compte(){
     return <div>
-        je suis Compte
+        compte
     </div>
 }
 

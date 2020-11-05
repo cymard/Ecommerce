@@ -14,36 +14,34 @@ import {
   } from "react-router-dom";
 
 
-
 function App(){
-    return <div>
-        <Header></Header>
-        
-        <Router>
-            <Switch>
-                <Route exact path="/Login">
-                    <Login></Login>
-                </Route>
-                <Route exact path="/Account">
-                    <Account></Account>
-                </Route>
-                <Route exact path="/ShoppingCart">
-                    <ShoppingCart></ShoppingCart>
-                </Route>
-                <Route exact path="/Product">
-                    <Product></Product>
-                </Route>
-                <Route exact path="/Buy">
-                    <Buy></Buy> 
-                </Route>
-                <Route path="/">
-                    <Home></Home>
-                </Route>
-            </Switch>
-        </Router>
-        
-        <Footer></Footer>
-    </div>
+    return <Router>
+
+            <Header></Header>
+
+                <Switch>
+                    <Route exact path="/Login">
+                        <Login></Login>
+                    </Route>
+                    <Route exact path="/Account">
+                        <Account></Account>
+                    </Route>
+                    <Route exact path="/ShoppingCart">
+                        <ShoppingCart></ShoppingCart>
+                    </Route>
+                    <Route exact path="/Product">
+                        <Product></Product>
+                    </Route>
+                    <Route exact path="/Buy">
+                        <Buy></Buy> 
+                    </Route>
+                    <Route path="/">
+                        <Home></Home>
+                    </Route>
+                </Switch>
+
+            <Footer></Footer>
+    </Router>    
 }
 
 export default App;
