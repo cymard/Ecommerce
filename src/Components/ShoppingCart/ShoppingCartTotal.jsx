@@ -5,6 +5,7 @@ function ShoppingCartTotal () {
     const linkStyle = {
         color : 'white'
     }
+      
     // la logique de calculs
     return <Card>
         <Card.Body className="d-flex justify-content-between">

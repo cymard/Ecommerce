@@ -10,7 +10,7 @@ function Product ({title,textButton}) {
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body className="pt-4 pb-4 m-auto">
                 <Button>
-                    <HeaderLinks color="white" to="/#object">{textButton}</HeaderLinks>
+                    <HeaderLinks color="white" to="/Product">{textButton}</HeaderLinks>
                 </Button>
             </Card.Body>
         </Card>
