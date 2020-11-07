@@ -11,7 +11,7 @@ function ShoppingCartTotal () {
         <Card.Body className="d-flex justify-content-between">
             <Card.Title>Total à payer:</Card.Title>
             <Button variant="primary"> 
-                <a href="#" style={linkStyle}>Passer la commande</a> 
+                <a href="/Buy" style={linkStyle}>Passer la commande</a> 
             </Button>
         </Card.Body>
     </Card>
