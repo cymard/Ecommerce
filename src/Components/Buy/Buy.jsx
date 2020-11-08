@@ -2,6 +2,8 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import BuyForm from "./BuyForm.jsx"
 
+
+
 function Buy(){
 
     return <Container>
@@ -10,6 +12,8 @@ function Buy(){
         </div>
         <BuyForm></BuyForm>
     </Container>
-}
+
+    
+}   
 
 export default Buy;
