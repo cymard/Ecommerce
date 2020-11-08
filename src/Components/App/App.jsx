@@ -7,6 +7,7 @@ import Account from '../Account/Account.jsx'
 import ShoppingCart from '../ShoppingCart/ShoppingCart.jsx'
 import Product from '../Product/Product.jsx'
 import Buy from '../Buy/Buy.jsx'
+import RegisterOrConnection from '../RegisterOrConnection/RegisterOrConnection.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -34,6 +35,9 @@ function App(){
                     </Route>
                     <Route exact path="/Buy">
                         <Buy></Buy> 
+                    </Route>
+                    <Route exact path="/RegisterOrConnection">
+                        <RegisterOrConnection></RegisterOrConnection>
                     </Route>
                     <Route path="/">
                         <Home></Home>

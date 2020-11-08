@@ -22,7 +22,7 @@ function HeaderNavBar () {
           
           <Nav className="mr-auto">
             <Nav.Link>
-              <HeaderLinks  color="black" to="/Account">Inscription</HeaderLinks>
+              <HeaderLinks  color="black" to="/RegisterOrConnection">Compte</HeaderLinks>
             </Nav.Link>
             
             <Nav.Link style={{width: "82px"}}>
