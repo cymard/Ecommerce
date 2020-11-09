@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'; // ES6
 import {
-    BrowserRouter as Router,
     Link
   } from "react-router-dom";
 

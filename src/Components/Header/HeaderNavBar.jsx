@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';

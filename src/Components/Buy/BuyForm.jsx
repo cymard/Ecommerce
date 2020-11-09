@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
 
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 
 let yup = require('yup');
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Form, Button, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import ConnectedAccountForm from './ConnectedAccountForm.jsx';
 import TitleH1 from "../Common/TitleH1.jsx";
 
