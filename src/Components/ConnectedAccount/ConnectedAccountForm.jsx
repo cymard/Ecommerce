@@ -107,7 +107,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.address && !errors.address}
                             isInvalid={errors.address}
-                            
                         />
                     </Form.Group>
                 </Form.Row>
@@ -122,7 +121,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.email && !errors.email}
                             isInvalid={errors.email}
-                            
                         />
                     </Form.Group>
                 </Form.Row>
@@ -137,7 +135,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.paymentMethod && !errors.paymentMethod}
                             isInvalid={errors.paymentMethod}
-                        
                         >
                             <option>VISA</option>
                             <option>MasterCard</option>
@@ -156,7 +153,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.cardName && !errors.cardName}
                             isInvalid={errors.cardName}
-                            
                         />
                     </Form.Group>
                 </Form.Row>
@@ -171,7 +167,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.cardNumber && !errors.cardNumber}
                             isInvalid={errors.cardNumber}
-                        
                         />
                     </Form.Group>
                 </Form.Row>
@@ -186,7 +181,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.cardExpirationDate && !errors.cardExpirationDate}
                             isInvalid={errors.cardExpirationDate}
-                        
                         />
                     </Form.Group>
                 </Form.Row>
@@ -201,7 +195,6 @@ function ConnectedAccountForm () {
                             onChange={handleChange}
                             isValid={touched.cryptogram && !errors.cryptogram}
                             isInvalid={errors.cryptogram}
-                        
                         />
                         <Form.Text className="text-muted">
                             Exemple : 725
