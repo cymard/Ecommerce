@@ -2,6 +2,7 @@ import React from 'react';
 import { Container ,Image ,Card ,Button} from 'react-bootstrap';
 import ProductComment from './ProductComment.jsx';
 import PropTypes from 'prop-types';
+import ProductFormComment from './ProductFormComment.jsx'
 
 function Product({name, content, price}){
     return <Container className="d-flex flex-column justify-content-around">
@@ -23,7 +24,7 @@ function Product({name, content, price}){
 
         
 
-        <Card className="mt-5">
+        <Card className="mt-5 mb-5">
             <Card.Body className="d-flex justify-content-center flex-column">
                 <Card.Title style={{margin: "auto", marginBottom : "0.75rem"}}>Prix : {price} €</Card.Title>
                 <Button>
@@ -33,7 +34,13 @@ function Product({name, content, price}){
         </Card>
 
         <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2>Les Commentaires : </h2>
+            <h2>Ecrire un Commentaire : </h2>
+        </div>
+
+        <ProductFormComment></ProductFormComment>
+
+        <div className="d-flex justify-content-center mt-5 mb-5">
+            <h2>Les Commentaires postés : </h2>
         </div>
 
         <ProductComment></ProductComment>
