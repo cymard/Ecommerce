@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap';
-import HeaderLinks from '../Header/HeaderLinks.jsx';
+import ModifiedLinks from '../Header/ModifiedLinks.jsx';
 import PropTypes from 'prop-types';
 
 function Product ({title,textButton}) {
@@ -9,9 +9,9 @@ function Product ({title,textButton}) {
             <Card.Title className="pt-4 pb-4 m-auto">{title}</Card.Title>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body className="pt-4 pb-4 m-auto">
-                <Button>
-                    <HeaderLinks color="white" to="/Product">{textButton}</HeaderLinks>
-                </Button>
+                <ModifiedLinks color="white" to="/Product">
+                    <Button>{textButton}</Button>
+                </ModifiedLinks>
             </Card.Body>
         </Card>
 

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import HeaderLinks from './HeaderLinks.jsx'
+import ModifiedLinks from './ModifiedLinks.jsx'
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
 function HeaderNavBar () {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />
@@ -11,7 +15,7 @@ function HeaderNavBar () {
     return <Navbar bg="light" expand="lg" >     {/*fixed top*/ }
 
         <Navbar.Brand>
-          <HeaderLinks color="black" to="/">LOGO</HeaderLinks>
+          <ModifiedLinks color="black" to="/">LOGO</ModifiedLinks>
         </Navbar.Brand>
 
         <Navbar.Collapse id="basic-navbar-nav">
@@ -21,13 +25,15 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            <Nav.Link>
-              <HeaderLinks  color="black" to="/RegisterOrConnection">Compte</HeaderLinks>
-            </Nav.Link>
+               
             
-            <Nav.Link style={{width: "82px"}}>
-              <HeaderLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</HeaderLinks>
-            </Nav.Link>
+            <ModifiedLinks color="black" to="/RegisterOrConnection">Compte</ModifiedLinks>
+           
+
+
+            <ModifiedLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinks>
+
+
           </Nav>  
         </Navbar.Collapse>
       </Navbar>
