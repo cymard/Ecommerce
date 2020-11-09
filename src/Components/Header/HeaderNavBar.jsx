@@ -3,16 +3,13 @@ import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinks from './ModifiedLinks.jsx'
-import {
-  BrowserRouter as Router,
-  Link
-} from "react-router-dom";
 
 function HeaderNavBar () {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />
   const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 
-    return <Navbar bg="light" expand="lg" >     {/*fixed top*/ }
+    return <> 
+    <Navbar fixed="top" bg="light" expand="lg" > 
 
         <Navbar.Brand>
           <ModifiedLinks color="black" to="/">LOGO</ModifiedLinks>
@@ -38,8 +35,10 @@ function HeaderNavBar () {
         </Navbar.Collapse>
       </Navbar>
 
-    
+    <div style={{height : "64px"}}>
 
+    </div>
+  </>
 }
 
 export default HeaderNavBar;
