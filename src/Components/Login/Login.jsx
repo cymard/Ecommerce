@@ -1,16 +1,13 @@
 import React from 'react';
 import {Container, Form, Button} from "react-bootstrap";
 import LoginForm from './LoginForm.jsx'
+import TitleH1 from "../Common/TitleH1.jsx";
 
 function Login(){
     return <Container className="d-flex justify-content-center">
         <div style={{width: "100%"}}>
-            <div className="d-flex justify-content-center mb-3 mt-4">
-                <h1>Se Connecter : </h1>
-            </div>
-
+            <TitleH1>Se Connecter</TitleH1>
             <LoginForm></LoginForm>
-            
         </div>
     </Container>
 }

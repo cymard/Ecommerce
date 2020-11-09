@@ -3,13 +3,11 @@ import { Container ,Image ,Card ,Button} from 'react-bootstrap';
 import ProductComment from './ProductComment.jsx';
 import PropTypes from 'prop-types';
 import ProductFormComment from './ProductFormComment.jsx'
+import TitleH1 from "../Common/TitleH1.jsx";
 
 function Product({name, content, price}){
     return <Container className="d-flex flex-column justify-content-around">
-        <div className="d-flex justify-content-center mb-5 mt-5">
-            <h1>{name}</h1>
-        </div>
-
+        <TitleH1>{name}</TitleH1>
 
         <div className="d-flex">
             <Image style={{height: "318px", width:"318px"}} src="holder.js/171x180" rounded />
@@ -21,8 +19,6 @@ function Product({name, content, price}){
                 </Card.Body>
             </Card>
         </div>
-
-        
 
         <Card className="mt-5 mb-5">
             <Card.Body className="d-flex justify-content-center flex-column">

@@ -1,15 +1,13 @@
 import React from "react";
 import { Container, Form, Button, Col } from "react-bootstrap";
-import ConnectedAccountForm from './ConnectedAccountForm.jsx'
+import ConnectedAccountForm from './ConnectedAccountForm.jsx';
+import TitleH1 from "../Common/TitleH1.jsx";
 
 function ConnectedAccount () {
     return <Container>
 
-            <div className="d-flex justify-content-center mb-5 mt-5 ">
-                <h1> Vos Informations :</h1>
-            </div>
-
-            <ConnectedAccountForm></ConnectedAccountForm>
+        <TitleH1>Vos Informations</TitleH1>
+        <ConnectedAccountForm></ConnectedAccountForm>
     </Container>
 }
 

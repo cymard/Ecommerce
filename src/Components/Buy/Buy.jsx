@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import BuyForm from "./BuyForm.jsx"
+import TitleH1 from "../Common/TitleH1.jsx";
 
 
 
 function Buy(){
 
     return <Container>
-        <div className="d-flex justify-content-center mb-5 mt-5">
-            <h2>Formulaire de Paiement : </h2>
-        </div>
+        <TitleH1>Formulaire de Paiement</TitleH1>
         <BuyForm></BuyForm>
     </Container>
 

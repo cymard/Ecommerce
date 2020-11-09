@@ -9,7 +9,7 @@ function HomeCarousel () {
         height: "400px",
         border: "solid 1px black",
         marginBottom: "50px",
-        marginTop: "50px"
+        marginTop: "20px"
     }
 
     return <Carousel style={carouselStyle}>
