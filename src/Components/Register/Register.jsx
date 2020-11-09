@@ -4,7 +4,7 @@ import { Container,Form,Button  } from 'react-bootstrap';
 function Compte(){
     return <Container className="d-flex justify-content-center">
         <div style={{width: "100%"}}>
-            <div className="d-flex justify-content-center mb-5">
+            <div className="d-flex justify-content-center mb-3 mt-4">
                 <h1>Creer votre compte : </h1>
             </div>
             
@@ -13,7 +13,7 @@ function Compte(){
                     <Form.Label>Adresse Email</Form.Label>
                     <Form.Control type="email" placeholder="Entrez votre adresse email ..." />
                     <Form.Text className="text-muted">
-                    Nous ne communiquerons pas votre email
+                        Nous ne communiquerons pas votre email
                     </Form.Text>
                 </Form.Group>
 
