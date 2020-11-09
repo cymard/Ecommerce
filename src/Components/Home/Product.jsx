@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap';
-import ModifiedLinks from '../Header/ModifiedLinks.jsx';
+import ModifiedLinks from '../Common/ModifiedLinks.jsx';
 import PropTypes from 'prop-types';
 
 function Product ({title,textButton}) {
