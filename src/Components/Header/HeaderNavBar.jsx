@@ -23,13 +23,9 @@ function HeaderNavBar () {
           
           <Nav className="mr-auto">
                
-            
             <ModifiedLinks color="black" to="/RegisterOrConnection">Compte</ModifiedLinks>
-           
-
 
             <ModifiedLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinks>
-
 
           </Nav>  
         </Navbar.Collapse>
