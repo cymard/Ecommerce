@@ -1,18 +1,16 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap'
+import ModifiedLinks from '../Common/ModifiedLinks.jsx';
 
 function ShoppingCartTotal () {
-    const linkStyle = {
-        color : 'white'
-    }
       
     // la logique de calculs
     return <Card>
         <Card.Body className="d-flex justify-content-between">
             <Card.Title>Total à payer:</Card.Title>
-            <Button variant="primary"> 
-                <a href="/Buy" style={linkStyle}>Passer la commande</a> 
-            </Button>
+            <ModifiedLinks to="/Buy">
+                <Button variant="primary">Passer la commande</Button>  
+            </ModifiedLinks> 
         </Card.Body>
     </Card>
 }

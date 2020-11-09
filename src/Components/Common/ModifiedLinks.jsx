@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'; // ES6
 import {
-    BrowserRouter as Router,
     Link
   } from "react-router-dom";
 
-function HeaderLinks ({color, to, children}){
+function ModifiedLinks ({color, to, children}){
 
     const linkStyleBlack = {
         color: "black"
@@ -45,15 +44,16 @@ function HeaderLinks ({color, to, children}){
     }
 
     
-    return <div>
-        <Link style={style} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} color={color} to={to}>{children}</Link>
-    </div>
+    return <Link  style={style} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} color={color} to={to}>
+            <div className="d-flex justify-content-center align-items-center p-1" style={{width: "100%", height:"100%"}}>{children}</div>
+        </Link>
+    
 }
 
-HeaderLinks.propTypes = {
+ModifiedLinks.propTypes = {
     color: PropTypes.oneOf(['white', 'black']).isRequired,
     to: PropTypes.string.isRequired,
     children : PropTypes.string
 }
 
-export default HeaderLinks;
+export default ModifiedLinks;

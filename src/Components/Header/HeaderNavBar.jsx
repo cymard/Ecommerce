@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import HeaderLinks from './HeaderLinks.jsx'
+import ModifiedLinks from '../Common/ModifiedLinks.jsx'
 
 function HeaderNavBar () {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />
   const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 
-    return <Navbar bg="light" expand="lg" >     {/*fixed top*/ }
+    return <> 
+    <Navbar fixed="top" bg="light" expand="lg" > 
 
         <Navbar.Brand>
-          <HeaderLinks color="black" to="/">LOGO</HeaderLinks>
+          <ModifiedLinks color="black" to="/">LOGO</ModifiedLinks>
         </Navbar.Brand>
 
         <Navbar.Collapse id="basic-navbar-nav">
@@ -21,19 +22,19 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            <Nav.Link>
-              <HeaderLinks  color="black" to="/RegisterOrConnection">Compte</HeaderLinks>
-            </Nav.Link>
-            
-            <Nav.Link style={{width: "82px"}}>
-              <HeaderLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</HeaderLinks>
-            </Nav.Link>
+               
+            <ModifiedLinks color="black" to="/RegisterOrConnection">Compte</ModifiedLinks>
+
+            <ModifiedLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinks>
+
           </Nav>  
         </Navbar.Collapse>
       </Navbar>
 
-    
+    <div style={{height : "64px"}}>
 
+    </div>
+  </>
 }
 
 export default HeaderNavBar;
