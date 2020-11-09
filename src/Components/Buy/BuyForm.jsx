@@ -15,7 +15,7 @@ const schema = yup.object({
     cardName: yup.string().required(),
     cardNumber: yup.number().positive().required(),
     cardExpirationDate: yup.date().required(),
-    cryptogram: yup.number().positive().required(),
+    cryptogram: yup.number().positive().required().max(3).min(3),
     bankData: yup.boolean(),
     termsAndConditions: yup.boolean().required()
 });
