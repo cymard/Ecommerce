@@ -7,8 +7,8 @@ import {
 function RegisterOrConnection () {
 
     return <Container className="d-flex justify-content-between mt-3">
-        <Link to="/Login"><Button>J'ai déjà un compte EXISTANT, je souhaite me CONNECTER</Button></Link>
-        <Link to="/Register"><Button>Je suis NOUVEAU, je souhaite CREER un compte</Button></Link>
+        <Link style={{margin: "10px"}} to="/Login"><Button>J'ai déjà un compte EXISTANT, je souhaite me CONNECTER</Button></Link>
+        <Link style={{margin: "10px"}} to="/Register"><Button>Je suis NOUVEAU, je souhaite CREER un compte</Button></Link>
     </Container>
 }
 
