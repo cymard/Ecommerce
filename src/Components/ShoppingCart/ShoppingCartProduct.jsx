@@ -1,26 +1,33 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button ,Row} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 
 
 function ShoppingCartProduct ({src, titre, prix}) {
-    return <Card className="d-flex justify-content-between flex-row mb-4">
-        <div>
-            <Card.Img style={{height: "318px", width:"318px"}} src={src} />
-        </div>
+    
+    return <div >
+        <Row className="d-flex justify-content-center flex-row mb-5">
+            <div className="col-lg-4 col-md-12 d-flex justify-content-center mb-2">
+                <Card.Img style={{height: "318px", width:"318px"}} src={src} />
+            </div>
 
-        <div className="d-flex flex-column align-items-center justify-content-around ">
-            <Card.Title>{titre}</Card.Title>
-            <Button variant="primary">Supprimer</Button>
-        </div>
+            <Card style={{height : "318px"}} className="col-lg-7 col-md-12 d-flex align-items-center justify-content-around mb-2 flex-column mr-2 ml-2">
+                <Card.Title>{titre}</Card.Title>
+                <h3> {prix} €</h3>
+                <Button variant="primary">Supprimer</Button>
+            </Card>
+        </Row>
+        
+    </div>
 
-        <div className="d-flex align-items-center">
-            <Card.Body><h3> {prix} €</h3></Card.Body>
-            
-        </div>
-    </Card>
+    
 }
+
+
+
+
+
 
 ShoppingCartProduct.propTypes = {
     src : PropTypes.string,
