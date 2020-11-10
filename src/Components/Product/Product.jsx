@@ -1,24 +1,34 @@
 import React from 'react';
-import { Container ,Image ,Card ,Button} from 'react-bootstrap';
+import { Container ,Image ,Card ,Button ,Row} from 'react-bootstrap';
 import ProductComment from './ProductComment.jsx';
 import PropTypes from 'prop-types';
 import ProductFormComment from './ProductFormComment.jsx'
 import TitleH1 from "../Common/TitleH1.jsx";
 
 function Product({name, content, price}){
+
+
+
     return <Container className="d-flex flex-column justify-content-around">
         <TitleH1>{name}</TitleH1>
 
-        <div className="d-flex">
-            <Image style={{height: "318px", width:"318px"}} src="holder.js/171x180" rounded />
-            <Card style={{ width: '50rem' }}>
-                <Card.Body>
-                    <Card.Text>
-                        {content}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-        </div>
+
+        <Row className="d-flex justify-content-center">
+            <div className="col-lg-4 col-md-12 d-flex justify-content-center ">
+                <Image className="mb-5" style={{height: "318px", width:"318px"}} src="holder.js/171x180" rounded />
+            </div>
+            
+            <div className="col-lg-7 col-md-12 ">
+                <Card style={{height: "318px"}} className="ml-2 mr-2" >
+                    <Card.Body>
+                        <Card.Text>
+                            {content}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
+        </Row>
+
 
         <Card className="mt-5 mb-5">
             <Card.Body className="d-flex justify-content-center flex-column">
@@ -30,7 +40,7 @@ function Product({name, content, price}){
         </Card>
 
         <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2>Ecrire un Commentaire : </h2>
+            <h2 style={{whiteSpace: "nowrap"}}> Ecrire un commentaire :</h2>
         </div>
 
         <ProductFormComment></ProductFormComment>
