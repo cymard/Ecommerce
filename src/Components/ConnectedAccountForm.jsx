@@ -47,11 +47,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Prénom</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Entrez votre Prénom"
                             value={values.firstName}
-                            onChange={handleChange}
                             isValid={touched.firstName && !errors.firstName}
-                            isInvalid={errors.firstName}
+                            isInvalid={touched.firstName &&  errors.firstName}
                         />
                         <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback>
@@ -61,11 +61,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Nom</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Entrez votre Nom" 
                             value={values.lastName}
-                            onChange={handleChange}
                             isValid={touched.lastName && !errors.lastName}
-                            isInvalid={errors.lastName}
+                            isInvalid={touched.lastName &&  errors.lastName}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -74,11 +74,12 @@ function ConnectedAccountForm () {
                     <Form.Label>Mot de Passe</Form.Label>
                     <Form.Control 
                         type="password" 
+                        onChange={handleChange}
                         placeholder="Entrez votre mot de passe ..." 
                         value={values.Password}
-                        onChange={handleChange}
                         isValid={touched.Password && !errors.Password}
-                        isInvalid={errors.Password}
+                        isInvalid={touched.Password && errors.Password}
+                        
                     />
                 </Form.Group>
 
@@ -87,11 +88,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Ville</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Enter votre Ville" 
                             value={values.city}
-                            onChange={handleChange}
                             isValid={touched.city && !errors.city}
-                            isInvalid={errors.city}
+                            isInvalid={touched.city && errors.city}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -102,11 +103,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Adresse</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Enter votre Adresse" 
                             value={values.address}
-                            onChange={handleChange}
                             isValid={touched.address && !errors.address}
-                            isInvalid={errors.address}
+                            isInvalid={touched.address && errors.address}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -116,11 +117,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Email</Form.Label>
                         <Form.Control 
                             type="email" 
+                            onChange={handleChange}
                             placeholder="Enter votre Email" 
                             value={values.email}
-                            onChange={handleChange}
                             isValid={touched.email && !errors.email}
-                            isInvalid={errors.email}
+                            isInvalid={touched.email && errors.email}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -131,10 +132,10 @@ function ConnectedAccountForm () {
                         <Form.Label>Mode de Paiement</Form.Label>
                         <Form.Control 
                             as="select" 
-                            value={values.paymentMethod}
                             onChange={handleChange}
+                            value={values.paymentMethod}
                             isValid={touched.paymentMethod && !errors.paymentMethod}
-                            isInvalid={errors.paymentMethod}
+                            isInvalid={touched.paymentMethod && errors.paymentMethod}
                         >
                             <option>VISA</option>
                             <option>MasterCard</option>
@@ -148,11 +149,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Propriétaire de la Carte</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Enter le Prénom et Nom du propriétaire de la carte" 
                             value={values.cardName}
-                            onChange={handleChange}
                             isValid={touched.cardName && !errors.cardName}
-                            isInvalid={errors.cardName}
+                            isInvalid={touched.cardName && errors.cardName}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -162,11 +163,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Numero de la Carte</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Enter le numero de la Carte" 
                             value={values.cardNumber}
-                            onChange={handleChange}
                             isValid={touched.cardNumber && !errors.cardNumber}
-                            isInvalid={errors.cardNumber}
+                            isInvalid={ touched.cardNumber && errors.cardNumber}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -176,11 +177,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Date d'expiration de la Carte</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="MM/YY" 
                             value={values.cardExpirationDate}
-                            onChange={handleChange}
                             isValid={touched.cardExpirationDate && !errors.cardExpirationDate}
-                            isInvalid={errors.cardExpirationDate}
+                            isInvalid={touched.cardExpirationDate && errors.cardExpirationDate}
                         />
                     </Form.Group>
                 </Form.Row>
@@ -190,11 +191,11 @@ function ConnectedAccountForm () {
                         <Form.Label>Cryptogramme</Form.Label>
                         <Form.Control 
                             type="text" 
+                            onChange={handleChange}
                             placeholder="Enter les 3 chiffres au dos de votre carte" 
                             value={values.cryptogram}
-                            onChange={handleChange}
                             isValid={touched.cryptogram && !errors.cryptogram}
-                            isInvalid={errors.cryptogram}
+                            isInvalid={touched.cryptogram && errors.cryptogram}
                         />
                         <Form.Text className="text-muted">
                             Exemple : 725

@@ -46,25 +46,34 @@ function BuyForm () {
                 console.log(values);
             }}
             initialValues={{
-                paymentMethod : "VISA"
+                firstName: "",
+                lastName: "",
+                city: "",
+                address: "",
+                email: "",
+                paymentMethod: "VISA",
+                cardName: "",
+                cardNumber: "",
+                cardExpirationDate: "",
+                cryptogram: "",
+                bankData: "",
+                termsAndConditions: "",
+
             }}
         >
-            {({handleSubmit,values,touched,errors}) => (
+            {({handleChange, handleSubmit,values,touched,errors}) => (
 
                 <Form noValidate onSubmit={handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="firstName">
                             <Form.Label>Prénom</Form.Label>
                             <Form.Control 
-
+                                onChange={handleChange}
                                 type="text" 
                                 placeholder="Entrez votre Prénom"
-
-                                
                                 value={values.firstName}
-
                                 isValid={touched.firstName && !errors.firstName}
-                                isInvalid={errors.firstName}
+                                isInvalid={ touched.firstName && errors.firstName}
                             />
                             <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback>
@@ -74,15 +83,16 @@ function BuyForm () {
 
                         <Form.Group as={Col} controlId="lastName">
                             <Form.Label>Nom</Form.Label>
-                            <Form.Control 
+                            <Form.Control
+
                                 type="text" 
                                 placeholder="Entrez votre Nom" 
 
-                                
+                                onChange={handleChange}
                                 value={values.lastName}
 
                                 isValid={touched.lastName && !errors.lastName}
-                                isInvalid={errors.lastName}
+                                isInvalid={touched.lastName && errors.lastName}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -93,11 +103,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter votre Ville" 
-
+                                onChange={handleChange}
                                 value={values.city}
 
                                 isValid={touched.city && !errors.city}
-                                isInvalid={errors.city}
+                                isInvalid={touched.city && errors.city}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -109,11 +119,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter votre Adresse" 
-
+                                onChange={handleChange}
                                 value={values.address}
 
                                 isValid={touched.address && !errors.address}
-                                isInvalid={errors.address}
+                                isInvalid={touched.address && errors.address}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -126,9 +136,9 @@ function BuyForm () {
                                 placeholder="Enter votre Email" 
 
                                 value={values.email}
-
+                                onChange={handleChange}
                                 isValid={touched.email && !errors.email}
-                                isInvalid={errors.email}
+                                isInvalid={touched.email && errors.email}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -140,11 +150,11 @@ function BuyForm () {
                             <Form.Control 
                                 as="select" 
                                 defaultValue="Choisissez votre mode de Paiement"
-
+                                onChange={handleChange}
                                 value={values.paymentMethod}
 
                                 isValid={touched.paymentMethod && !errors.paymentMethod}
-                                isInvalid={errors.paymentMethod}
+                                isInvalid={touched.paymentMethod && errors.paymentMethod}
                             >
                                 <option>VISA</option>
                                 <option>MasterCard</option>
@@ -159,11 +169,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter le Prénom et Nom du propriétaire de la carte" 
-
+                                onChange={handleChange}
                                 value={values.cardName}
 
                                 isValid={touched.cardName && !errors.cardName}
-                                isInvalid={errors.cardName}
+                                isInvalid={touched.cardName && errors.cardName}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -174,11 +184,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter le numero de la Carte" 
-
+                                onChange={handleChange}
                                 value={values.cardNumber}
 
                                 isValid={touched.cardNumber && !errors.cardNumber}
-                                isInvalid={errors.cardNumber}
+                                isInvalid={ touched.cardNumber && errors.cardNumber}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -189,11 +199,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="MM/YY" 
-
+                                onChange={handleChange}
                                 value={values.cardExpirationDate}
 
                                 isValid={touched.cardExpirationDate && !errors.cardExpirationDate}
-                                isInvalid={errors.cardExpirationDate}
+                                isInvalid={touched.cardExpirationDate && errors.cardExpirationDate}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -204,11 +214,11 @@ function BuyForm () {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter les 3 chiffres au dos de votre carte" 
-
+                                onChange={handleChange}
                                 value={values.cryptogram}
 
                                 isValid={touched.cryptogram && !errors.cryptogram}
-                                isInvalid={errors.cryptogram}
+                                isInvalid={ touched.cryptogram && errors.cryptogram}
                             />
                             <Form.Text className="text-muted">
                                 Exemple : 725
@@ -221,9 +231,9 @@ function BuyForm () {
                             type="checkbox" 
                             label="Se souvenir de mes coordonnées bancaires pour les prochaines utilisations."
                             value={values.bankData}
-
+                            onChange={handleChange}
                             isValid={touched.bankData && !errors.bankData}
-                            isInvalid={errors.bankData}
+                            isInvalid={touched.bankData && errors.bankData}
                         />
 
                     </Form.Group>
@@ -233,11 +243,11 @@ function BuyForm () {
                             required
                             type="checkbox" 
                             label="En cliquant sur Payer, vous déclarez avoir pris connaissance des conditions générales d'utilisation de notre service de paiement et être en accord avec celle-ci." 
-                        
+                            onChange={handleChange}
                             value={values.termsAndConditions}
 
                             isValid={touched.termsAndConditions && !errors.termsAndConditions}
-                            isInvalid={errors.termsAndConditions}
+                            isInvalid={touched.termsAndConditions && errors.termsAndConditions}
                         />
                     </Form.Group>
 

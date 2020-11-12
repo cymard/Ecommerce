@@ -10,22 +10,28 @@ function LoginForm () {
         formBasicPassword: yup.string().required(),
     });
 
+
     return <Formik
-        initialValues={{}}
+        initialValues={{
+            formBasicEmail : "",
+            formBasicPassword: ""
+        }}
         validationSchema={schema}
         onSubmit={values => {console.log(values)}}
+        
     >
-    {({ handleSubmit, errors, values, touched}) => (
+    {({handleChange, handleSubmit, errors, values, touched}) => (
         <Form noValidate onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Adresse Email</Form.Label>
                 <Form.Control 
                     className="mt-2 mb-5"
-                    type="email" 
+                    type="email"
                     placeholder="Entrez votre adresse email ..."
                     value={values.formBasicEmail} 
+                    onChange={handleChange}
                     isValid={touched.formBasicEmail && !errors.formBasicEmail}
-                    isInvalid={errors.formBasicEmail}
+                    isInvalid={touched.formBasicEmail && errors.formBasicEmail}
                 />
             </Form.Group>
 
@@ -33,15 +39,16 @@ function LoginForm () {
                 <Form.Label>Mot de Passe</Form.Label>
                 <Form.Control 
                     className="mt-2 mb-5"
-                    type="password" 
+                    type="password"
                     placeholder="Entrez votre mot de passe ..." 
                     value={values.formBasicPassword} 
+                    onChange={handleChange}
                     isValid={touched.formBasicPassword && !errors.formBasicPassword}
-                    isInvalid={errors.formBasicPassword}
+                    isInvalid={touched.formBasicPassword && errors.formBasicPassword}
                 />
             </Form.Group>
 
-            <Button className="mb-3" style={{width: "100%"}} variant="primary" type="submit">
+            <Button  className="mb-3" style={{width: "100%"}} variant="primary" type="submit">
                 Valider
             </Button>
         </Form>
