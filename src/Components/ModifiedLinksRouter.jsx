@@ -45,7 +45,7 @@ function ModifiedLinksRouter ({color, to, children}){
 
     
     return <Link  style={style} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} color={color} to={to}>
-            <div className="d-flex justify-content-center align-items-center p-1" style={{width: "100%", height:"100%"}}>{children}</div>
+            <div className="d-flex justify-content-center align-items-center p-1" style={{ whiteSpace: "nowrap"}}>{children}</div>
         </Link>
     
 }

@@ -25,6 +25,7 @@ function RegisterForm () {
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Adresse Email</Form.Label>
                     <Form.Control
+                        className="mt-2"
                         type="email"
                         placeholder="Entrez votre adresse email ..."
                         value={values.formBasicEmail}
@@ -32,7 +33,7 @@ function RegisterForm () {
                         isValid={touched.formBasicEmail && !errors.formBasicEmail}
                         isInvalid={errors.formBasicEmail}
                     />
-                    <Form.Text className="text-muted">
+                    <Form.Text className="text-muted mb-5">
                         Nous ne communiquerons pas votre email
                     </Form.Text>
                 </Form.Group>
@@ -40,6 +41,7 @@ function RegisterForm () {
                 <Form.Group controlId="RegisterForm">
                     <Form.Label>Mot de Passe</Form.Label>
                     <Form.Control 
+                        className="mt-2 mb-5"
                         type="password" 
                         placeholder="Entrez votre mot de passe ..." 
                         value={values.RegisterForm}
@@ -49,7 +51,7 @@ function RegisterForm () {
                     />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button style={{width: "100%"}} variant="primary" type="submit">
                     Valider
                 </Button>
             </Form>

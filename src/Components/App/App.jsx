@@ -7,7 +7,6 @@ import Register from '../Page/Register.jsx'
 import ShoppingCart from '../Page/ShoppingCart.jsx'
 import Product from '../Page/Product/Product.jsx'
 import Buy from '../Page/Buy.jsx'
-import RegisterOrConnection from '../Page/RegisterOrConnection.jsx'
 import ConnectedAccount from '../Page/ConnectedAccount.jsx'
 import {
     BrowserRouter as Router,
@@ -39,9 +38,6 @@ function App(){
                     </Route>
                     <Route exact path="/ConnectedAccount">
                         <ConnectedAccount></ConnectedAccount>
-                    </Route>
-                    <Route exact path="/RegisterOrConnection">
-                        <RegisterOrConnection></RegisterOrConnection>
                     </Route>
                     <Route path="/">
                         <Home></Home>

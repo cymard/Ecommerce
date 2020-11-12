@@ -24,7 +24,7 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            <ModifiedLinksRouter color="black" to="/RegisterOrConnection">Compte</ModifiedLinksRouter>
+            <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
 

@@ -15,15 +15,15 @@ function LoginForm () {
         validationSchema={schema}
         onSubmit={values => {console.log(values)}}
     >
-    {({handleChange, handleSubmit, errors, values, touched}) => (
+    {({ handleSubmit, errors, values, touched}) => (
         <Form noValidate onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Adresse Email</Form.Label>
                 <Form.Control 
+                    className="mt-2 mb-5"
                     type="email" 
                     placeholder="Entrez votre adresse email ..."
                     value={values.formBasicEmail} 
-                    onChange={handleChange}
                     isValid={touched.formBasicEmail && !errors.formBasicEmail}
                     isInvalid={errors.formBasicEmail}
                 />
@@ -32,16 +32,16 @@ function LoginForm () {
             <Form.Group controlId="formBasicPassword">
                 <Form.Label>Mot de Passe</Form.Label>
                 <Form.Control 
+                    className="mt-2 mb-5"
                     type="password" 
                     placeholder="Entrez votre mot de passe ..." 
                     value={values.formBasicPassword} 
-                    onChange={handleChange}
                     isValid={touched.formBasicPassword && !errors.formBasicPassword}
                     isInvalid={errors.formBasicPassword}
                 />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button className="mb-3" style={{width: "100%"}} variant="primary" type="submit">
                 Valider
             </Button>
         </Form>

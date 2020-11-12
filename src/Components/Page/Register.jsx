@@ -4,7 +4,7 @@ import RegisterForm from '../RegisterForm.jsx'
 import TitleH1 from "../TitleH1.jsx";
 
 function Compte(){
-    return <Container className="d-flex justify-content-center">
+    return <Container style={{height : "calc(100vh - 204px)"}} className="d-flex justify-content-center">
         <div style={{width: "100%"}}>
             <TitleH1>Creer votre compte</TitleH1>
             <RegisterForm></RegisterForm>
