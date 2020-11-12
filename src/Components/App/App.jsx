@@ -1,14 +1,14 @@
 import React from 'react';
-import Header from '../Header/Header.jsx'
-import Footer from '../Footer/Footer.jsx'
-import Home from '../Home/Home.jsx'
-import Login from '../Login/Login.jsx'
-import Register from '../Register/Register.jsx'
-import ShoppingCart from '../ShoppingCart/ShoppingCart.jsx'
-import Product from '../Product/Product.jsx'
-import Buy from '../Buy/Buy.jsx'
-import RegisterOrConnection from '../RegisterOrConnection/RegisterOrConnection.jsx'
-import ConnectedAccount from '../ConnectedAccount/ConnectedAccount.jsx'
+import Header from '../Header.jsx'
+import Footer from '../Footer.jsx'
+import Home from '../Page/Home.jsx'
+import Login from '../Page/Login.jsx'
+import Register from '../Page/Register.jsx'
+import ShoppingCart from '../Page/ShoppingCart.jsx'
+import Product from '../Page/Product/Product.jsx'
+import Buy from '../Page/Buy.jsx'
+import RegisterOrConnection from '../Page/RegisterOrConnection.jsx'
+import ConnectedAccount from '../Page/ConnectedAccount.jsx'
 import {
     BrowserRouter as Router,
     Switch,

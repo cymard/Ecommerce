@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import BuyForm from "./BuyForm.jsx"
-import TitleH1 from "../Common/TitleH1.jsx";
+import BuyForm from "../BuyForm.jsx"
+import TitleH1 from "../TitleH1.jsx";
 
 
 

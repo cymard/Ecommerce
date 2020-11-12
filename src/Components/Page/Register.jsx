@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import RegisterForm from './RegisterForm.jsx'
-import TitleH1 from "../Common/TitleH1.jsx";
+import RegisterForm from '../RegisterForm.jsx'
+import TitleH1 from "../TitleH1.jsx";
 
 function Compte(){
     return <Container className="d-flex justify-content-center">

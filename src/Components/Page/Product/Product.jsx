@@ -1,13 +1,11 @@
 import React from 'react';
 import { Container ,Image ,Card ,Button ,Row} from 'react-bootstrap';
-import ProductComment from './ProductComment.jsx';
+import ProductComment from '../../ProductComment.jsx';
 import PropTypes from 'prop-types';
-import ProductFormComment from './ProductFormComment.jsx'
-import TitleH1 from "../Common/TitleH1.jsx";
+import ProductFormComment from '../../ProductFormComment.jsx'
+import TitleH1 from "../../TitleH1.jsx";
 
 function Product({name, content, price}){
-
-
 
     return <Container className="d-flex flex-column justify-content-around">
         <TitleH1>{name}</TitleH1>

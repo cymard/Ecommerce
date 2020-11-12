@@ -4,7 +4,7 @@ import {
     Link
   } from "react-router-dom";
 
-function ModifiedLinks ({color, to, children}){
+function ModifiedLinksRouter ({color, to, children}){
 
     const linkStyleBlack = {
         color: "black"
@@ -50,10 +50,10 @@ function ModifiedLinks ({color, to, children}){
     
 }
 
-ModifiedLinks.propTypes = {
+ModifiedLinksRouter.propTypes = {
     color: PropTypes.oneOf(['white', 'black']).isRequired,
     to: PropTypes.string.isRequired,
     children : PropTypes.string
 }
 
-export default ModifiedLinks;
+export default ModifiedLinksRouter;

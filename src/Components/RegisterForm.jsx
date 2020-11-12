@@ -14,11 +14,11 @@ function RegisterForm () {
 
 
     return <Formik
-    initialValues={{}}
-    validationSchema={schema}
-    onSubmit={values=>{
-        console.log(values)
-    }}
+        initialValues={{}}
+        validationSchema={schema}
+        onSubmit={values=>{
+            console.log(values)
+        }}
     >
         {({handleChange, handleSubmit, errors, values, touched})=>(
             <Form noValidate onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap'
-import ModifiedLinks from '../Common/ModifiedLinks.jsx';
+import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 
 function ShoppingCartTotal () {
       
@@ -8,9 +8,9 @@ function ShoppingCartTotal () {
     return <Card>
         <Card.Body className="d-flex justify-content-between">
             <Card.Title>Total à payer:</Card.Title>
-            <ModifiedLinks to="/Buy">
+            <ModifiedLinksRouter to="/Buy">
                 <Button variant="primary">Passer la commande</Button>  
-            </ModifiedLinks> 
+            </ModifiedLinksRouter> 
         </Card.Body>
     </Card>
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import ModifiedLinks from '../Common/ModifiedLinks.jsx'
+import ModifiedLinksRouter from './ModifiedLinksRouter.jsx'
 
 function HeaderNavBar () {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />
@@ -12,7 +12,7 @@ function HeaderNavBar () {
       <Navbar collapseOnSelect fixed="top" bg="light" expand="lg" > 
 
         <Navbar.Brand>
-          <ModifiedLinks color="black" to="/">LOGO</ModifiedLinks>
+          <ModifiedLinksRouter color="black" to="/">LOGO</ModifiedLinksRouter>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
@@ -24,8 +24,8 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            <ModifiedLinks color="black" to="/RegisterOrConnection">Compte</ModifiedLinks>
-            <ModifiedLinks color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinks>
+            <ModifiedLinksRouter color="black" to="/RegisterOrConnection">Compte</ModifiedLinksRouter>
+            <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
 
         </Navbar.Collapse>

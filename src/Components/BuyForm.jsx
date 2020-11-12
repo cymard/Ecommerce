@@ -49,7 +49,7 @@ function BuyForm () {
                 paymentMethod : "VISA"
             }}
         >
-            {({handleSubmit,handleChange,handleBlur,values,touched,isValid,errors}) => (
+            {({handleSubmit,values,touched,errors}) => (
 
                 <Form noValidate onSubmit={handleSubmit}>
                     <Form.Row>
@@ -60,7 +60,7 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Entrez votre Prénom"
 
-                                onChange={handleChange}
+                                
                                 value={values.firstName}
 
                                 isValid={touched.firstName && !errors.firstName}
@@ -78,7 +78,7 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Entrez votre Nom" 
 
-                                onChange={handleChange}
+                                
                                 value={values.lastName}
 
                                 isValid={touched.lastName && !errors.lastName}
@@ -94,7 +94,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Enter votre Ville" 
 
-                                onChange={handleChange}
                                 value={values.city}
 
                                 isValid={touched.city && !errors.city}
@@ -111,7 +110,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Enter votre Adresse" 
 
-                                onChange={handleChange}
                                 value={values.address}
 
                                 isValid={touched.address && !errors.address}
@@ -127,7 +125,6 @@ function BuyForm () {
                                 type="email" 
                                 placeholder="Enter votre Email" 
 
-                                onChange={handleChange}
                                 value={values.email}
 
                                 isValid={touched.email && !errors.email}
@@ -144,7 +141,6 @@ function BuyForm () {
                                 as="select" 
                                 defaultValue="Choisissez votre mode de Paiement"
 
-                                onChange={handleChange}
                                 value={values.paymentMethod}
 
                                 isValid={touched.paymentMethod && !errors.paymentMethod}
@@ -164,7 +160,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Enter le Prénom et Nom du propriétaire de la carte" 
 
-                                onChange={handleChange}
                                 value={values.cardName}
 
                                 isValid={touched.cardName && !errors.cardName}
@@ -180,7 +175,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Enter le numero de la Carte" 
 
-                                onChange={handleChange}
                                 value={values.cardNumber}
 
                                 isValid={touched.cardNumber && !errors.cardNumber}
@@ -196,7 +190,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="MM/YY" 
 
-                                onChange={handleChange}
                                 value={values.cardExpirationDate}
 
                                 isValid={touched.cardExpirationDate && !errors.cardExpirationDate}
@@ -212,7 +205,6 @@ function BuyForm () {
                                 type="text" 
                                 placeholder="Enter les 3 chiffres au dos de votre carte" 
 
-                                onChange={handleChange}
                                 value={values.cryptogram}
 
                                 isValid={touched.cryptogram && !errors.cryptogram}
@@ -228,8 +220,6 @@ function BuyForm () {
                         <Form.Check 
                             type="checkbox" 
                             label="Se souvenir de mes coordonnées bancaires pour les prochaines utilisations."
-
-                            onChange={handleChange}
                             value={values.bankData}
 
                             isValid={touched.bankData && !errors.bankData}
@@ -243,8 +233,7 @@ function BuyForm () {
                             required
                             type="checkbox" 
                             label="En cliquant sur Payer, vous déclarez avoir pris connaissance des conditions générales d'utilisation de notre service de paiement et être en accord avec celle-ci." 
-                            
-                            onChange={handleChange}
+                        
                             value={values.termsAndConditions}
 
                             isValid={touched.termsAndConditions && !errors.termsAndConditions}

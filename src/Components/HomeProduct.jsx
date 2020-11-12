@@ -1,30 +1,29 @@
 import React from 'react';
 import {Card,Button} from 'react-bootstrap';
-import ModifiedLinks from '../Common/ModifiedLinks.jsx';
+import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import PropTypes from 'prop-types';
 
-function Product ({title,textButton}) {
+function HomeProduct ({title,textButton}) {
 
     return <Card style={{ width: '20rem', margin : "10px"}}>
             <Card.Title className="pt-4 pb-4 m-auto">{title}</Card.Title>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body className="pt-4 pb-4 m-auto">
-                <ModifiedLinks color="white" to="/Product">
+                <ModifiedLinksRouter color="white" to="/Product">
                     <Button>{textButton}</Button>
-                </ModifiedLinks>
+                </ModifiedLinksRouter>
             </Card.Body>
         </Card>
-
 }
 
-Product.propTypes = {
+HomeProduct.propTypes = {
     title : PropTypes.node,
     textButton : PropTypes.node
 }
 
-Product.defaultProps = {
+HomeProduct.defaultProps = {
     title : "Le Titre",
     textButton : "Voir l'article"
 }
 
-export default Product;
+export default HomeProduct;
