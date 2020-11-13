@@ -1,31 +1,47 @@
 import React from 'react';
-import { Card, Button ,Row} from 'react-bootstrap';
+import { Card, Button ,Row, Form} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 
 
 function ShoppingCartProduct ({src, titre, prix}) {
     
-    return <div >
-        <Row className="d-flex justify-content-center flex-row mb-5">
-            <div className="col-lg-4 col-md-12 d-flex justify-content-center mb-2">
-                <Card.Img style={{height: "318px", width:"318px"}} src={src} />
-            </div>
+    const rowStyle = {
+        marginRight : "0",
+        marginLeft : "0",
+        width : "100%"
+    }
 
-            <Card style={{height : "318px"}} className="col-lg-7 col-md-12 d-flex align-items-center justify-content-around mb-2 flex-column mr-2 ml-2">
-                <Card.Title>{titre}</Card.Title>
-                <h3> {prix} €</h3>
-                <Button variant="primary">Supprimer</Button>
-            </Card>
+
+    return <Card className="mb-5" style={{width: "100%"}}>
+        <Row style={rowStyle}>
+            <Card.Img style={{height: "318px", width:"318px"}} src={src} />
+            <div className="col-7 pl-5 d-flex flex-column justify-content-between ">
+                <Row className="mt-2" style={rowStyle}>
+                    <h2>{titre}</h2>
+                </Row>
+                <Row style={rowStyle}>
+                    <Form style={{width: "100%"}}>
+                        <Form.Group style={{width: "100%"}} className="d-flex" controlId="formQuantity">
+                            <Form.Label style={{fontSize : "1.2em"}}>Quantité : </Form.Label>
+                            <Form.Control style={{width: "60px"}} className="ml-3 mr-3" type="text"/>
+                            <Button>Mettre à jour</Button>
+                        </Form.Group>
+                    </Form>
+                </Row>
+                <Row className="mb-4" style={rowStyle}>
+                    <Button variant="danger">Supprimer</Button>
+                </Row>
+            </div>
+            <div>
+                <p>Prix : {prix} €</p>
+            </div>
         </Row>
         
-    </div>
+    </Card>
 
     
 }
-
-
-
 
 
 
