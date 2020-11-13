@@ -10,6 +10,12 @@ function LoginForm () {
         formBasicPassword: yup.string().required(),
     });
 
+    const handleOnSubmit = function(){
+        localStorage.setItem('connexion', 'true');
+        console.log(localStorage.getItem('connexion'));
+        document.location.reload(true);
+    }
+
 
     return <Formik
         initialValues={{
@@ -17,7 +23,7 @@ function LoginForm () {
             formBasicPassword: ""
         }}
         validationSchema={schema}
-        onSubmit={values => {console.log(values)}}
+        onSubmit={handleOnSubmit}
         
     >
     {({handleChange, handleSubmit, errors, values, touched}) => (
