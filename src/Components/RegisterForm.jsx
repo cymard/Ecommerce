@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -6,6 +7,10 @@ let yup = require('yup');
 
 
 function RegisterForm () {
+
+    const buttonStyle = {
+        width: "100%"
+    }
 
     let schema = yup.object().shape({
         email: yup.string().email().required(),
@@ -69,7 +74,7 @@ function RegisterForm () {
                     />
                 </Form.Group>
 
-                <Button style={{width: "100%"}} variant="primary" type="submit">
+                <Button css={buttonStyle} variant="primary" type="submit">
                     Valider
                 </Button>
             </Form>

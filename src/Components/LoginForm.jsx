@@ -1,9 +1,19 @@
-import React from 'react';
+/** @jsxImportSource @emotion/react */
+import React, {useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
+import { ThemeContext } from './App/App';
+
 let yup = require('yup');
 
 function LoginForm () {
+
+    const buttonStyle = {
+        width : "100%"
+    }
+
+    const context = useContext(ThemeContext);
+
 
     let schema = yup.object({
         formBasicEmail: yup.string().email().required(),
@@ -12,8 +22,9 @@ function LoginForm () {
 
     const handleOnSubmit = function(){
         localStorage.setItem('connexion', 'true');
+        context.changeValue();
         console.log(localStorage.getItem('connexion'));
-        document.location.reload(true);
+        window.location='/Home';
     }
 
 
@@ -54,9 +65,11 @@ function LoginForm () {
                 />
             </Form.Group>
 
-            <Button  className="mb-3" style={{width: "100%"}} variant="primary" type="submit">
+            
+            <Button className="mb-3" css={buttonStyle} variant="primary" type="submit">
                 Valider
             </Button>
+            
         </Form>
     )}
 </Formik>

@@ -1,7 +1,7 @@
 import React from 'react';
-import HomeProduct from '../HomeProduct.jsx'
+import HomeProduct from '../Components/HomeProduct.jsx'
 import {Container} from 'react-bootstrap';
-import HomeCarousel from '../HomeCarousel.jsx'
+import HomeCarousel from '../Components/HomeCarousel.jsx'
 
 function Home(){
 

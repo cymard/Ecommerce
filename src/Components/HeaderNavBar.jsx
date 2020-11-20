@@ -1,13 +1,27 @@
-import React , {useState} from 'react';
+/** @jsxImportSource @emotion/react */
+import React, {useContext} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import ModifiedLinksRouter from './ModifiedLinksRouter.jsx'
+import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
+import {ThemeContext} from './App/App.jsx';
 
 function HeaderNavBar () {
-  const searchIcon = <FontAwesomeIcon icon={faSearch} />
-  const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 
+    const formStyle = {
+        width: "100%"
+    }
+
+    const divStyle= {
+        height : "64px"
+    }
+
+    const searchIcon = <FontAwesomeIcon icon={faSearch} />
+    const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
+
+    // utilisation du contexte
+    const context = useContext(ThemeContext);
+    console.log(context);
   
     return <> 
       <Navbar collapseOnSelect fixed="top" bg="light" expand="lg" > 
@@ -19,13 +33,13 @@ function HeaderNavBar () {
 
         <Navbar.Collapse id="basic-navbar-nav">
 
-          <Form style={{width: "100%"}} className="d-flex flex-nowrap">
+          <Form css={formStyle} className="d-flex flex-nowrap">
             <FormControl type="text" placeholder="Rechercher" className="mr-sm-2" />
             <Button variant="outline-success">{searchIcon}</Button>
           </Form>
           
           <Nav className="mr-auto">
-            {localStorage.getItem('connexion') ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
+            {context.buttonValue}
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
 
@@ -33,7 +47,7 @@ function HeaderNavBar () {
 
       </Navbar>
 
-      <div style={{height : "64px"}}></div>
+      <div css={divStyle}></div>
   </>
 }
 

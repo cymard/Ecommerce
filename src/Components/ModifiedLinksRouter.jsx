@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/** @jsxImportSource @emotion/react */
+import React from 'react';
 import PropTypes from 'prop-types'; // ES6
 import {
     Link
@@ -7,53 +8,38 @@ import {
 function ModifiedLinksRouter ({color, to, children}){
 
     const linkStyleBlack = {
-        color: "black"
-    }
-    
-    const hoverLinkStyleBlack = {
-        textDecoration : "none",
-        color: "black"
+        color: "black",
+        '&:hover': {
+            textDecoration : "none",
+            color : "black"
+        }
     }
 
     const linkStyleWhite = {
-        color: "white"
-    }
-    
-    const hoverLinkStyleWhite = {
-        textDecoration : "none",
-        color: "white"
-    }
-
-    const [style, setStyle] = useState(color === "white" ? linkStyleWhite : linkStyleBlack)
-
-    const handleMouseOver = function(){
-        if(color === "white"){
-            setStyle(hoverLinkStyleWhite)
-        }else {
-            setStyle(hoverLinkStyleBlack)
-        }
-        
-    }
-
-    const handleMouseOut = function(){
-        if(color === "white"){
-            setStyle(linkStyleWhite)
-        }else {
-            setStyle(linkStyleBlack)
+        color: "white",
+        '&:hover': {
+            textDecoration : "none",
+            color : "white"
         }
     }
 
+    const divStyle = {
+        whiteSpace: "nowrap"
+    }
+
+
+    const style = (color === "white" ? linkStyleWhite : linkStyleBlack) ;
     
-    return <Link  style={style} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} color={color} to={to}>
-            <div className="d-flex justify-content-center align-items-center p-1" style={{ whiteSpace: "nowrap"}}>{children}</div>
-        </Link>
+    return <Link  css={style} color={color} to={to}>
+        <div className="d-flex justify-content-center align-items-center p-1" css={divStyle}>{children}</div>
+    </Link>
     
 }
 
 ModifiedLinksRouter.propTypes = {
     color: PropTypes.oneOf(['white', 'black']).isRequired,
     to: PropTypes.string.isRequired,
-    children : PropTypes.string
+    children : PropTypes.any
 }
 
 export default ModifiedLinksRouter;

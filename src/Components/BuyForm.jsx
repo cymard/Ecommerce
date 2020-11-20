@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
 
@@ -15,28 +16,16 @@ const schema = yup.object({
     cardName: yup.string().required(),
     cardNumber: yup.number().positive().required(),
     cardExpirationDate: yup.date().required(),
-    cryptogram: yup.number().positive().required().max(3).min(3),
+    cryptogram: yup.number().positive().required(),
     bankData: yup.boolean(),
     termsAndConditions: yup.boolean().required()
 });
 
 function BuyForm () {
-    // infos :
-    // prenom 
-    // nom
-    // pays
-    // adresse
-    // code postal
-    // email
-    // Paiement : 
-    // type de carte (VISA, MasterCArd, American Express)
-    // nom carte
-    // nombre carte
-    // date d'expiration
-    // cryptogramme (3 chiffres)
-    // se souvenir des infos de paiment ?? (checkbox)
-    // message en cliquant sur payer vous ...
 
+    const buttonStyle = {
+        width: "100%"
+    }
 
     return <div>
         <Formik 
@@ -58,7 +47,6 @@ function BuyForm () {
                 cryptogram: "",
                 bankData: "",
                 termsAndConditions: "",
-
             }}
         >
             {({handleChange, handleSubmit,values,touched,errors}) => (
@@ -73,10 +61,8 @@ function BuyForm () {
                                 placeholder="Entrez votre Prénom"
                                 value={values.firstName}
                                 isValid={touched.firstName && !errors.firstName}
-                                isInvalid={ touched.firstName && errors.firstName}
+                                isInvalid={touched.firstName && errors.firstName}
                             />
-                            <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback>
                         </Form.Group>
 
                         
@@ -251,7 +237,7 @@ function BuyForm () {
                         />
                     </Form.Group>
 
-                    <Button className="mt-3 mb-5" style={{width: "100%"}} variant="primary" type="submit">
+                    <Button className="mt-3 mb-5" css={buttonStyle} variant="primary" type="submit">
                         Payer
                     </Button>
                 </Form>

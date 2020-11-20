@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 
 
@@ -15,8 +16,8 @@ function Footer(){
         fontSize : "20px"
     }
 
-    return <div style={divStyle}>
-        <h2 style={h2Style}>FOOTER</h2>
+    return <div css={divStyle}>
+        <h2 css={h2Style}>FOOTER</h2>
     </div>
 }
 

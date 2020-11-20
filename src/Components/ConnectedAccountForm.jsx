@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 import { Formik } from 'formik';
@@ -5,6 +6,10 @@ let yup = require('yup');
 
 
 function ConnectedAccountForm () {
+
+    const buttonStyle = {
+        width: "100%"
+    }
 
     let schema = yup.object({
         firstName: yup.string().required(),
@@ -18,7 +23,7 @@ function ConnectedAccountForm () {
         cardNumber: yup.number().required().positive(),
         cardExpirationDate: yup.date().required(),
         cryptogram: yup.number().required().positive().max(3).min(3)
-      });
+    });
 
 
     return<Formik
@@ -203,7 +208,7 @@ function ConnectedAccountForm () {
                     </Form.Group>
                 </Form.Row>
 
-                <Button className="mt-3 mb-5" style={{width: "100%"}} variant="primary" type="submit">
+                <Button className="mt-3 mb-5" css={buttonStyle} variant="primary" type="submit">
                     Modifier
                 </Button>
             </Form>

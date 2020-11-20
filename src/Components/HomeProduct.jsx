@@ -1,17 +1,23 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Card,Button} from 'react-bootstrap';
-import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import PropTypes from 'prop-types';
+import {
+    Link
+  } from "react-router-dom";
 
 function HomeProduct ({title,textButton}) {
 
-    return <Card style={{ width: '20rem', margin : "10px"}}>
+    const cardStyle = {
+        width: '20rem', 
+        margin : "10px"
+    }
+
+    return <Card css={cardStyle}>
             <Card.Title className="pt-4 pb-4 m-auto">{title}</Card.Title>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body className="pt-4 pb-4 m-auto">
-                <ModifiedLinksRouter color="white" to="/Product">
-                    <Button>{textButton}</Button>
-                </ModifiedLinksRouter>
+                <Link to="/Product"><Button>{textButton}</Button></Link>
             </Card.Body>
         </Card>
 }
