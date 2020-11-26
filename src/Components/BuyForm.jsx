@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
-
 import { Formik } from 'formik';
+import { css} from '@emotion/react'
 
 let yup = require('yup');
 
@@ -23,9 +23,6 @@ const schema = yup.object({
 
 function BuyForm () {
 
-    const buttonStyle = {
-        width: "100%"
-    }
 
     return <div>
         <Formik 
@@ -237,7 +234,11 @@ function BuyForm () {
                         />
                     </Form.Group>
 
-                    <Button className="mt-3 mb-5" css={buttonStyle} variant="primary" type="submit">
+                    <Button className="mt-3 mb-5" variant="primary" type="submit"
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         Payer
                     </Button>
                 </Form>

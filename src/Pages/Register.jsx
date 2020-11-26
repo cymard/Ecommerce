@@ -3,19 +3,20 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import RegisterForm from '../Components/RegisterForm.jsx'
 import TitleH1 from "../Components/TitleH1.jsx";
+import { css} from '@emotion/react';
 
 function Compte(){
 
-    const containerStyle = {
-        height : "calc(100vh - 204px)"
-    }
-
-    const divStyle = {
-        width: "100%"
-    }
-
-    return <Container style={containerStyle} className="d-flex justify-content-center">
-        <div css={divStyle}>
+    return <Container  className="d-flex justify-content-center"
+        css={css`
+            height: calc(100vh - 204px);
+        `}
+    >
+        <div 
+            css={css`
+                width: 100%;
+            `}
+        >
             <TitleH1>Creer votre compte</TitleH1>
             <RegisterForm></RegisterForm>
         </div>

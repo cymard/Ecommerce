@@ -1,37 +1,35 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import PropTypes from 'prop-types'; // ES6
+import {css} from '@emotion/react';
 import {
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
 
 function ModifiedLinksRouter ({color, to, children}){
 
-    const linkStyleBlack = {
-        color: "black",
-        '&:hover': {
-            textDecoration : "none",
-            color : "black"
-        }
-    }
 
-    const linkStyleWhite = {
-        color: "white",
-        '&:hover': {
-            textDecoration : "none",
-            color : "white"
-        }
-    }
+    const style = (color === "white" ? "white" : "black") ;
 
-    const divStyle = {
-        whiteSpace: "nowrap"
-    }
-
-
-    const style = (color === "white" ? linkStyleWhite : linkStyleBlack) ;
+    // les changements
+    const blackOrWhiteColor = style;
     
-    return <Link  css={style} color={color} to={to}>
-        <div className="d-flex justify-content-center align-items-center p-1" css={divStyle}>{children}</div>
+    return <Link color={blackOrWhiteColor} to={to} 
+        css={css`
+            color: ${blackOrWhiteColor};
+            &:hover {
+                text-decoration: none;
+                color: ${blackOrWhiteColor};
+            }
+        `}
+    >
+        <div className="d-flex justify-content-center align-items-center p-1" 
+            css={css`
+                white-space: nowrap;
+            `}
+        >
+            {children}
+        </div>
     </Link>
     
 }

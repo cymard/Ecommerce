@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Carousel } from 'react-bootstrap';
-
+import { css} from '@emotion/react';
 
 function HomeCarousel () {
 
-    const carouselStyle= {
-        width : "100%",
-        height: "400px",
-        border: "solid 1px black",
-        marginBottom: "50px",
-        marginTop: "20px"
-    }
-
-    return <Carousel  css={carouselStyle}>
+    return <Carousel  
+        css={css`
+            width: 100%;
+            height: 400px;
+            border: solid 1px black;
+            margin-bottom: 50px;
+            margin-top: 20px;
+        `}
+    >
 
     <Carousel.Item interval={1000}>
         <img

@@ -2,78 +2,75 @@
 import React from 'react';
 import { Card, Button ,Row, Form} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {css} from '@emotion/react';
 
 
 
 function ShoppingCartProduct ({src, titre, prix}) {
-
-    const onlyMaxWidth = {
-        width: "100%"
-    }
-
-    const cardStyle = {
-        width: "100%",
-        height : "318px"
-    }
-
-    const rowStyle = {
-        marginRight : "0",
-        marginLeft : "0", 
-        height: "100%"
-    }
-
-    const rowStyle2 = {
-        marginRight : "0",
-        marginLeft : "0",
-        height:"70%"
-    }
-
-    const rowStyle3 = {
-        marginRight : "0",
-        marginLeft : "0",
-        height:"30%"
-    }
-
-    const cardImgStyle = {
-        height: "318px", 
-        width:"318px"
-    }
-
-    const divImgStyle = {
-        width: "318px"
-    }
-
-    const divWidthStyle = {
-        width: "calc(100% - 318px)"
-    }
-
-    const formLabelFontSize = {
-        fontSize : "1.2em"
-    }
-
-    const formControlWidth = {
-        width: "60px"
-    }
-
-    const buttonStyle = {
-        height : "40px"
-    }
     
 
-    return <Card className="d-flex mb-5" css={cardStyle}>
-        <Row css={rowStyle}>
-            <div css={divImgStyle}>
-                <Card.Img css={cardImgStyle} src={src} />
+    return <Card className="d-flex mb-5" 
+        css={css`
+            width: 100%;
+            height : 318px;
+        `}
+    >
+        <Row 
+            css={css`
+                margin-right : 0;
+                margin-left : 0;
+                height: 100%;
+            `}
+        >
+            <div 
+                css={css`
+                    width: 318px;
+                `}
+            >
+                <Card.Img src={src} 
+                    css={css`
+                        height: 318px;
+                        width: 318px;
+                    `}
+                />
             </div>
-            <div css={divWidthStyle}>
-                <Row className="d-flex justify-content-between" css={rowStyle2}>
+            <div 
+                css={css`
+                    width: calc(100% - 318px);
+                `}
+            >
+                <Row className="d-flex justify-content-between" 
+                css={css`
+                    margin-right : 0;
+                    margin-left : 0;
+                    height: 70%;
+                `}
+                >
                     
                     <div className="p-4 d-flex flex-column align-items-center justify-content-between">
                         <h2>{titre}</h2>
-                        <Form css={onlyMaxWidth}>
-                            <Form.Group css={onlyMaxWidth} className="d-flex" controlId="formQuantity">
-                                <Form.Label css={formLabelFontSize}>Quantité : </Form.Label>
-                                <Form.Control css={formControlWidth} className="ml-3 mr-3" type="text"/>
+                        <Form 
+                            css={css`
+                                width: 100%;
+                            `}
+                        >
+                            <Form.Group  className="d-flex" controlId="formQuantity"
+                                css={css`
+                                    width: 100%;
+                                `}
+                            >
+                                <Form.Label 
+                                    css={css`
+                                        fontSize : 1.2em;
+                                    `}
+                                >
+                                    Quantité : 
+                                </Form.Label>
+                                <Form.Control className="ml-3 mr-3" type="text" 
+                                    css={css`
+                                        width: 60px;
+                                    `}
+                                />
                                 <Button>Mettre à jour</Button>
                             </Form.Group>
                         </Form>
@@ -83,8 +80,20 @@ function ShoppingCartProduct ({src, titre, prix}) {
                         <p>Prix : {prix} €</p>
                     </div>
                 </Row>
-                <Row className="p-4 d-flex justify-content-end align-items-end" css={rowStyle3}>
-                    <Button css={buttonStyle} variant="danger">Supprimer</Button>
+                <Row className="p-4 d-flex justify-content-end align-items-end" 
+                    css={css`
+                        marginRight : 0;
+                        marginLeft : 0;
+                        height: 30%;
+                    `}
+                >
+                    <Button variant="danger" 
+                        css={css`
+                            height : 40px;
+                        `}
+                    >
+                        Supprimer
+                    </Button>
                 </Row>
             </div>
         </Row>

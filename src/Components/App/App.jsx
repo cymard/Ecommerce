@@ -22,7 +22,6 @@ function App(){
     // contenu du packageContext lorsque le localStorage n'est pas définit
     const [buttonValue, setButtonValue] = useState(<ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>);
     const changeValue = function(){
-        console.log("on m'appelle");
         setButtonValue(<ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter>)
     }
 

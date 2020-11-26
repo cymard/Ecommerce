@@ -3,14 +3,12 @@ import React, {useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { ThemeContext } from './App/App';
+import { css} from '@emotion/react';
 
 let yup = require('yup');
 
 function LoginForm () {
 
-    const buttonStyle = {
-        width : "100%"
-    }
 
     const context = useContext(ThemeContext);
 
@@ -66,7 +64,11 @@ function LoginForm () {
             </Form.Group>
 
             
-            <Button className="mb-3" css={buttonStyle} variant="primary" type="submit">
+            <Button className="mb-3" variant="primary" type="submit" 
+                css={css`
+                    width: 100%;
+                `}
+            >
                 Valider
             </Button>
             

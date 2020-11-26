@@ -5,16 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import {ThemeContext} from './App/App.jsx';
+import { css} from '@emotion/react';
 
 function HeaderNavBar () {
-
-    const formStyle = {
-        width: "100%"
-    }
-
-    const divStyle= {
-        height : "64px"
-    }
 
     const searchIcon = <FontAwesomeIcon icon={faSearch} />
     const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
@@ -33,7 +26,12 @@ function HeaderNavBar () {
 
         <Navbar.Collapse id="basic-navbar-nav">
 
-          <Form css={formStyle} className="d-flex flex-nowrap">
+          <Form  className="d-flex flex-nowrap" 
+            css={css`
+              width: 100%;
+            `}
+          
+          >
             <FormControl type="text" placeholder="Rechercher" className="mr-sm-2" />
             <Button variant="outline-success">{searchIcon}</Button>
           </Form>
@@ -47,7 +45,11 @@ function HeaderNavBar () {
 
       </Navbar>
 
-      <div css={divStyle}></div>
+      <div 
+        css={css`
+          height: 64px;
+        `}
+      ></div>
   </>
 }
 

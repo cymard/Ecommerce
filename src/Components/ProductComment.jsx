@@ -1,18 +1,30 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import {Card} from 'react-bootstrap'
+import {Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {css} from '@emotion/react';
 
 function ProductComment ({pseudo, content, note, date}) {
 
-    const pStyle = {
-        marginBottom : 0
-    }
+    const marginBottom = 0;
 
     return <Card className="text-center mb-3">
         <Card.Header className="d-flex justify-content-between">
-            <p css={pStyle}>{pseudo}</p>
-            <p css={pStyle}>Note : {note}/5</p>
+            <p 
+                css={css`
+                    margin-bottom: ${marginBottom};
+                `}
+            >
+                {pseudo}
+            </p>
+            
+            <p 
+                css={css`
+                    margin-bottom: ${marginBottom};
+                `}
+            >
+                Note : {note}/5
+            </p>
         </Card.Header>
         <Card.Body>
             <Card.Text>

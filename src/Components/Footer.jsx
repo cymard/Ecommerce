@@ -1,23 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-
+import { css} from '@emotion/react';
 
 function Footer(){
 
-    const divStyle = {
-        backgroundColor: "black",
-        height: "120px",
-        width: "100%",
-        marginTop : "20px"
-    }
-
-    const h2Style = {
-        color: "white",
-        fontSize : "20px"
-    }
-
-    return <div css={divStyle}>
-        <h2 css={h2Style}>FOOTER</h2>
+    return <div 
+        css={css`
+            background-color: black;
+            height: 120px;
+            width: 100%;
+            margin-top: 20px;
+        `}
+    >
+        <h2 
+            css={css`
+                color: white;
+                font-size: 20px;
+            `}
+        >
+            FOOTER
+        </h2>
     </div>
 }
 

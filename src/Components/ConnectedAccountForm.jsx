@@ -2,14 +2,11 @@
 import React from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 import { Formik } from 'formik';
+import { css} from '@emotion/react'
 let yup = require('yup');
 
 
 function ConnectedAccountForm () {
-
-    const buttonStyle = {
-        width: "100%"
-    }
 
     let schema = yup.object({
         firstName: yup.string().required(),
@@ -208,7 +205,11 @@ function ConnectedAccountForm () {
                     </Form.Group>
                 </Form.Row>
 
-                <Button className="mt-3 mb-5" css={buttonStyle} variant="primary" type="submit">
+                <Button className="mt-3 mb-5" variant="primary" type="submit" 
+                    css={css`
+                        width: 100%;
+                    `}
+                >
                     Modifier
                 </Button>
             </Form>
