@@ -6,7 +6,9 @@ import {css} from '@emotion/react';
 function ConnectedAccountDisconnection () {
 
     const handleClick = function () {
-        localStorage.removeItem('connexion');
+        // suppression des infos du localStorage
+        localStorage.removeItem('connection');
+        localStorage.removeItem('email');
         window.location='/Home';
     }
 

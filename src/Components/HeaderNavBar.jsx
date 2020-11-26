@@ -4,7 +4,7 @@ import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
-import {ThemeContext} from './App/App.jsx';
+import {UserContext} from './UserContext';
 import { css} from '@emotion/react';
 
 function HeaderNavBar () {
@@ -13,8 +13,8 @@ function HeaderNavBar () {
     const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 
     // utilisation du contexte
-    const context = useContext(ThemeContext);
-    console.log(context);
+    const contextInformations = useContext(UserContext);
+    console.log(contextInformations);
   
     return <> 
       <Navbar collapseOnSelect fixed="top" bg="light" expand="lg" > 
@@ -37,7 +37,7 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            {context.buttonValue}
+            {contextInformations.connection === true ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
 

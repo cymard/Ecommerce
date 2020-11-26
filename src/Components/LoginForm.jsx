@@ -1,16 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import React, {useContext} from 'react';
+import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
-import { ThemeContext } from './App/App';
 import { css} from '@emotion/react';
+
 
 let yup = require('yup');
 
 function LoginForm () {
-
-
-    const context = useContext(ThemeContext);
 
 
     let schema = yup.object({
@@ -19,9 +16,11 @@ function LoginForm () {
     });
 
     const handleOnSubmit = function(){
-        localStorage.setItem('connexion', 'true');
-        context.changeValue();
-        console.log(localStorage.getItem('connexion'));
+        // informations utilisateur
+        localStorage.setItem('connection', true)
+        localStorage.setItem('email', 'tom@gmail.com');
+
+        // redirection page d'accueil
         window.location='/Home';
     }
 

@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useContext} from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
+import { UserContext } from './UserContext';
 let yup = require('yup');
 
 
@@ -23,13 +24,16 @@ function ConnectedAccountForm () {
     });
 
 
+    const contextInformations = useContext(UserContext);
+    
+
     return<Formik
         initialValues={{ 
             firstName: 'firstName', 
             lastName: 'lastName', 
             Password: 'Password', 
             address: 'address', 
-            email: 'email@email.com', 
+            email: contextInformations.email, 
             paymentMethod: 'VISA', 
             cardName: 'cardName', 
             cardNumber: '000000', 
