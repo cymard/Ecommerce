@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react';
+import {UserContext} from './UserContext';
 
 
 let yup = require('yup');
@@ -15,13 +16,15 @@ function LoginForm () {
         formBasicPassword: yup.string().required(),
     });
 
+    const informationsContext = useContext(UserContext);
+
     const handleOnSubmit = function(){
-        // informations utilisateur
-        localStorage.setItem('connection', true)
-        localStorage.setItem('email', 'tom@gmail.com');
 
         // redirection page d'accueil
         window.location='/Home';
+
+        // informations utilisateur
+        informationsContext.setEmail("test@gmail.com");
     }
 
 

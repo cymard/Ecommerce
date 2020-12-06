@@ -3,6 +3,7 @@ import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import {css} from '@emotion/react';
+// import axios from 'axios';
 let yup = require('yup');
 
 
@@ -26,7 +27,18 @@ function RegisterForm () {
         validationSchema={schema}
         onSubmit={values=>{
             console.log(values)
-        }}
+        }
+        // axios.post('/user', {
+        //     email: values->email,
+        //     password: values->password
+        //   })
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        }
     >
         {({handleChange, handleSubmit, errors, values, touched})=>(
             <Form noValidate onSubmit={handleSubmit}>
@@ -54,8 +66,8 @@ function RegisterForm () {
                         type="password" 
                         placeholder="Entrez votre mot de passe ..." 
                         value={values.password}
-                        isValid={touched.password && !errors.password}
-                        isInvalid={touched.email && errors.password}
+                        isValid={touched.password && values.confirmPassword===values.password || touched.password && !errors.password}
+                        isInvalid={touched.password && values.confirmPassword!==values.password || touched.password && errors.password}
                     />
                 </Form.Group>
 
@@ -67,8 +79,8 @@ function RegisterForm () {
                         type="password" 
                         placeholder="Confirmer votre mot de passe ..." 
                         value={values.confirmPassword}
-                        isValid={touched.confirmPassword && !errors.confirmPassword}
-                        isInvalid={touched.email && errors.confirmPassword}
+                        isValid={ touched.confirmPassword && values.confirmPassword===values.password || touched.confirmPassword && !errors.confirmPassword}
+                        isInvalid={ touched.confirmPassword && values.confirmPassword!==values.password || touched.confirmPassword && errors.confirmPassword}
                     />
                 </Form.Group>
 

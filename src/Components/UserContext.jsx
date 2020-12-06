@@ -1,19 +1,21 @@
 import React from 'react';
 
-const UserContext = React.createContext('');
+
+// fonction qui va setLocalstorage
+const userInformations = {
+    "connection" : localStorage.getItem('email') ? true : false,
+    "email" : undefined,
+    "setEmail" : function(email){
+        localStorage.setItem('email', email);
+        this.userInformations.email = email;
+    }
+}
+
+
+const UserContext = React.createContext(userInformations);
 
 function UserContextProvider ({children}){
-    
-    const userInformations = {
-        "connection" :  true ,
-        "email" : localStorage.getItem('email')
-    }
-
-    const noConnection = {
-        "connection" : false
-    }
-
-    return <UserContext.Provider value={localStorage.getItem('connection') ? userInformations : noConnection}>
+    return <UserContext.Provider value={userInformations}>
         {children}
     </UserContext.Provider>
 }

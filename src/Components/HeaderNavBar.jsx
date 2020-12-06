@@ -14,7 +14,7 @@ function HeaderNavBar () {
 
     // utilisation du contexte
     const contextInformations = useContext(UserContext);
-    console.log(contextInformations);
+    // console.log(contextInformations);
   
     return <> 
       <Navbar collapseOnSelect fixed="top" bg="light" expand="lg" > 
@@ -30,7 +30,6 @@ function HeaderNavBar () {
             css={css`
               width: 100%;
             `}
-          
           >
             <FormControl type="text" placeholder="Rechercher" className="mr-sm-2" />
             <Button variant="outline-success">{searchIcon}</Button>
@@ -38,6 +37,7 @@ function HeaderNavBar () {
           
           <Nav className="mr-auto">
             {contextInformations.connection === true ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
+  
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
 
