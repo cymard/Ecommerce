@@ -1,49 +1,79 @@
-import React from 'react';
+/** @jsxImportSource @emotion/react */
+import React, {useContext} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
+import { css} from '@emotion/react';
+import {UserContext} from './UserContext';
+
+
 let yup = require('yup');
 
 function LoginForm () {
+
 
     let schema = yup.object({
         formBasicEmail: yup.string().email().required(),
         formBasicPassword: yup.string().required(),
     });
 
+    const informationsContext = useContext(UserContext);
+
+    const handleOnSubmit = function(){
+
+        // redirection page d'accueil
+        window.location='/Home';
+
+        // informations utilisateur
+        informationsContext.setEmail("test@gmail.com");
+    }
+
+
     return <Formik
-        initialValues={{}}
+        initialValues={{
+            formBasicEmail : "",
+            formBasicPassword: ""
+        }}
         validationSchema={schema}
-        onSubmit={values => {console.log(values)}}
+        onSubmit={handleOnSubmit}
+        
     >
     {({handleChange, handleSubmit, errors, values, touched}) => (
         <Form noValidate onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Adresse Email</Form.Label>
                 <Form.Control 
-                    type="email" 
+                    className="mt-2 mb-5"
+                    type="email"
                     placeholder="Entrez votre adresse email ..."
                     value={values.formBasicEmail} 
                     onChange={handleChange}
                     isValid={touched.formBasicEmail && !errors.formBasicEmail}
-                    isInvalid={errors.formBasicEmail}
+                    isInvalid={touched.formBasicEmail && errors.formBasicEmail}
                 />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
                 <Form.Label>Mot de Passe</Form.Label>
                 <Form.Control 
-                    type="password" 
+                    className="mt-2 mb-5"
+                    type="password"
                     placeholder="Entrez votre mot de passe ..." 
                     value={values.formBasicPassword} 
                     onChange={handleChange}
                     isValid={touched.formBasicPassword && !errors.formBasicPassword}
-                    isInvalid={errors.formBasicPassword}
+                    isInvalid={touched.formBasicPassword && errors.formBasicPassword}
                 />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            
+            <Button className="mb-3" variant="primary" type="submit" 
+                css={css`
+                    width: 100%;
+                `}
+            >
                 Valider
             </Button>
+            
         </Form>
     )}
 </Formik>
