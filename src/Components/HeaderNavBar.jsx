@@ -13,7 +13,7 @@ function HeaderNavBar () {
     const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
 
     // utilisation du contexte
-    const contextInformations = useContext(UserContext);
+    const userInformations = useContext(UserContext);
     // console.log(contextInformations);
   
     return <> 
@@ -36,7 +36,7 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            {contextInformations.connection === true ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
+            {userInformations.isConnected === true ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
   
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  

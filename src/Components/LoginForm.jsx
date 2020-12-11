@@ -1,44 +1,76 @@
 /** @jsxImportSource @emotion/react */
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react';
 import {UserContext} from './UserContext';
-
+import axios from 'axios';
+import {useHistory} from "react-router-dom";
 
 let yup = require('yup');
 
 function LoginForm () {
 
+    let history = useHistory();
+
+    const userInformation = useContext(UserContext);
+
+    const [response, setResponse] = useState("");
 
     let schema = yup.object({
         formBasicEmail: yup.string().email().required(),
         formBasicPassword: yup.string().required(),
     });
 
-    const informationsContext = useContext(UserContext);
 
-    const handleOnSubmit = function(){
+    const submitForm = async (values) => {
 
-        // redirection page d'accueil
-        window.location='/Home';
+        try {
+            const response = await axios.post('https://127.0.0.1:8000/connection', {
+                email: values.formBasicEmail,
+                password: values.formBasicPassword
+            });
 
-        // informations utilisateur
-        informationsContext.setEmail("test@gmail.com");
-    }
+            if(response.data.connection){
 
+                setResponse("connection au compte ...");
+            
+                // mise à jour du context
+                userInformation.setEmail(response.data.email); // ou la ligne localstorage juste en bas
+                userInformation.setUserInformation({
+                    isConnected: response.data.email ? true : false,
+                    email: response.data.email,
+                    deleteEmail : function(){
+                        localStorage.removeItem('email');
+                    }     
+                });
+
+                return history.push('/');
+
+            }else{
+                setResponse("le compte n'existe pas");
+            }   
+        
+        } catch (err) {
+            console.log("erreur");
+            console.error(err.message);
+        }
+    };
 
     return <Formik
         initialValues={{
             formBasicEmail : "",
             formBasicPassword: ""
         }}
+
         validationSchema={schema}
-        onSubmit={handleOnSubmit}
+
+        onSubmit={submitForm}
         
     >
     {({handleChange, handleSubmit, errors, values, touched}) => (
         <Form noValidate onSubmit={handleSubmit}>
+            {response}
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Adresse Email</Form.Label>
                 <Form.Control 

@@ -39,15 +39,12 @@ function App(){
                         <Product></Product>
                     </Route>
                     <Route exact path="/Buy">
-                    
                         <Buy></Buy> 
                     </Route>
                     <Route exact path="/ConnectedAccount">
-                        
                         <ConnectedAccount></ConnectedAccount>
                     </Route>
                     <Route path="/">
-                           
                         <Home></Home>
                     </Route>
                 </Switch>

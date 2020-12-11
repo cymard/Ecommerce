@@ -3,19 +3,34 @@ import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import {css} from '@emotion/react';
-// import axios from 'axios';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom'
 let yup = require('yup');
 
 
 
 function RegisterForm () {
 
+    let history = useHistory();
 
     let schema = yup.object().shape({
         email: yup.string().email().required(),
         password: yup.string().required(),
         confirmPassword: yup.string().required()
     });
+
+    const handleOnSubmit = async (values) => {
+        const response = await axios.post('https://127.0.0.1:8000/register', {
+            "email": values.email,
+            "password": values.password
+        })
+        .then(function (response) {
+            return history.push('/login');
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
 
     return <Formik
@@ -25,20 +40,7 @@ function RegisterForm () {
             confirmPassword: ""
         }}
         validationSchema={schema}
-        onSubmit={values=>{
-            console.log(values)
-        }
-        // axios.post('/user', {
-        //     email: values->email,
-        //     password: values->password
-        //   })
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
-        }
+        onSubmit={handleOnSubmit}
     >
         {({handleChange, handleSubmit, errors, values, touched})=>(
             <Form noValidate onSubmit={handleSubmit}>
@@ -66,8 +68,8 @@ function RegisterForm () {
                         type="password" 
                         placeholder="Entrez votre mot de passe ..." 
                         value={values.password}
-                        isValid={touched.password && values.confirmPassword===values.password || touched.password && !errors.password}
-                        isInvalid={touched.password && values.confirmPassword!==values.password || touched.password && errors.password}
+                        isValid={(touched.password && values.confirmPassword===values.password) || (touched.password && !errors.password)}
+                        isInvalid={(touched.password && values.confirmPassword!==values.password) || (touched.password && errors.password)}
                     />
                 </Form.Group>
 
@@ -79,8 +81,8 @@ function RegisterForm () {
                         type="password" 
                         placeholder="Confirmer votre mot de passe ..." 
                         value={values.confirmPassword}
-                        isValid={ touched.confirmPassword && values.confirmPassword===values.password || touched.confirmPassword && !errors.confirmPassword}
-                        isInvalid={ touched.confirmPassword && values.confirmPassword!==values.password || touched.confirmPassword && errors.confirmPassword}
+                        isValid={ (touched.confirmPassword && values.confirmPassword===values.password) || (touched.confirmPassword && !errors.confirmPassword)}
+                        isInvalid={ (touched.confirmPassword && values.confirmPassword!==values.password) || (touched.confirmPassword && errors.confirmPassword)}
                     />
                 </Form.Group>
 
