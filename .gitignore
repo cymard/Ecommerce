@@ -7,7 +7,8 @@
 
 # testing
 /coverage
-
+AdminHome.jsx
+AdminNavBar.jsx
 # production
 /build
 

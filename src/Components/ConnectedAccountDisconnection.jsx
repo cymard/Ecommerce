@@ -1,15 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React,{useContext} from 'react';
 import {Button, Card, Row} from 'react-bootstrap';
 import {css} from '@emotion/react';
+import {UserContext} from './UserContext';
+import { useHistory } from "react-router-dom";
+
 
 function ConnectedAccountDisconnection () {
 
+    let history = useHistory();
+
+    const userInformation = useContext(UserContext);
+
     const handleClick = function () {
         // suppression des infos du localStorage
-        localStorage.removeItem('connection');
-        localStorage.removeItem('email');
-        window.location='/Home';
+        userInformation.setUserInformation({
+            email: undefined
+        });
+        
+       return history.push("/");
+        // return <Redirect to="/" />
+        // window.location='/Home';
+        
     }
 
     return <Card className="d-flex p-2">

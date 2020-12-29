@@ -1,31 +1,64 @@
 /** @jsxImportSource @emotion/react */
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react';
 import {UserContext} from './UserContext';
-
+import axios from 'axios';
+import {useHistory} from "react-router-dom";
 
 let yup = require('yup');
 
 function LoginForm () {
 
+    let history = useHistory();
+
+    const userInformation = useContext(UserContext);
+
+    const [response, setResponse] = useState("");
 
     let schema = yup.object({
         formBasicEmail: yup.string().email().required(),
         formBasicPassword: yup.string().required(),
     });
 
-    const informationsContext = useContext(UserContext);
 
-    const handleOnSubmit = function(){
+    const submitForm = async (values) => {
 
-        // redirection page d'accueil
-        window.location='/Home';
+        try {
+            console.log("--------------------------")
+            const response = await axios.post('https://127.0.0.1:8000/login', {
+                email: values.formBasicEmail,
+                password: values.formBasicPassword
+            });
+            console.log(response);
 
-        // informations utilisateur
-        informationsContext.setEmail("test@gmail.com");
-    }
+            if(response.status === 200){
+
+                setResponse("connection au compte ...");
+            
+                // mise à jour du context
+                userInformation.setUserInformation({
+                    email: response.data.email
+                }); 
+                
+                return history.push('/');
+
+            }else{
+                setResponse("La connexion a échouée, merci de réessayer");
+            }   
+        
+        } catch (err) {
+            setResponse("La connexion a échouée, merci de réessayer");
+            console.log("erreur");
+            console.error(err.message);
+        }
+    };
+
+
+
+
+
 
 
     return <Formik
@@ -33,12 +66,15 @@ function LoginForm () {
             formBasicEmail : "",
             formBasicPassword: ""
         }}
+
         validationSchema={schema}
-        onSubmit={handleOnSubmit}
+
+        onSubmit={submitForm}
         
     >
     {({handleChange, handleSubmit, errors, values, touched}) => (
         <Form noValidate onSubmit={handleSubmit}>
+            {response}
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Adresse Email</Form.Label>
                 <Form.Control 

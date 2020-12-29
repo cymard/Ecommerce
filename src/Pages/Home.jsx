@@ -9,26 +9,19 @@ function Home(){
 
     // equivalent de componentDidMount
     useEffect(()=>{
-        axios.get(`https://127.0.0.1:8000/users`).then(response => {setData({status: true, data : response.data})})
+        axios.get(`https://127.0.0.1:8000/products`).then(response => {setData({status: true, data : response.data})})
     },[])
     
     data.status ? console.log(data.data) : console.log("wait")
 
     return <>
         <Container className="d-flex justify-content-around flex-wrap">
-        
-        {data.status ?
-        data.data.map(cool => <p key={cool.id}>{cool.email}</p>)
-        :
-        <p>wait...</p>
-        }
             <HomeCarousel></HomeCarousel>
-            <HomeProduct></HomeProduct>
-            <HomeProduct></HomeProduct>
-            <HomeProduct></HomeProduct>
-            <HomeProduct></HomeProduct>
-            <HomeProduct></HomeProduct>
-            <HomeProduct></HomeProduct>
+            {data.status ?
+            data.data.map(product =><HomeProduct key={product.id} title={product.name} id={product.id}></HomeProduct>)
+            :
+            <p>wait...</p>
+            }
         </Container>
     </>
 }

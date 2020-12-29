@@ -8,7 +8,7 @@ let yup = require('yup');
 
 
 function ConnectedAccountForm () {
-
+    
     let schema = yup.object({
         firstName: yup.string().required(),
         lastName: yup.string().required(),
@@ -25,7 +25,7 @@ function ConnectedAccountForm () {
 
 
     const contextInformations = useContext(UserContext);
-    
+    console.log(contextInformations);
 
     return<Formik
         initialValues={{ 
