@@ -14,16 +14,11 @@ function ConnectedAccountDisconnection () {
 
     const handleClick = function () {
         // suppression des infos du localStorage
-        userInformation.deleteEmail();
         userInformation.setUserInformation({
-            isConnected: localStorage.getItem('email') ? true : false,
-            email: localStorage.getItem('email'),
-            setEmail : function(email){
-                localStorage.setItem('email', email);
-            }
+            email: undefined
         });
-
-        history.push("/");
+        
+       return history.push("/");
         // return <Redirect to="/" />
         // window.location='/Home';
         

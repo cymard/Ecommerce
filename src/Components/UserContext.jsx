@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
-
-
-// fonction qui va setLocalstorage
-// const userInformations = {
-//     "connection" : localStorage.getItem('email') ? true : false,
-//     "email" : localStorage.getItem('email'),
-//     "setEmail" : function(email){
-//         localStorage.setItem('email', email);
-//         this.connection = email ? true : false;
-//         this.userInformations.email = email;
-//     }
-// }
-
-
+// isConnected: localStorage.getItem('email') ? true : false,
 const userDefaultInformation = {
-    isConnected: localStorage.getItem('email') ? true : false,
-    email: localStorage.getItem('email'),
-    setEmail : function(email){
-        localStorage.setItem('email', email);
-    },
-    deleteEmail : function(){
-        localStorage.removeItem('email');
-    }
+    email: localStorage.getItem('email')
 }
-
 
 const UserContext = React.createContext(userDefaultInformation);
 
 function UserContextProvider({ children }) {
     const [userInformation, setUserInformation] = useState(userDefaultInformation);
 
-    return <UserContext.Provider value={{ ...userInformation, setUserInformation }}>
+    // set le localStorage si l'email est remplie, ou le supprime
+    const setUserInformationData = (userInformationData) => {
+        // set le localStorage
+        if (userInformationData.email) {
+            localStorage.setItem('email', userInformationData.email);
+        } else {
+            localStorage.removeItem('email');
+        }
+
+        // remplace le userDefaultInformation
+        setUserInformation(userInformationData); // ne s'applique pas
+
+    }; //useMemo
+    
+
+    return <UserContext.Provider value={{ ...userInformation, setUserInformation: setUserInformationData }}> 
         {children}
     </UserContext.Provider>
 }

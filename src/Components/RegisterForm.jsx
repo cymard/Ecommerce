@@ -20,11 +20,12 @@ function RegisterForm () {
     });
 
     const handleOnSubmit = async (values) => {
-        const response = await axios.post('https://127.0.0.1:8000/register', {
+        await axios.post('https://127.0.0.1:8000/register', {
             "email": values.email,
             "password": values.password
         })
         .then(function (response) {
+            console.log(response);
             return history.push('/login');
         })
         .catch(function (error) {

@@ -26,36 +26,40 @@ function LoginForm () {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://127.0.0.1:8000/connection', {
+            console.log("--------------------------")
+            const response = await axios.post('https://127.0.0.1:8000/login', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
+            console.log(response);
 
-            if(response.data.connection){
+            if(response.status === 200){
 
                 setResponse("connection au compte ...");
             
                 // mise à jour du context
-                userInformation.setEmail(response.data.email); // ou la ligne localstorage juste en bas
                 userInformation.setUserInformation({
-                    isConnected: response.data.email ? true : false,
-                    email: response.data.email,
-                    deleteEmail : function(){
-                        localStorage.removeItem('email');
-                    }     
-                });
-
+                    email: response.data.email
+                }); 
+                
                 return history.push('/');
 
             }else{
-                setResponse("le compte n'existe pas");
+                setResponse("La connexion a échouée, merci de réessayer");
             }   
         
         } catch (err) {
+            setResponse("La connexion a échouée, merci de réessayer");
             console.log("erreur");
             console.error(err.message);
         }
     };
+
+
+
+
+
+
 
     return <Formik
         initialValues={{

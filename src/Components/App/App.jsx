@@ -8,6 +8,7 @@ import ShoppingCart from '../../Pages/ShoppingCart.jsx'
 import Product from '../../Pages/Product.jsx'
 import Buy from '../../Pages/Buy.jsx'
 import ConnectedAccount from '../../Pages/ConnectedAccount.jsx'
+import AdminHome from '../../Pages/AdminHome.jsx'
 import {UserContextProvider} from '../UserContext.jsx'
 import {
     BrowserRouter as Router,
@@ -34,7 +35,7 @@ function App(){
                         
                         <ShoppingCart></ShoppingCart>
                     </Route>
-                    <Route exact path="/Product">
+                    <Route exact path="/Product/:id">
                         
                         <Product></Product>
                     </Route>
@@ -43,6 +44,9 @@ function App(){
                     </Route>
                     <Route exact path="/ConnectedAccount">
                         <ConnectedAccount></ConnectedAccount>
+                    </Route>
+                    <Route path="/admin/home">
+                        <AdminHome></AdminHome>
                     </Route>
                     <Route path="/">
                         <Home></Home>
