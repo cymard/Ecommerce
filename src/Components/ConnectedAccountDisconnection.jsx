@@ -15,8 +15,8 @@ function ConnectedAccountDisconnection () {
     const handleClick = function () {
         // suppression des infos du localStorage
         userInformation.setUserInformation({
-            email: undefined,
-            token: undefined
+            email: null,
+            token: null
         });
         
        return history.push("/");
