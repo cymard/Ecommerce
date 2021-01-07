@@ -41,7 +41,8 @@ function LoginForm () {
                 // prise en compte duu token
                 // prendre l'email depuis la requête envoyée
                 userInformation.setUserInformation({
-                    email: response.data.email
+                    email: values.formBasicEmail,
+                    token: response.data.token
                 }); 
                 
                 return history.push('/');
