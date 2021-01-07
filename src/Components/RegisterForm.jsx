@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import {css} from '@emotion/react';
@@ -19,6 +19,8 @@ function RegisterForm () {
         confirmPassword: yup.string().required()
     });
 
+    const [messageError, setMessageError] = useState("");
+
     const handleOnSubmit = async (values) => {
         await axios.post('https://127.0.0.1:8000/register', {
             "email": values.email,
@@ -30,6 +32,10 @@ function RegisterForm () {
         })
         .catch(function (error) {
             console.log(error);
+            if(error.response){
+                console.log(error.response.data.violations[0].title); // => the response payload 
+                setMessageError(error.response.data.violations[0].title);
+            }
         });
     }
 
@@ -44,7 +50,13 @@ function RegisterForm () {
         onSubmit={handleOnSubmit}
     >
         {({handleChange, handleSubmit, errors, values, touched})=>(
+           
             <Form noValidate onSubmit={handleSubmit}>
+                <p
+                css={css`
+                    color: red;
+                `}
+                >{messageError}</p>
                 <Form.Group controlId="email">
                     <Form.Label>Adresse Email</Form.Label>
                     <Form.Control

@@ -27,7 +27,7 @@ function LoginForm () {
 
         try {
             console.log("--------------------------")
-            const response = await axios.post('https://127.0.0.1:8000/login', {
+            const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
@@ -38,6 +38,8 @@ function LoginForm () {
                 setResponse("connection au compte ...");
             
                 // mise à jour du context
+                // prise en compte duu token
+                // prendre l'email depuis la requête envoyée
                 userInformation.setUserInformation({
                     email: response.data.email
                 }); 
@@ -54,10 +56,6 @@ function LoginForm () {
             console.error(err.message);
         }
     };
-
-
-
-
 
 
 
