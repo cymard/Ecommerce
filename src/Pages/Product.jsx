@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Container ,Image ,Card ,Button ,Row} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
@@ -8,9 +8,17 @@ import TitleH1 from "../Components/TitleH1.jsx";
 import { css} from '@emotion/react';
 import axios from 'axios';
 import {useLocation} from "react-router-dom";
+import {UserContext} from '../Components/UserContext.jsx';
+import {
+    Link
+  } from "react-router-dom";
 // import mac from "../images/mac.jpg"
 
 function Product({name, content, price}){
+
+
+    const informationUser = useContext(UserContext);
+    console.log(informationUser);
     const location = useLocation();
 
     const [data,setData] = useState({status:false,data:""})
@@ -97,13 +105,25 @@ function Product({name, content, price}){
                         margin-bottom: 0.75em
                     `}
                 >Prix : {productPrice} €</Card.Title>
-                <Button>
-                    <Card.Link href="#"
-                        css={css`
-                            color: white;
-                        `}
-                    >Ajouter au panier</Card.Link>
-                </Button>
+               
+                    {informationUser.email === null && informationUser.token === null ?
+
+                        <Link to="/login"><Button
+                            css={css`
+                                width: 100%;
+                            `}
+                        >Ajouter au panier</Button></Link>
+                        
+                    :
+                    
+                        <Card.Link href="#"
+                            css={css`
+                                color: white;
+                            `}
+                        >Ajouter au panier</Card.Link>
+                    }
+                    
+                
             </Card.Body>
         </Card>
 
