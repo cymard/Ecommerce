@@ -13,10 +13,7 @@ import {
 
 function ShoppingCart(){
 
-    // verifier que l'utilisateur est connecté
-    // -> verifier si le context existe
     const userInformation = useContext(UserContext);
-    console.log(userInformation);
 
     return <Container
         css={css`
@@ -24,9 +21,8 @@ function ShoppingCart(){
         `}
     >
         <TitleH1>Voici votre Panier</TitleH1>
-        {userInformation.email === null && userInformation.token === null 
-        
-        ?
+        {userInformation.email === null && userInformation.token === null ?
+
         <div
             css={css`
                display: flex;

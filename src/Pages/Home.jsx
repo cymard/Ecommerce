@@ -20,7 +20,7 @@ function Home(){
             {data.status ?
             data.data.map(product =><HomeProduct key={product.id} title={product.name} id={product.id}></HomeProduct>)
             :
-            <p>wait...</p>
+            <p>Chargement ...</p>
             }
         </Container>
     </>
