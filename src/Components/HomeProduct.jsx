@@ -19,7 +19,11 @@ function HomeProduct ({title,textButton,id}) {
             margin: 10px;
         `}
     >
-            <Card.Title className="pt-4 pb-4 m-auto">{title}</Card.Title>
+            <Card.Title className="pt-4 pb-4 m-auto"
+                css={css`
+                    text-align: center;
+                `}
+            >{title}</Card.Title>
             <Card.Img variant="top" src={screen} />
             {/* holder.js/100px180 */}
             <Card.Body className="pt-4 pb-4 m-auto">
