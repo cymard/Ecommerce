@@ -1,21 +1,33 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState, useContext} from 'react'
 import {css} from '@emotion/react';
-import {Table, Container, Button} from 'react-bootstrap'
+import {Table, Container, Button, Form, Dropdown} from 'react-bootstrap'
 import axios from 'axios'
-import {Link} from "react-router-dom";
-import ModifiedLinksRouter from '../Components/ModifiedLinksRouter'
+import AdminNavBar from "../Components/AdminNavBar.jsx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt, faCog, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import {UserContext} from "../Components/UserContext.jsx"
+
+
 
 function AdminHome () {
+    //  icones
+    const editIcon = <FontAwesomeIcon icon={faPencilAlt} />
+    const deleteIcon = <FontAwesomeIcon icon={faTrashAlt} />
+    const parameterIcon = <FontAwesomeIcon icon={faCog} />
+    const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
+    const arrowDownIcon = <FontAwesomeIcon icon={faAngleDown} />
 
-    const [data, setData] = useState({status : false, data : null});
+    
+    const [data, setData] = useState({status : false, data : null, filter : null});
 
+    // requête, pour récuperer l'ensemble des produits
     useEffect(() => {
         axios.get('https://127.0.0.1:8000/products')
         .then(function (response) {
-          // handle success
-          setData({status : true, data : response.data})
-          console.log(response.data);
+            // handle success
+            setData({status : true, data : response.data, filter : response.data})
+            console.log(response.data);
         })
         .catch(function (error) {
           // handle error
@@ -23,42 +35,225 @@ function AdminHome () {
         })
     }, [])
 
+   
+   
+
+    // les filtres
+    // filtrer le data en fonction d'une catégorie et retourner le nouveau data
+    const displayInformatiqueHighTech = function(data){
+        let InformatiqueHighTechData = [];
+        data.forEach(product => {
+            if(product.category === "informatique/high-tech"){InformatiqueHighTechData.push(product)}
+        });
+        console.log(InformatiqueHighTechData)
+        return InformatiqueHighTechData;
+    }
+
+    const displayLivres = function(data){
+        let livresData = [];
+        data.forEach(product => {
+            if(product.category === "livres"){livresData.push(product)}
+        });
+        console.log(livresData)
+        return livresData;
+    }
+
+    const displayMaison = function(data){
+        let maisonData = [];
+        data.forEach(product => {
+            if(product.category === "maison"){maisonData.push(product)}
+        });
+        console.log(maisonData)
+        return maisonData;
+    }
+
+    const displaySportsVetements = function(data){
+        let sportsVetementsData = [];
+        data.forEach(product => {
+            if(product.category === "sports/vetements"){sportsVetementsData.push(product)}
+        });
+        console.log(sportsVetementsData)
+        return sportsVetementsData;
+    }
+
+    // récupère la valeur de l'input
+    const [value, setValue] = useState();
+
+    const handleChange = (e) => {
+        setValue(e.target.value); 
+    }
+
+    // on choisit le data à envoyer en fonction de la valeur de l'input
+    const handleClickFilter = (e) => {
+        // e.target.value est egal à la valeur de l'input
+        if(e.target.value === "sports/vetements"){
+            setData({...data, filter: displaySportsVetements(data.data)})
+        }else if(e.target.value === "livres"){
+            setData({...data, filter: displayLivres(data.data)})
+        }else if(e.target.value === "maison"){
+            setData({...data, filter: displayMaison(data.data)})
+        }else if(e.target.value === "informatique/high-tech"){
+            setData({...data, filter: displayInformatiqueHighTech(data.data)})
+        }else{
+            setData({...data, filter: data.data})
+        }   
+    }
+
+    // boutons arrowUp et arrowDown
+    const handleClickArrowUp = () =>  {
+        
+        // organiser de façon décroissante
+        let newData = data.filter.sort(function (a, b) {
+            return b.price - a.price;
+         });
+
+        setData({...data, filter: newData})
+        // faire un setData avec le nouveau tableau pour changer le filter 
+    }
+
+    const handleClickArrowDown = () =>  {
+        
+        // organiser de façon décroissante
+        let newData = data.filter.sort(function (a, b) {
+            return a.price - b.price;
+         });
+
+        setData({...data, filter: newData})
+        // faire un setData avec le nouveau tableau pour changer le filter 
+    }
+
+
+    // supprimer un produit
+    // récuperation du token
+    const userInformation = useContext(UserContext);
+    const token  = userInformation.token
+
+    const handleClickDelete = (e) => {
+        axios.delete(`https://127.0.0.1:8000/admin/product/${e.target.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+      
+        // mise à jour du data
+        // refaire un appel products ou supprimer le produit dans le data local
+        // chercher dans data avec l'id, puis le supprimer
+    }
+
+    
+    
+
+
     return <div     
         css={css`
             min-height: calc(100vh - 64px);
+            display: flex;
         `}
     >
-    <Container fluid>
-    <h1 className="text-center mt-4 mb-5">Administration</h1>
-    <Table className="mb-5 text-center" bordered hover>
-        <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Commentaires</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-     
-            {data.status ? 
-            data.data.map(product => 
-            <tr>
-                
-                <td><ModifiedLinksRouter color="black" to={`/product/${product.id}`}>{product.name}</ModifiedLinksRouter></td>
-                <td>{product.price}</td>
-                <td><Link to="#"><Button variant="secondary">Commentaires</Button></Link></td>
-                <td><Link to="#"><Button variant="primary">Modifier</Button></Link></td>
-                <td><Link to="#"><Button variant="danger">Supprimer</Button></Link></td>
-            </tr>
-            )
-            : 
-            <div></div>
-            }      
-        </tbody>
-  </Table>
-  </Container>
+        <AdminNavBar/>
+
+        <Container fluid>
+            <h1 className="text-center mt-4 mb-5">Administration</h1>
+            <Form className="d-flex justify-content-around">
+                <Form.Group >
+                    <Form.Label>Action groupée :</Form.Label>
+                    <div className="d-flex">
+                        <Form.Control as="select" >
+                            <option>Aucune action</option>
+                            <option>Action 1</option>
+                            <option>Action 2</option>
+                            <option>Action 3</option>
+                        </Form.Control>
+                        <Button className="ml-2" variant="secondary">Valider</Button>
+                    </div>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>Filtres :</Form.Label>
+                    <div className="d-flex">
+                        <Form.Control onChange={handleChange} as="select">
+                            <option>Toutes</option>
+                            <option>sports/vetements</option>
+                            <option>livres</option>
+                            <option>maison</option>
+                            <option>informatique/high-tech</option>
+                        </Form.Control>
+                        <Button onClick={handleClickFilter} value={value}  className="ml-2" variant="secondary">Appliquer</Button>
+                    </div>
+                </Form.Group>
+            </Form>
+
+            <Table className="mb-5 text-center" hover>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom du Produit</th>
+                        <th>Catégorie</th>
+                        <th>
+                            <div className="d-flex justify-content-center align-items-center">
+                                Prix
+                                <div className="ml-2 d-flex flex-column">
+                                    <Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+                                        css={css`
+                                            background-color: white;
+                                            border: 1px black solid;
+                                            color: black;
+                                        `}
+                                    >{arrowUpIcon}</Button>
+                                    <Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+                                        css={css`
+                                            background-color: white;
+                                            border: 1px black solid;
+                                            color: black;
+                                        `}
+                                    >{arrowDownIcon}</Button>
+                                </div>
+                            </div>
+                        </th>
+                        <th>Paramètres</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    {data.status ? 
+                    data.filter.map(product => 
+                        <tr key={product.id}>
+                            <td>
+                                <Form.Check
+                                    type="checkbox"
+                                    id={product.id}
+                                    label=""
+                                    custom
+                                />        
+                            </td>
+                            <td>{product.name}</td>
+                            <td>{product.category}</td>
+                            <td>{product.price}€</td>
+                            <td >
+
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                        {parameterIcon}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >{editIcon} Modifier</Dropdown.Item>
+                                        <Dropdown.Item id={product.id} onClick={handleClickDelete}>{deleteIcon} Supprimer</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
+                            </td>
+
+                        </tr>
+                    
+                    )
+                    : 
+                    <p>Chargement ...</p>
+                    
+                    }      
+                </tbody>
+        </Table>
+    </Container>
   </div>
 }
 
