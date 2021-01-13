@@ -9,10 +9,9 @@ import { css} from '@emotion/react';
 import axios from 'axios';
 import {useLocation} from "react-router-dom";
 import {UserContext} from '../Components/UserContext.jsx';
-import {
-    Link
-  } from "react-router-dom";
-// import mac from "../images/mac.jpg"
+import {Link} from "react-router-dom";
+import RedirectLoginRegister from '../Components/RedirectLoginRegister.jsx';
+
 
 function Product({name, content, price}){
 
@@ -22,13 +21,9 @@ function Product({name, content, price}){
     const location = useLocation();
 
     const [data,setData] = useState({status:false,data:""})
-
+    
     useEffect(() => {
-        
         const currentPath = location.pathname;
-        // console.log(`https://127.0.0.1:8000${currentPath}`)
-        // get product
-        
         axios.get(`https://127.0.0.1:8000${currentPath}`)
             .then(res => setData({
                 status: true,
@@ -65,6 +60,13 @@ function Product({name, content, price}){
           });
     }
     
+    // utiliser un usestate pour faire apparaite la div 
+    const [redirect, setRedirect] = useState();
+    const handleClickAddShoppingCart = () => {
+        // console.log("clique")
+        setRedirect(<RedirectLoginRegister>Pour ajouter le produit au panier, vous devez être connecté : </RedirectLoginRegister>)
+    }
+
     return <Container className="d-flex flex-column justify-content-around">
         <TitleH1>{title}</TitleH1>
 
@@ -107,16 +109,17 @@ function Product({name, content, price}){
                 >Prix : {productPrice} €</Card.Title>
                
                     {informationUser.email === null && informationUser.token === null ?
-
-                        <Link to="/login"><Button
+                        <>
+                        <Button
                             css={css`
-                                width: 100%;
+                                color: white;
                             `}
-                        >Ajouter au panier</Button></Link>
-                        
+                            onClick={handleClickAddShoppingCart}
+                        >Ajouter au panier</Button>
+                        </>
                     :
                     
-                        <Card.Link href="#"
+                        <Card.Link href='#'
                             css={css`
                                 color: white;
                             `}
@@ -126,7 +129,12 @@ function Product({name, content, price}){
                 
             </Card.Body>
         </Card>
-
+        {redirect}
+        
+        { informationUser.email === null && informationUser.token === null ? 
+        <></>
+        : 
+        <>
         <div className="d-flex justify-content-center mt-5 mb-5">
             <h2 
                 css={css`
@@ -134,8 +142,11 @@ function Product({name, content, price}){
                 `}
             > Ecrire un commentaire :</h2>
         </div>
-
         <ProductFormComment></ProductFormComment>
+        </>
+        }
+
+        
 
         <div className="d-flex justify-content-center mt-5 mb-5">
             <h2>Les Commentaires postés : </h2>
