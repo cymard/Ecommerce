@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState, useContext} from 'react'
 import {css} from '@emotion/react';
 import {Table, Container, Button, Form, Dropdown} from 'react-bootstrap'
 import axios from 'axios'
-import {Link} from "react-router-dom";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrashAlt, faCog, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import {UserContext} from "../Components/UserContext.jsx"
 
 
 
@@ -123,6 +123,26 @@ function AdminHome () {
     }
 
 
+    // supprimer un produit
+    // récuperation du token
+    const userInformation = useContext(UserContext);
+    const token  = userInformation.token
+
+    const handleClickDelete = (e) => {
+        axios.delete(`https://127.0.0.1:8000/admin/product/${e.target.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+      
+        // mise à jour du data
+        // refaire un appel products ou supprimer le produit dans le data local
+        // chercher dans data avec l'id, puis le supprimer
+    }
+
+    
+    
+
 
     return <div     
         css={css`
@@ -152,7 +172,7 @@ function AdminHome () {
                     <Form.Label>Filtres :</Form.Label>
                     <div className="d-flex">
                         <Form.Control onChange={handleChange} as="select">
-                            <option>All</option>
+                            <option>Toutes</option>
                             <option>sports/vetements</option>
                             <option>livres</option>
                             <option>maison</option>
@@ -210,19 +230,18 @@ function AdminHome () {
                             <td>{product.name}</td>
                             <td>{product.category}</td>
                             <td>{product.price}€</td>
-                            <td>
-                                <Link to="#">
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                            {parameterIcon}
-                                        </Dropdown.Toggle>
+                            <td >
 
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item href="#/action-1">{editIcon} Modifier</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-2">{deleteIcon} Supprimer</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Link>
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                        {parameterIcon}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >{editIcon} Modifier</Dropdown.Item>
+                                        <Dropdown.Item id={product.id} onClick={handleClickDelete}>{deleteIcon} Supprimer</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
                             </td>
 
                         </tr>
