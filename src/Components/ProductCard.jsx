@@ -10,7 +10,7 @@ import {
 import screen from '../images/screen.jpg';
 
 
-function HomeProduct ({title,textButton,id}) {
+function ProductCard ({title,textButton,id}) {
 
     
     return <Card 
@@ -32,14 +32,14 @@ function HomeProduct ({title,textButton,id}) {
         </Card>
 }
 
-HomeProduct.propTypes = {
+ProductCard.propTypes = {
     title : PropTypes.node,
     textButton : PropTypes.node
 }
 
-HomeProduct.defaultProps = {
+ProductCard.defaultProps = {
     title : "Le Titre",
     textButton : "Voir l'article"
 }
 
-export default HomeProduct;
+export default ProductCard;
