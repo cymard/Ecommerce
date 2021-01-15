@@ -43,7 +43,7 @@ function AdminHome () {
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-            <CategoryFilter></CategoryFilter>
+            <CategoryFilter setData={setData} data={data}></CategoryFilter>
 
             <Table className="mb-5 text-center" hover>
                 <thead>
