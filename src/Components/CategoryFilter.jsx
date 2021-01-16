@@ -7,19 +7,32 @@ function CategoryFilter ({data, setData}) {
     // récupère la valeur de l'input
     const [value, setValue] = useState();
 
+    // const test = useMemo(() => {
+    //     axios.get('https://127.0.0.1:8000/products/sports')
+    //     .then(function (response){
+    //         // handle success
+    //         setData({...data, filter: response.data})
+    //         console.log(response.data);
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    // }, [data, setData])
+
     const handleChange = (e) => {
         console.log(e.target.value);
         if(e.target.value === "sports/vetements"){
             axios.get('https://127.0.0.1:8000/products/sports')
-            .then(function (response){
-                // handle success
-                setData({...data, filter: response.data})
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+        .then(function (response){
+            // handle success
+            setData({...data, filter: response.data})
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
         }else if(e.target.value === "livres"){
             axios.get('https://127.0.0.1:8000/products/livres')
             .then(function (response){
