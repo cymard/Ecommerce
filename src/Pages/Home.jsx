@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import HomeProduct from '../Components/HomeProduct.jsx'
+import ProductCard from '../Components/ProductCard.jsx'
 import {Container} from 'react-bootstrap';
 import HomeCarousel from '../Components/HomeCarousel.jsx'
 import axios from 'axios';
@@ -18,7 +18,7 @@ function Home(){
         <Container className="d-flex justify-content-around flex-wrap">
             <HomeCarousel></HomeCarousel>
             {data.status ?
-            data.data.map(product =><HomeProduct key={product.id} title={product.name} id={product.id}></HomeProduct>)
+            data.data.map(product =><ProductCard key={product.id} title={product.name} id={product.id}></ProductCard>)
             :
             <p>Chargement ...</p>
             }
