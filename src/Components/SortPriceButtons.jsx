@@ -13,22 +13,22 @@ function SortPriceButtons ({data, setData}) {
     const handleClickArrowUp = () =>  {
         
         // organiser de façon décroissante
-        let newData = data.filter.sort(function (a, b) {
+        let newData = data.data.sort(function (a, b) {
             return b.price - a.price;
          });
 
-        setData({...data, filter: newData})
+        setData({...data, data: newData})
         // faire un setData avec le nouveau tableau pour changer le filter 
     }
 
     const handleClickArrowDown = () =>  {
         
         // organiser de façon décroissante
-        let newData = data.filter.sort(function (a, b) {
+        let newData = data.data.sort(function (a, b) {
             return a.price - b.price;
          });
 
-        setData({...data, filter: newData})
+        setData({...data, data: newData})
         // faire un setData avec le nouveau tableau pour changer le filter 
     }
 

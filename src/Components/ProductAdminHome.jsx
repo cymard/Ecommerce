@@ -5,7 +5,7 @@ import {Form } from 'react-bootstrap';
 function ProductAdminHome ({data}) {
     return <>
     {data.status ? 
-        data.filter.map(product => 
+        data.data.map(product => 
             <tr key={product.id}>
                 <td>
                     <Form.Check
