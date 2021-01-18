@@ -1,26 +1,23 @@
-import React, {useState} from 'react';
-import {Form} from 'react-bootstrap';
+import React from 'react';
+import {Nav} from 'react-bootstrap';
 import axios from 'axios';
 
-function CategoryFilter ({setData}) {
-
-    // récupère la valeur de l'input
-    const [value, setValue] = useState();
-
-    const handleChange = (e) => {
-        console.log(e.target.value);
-        if(e.target.value === "sports/vetements"){
+function FrontNavBarFilter ({setData}) {
+    // 
+    const handleClick = (e) => {
+        console.log(e.target.dataset.rbEventKey);
+        if(e.target.dataset.rbEventKey === "sports/vetements"){
             axios.get('https://127.0.0.1:8000/products/sports/1')
         .then(function (response){
             // handle success
-            setData({status: true, data: response.data, filter: "sports"})
+            setData({status: true, data: response.data, filter: "sports" })
             console.log(response.data);
         })
         .catch(function (error) {
             // handle error
             console.log(error);
         })
-        }else if(e.target.value === "livres"){
+        }else if(e.target.dataset.rbEventKey === "livres"){
             axios.get('https://127.0.0.1:8000/products/livres/1')
             .then(function (response){
                 // handle success
@@ -31,7 +28,7 @@ function CategoryFilter ({setData}) {
               // handle error
               console.log(error);
             })
-        }else if(e.target.value === "maison"){
+        }else if(e.target.dataset.rbEventKey === "maison"){
             axios.get('https://127.0.0.1:8000/products/maison/1')
             .then(function (response){
                 // handle success
@@ -42,7 +39,7 @@ function CategoryFilter ({setData}) {
               // handle error
               console.log(error);
             })
-        }else if(e.target.value === "informatique/high-tech"){
+        }else if(e.target.dataset.rbEventKey === "informatique/high-tech"){
             axios.get('https://127.0.0.1:8000/products/informatique/1')
                 .then(function (response){
                     // handle success
@@ -65,24 +62,25 @@ function CategoryFilter ({setData}) {
                   console.log(error);
                 })
         }   
-        setValue(e.target.value); 
     }
 
-
-    return <Form className="d-flex justify-content-around">
-        <Form.Group>
-            <Form.Label>Catégorie :</Form.Label>
-            <div className="d-flex">
-                <Form.Control value={value} onChange={handleChange} as="select">
-                    <option>Toutes</option>
-                    <option>sports/vetements</option>
-                    <option>livres</option>
-                    <option>maison</option>
-                    <option>informatique/high-tech</option>
-                </Form.Control>
-            </div>
-        </Form.Group>
-    </Form>
+    return <Nav fill variant="tabs" defaultActiveKey="/home">
+    <Nav.Item>
+      <Nav.Link onClick={handleClick} eventKey="all">Toutes</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={handleClick} eventKey="sports/vetements">Sports/vêtements</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={handleClick} eventKey="informatique/high-tech">Informatique/High-Tech</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={handleClick} eventKey="maison">Maison</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={handleClick} eventKey="livres">Livres</Nav.Link>
+    </Nav.Item>
+  </Nav>
 }
 
-export default CategoryFilter;
+export default FrontNavBarFilter;

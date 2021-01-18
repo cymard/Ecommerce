@@ -7,22 +7,19 @@ import AdminNavBar from "../Components/AdminNavBar.jsx";
 import CategoryFilter from '../Components/CategoryFilter.jsx';
 import SortPriceButtons from '../Components/SortPriceButtons.jsx';
 import ProductAdminHome from '../Components/ProductAdminHome.jsx';
-
+import PaginationProducts from '../Components/PaginationProducts.jsx';
 
 
 function AdminHome () {
     
-    const [data, setData] = useState({status : false, data : null, filter : null});
-
-    // requête, pour récuperer l'ensemble des produits
-
-
     
+    const [data, setData] = useState({status: false, data: null, filter: "all"});
+
     useEffect(() => {
-        axios.get('https://127.0.0.1:8000/products')
+        axios.get('https://127.0.0.1:8000/products/all/1')
         .then(function (response){
             // handle success
-            setData({status : true, data : response.data, filter : response.data})
+            setData({status: true, data: response.data, filter: "all"})
             console.log(response.data);
         })
         .catch(function (error) {
@@ -69,6 +66,7 @@ function AdminHome () {
                 </tbody>
                 <Button variant="danger">Supprimer</Button>
             </Table>
+            <PaginationProducts setData={setData} data={data}></PaginationProducts>
         </Container>
   </div>
 }
