@@ -8,13 +8,14 @@ import {useLocation} from "react-router-dom";
 import {UserContext} from '../Components/UserContext.jsx';
 import ProductImageDescription from "../Components/ProductImageDescription.jsx";
 import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCart.jsx';
+import ProductStock from '../Components/ProductStock.jsx';
 
 
 function Product({name, content, price}){
 
 
     const informationUser = useContext(UserContext);
-    console.log(informationUser);
+
     const location = useLocation();
 
     const [data,setData] = useState({status:false,data:""})
@@ -28,11 +29,13 @@ function Product({name, content, price}){
             }))
     }, [location]);
     
+    // gerer l'etat avant la réponse de l'api :
     // data.status ? console.log(data) : console.log("wait");
     const title = data.status ? data.data.name : name;
     const description = data.status ? data.data.description : content;
     const productPrice = data.status ? data.data.price : price;
     const image = data.status ? data.data.image : "holder.js/171x180";
+    const stock = data.status ? data.data.stock : "chargement";
     // console.log(mac);
 
     // méthodes pour upload
@@ -57,7 +60,7 @@ function Product({name, content, price}){
     //       });
     // }
     
-
+    console.log(data);
     return <Container className="d-flex flex-column justify-content-around">
         <TitleH1>{title}</TitleH1>
 
@@ -65,7 +68,7 @@ function Product({name, content, price}){
         <button onClick={uploadFile}>salut</button> */}
 
         <ProductImageDescription image={image}>{description}</ProductImageDescription> 
-
+        <ProductStock stock={stock}></ProductStock>
         <ProductPriceAddShoppingCart price={productPrice}></ProductPriceAddShoppingCart>
 
         <div className="d-flex justify-content-center mt-5 mb-5">

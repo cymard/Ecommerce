@@ -54,6 +54,7 @@ function AdminHome () {
                             />        
                         </th>
                         <th>Nom du Produit</th>
+                        <th>Stock</th>
                         <th>Catégorie</th>
                         <th>
                             <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
