@@ -41,11 +41,17 @@ function ProductPriceAddShoppingCart ({price}){
                     </>
                 :
                 
-                    <Card.Link href='#'
+                    // <Card.Link href='#'
+                    //     css={css`
+                    //         color: white;
+                    //     `}
+                    // >Ajouter au panier</Card.Link>
+                    <Button
                         css={css`
                             color: white;
                         `}
-                    >Ajouter au panier</Card.Link>
+                        onClick={handleClickAddShoppingCart}
+                    >Ajouter au panier</Button>
                 }
                 
             

@@ -1,18 +1,18 @@
-import React,{useCallback} from 'react';
+import React from 'react';
 import {Pagination} from 'react-bootstrap';
 
 function ReturnPaginationButtons ({number, handleClick}) {
  
-    const test = useCallback((number, handleClick) => {
+    const test = (number, handleClick) => {
         let pageNumber = Math.ceil(number/9);
-        console.log(pageNumber);
         let paginationArray = []
+        
         for(let i = 1;i<=pageNumber; i++){
-            paginationArray.push(<Pagination.Item onClick={handleClick}>{i}</Pagination.Item>)
+            paginationArray.push(<Pagination.Item key={i} onClick={handleClick}>{i}</Pagination.Item>)
         }
-        console.log(paginationArray)
+
         return paginationArray
-    },[])
+    }
     
 
     return <>

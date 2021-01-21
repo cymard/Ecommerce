@@ -1,20 +1,16 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
 import TitleH1 from "../Components/TitleH1.jsx";
 import axios from 'axios';
 import {useLocation} from "react-router-dom";
-import {UserContext} from '../Components/UserContext.jsx';
 import ProductImageDescription from "../Components/ProductImageDescription.jsx";
 import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCart.jsx';
 import ProductStock from '../Components/ProductStock.jsx';
 
 
 function Product({name, content, price}){
-
-
-    const informationUser = useContext(UserContext);
 
     const location = useLocation();
 
@@ -60,7 +56,6 @@ function Product({name, content, price}){
     //       });
     // }
     
-    console.log(data);
     return <Container className="d-flex flex-column justify-content-around">
         <TitleH1>{title}</TitleH1>
 

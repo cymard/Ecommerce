@@ -5,38 +5,34 @@ import axios from 'axios';
 import {css} from '@emotion/react';
 import ReturnPaginationButtons from "./ReturnPaginationButtons.jsx"
 
-function PaginationProducts ({setData, data}) {
+function PaginationProducts ({setData, data, backOffice}) {
 
-   
+    
 
-    const [pageNumber, setPageNumber] = useState({number: null})
+    const [productNumberInCategory, setProductNumberInCategory] = useState({number: null})
     useEffect(()=>{
         axios.get(`https://127.0.0.1:8000/products/${data.filter}`)
         .then(function (response){
             // handle success
-            setPageNumber({number: response.data})
-            console.log(response.data);
+            setProductNumberInCategory({number: response.data})
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         })
-    },[data])
+    },[data, backOffice])
 
 
     const handleClick = (e) => {
+        // Récuperer le numéro de la page
+        let page = e.target.innerHTML ; 
 
-        console.log(data)
-        let page = e.target.innerHTML ;
+        // Récuperer le data de la page
         axios.get(`https://127.0.0.1:8000/products/${data.filter}/${page}`)
         .then(function (response){
-            console.log(response);
-            setData({status: true, data: response.data, filter: data.filter  })
-            // le contenu => response.data
-            // le contenu est vide => response.data = []
+            setData({status: true, data: response.data, filter: data.filter})
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
         })
     }
@@ -53,13 +49,7 @@ function PaginationProducts ({setData, data}) {
             margin-top: 50px;
         `}
     >
-        {/* <Pagination.First/>
-        <Pagination.Prev/> */}
-        {pageNumber.number !== null ? <ReturnPaginationButtons number={pageNumber.number} handleClick={handleClick}></ReturnPaginationButtons> : <></>}
-            
-        {/* <Pagination.Ellipsis/>
-        <Pagination.Next/>
-        <Pagination.Last/> */}
+        {productNumberInCategory.number !== null ? <ReturnPaginationButtons number={productNumberInCategory.number} handleClick={handleClick}></ReturnPaginationButtons> : <></>}      
     </Pagination>
 }
 
