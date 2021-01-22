@@ -7,9 +7,9 @@ import ReturnPaginationButtons from "./ReturnPaginationButtons.jsx"
 
 function PaginationProducts ({setData, data, backOffice}) {
 
-    
-
     const [productNumberInCategory, setProductNumberInCategory] = useState({number: null})
+    const [test, setTest] = useState(1)
+
     useEffect(()=>{
         axios.get(`https://127.0.0.1:8000/products/${data.filter}`)
         .then(function (response){
@@ -23,10 +23,11 @@ function PaginationProducts ({setData, data, backOffice}) {
     },[data, backOffice])
 
 
-    const handleClick = (e) => {
+    const handleFocus = (e) => {
         // Récuperer le numéro de la page
         let page = e.target.innerHTML ; 
 
+        setTest(parseInt(page));
         // Récuperer le data de la page
         axios.get(`https://127.0.0.1:8000/products/${data.filter}/${page}`)
         .then(function (response){
@@ -37,10 +38,6 @@ function PaginationProducts ({setData, data, backOffice}) {
         })
     }
 
-
-    // const number = data.data.length/9;
-
-
     return <Pagination
         css={css`
             width: 100%;
@@ -49,7 +46,14 @@ function PaginationProducts ({setData, data, backOffice}) {
             margin-top: 50px;
         `}
     >
-        {productNumberInCategory.number !== null ? <ReturnPaginationButtons number={productNumberInCategory.number} handleClick={handleClick}></ReturnPaginationButtons> : <></>}      
+              
+        {
+        productNumberInCategory.number !== null 
+        ? 
+        <ReturnPaginationButtons productNumber={productNumberInCategory.number} handleFocus={handleFocus} test={test} setTest={setTest}></ReturnPaginationButtons> 
+        : 
+        <></>
+        }
     </Pagination>
 }
 
