@@ -12,7 +12,10 @@ function PaginationProducts ({data}) {
 
     useEffect(()=>{
         // focus le bouton qui correpond a l'id 
+
         setTest(parseInt(page))
+        
+       
     },[setTest,page])
 
     // console.log(typeof page)

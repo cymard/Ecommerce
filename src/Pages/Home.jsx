@@ -6,28 +6,21 @@ import FrontNavBarFilter from '../Components/FrontNavBarFilter.jsx';
 import DisplayProductHome from '../Components/DisplayProductHome.jsx';
 import PaginationProducts from '../Components/PaginationProducts.jsx';
 import {
-    useLocation
+    useLocation,
+    useHistory
   } from "react-router-dom";
 
 function Home(){
     const [data, setData] = useState({status : false, data: "", filter: ""})
     const location = useLocation();
-    
+    const history = useHistory();
     console.log(location.pathname)
 
     useEffect(()=>{
         if(location.pathname === "/"){
-            // afficher all/1 quand on arrive sur la page d'accueil 
-            axios.get(`https://127.0.0.1:8000/products/all/1`)
-            .then(function (response){
-                // handle success
-                console.log(response);
-                setData({status: true, data: response.data.pageContent, filter: "all"})
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+
+            // redirection
+            history.push("/all/1");
 
         }else{
             axios.get(`https://127.0.0.1:8000/products${location.pathname}`)
@@ -40,10 +33,11 @@ function Home(){
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                history.push("/all/1");
             })
         }
         
-    },[location])
+    },[location,history])
     
     data.status ? console.log(data.data) : console.log("wait")
 
