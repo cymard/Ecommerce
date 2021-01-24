@@ -1,10 +1,15 @@
+/** @jsxImportSource @emotion/react */
 import React, {useState} from 'react';
-import {Pagination} from 'react-bootstrap';
+import {Pagination, Button} from 'react-bootstrap';
+import {css} from '@emotion/react';
+import {
+    Link
+  } from "react-router-dom";
 
-function ReturnPaginationButtons ({productNumber, handleFocus, test, setTest}) {
+function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
 
     const [theNumber, setTheNumber] = useState(0)
-    let pageNumber = Math.ceil(productNumber/9);
+    let pageNumber = totalPageNumber;
     let allButtons = []
 
     const handleClickLast = () => {
@@ -31,8 +36,15 @@ function ReturnPaginationButtons ({productNumber, handleFocus, test, setTest}) {
         }
 
         for(let i = 1;i<=pageNumber; i++){
-    
-            allButtons.push(<Pagination.Item key={i} onFocus={handleFocus} active={test === i} >{i}</Pagination.Item>)
+            // changer l'id dans l'url
+            allButtons.push(<Link key={i} to={`${i}`}>
+                <Button
+                    css={css`
+                        margin: 0 2px;
+                        border-color: grey;
+                    `}
+                variant="outline-dark" key={i} onClick={handleFocus} active={test === i}>{i}</Button>
+            </Link>)
         }
 
         // afficher ou pas flèches First et Last en fonction du nombre de page
@@ -40,11 +52,11 @@ function ReturnPaginationButtons ({productNumber, handleFocus, test, setTest}) {
             return change()
         }else{
             if(theNumber === 0 ){
-                return [change(), <Pagination.Last onClick={handleClickLast}  key={"last"} />]
+                return [change(), <Pagination.Last  onClick={handleClickLast}  key={"last"} />]
             }else if(theNumber >= pageNumber-6){
                 return [<Pagination.First onClick={handleClickFirst} key={0} />, change()]
             }else {
-                return [<Pagination.First onClick={handleClickFirst} key={0} />, change(), <Pagination.Last onClick={handleClickLast}  key={"last"} />]
+                return [<Pagination.First onClick={handleClickFirst} key={0} />,  change(), <Pagination.Last onClick={handleClickLast}  key={"last"} />]
             }
         }
 

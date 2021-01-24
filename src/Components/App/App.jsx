@@ -56,7 +56,8 @@ function App(){
                     <Route path="/admin/home">
                         <AdminHome></AdminHome>
                     </Route>
-                    <Route path="/">
+                    
+                    <Route path={["/:category/:page","/"]}>
                         <Header></Header>
                         <Home></Home>
                         <Footer></Footer>

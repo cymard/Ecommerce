@@ -1,42 +1,32 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect, useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Pagination} from 'react-bootstrap';
-import axios from 'axios';
 import {css} from '@emotion/react';
 import ReturnPaginationButtons from "./ReturnPaginationButtons.jsx"
+import {useParams} from "react-router-dom";
 
-function PaginationProducts ({setData, data, backOffice}) {
+function PaginationProducts ({data}) {
 
-    const [productNumberInCategory, setProductNumberInCategory] = useState({number: null})
     const [test, setTest] = useState(1)
+    let {page} = useParams(); //recupere l'id
 
     useEffect(()=>{
-        axios.get(`https://127.0.0.1:8000/products/${data.filter}`)
-        .then(function (response){
-            // handle success
-            setProductNumberInCategory({number: response.data})
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-    },[data, backOffice])
+        // focus le bouton qui correpond a l'id 
+        setTest(parseInt(page))
+    },[setTest,page])
 
+    // console.log(typeof page)
 
     const handleFocus = (e) => {
         // Récuperer le numéro de la page
         let page = e.target.innerHTML ; 
-
-        setTest(parseInt(page));
-        // Récuperer le data de la page
-        axios.get(`https://127.0.0.1:8000/products/${data.filter}/${page}`)
-        .then(function (response){
-            setData({status: true, data: response.data, filter: data.filter})
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+        // mettre test = page pour activer le focus sur le bouton
+        setTest(page)
     }
+
+
+    // page !== undefined && page !== test ? setTest({page}) : console.log("ok")
+    // console.log(page)
 
     return <Pagination
         css={css`
@@ -48,9 +38,9 @@ function PaginationProducts ({setData, data, backOffice}) {
     >
               
         {
-        productNumberInCategory.number !== null 
+        data.status === true 
         ? 
-        <ReturnPaginationButtons productNumber={productNumberInCategory.number} handleFocus={handleFocus} test={test} setTest={setTest}></ReturnPaginationButtons> 
+        <ReturnPaginationButtons totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtons>
         : 
         <></>
         }
