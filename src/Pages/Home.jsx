@@ -26,7 +26,6 @@ function Home(){
             axios.get(`https://127.0.0.1:8000/products${location.pathname}`)
             .then(function (response){
                 // handle success
-
                 setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
                 console.log(response.data);
             })
@@ -43,7 +42,7 @@ function Home(){
 
     return <>
         <Container className="d-flex justify-content-around flex-wrap">
-            <FrontNavBarFilter setData={setData} data={data} filter={data.filter}></FrontNavBarFilter>
+            <FrontNavBarFilter></FrontNavBarFilter>
             <HomeCarousel></HomeCarousel>
             <DisplayProductHome data={data}></DisplayProductHome>
             <PaginationProducts data={data}></PaginationProducts>

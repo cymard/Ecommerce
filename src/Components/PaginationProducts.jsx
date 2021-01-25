@@ -12,9 +12,7 @@ function PaginationProducts ({data}) {
 
     useEffect(()=>{
         // focus le bouton qui correpond a l'id 
-
         setTest(parseInt(page))
-        
        
     },[setTest,page])
 
@@ -26,10 +24,6 @@ function PaginationProducts ({data}) {
         // mettre test = page pour activer le focus sur le bouton
         setTest(page)
     }
-
-
-    // page !== undefined && page !== test ? setTest({page}) : console.log("ok")
-    // console.log(page)
 
     return <Pagination
         css={css`

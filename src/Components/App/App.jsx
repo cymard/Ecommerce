@@ -53,7 +53,7 @@ function App(){
                         <ConnectedAccount></ConnectedAccount>
                         <Footer></Footer>
                     </Route>
-                    <Route exact path="/admin/home">
+                    <Route path={["/admin/home/:category/:page","/admin/home"]}>
                         <AdminHome></AdminHome>
                     </Route>
                     
