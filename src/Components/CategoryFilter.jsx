@@ -1,27 +1,37 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
-import {useHistory} from "react-router-dom";
+import {useHistory,useParams} from "react-router-dom";
 
 function CategoryFilter () {
     let history = useHistory();
+    let { sort, } = useParams();
+    let { category } = useParams();
     // récupère la valeur de l'input
-    const [value, setValue] = useState();
+    if(category === "sports"){
+      category = "sports/vetements"
+    }else if(category === "informatique"){
+        category = "informatique/high-tech";
+    }
+    
+    const [value, setValue] = useState(category);
+    
+    console.log(value);
 
     const handleChange = (e) => {
         console.log(e.target.value);
         // changer l'url
         if(e.target.value === "sports/vetements"){
-            setValue("sports");
-            history.push(`/admin/home/sports/1`);
+            setValue("sports/vetements");
+            history.push(`/admin/home/sports/1/${sort}`);
         }else if(e.target.value === "informatique/high-tech"){
-            setValue("informatique");
-            history.push(`/admin/home/informatique/1`);
+            setValue("informatique/high-tech");
+            history.push(`/admin/home/informatique/1/${sort}`);
         }else if(e.target.value === "Toutes"){
-            setValue("informatique");
-            history.push(`/admin/home/all/1`);
+            setValue("Toutes");
+            history.push(`/admin/home/all/1/${sort}`);
         }else{
             setValue(e.target.value);
-            history.push(`/admin/home/${e.target.value}/1`);
+            history.push(`/admin/home/${e.target.value}/1/${sort}`);
         }   
         
     }

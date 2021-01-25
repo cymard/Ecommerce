@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState, useContext} from 'react'
+import React,{useEffect,useState} from 'react'
 import {css} from '@emotion/react';
 import {Table, Container, Form, Button} from 'react-bootstrap'
 import axios from 'axios';
@@ -7,7 +7,7 @@ import AdminNavBar from "../Components/AdminNavBar.jsx";
 import CategoryFilter from '../Components/CategoryFilter.jsx';
 import SortPriceButtons from '../Components/SortPriceButtons.jsx';
 import ProductAdminHome from '../Components/ProductAdminHome.jsx';
-import PaginationProducts from '../Components/PaginationProducts.jsx';
+import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
 // import {UserContext} from '../Components/UserContext.jsx';
 import {
     useLocation,
@@ -19,7 +19,6 @@ function AdminHome () {
     
     
     const [data, setData] = useState({status: false, data: null, filter: "all"});
-    // const userInformation = useContext(UserContext);
     let history = useHistory();
     const location = useLocation();
     console.log(location.pathname)
@@ -29,7 +28,7 @@ function AdminHome () {
         // vérification si ROLE_ADMIN
 
         if(location.pathname === "/admin/home"){
-            history.push("/admin/home/all/1");
+            history.push("/admin/home/all/1/default");
         }else{
 
             axios.get(`https://127.0.0.1:8000${location.pathname}`)
@@ -42,7 +41,7 @@ function AdminHome () {
                 // handle error
                 
                 console.log(error);
-                history.push("/admin/home/all/1");
+                history.push("/admin/home/all/1/default");
             })
 
         }
@@ -88,7 +87,7 @@ function AdminHome () {
                     </tbody>
                     <Button variant="danger">Supprimer</Button>
                 </Table>
-                <PaginationProducts setData={setData} data={data} ></PaginationProducts>
+                <PaginationProductsAdmin setData={setData} data={data} ></PaginationProductsAdmin>
             </Container>
         </div>
     }else {
