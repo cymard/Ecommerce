@@ -1,71 +1,39 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
-import axios from 'axios';
+import {useHistory,useParams} from "react-router-dom";
 
-function CategoryFilter ({setData}) {
-
+function CategoryFilter () {
+    let history = useHistory();
+    let { sort, } = useParams();
+    let { category } = useParams();
     // récupère la valeur de l'input
-    const [value, setValue] = useState();
+    if(category === "sports"){
+      category = "sports/vetements"
+    }else if(category === "informatique"){
+        category = "informatique/high-tech";
+    }
+    
+    const [value, setValue] = useState(category);
+    
+    console.log(value);
 
     const handleChange = (e) => {
         console.log(e.target.value);
+        // changer l'url
         if(e.target.value === "sports/vetements"){
-            axios.get('https://127.0.0.1:8000/products/sports/1')
-        .then(function (response){
-            // handle success
-            setData({status: true, data: response.data, filter: "sports"})
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        }else if(e.target.value === "livres"){
-            axios.get('https://127.0.0.1:8000/products/livres/1')
-            .then(function (response){
-                // handle success
-                setData({status: true, data: response.data, filter: "livres"})
-                console.log(response.data);
-            })
-            .catch(function (error) {
-              // handle error
-              console.log(error);
-            })
-        }else if(e.target.value === "maison"){
-            axios.get('https://127.0.0.1:8000/products/maison/1')
-            .then(function (response){
-                // handle success
-                setData({status: true, data: response.data, filter: "maison"})
-                console.log(response.data);
-            })
-            .catch(function (error) {
-              // handle error
-              console.log(error);
-            })
+            setValue("sports/vetements");
+            history.push(`/admin/home/sports/1/${sort}`);
         }else if(e.target.value === "informatique/high-tech"){
-            axios.get('https://127.0.0.1:8000/products/informatique/1')
-                .then(function (response){
-                    // handle success
-                    setData({status: true, data: response.data, filter: "informatique"})
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                  // handle error
-                  console.log(error);
-                })
+            setValue("informatique/high-tech");
+            history.push(`/admin/home/informatique/1/${sort}`);
+        }else if(e.target.value === "Toutes"){
+            setValue("Toutes");
+            history.push(`/admin/home/all/1/${sort}`);
         }else{
-            axios.get('https://127.0.0.1:8000/products/all/1')
-                .then(function (response){
-                    // handle success
-                    setData({status: true, data: response.data, filter: "all"})
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                  // handle error
-                  console.log(error);
-                })
+            setValue(e.target.value);
+            history.push(`/admin/home/${e.target.value}/1/${sort}`);
         }   
-        setValue(e.target.value); 
+        
     }
 
 

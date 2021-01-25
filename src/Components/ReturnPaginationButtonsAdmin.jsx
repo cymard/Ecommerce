@@ -3,10 +3,12 @@ import React, {useState} from 'react';
 import {Pagination, Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {
-    Link
+    Link,
+    useParams
   } from "react-router-dom";
 
-function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
+function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
+    let { sort } = useParams();
     const [theNumber, setTheNumber] = useState(0)
     let pageNumber = totalPageNumber;
     let allButtons = []
@@ -38,7 +40,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`${i}`}>
+            allButtons.push(<Link key={i} to={`../${i}/${sort}`}>
                 <Button
                     css={css`
                         margin: 0 2px;
@@ -65,7 +67,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
     }
 
 
-    return create() 
+    return create(sort) 
 
 
 
@@ -73,4 +75,4 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
  
 }
 
-export default ReturnPaginationButtons;
+export default ReturnPaginationButtonsAdmin;

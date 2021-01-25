@@ -2,7 +2,7 @@
 import React,{useState, useEffect} from 'react';
 import {Pagination} from 'react-bootstrap';
 import {css} from '@emotion/react';
-import ReturnPaginationButtons from "./ReturnPaginationButtons.jsx"
+import ReturnPaginationButtonsAdmin from "./ReturnPaginationButtonsAdmin.jsx"
 import {useParams} from "react-router-dom";
 
 function PaginationProducts ({data}) {
@@ -37,7 +37,7 @@ function PaginationProducts ({data}) {
         {
         data.status === true 
         ? 
-        <ReturnPaginationButtons totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtons>
+        <ReturnPaginationButtonsAdmin totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtonsAdmin>
         : 
         <></>
         }

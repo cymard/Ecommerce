@@ -53,10 +53,11 @@ function App(){
                         <ConnectedAccount></ConnectedAccount>
                         <Footer></Footer>
                     </Route>
-                    <Route path="/admin/home">
+                    <Route path={["/admin/home/:category/:page/:sort","/admin/home"]}>
                         <AdminHome></AdminHome>
                     </Route>
-                    <Route path="/">
+                    
+                    <Route path={["/:category/:page","/"]}>
                         <Header></Header>
                         <Home></Home>
                         <Footer></Footer>
