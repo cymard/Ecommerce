@@ -3,6 +3,7 @@ import Header from '../Header.jsx'
 import Footer from '../Footer.jsx'
 import Home from '../../Pages/Home.jsx'
 import Login from '../../Pages/Login.jsx'
+import LoginAdmin from '../../Pages/LoginAdmin.jsx'
 import Register from '../../Pages/Register.jsx'
 import ShoppingCart from '../../Pages/ShoppingCart.jsx'
 import Product from '../../Pages/Product.jsx'
@@ -53,7 +54,12 @@ function App(){
                         <ConnectedAccount></ConnectedAccount>
                         <Footer></Footer>
                     </Route>
-                    <Route path={["/admin/home/:category/:page/:sort","/admin/home"]}>
+                    <Route exact path="/Login/Admin">
+                        <Header></Header>
+                        <LoginAdmin></LoginAdmin>
+                        <Footer></Footer>
+                    </Route>
+                    <Route path={["/Admin/Home/:category/:page/:sort","/admin/home"]}>
                         <AdminHome></AdminHome>
                     </Route>
                     

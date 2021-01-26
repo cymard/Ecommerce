@@ -38,7 +38,7 @@ function LoginForm () {
                 setResponse("connection au compte ...");
             
                 // mise à jour du context
-                // prise en compte duu token
+                // prise en compte du token
                 // prendre l'email depuis la requête envoyée
                 userInformation.setUserInformation({
                     email: values.formBasicEmail,
