@@ -1,10 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useContext} from 'react';
 import {Navbar} from 'react-bootstrap';
 import ModifiedLinksRouter from './ModifiedLinksRouter';
 import {css} from '@emotion/react';
+import {UserAdminContext} from './UserAdminContext.jsx'
 
 function AdminNavBar () {
+    const userAdminInformation = useContext(UserAdminContext);
+    const handleClick = () => {
+        userAdminInformation.setUserAdminInformation({
+            email: null,
+            token: null
+        })
+    }
 
     return  <Navbar bg="dark" variant="dark"
     css={css`
@@ -21,6 +29,7 @@ function AdminNavBar () {
             <ModifiedLinksRouter color="white" to="/admin/home">PRODUITS</ModifiedLinksRouter>
             <ModifiedLinksRouter color="white" to="/admin/home">CREER</ModifiedLinksRouter>
             <ModifiedLinksRouter color="white" to="/admin/home">COMMENTAIRES</ModifiedLinksRouter>
+            <ModifiedLinksRouter onClick={handleClick} color="white" to="/">DECONNEXION</ModifiedLinksRouter>
             <ModifiedLinksRouter color="white" to="/">QUITTER</ModifiedLinksRouter>
         </div>
         

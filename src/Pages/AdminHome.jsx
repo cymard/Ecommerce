@@ -28,7 +28,7 @@ function AdminHome () {
 
     useEffect(() => {
         // vérification si ROLE_ADMIN
-        if(token === undefined){
+        if(token === null || token === false){
             history.push("/login/admin")
         }else {
             if(location.pathname === "/admin/home"){
