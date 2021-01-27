@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useContext} from 'react'
 import {css} from '@emotion/react';
 import {Table, Container, Form, Button} from 'react-bootstrap'
 import axios from 'axios';
@@ -8,7 +8,7 @@ import CategoryFilter from '../Components/CategoryFilter.jsx';
 import SortPriceButtons from '../Components/SortPriceButtons.jsx';
 import ProductAdminHome from '../Components/ProductAdminHome.jsx';
 import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
-// import {UserContext} from '../Components/UserContext.jsx';
+import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import {
     useLocation,
     useHistory
@@ -23,29 +23,36 @@ function AdminHome () {
     const location = useLocation();
     console.log(location.pathname)
 
+    const userAdminInformation = useContext(UserAdminContext);
+    const token = userAdminInformation.token
 
     useEffect(() => {
         // vérification si ROLE_ADMIN
-
-        if(location.pathname === "/admin/home"){
-            history.push("/admin/home/all/1/default");
-        }else{
-
-            axios.get(`https://127.0.0.1:8000${location.pathname}`)
-            .then(function (response){
-                // handle success
-                setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                // handle error
-                
-                console.log(error);
+        if(token === undefined){
+            history.push("/login/admin")
+        }else {
+            if(location.pathname === "/admin/home"){
                 history.push("/admin/home/all/1/default");
-            })
-
+            }else{
+                axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                axios.get(`https://127.0.0.1:8000${location.pathname}`)
+                .then(function (response){
+                    // handle success
+                    setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error); // erreur 401 unauthorized
+                    console.log(token)
+                    // history.push("/login/admin")
+                    // history.push("/admin/home/all/1/default");
+                })
+    
+            }
         }
-    }, [history,location])
+        
+    }, [history,location,token])
 
 
     if(data.status === true){

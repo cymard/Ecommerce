@@ -20,8 +20,6 @@ function ConnectedAccountDisconnection () {
         });
         
        return history.push("/");
-        // return <Redirect to="/" />
-        // window.location='/Home';
         
     }
 

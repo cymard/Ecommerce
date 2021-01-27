@@ -1,12 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Container} from "react-bootstrap";
-import LoginForm from '../Components/LoginForm.jsx'
 import TitleH1 from "../Components/TitleH1.jsx";
 import { css} from '@emotion/react';
-import {
-    Link
-  } from "react-router-dom";
+import LoginAdminForm from '../Components/LoginAdminForm.jsx'
 
 
 function LoginAdmin() {
@@ -21,7 +18,7 @@ function LoginAdmin() {
         `}
     >
         <TitleH1>Connexion au panneau d'administration</TitleH1>
-        <LoginForm></LoginForm>
+        <LoginAdminForm></LoginAdminForm>
     </div>
 </Container>
 }

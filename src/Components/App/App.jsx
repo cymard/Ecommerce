@@ -11,6 +11,7 @@ import Buy from '../../Pages/Buy.jsx'
 import ConnectedAccount from '../../Pages/ConnectedAccount.jsx'
 import AdminHome from '../../Pages/AdminHome.jsx'
 import {UserContextProvider} from '../UserContext.jsx'
+import {UserAdminContextProvider} from '../UserAdminContext.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -22,6 +23,7 @@ import {
 function App(){
 
     return <Router>
+        <UserAdminContextProvider>
             <UserContextProvider>
                 <Switch>
                     <Route exact path="/Login">
@@ -69,8 +71,8 @@ function App(){
                         <Footer></Footer>
                     </Route>
                 </Switch>
-                
             </UserContextProvider>
+        </UserAdminContextProvider>
     </Router>    
 }
 
