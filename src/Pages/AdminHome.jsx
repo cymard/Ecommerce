@@ -19,6 +19,7 @@ function AdminHome () {
     
     
     const [data, setData] = useState({status: false, data: null, filter: "all"});
+    const [selectedIdProduct, setSelectedIdProduct] = useState([])
     let history = useHistory();
     const location = useLocation();
     console.log(location.pathname)
@@ -28,8 +29,8 @@ function AdminHome () {
 
     useEffect(() => {
         // vérification si ROLE_ADMIN
-        if(token === null || token === false){
-            history.push("/login/admin")
+        if(token === null){
+            history.push("/admin/login")
         }else {
             if(location.pathname === "/admin/home"){
                 history.push("/admin/home/all/1/default");
@@ -40,19 +41,58 @@ function AdminHome () {
                     // handle success
                     setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
                     console.log(response.data);
+
                 })
                 .catch(function (error) {
                     // handle error
-                    console.log(error); // erreur 401 unauthorized
-                    console.log(token)
-                    // history.push("/login/admin")
-                    // history.push("/admin/home/all/1/default");
+                    console.log(error); 
+                    history.push("/admin/login")
+
                 })
     
             }
         }
         
     }, [history,location,token])
+
+    const handleClickSelectAll = (e) => {
+        if(e.target.checked === true){
+            console.log("selectionner tous")
+            // selectionne tous les id des products de la page
+            console.log(data.data)
+            let arrayId = []
+
+            data.data.map(product => arrayId.push(product.id))
+            
+            setSelectedIdProduct({status: true, array: arrayId})
+            // console.log(selectedIdProduct)
+
+        }else{
+            let arrayId = []
+            setSelectedIdProduct({array: arrayId})
+        }
+        
+    }
+    
+
+    const handleRemove = () => {
+        console.log(selectedIdProduct)
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+        selectedIdProduct.array.map(id => 
+            axios.delete(`https://127.0.0.1:8000/admin/product/${id}`)
+            .then(function (response){
+                // handle success
+                console.log(response.data);
+                history.push("/admin/home/all/1/default");
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error); 
+
+            })
+            // console.log("supprime " + id)
+        )
+    }
 
 
     if(data.status === true){
@@ -76,6 +116,7 @@ function AdminHome () {
                                 <Form.Check
                                     type="checkbox"
                                     id="selectAll"
+                                    onClick={handleClickSelectAll}
                                     label=""
                                     custom
                                 />        
@@ -90,11 +131,18 @@ function AdminHome () {
                         </tr>
                     </thead>
                     <tbody>
-                        <ProductAdminHome data={data}></ProductAdminHome>
+                        <ProductAdminHome selectedIdProduct={selectedIdProduct} setSelectedIdProduct={setSelectedIdProduct} data={data} setData={setData}></ProductAdminHome>
                     </tbody>
-                    <Button variant="danger">Supprimer</Button>
+                    <Button 
+                        variant="danger"
+                        onClick={handleRemove}
+
+                        css={css`
+                            margin-top: 20px;
+                        `}
+                    >Supprimer</Button>
                 </Table>
-                <PaginationProductsAdmin setData={setData} data={data} ></PaginationProductsAdmin>
+                <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
             </Container>
         </div>
     }else {

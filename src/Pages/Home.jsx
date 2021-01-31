@@ -23,7 +23,7 @@ function Home(){
             history.push("/all/1");
 
         }else{
-            axios.get(`https://127.0.0.1:8000/products${location.pathname}`)
+            axios.get(`https://127.0.0.1:8000${location.pathname}`)
             .then(function (response){
                 // handle success
                 setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
