@@ -4,14 +4,19 @@ import {Pagination, Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {
     Link,
-    useParams
+    useLocation
   } from "react-router-dom";
 
 function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
-    let { sort } = useParams();
     const [theNumber, setTheNumber] = useState(0)
     let pageNumber = totalPageNumber;
     let allButtons = []
+
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+
+    let category = query.get("category")
+    let sort = query.get("sort")
 
     const handleClickLast = () => {
         setTheNumber(theNumber+6)
@@ -40,7 +45,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`../${i}/${sort}`}>
+            allButtons.push(<Link key={i} to={`/admin/home?category=${category}&page=${i}&sort=${sort}`}> 
                 <Button
                     css={css`
                         margin: 0 2px;

@@ -3,12 +3,16 @@ import React,{useState, useEffect} from 'react';
 import {Pagination} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import ReturnPaginationButtons from "./ReturnPaginationButtons.jsx"
-import {useParams} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 function PaginationProducts ({data}) {
 
     const [test, setTest] = useState(1)
-    let {page} = useParams(); //recupere l'id
+
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+    let page = query.get('page');
+
 
     useEffect(()=>{
         // focus le bouton qui correpond a l'id 

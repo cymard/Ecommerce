@@ -19,7 +19,7 @@ function AdminHome () {
     
     
     const [data, setData] = useState({status: false, data: null, filter: "all"});
-    const [selectedIdProduct, setSelectedIdProduct] = useState([])
+    const [selectedIdProduct, setSelectedIdProduct] = useState({array : []})
     let history = useHistory();
     const location = useLocation();
     console.log(location.pathname)
@@ -29,14 +29,19 @@ function AdminHome () {
 
     useEffect(() => {
         // vérification si ROLE_ADMIN
-        if(token === null){
-            history.push("/admin/login")
-        }else {
-            if(location.pathname === "/admin/home"){
-                history.push("/admin/home/all/1/default");
+       
+            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
+                // history.push({
+                //     pathname: '/admin/home',
+                //     search: '?category=all&page=1&sort=default'
+                //   })
+
+                history.push('/admin/home?category=all&page=1&sort=default')
             }else{
+                // console.log("location :"+location.pathname+ " category : "+ query.get('category'))
+                console.log(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-                axios.get(`https://127.0.0.1:8000${location.pathname}`)
+                axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                 .then(function (response){
                     // handle success
                     setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
@@ -51,7 +56,7 @@ function AdminHome () {
                 })
     
             }
-        }
+        
         
     }, [history,location,token])
 
@@ -96,6 +101,7 @@ function AdminHome () {
 
 
     if(data.status === true){
+        
         return <div     
         css={css`
             min-height: calc(100vh - 64px);

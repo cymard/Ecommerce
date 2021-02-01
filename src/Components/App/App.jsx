@@ -63,12 +63,12 @@ function App(){
                             <Footer></Footer>
                         </Route>
 
-                        <Route path={["/Admin/Home/:category/:page/:sort","/admin/home"]}>
+                        <Route path={"/admin/home"}>
                             <AdminHome></AdminHome>
                         </Route>
                         
 
-                        <Route path={["/:category/:page","/"]}>
+                        <Route path={["/products","/"]}>
                             <Header></Header>
                             <Home></Home>
                             <Footer></Footer>

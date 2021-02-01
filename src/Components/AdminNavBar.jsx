@@ -30,7 +30,7 @@ function AdminNavBar () {
             <ModifiedLinksRouter color="white" to="/admin/home">CREER</ModifiedLinksRouter>
             <ModifiedLinksRouter color="white" to="/admin/home">COMMENTAIRES</ModifiedLinksRouter>
             <ModifiedLinksRouter onClick={handleClick} color="white" to="/">DECONNEXION</ModifiedLinksRouter>
-            <ModifiedLinksRouter color="white" to="/">QUITTER</ModifiedLinksRouter>
+            <ModifiedLinksRouter color="white" to="/">ACCEDER AU SITE</ModifiedLinksRouter>
         </div>
         
     </Navbar>
