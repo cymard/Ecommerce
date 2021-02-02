@@ -3,6 +3,7 @@ import React from 'react';
 import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import {Link} from "react-router-dom";
 
 function ProductAdminHome ({selectedIdProduct, data, setSelectedIdProduct}) {
     // probleme checked generale > checked specifique
@@ -64,7 +65,7 @@ function ProductAdminHome ({selectedIdProduct, data, setSelectedIdProduct}) {
                 <td>{product.price}€</td>
                 <td >
                     {/* <DropdownMenu></DropdownMenu> */}
-                    <Button variant="secondary">{editIcon}</Button>
+                    <Link to={`/admin/edit/${product.id}`}><Button variant="secondary">{editIcon}</Button></Link>
                 </td>
 
             </tr>

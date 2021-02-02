@@ -16,7 +16,7 @@ function SortPriceButtons ({data, setData}) {
 
     let category = query.get("category")
     let page = query.get("page")
-    let sort = query.get("sort")
+
 
     // boutons arrowUp et arrowDown
     const handleClickArrowUp = () =>  {

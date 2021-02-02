@@ -100,60 +100,56 @@ function AdminHome () {
     }
 
 
-    if(data.status === true){
-        
-        return <div     
-        css={css`
-            min-height: calc(100vh - 64px);
-            display: flex;
-        `}
-        >
-            <AdminNavBar/>
+    return <div     
+    css={css`
+        min-height: calc(100vh - 64px);
+        display: flex;
+    `}
+    >
+        <AdminNavBar/>
 
-            <Container fluid>
-                <h1 className="text-center mt-4 mb-5">Administration</h1>
+        <Container fluid>
+            <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-                <CategoryFilter></CategoryFilter>
+            <CategoryFilter></CategoryFilter>
 
-                <Table className="mb-5 text-center" hover>
-                    <thead>
-                        <tr>
-                            <th>
-                                <Form.Check
-                                    type="checkbox"
-                                    id="selectAll"
-                                    onClick={handleClickSelectAll}
-                                    label=""
-                                    custom
-                                />        
-                            </th>
-                            <th>Nom du Produit</th>
-                            <th>Stock</th>
-                            <th>Catégorie</th>
-                            <th>
-                                <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
-                            </th>
-                            <th>Paramètres</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ProductAdminHome selectedIdProduct={selectedIdProduct} setSelectedIdProduct={setSelectedIdProduct} data={data} setData={setData}></ProductAdminHome>
-                    </tbody>
-                    <Button 
-                        variant="danger"
-                        onClick={handleRemove}
+            <Table className="mb-5 text-center" hover>
+                <thead>
+                    <tr>
+                        <th>
+                            <Form.Check
+                                type="checkbox"
+                                id="selectAll"
+                                onClick={handleClickSelectAll}
+                                label=""
+                                custom
+                            />        
+                        </th>
+                        <th>Nom du Produit</th>
+                        <th>Stock</th>
+                        <th>Catégorie</th>
+                        <th>
+                            <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
+                        </th>
+                        <th>Paramètres</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ProductAdminHome selectedIdProduct={selectedIdProduct} setSelectedIdProduct={setSelectedIdProduct} data={data} setData={setData}></ProductAdminHome>
+                </tbody>
+                <Button 
+                    variant="danger"
+                    onClick={handleRemove}
 
-                        css={css`
-                            margin-top: 20px;
-                        `}
-                    >Supprimer</Button>
-                </Table>
-                <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
-            </Container>
-        </div>
-    }else {
-        return <div>Patientez...</div>
-    }
+                    css={css`
+                        margin-top: 20px;
+                    `}
+                >Supprimer</Button>
+            </Table>
+            <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
+        </Container>
+    </div>
+   
 }
 
 export default AdminHome;
