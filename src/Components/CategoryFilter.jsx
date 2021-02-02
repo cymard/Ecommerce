@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
-import {useHistory,useParams} from "react-router-dom";
+import {useHistory,useLocation} from "react-router-dom";
 
 function CategoryFilter () {
     let history = useHistory();
-    let { sort, } = useParams();
-    let { category } = useParams();
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+    let sort = query.get('sort');
+    let category = query.get('category');
+
     // récupère la valeur de l'input
     if(category === "sports"){
       category = "sports/vetements"
@@ -22,16 +25,28 @@ function CategoryFilter () {
         // changer l'url
         if(e.target.value === "sports/vetements"){
             setValue("sports/vetements");
-            history.push(`/admin/home/sports/1/${sort}`);
+            history.push({
+                pathname: '/admin/home',
+                search: `?category=sports&page=1&sort=${sort}`
+              })
         }else if(e.target.value === "informatique/high-tech"){
             setValue("informatique/high-tech");
-            history.push(`/admin/home/informatique/1/${sort}`);
+            history.push({
+                pathname: '/admin/home',
+                search: `?category=informatique&page=1&sort=${sort}`
+              })
         }else if(e.target.value === "Toutes"){
             setValue("Toutes");
-            history.push(`/admin/home/all/1/${sort}`);
+            history.push({
+                pathname: '/admin/home',
+                search: `?category=all&page=1&sort=${sort}`
+              })
         }else{
             setValue(e.target.value);
-            history.push(`/admin/home/${e.target.value}/1/${sort}`);
+            history.push({
+                pathname: '/admin/home',
+                search: `?category=${e.target.value}&page=1&sort=${sort}`
+              })
         }   
         
     }

@@ -6,15 +6,14 @@ import {
     Link
 } from "react-router-dom";
 
-function ModifiedLinksRouter ({color, to, children}){
-
+function ModifiedLinksRouter ({color, to, children, onClick}){
 
     const style = (color === "white" ? "white" : "black") ;
 
     // les changements
     const blackOrWhiteColor = style;
     
-    return <Link color={blackOrWhiteColor} to={to} 
+    return <Link color={blackOrWhiteColor} onClick={onClick} to={to} 
         css={css`
             color: ${blackOrWhiteColor};
             &:hover {

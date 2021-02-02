@@ -3,17 +3,17 @@ import React, {useContext, useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react';
-import {UserContext} from './UserContext';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
+import { UserAdminContext } from './UserAdminContext.jsx'
 
 let yup = require('yup');
 
-function LoginForm () {
+function LoginAdminForm () {
 
     let history = useHistory();
 
-    const userInformation = useContext(UserContext);
+    const userAdminInformation = useContext(UserAdminContext);
 
     const [response, setResponse] = useState("");
 
@@ -27,7 +27,7 @@ function LoginForm () {
 
         try {
             console.log("--------------------------")
-            const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
+            const response = await axios.post('https://127.0.0.1:8000/admin/login_admin_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
@@ -35,17 +35,17 @@ function LoginForm () {
 
             if(response.status === 200){
 
-                setResponse("connection au compte ...");
+                setResponse("connexion au compte ...");
             
                 // mise à jour du context
                 // prise en compte du token
                 // prendre l'email depuis la requête envoyée
-                userInformation.setUserInformation({
+                userAdminInformation.setUserAdminInformation({
                     email: values.formBasicEmail,
                     token: response.data.token
                 }); 
                 
-                return history.push('/');
+                history.push('/admin/home/all/1/default');
 
             }else{
                 setResponse("La connexion a échouée, merci de réessayer");
@@ -114,4 +114,4 @@ function LoginForm () {
 </Formik>
 }
 
-export default LoginForm;
+export default LoginAdminForm;

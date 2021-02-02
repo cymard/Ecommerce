@@ -3,10 +3,15 @@ import React, {useState} from 'react';
 import {Pagination, Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {
-    Link
+    Link,
+    useLocation
   } from "react-router-dom";
 
 function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+    let category = query.get('category');
+
     const [theNumber, setTheNumber] = useState(0)
     let pageNumber = totalPageNumber;
     let allButtons = []
@@ -38,7 +43,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`${i}`}>
+            allButtons.push(<Link key={i} to={`/products?category=${category}&page=${i}`}>
                 <Button
                     css={css`
                         margin: 0 2px;
