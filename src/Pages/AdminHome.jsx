@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState,useContext} from 'react'
+import React,{useEffect,useState,useContext,useCallback} from 'react'
 import {css} from '@emotion/react';
 import {Table, Container, Form, Button} from 'react-bootstrap'
 import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import CategoryFilter from '../Components/CategoryFilter.jsx';
 import SortPriceButtons from '../Components/SortPriceButtons.jsx';
-import ProductAdminHome from '../Components/ProductAdminHome.jsx';
+import ProductsListAdmin from '../Components/ProductsListAdmin.jsx';
 import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import {
@@ -16,37 +16,50 @@ import {
 
 
 function AdminHome () {
+    // envoie du data
+    const [data, setData] = useState({status: false, productsList: [], filter: "all"});
+
+    // selectionner ou pas le checkbox selectAll
+    const [checkedSelectAll, setCheckedSelectAll] = useState();
     
-    
-    const [data, setData] = useState({status: false, data: null, filter: "all"});
-    const [selectedIdProduct, setSelectedIdProduct] = useState({array : []})
+    // tableau pour la suppression
+    const [selectedIdProduct, setSelectedIdProduct] = useState([])
+
+    // recuperer le pathname
     let history = useHistory();
     const location = useLocation();
-    console.log(location.pathname)
 
+    // Données pour la vérification du compte admin
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
+    // changer
+    
+    const callBackSetSelectedIdProduct = useCallback((array) => {
+        selectedIdProduct.length === 9 ? setCheckedSelectAll(true) : setCheckedSelectAll(false)
+        setSelectedIdProduct(array)
+        console.log("leloool")
+    },[selectedIdProduct])
+
+    // si les 9 sont selectionnés alors 
+
+    
+
     useEffect(() => {
         // vérification si ROLE_ADMIN
-       
-            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
-                // history.push({
-                //     pathname: '/admin/home',
-                //     search: '?category=all&page=1&sort=default'
-                //   })
 
+            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
                 history.push('/admin/home?category=all&page=1&sort=default')
             }else{
-                // console.log("location :"+location.pathname+ " category : "+ query.get('category'))
-                console.log(`https://127.0.0.1:8000${location.pathname}${location.search}`)
+
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                 axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                 .then(function (response){
                     // handle success
-                    setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
+                    setData({status: true, productsList: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
                     console.log(response.data);
 
+                    // selectedIdProduct.length === 9 ? setCheckedSelectAll(true) : setCheckedSelectAll(false)
                 })
                 .catch(function (error) {
                     // handle error
@@ -58,30 +71,32 @@ function AdminHome () {
             }
         
         
-    }, [history,location,token])
+    }, [history,location,token,selectedIdProduct,setSelectedIdProduct])
 
     const handleClickSelectAll = (e) => {
+        let arrayId = selectedIdProduct
         if(e.target.checked === true){
-            console.log("selectionner tous")
-            // selectionne tous les id des products de la page
-            console.log(data.data)
-            let arrayId = []
-
-            data.data.map(product => arrayId.push(product.id))
+            setCheckedSelectAll(true)
+            // si il y a deja des products selectionnés il faut les déselectionner
+            arrayId = []
             
-            setSelectedIdProduct({status: true, array: arrayId})
-            // console.log(selectedIdProduct)
+            // tous les products sont séléctionnés donc push tous les products
+            data.productsList.map(product => arrayId.push(product.id.toString()))
+            
+            // setSelectedIdProduct(arrayId)
 
         }else{
-            let arrayId = []
-            setSelectedIdProduct({array: arrayId})
+            arrayId = []
+            setCheckedSelectAll(true)
+            
+            // setSelectedIdProduct(arrayId)
         }
-        
+        setSelectedIdProduct(arrayId)
+        console.log(arrayId)
     }
     
 
     const handleRemove = () => {
-        console.log(selectedIdProduct)
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         selectedIdProduct.array.map(id => 
             axios.delete(`https://127.0.0.1:8000/admin/product/${id}`)
@@ -121,6 +136,7 @@ function AdminHome () {
                                 type="checkbox"
                                 id="selectAll"
                                 onClick={handleClickSelectAll}
+                                checked={checkedSelectAll}
                                 label=""
                                 custom
                             />        
@@ -135,7 +151,11 @@ function AdminHome () {
                     </tr>
                 </thead>
                 <tbody>
-                    <ProductAdminHome selectedIdProduct={selectedIdProduct} setSelectedIdProduct={setSelectedIdProduct} data={data} setData={setData}></ProductAdminHome>
+                    {data.productsList.length > 0 ?
+                    
+                    <ProductsListAdmin selectedIdProduct={selectedIdProduct} setSelectedIdProduct={callBackSetSelectedIdProduct} data={data.productsList}></ProductsListAdmin>
+                    : <div> Chargement ...</div>
+                    }
                 </tbody>
                 <Button 
                     variant="danger"
