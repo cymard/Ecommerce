@@ -1,37 +1,57 @@
-import React from 'react';
+import React,{useState} from 'react';
 // import DropdownMenu from './DropdownMenu.jsx';
 import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
-function ProductsListAdmin ({data,setSelectedIdProduct,selectedIdProduct}) {
+function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
 
+    // quand l'id d'un produit est dans le tableau il est selectionné
 
+    // ajout de l'id dans le tableau est instantané
+    // le changement de valeur de checked est instantané 
+    // le selectedIdProduct ne se met pas à jour dans le return 
+    // solution faire un render pour chaque clique
+    
     const editIcon = <FontAwesomeIcon icon={faPencilAlt} />
-    let idArray = selectedIdProduct
 
+    // let idArray = selectedIdProduct
 
-
-    //Tous les products recus dans ce tableau doivent etre checked
+    // const [value, setValue] = useState() // provoque le render
 
 
     const handleChange = (e) => {
-        // modif du selectedIdProduct
-        if(e.target.checked === true ){
-            idArray.push(e.target.id)
-
-        }else{
-            const index = idArray.indexOf(e.target.id);
-            if (index > -1) {
-                idArray.splice(index, 1);
-            }
+        const productId = parseInt(e.target.id, 10);
+        
+        if (isNaN(productId)) {
+            return;
         }
-        setSelectedIdProduct(idArray)
-        console.log(selectedIdProduct)
-    }
+        
+        if(e.target.checked === true ){
+            console.log(e.target.id)
+            setSelectedProducts([...selectedProducts, productId])
+            // on ajoute sa valeur dans le tableau
+            // idArray.push(e.target.id)
+            // setValue(e.target.id +=2)
+            
+        }else{
+            // on cherche son index et l'enleve du tableau
+            const index = selectedProducts.indexOf(productId);
+            if (index > -1) {
+                const newSelectedProducts = [...selectedProducts];
+                newSelectedProducts.splice(index, 1);
+                setSelectedProducts(newSelectedProducts);
+                console.log(newSelectedProducts)
 
-    // donner une ref ou useState a chaque checkbox pour pouvoir les activer sans cliquer dessus
+            }
+            // setValue(e.target.id --)
+        }
+        // setSelectedProducts(idArray) 
+        // return le tableau avec tous les id des produits selectionnés
+        
+        console.log(selectedProducts)
+    }
 
  
 
@@ -43,18 +63,19 @@ function ProductsListAdmin ({data,setSelectedIdProduct,selectedIdProduct}) {
                         onChange={handleChange}
                         type="checkbox"
                         id={product.id}
-                        // ref={product.id}
-                        // checked={} // active quand l'id est dans le tableau
-                        label=""
+                        // si son id est dans le tableau check
+                        // selectedIdProduct.indexOf(product.id.toString()) === -1 ? false : true
+                        checked={selectedProducts.indexOf(product.id) !== -1} 
+                        // key={value}
                         custom
                     />        
                 </td>
-                <td>{product.name}</td>
+                <td>{product.name}  </td>
                 <td>{product.stock}</td>
                 <td>{product.category}</td>
                 <td>{product.price}€</td>
                 <td >
-                    <Link to={`/admin/edit/${product.id}`}><Button variant="secondary">{editIcon}</Button></Link>
+                    <Link to={`/admin/product/${product.id}/edit`}><Button variant="secondary">{editIcon}</Button></Link>
                 </td>
 
             </tr>

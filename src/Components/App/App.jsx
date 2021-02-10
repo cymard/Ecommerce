@@ -12,7 +12,7 @@ import ConnectedAccount from '../../Pages/ConnectedAccount.jsx'
 import AdminHome from '../../Pages/AdminHome.jsx'
 import {UserContextProvider} from '../UserContext.jsx'
 import {UserAdminContextProvider} from '../UserAdminContext.jsx'
-import EditAdmin from '../../Pages/EditAdmin.jsx'
+import EditProduct from '../../Pages/EditProduct.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -58,8 +58,8 @@ function App(){
                             <Footer></Footer>
                         </Route>
 
-                        <Route exact path="/admin/edit/:id">
-                            <EditAdmin></EditAdmin>
+                        <Route exact path="/admin/product/:id/edit">
+                            <EditProduct></EditProduct>
                         </Route>
                         
                         <Route exact path="/admin/login">

@@ -80,6 +80,7 @@ function LoginForm () {
                     className="mt-2 mb-5"
                     type="email"
                     placeholder="Entrez votre adresse email ..."
+                    
                     value={values.formBasicEmail} 
                     onChange={handleChange}
                     isValid={touched.formBasicEmail && !errors.formBasicEmail}
