@@ -13,6 +13,7 @@ import AdminHome from '../../Pages/AdminHome.jsx'
 import {UserContextProvider} from '../UserContext.jsx'
 import {UserAdminContextProvider} from '../UserAdminContext.jsx'
 import EditProduct from '../../Pages/EditProduct.jsx'
+import CreateProduct from '../../Pages/CreateProduct.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -68,9 +69,12 @@ function App(){
                             <Footer></Footer>
                         </Route>
 
+                        <Route exact path="/admin/CreateProduct">
+                            <CreateProduct></CreateProduct>
+                        </Route>
+
                         <Route path={"/admin/home"}>
                             <AdminHome></AdminHome>
-
                         </Route>
 
                         <Route path={["/products","/"]}>

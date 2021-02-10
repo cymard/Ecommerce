@@ -1,47 +1,59 @@
 /** @jsxImportSource @emotion/react */
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import {Form,Row,Col,Button} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
 
-function EditProductForm ({dataProduct,submitForm}) {
 
+function CreateProductForm ({submitForm}) {
+    let yup = require('yup');
 
+    
     // value wysiwyg tinymce react
     const [descriptionValue, setDescriptionValue] = useState(null);
 
     const handleEditorChange = (content, editor) => {
+        // controle du data
+        // let schemaDescription =  yup.string().required();
+ 
+        // schemaDescription.validate(content)
+        // .then(function (valid) {
+        //     console.log(content)
+        //     setDescriptionValue(content);
+        // })
+        // .catch(function (err) {
+        //     setDescriptionValue(err.name)
+        //     console.log(err.name); // => 'ValidationError'
+        //     console.log(err.errors); // => ['age must be a number']
+        // });
         setDescriptionValue(content);
     }
 
 
-    useEffect(() => {
-        // valeur initiale de la description
-        setDescriptionValue(dataProduct.description)
-    }, [setDescriptionValue,dataProduct])
+    
 
 
-    let yup = require('yup');
+
+
     
     let yupSchema = yup.object({
-        title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`),
-        category: yup.string(),
-        price: yup.number().positive(),
-        stock: yup.number().positive()
+        title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`).required(),
+        category: yup.string().required(),
+        price: yup.number().positive().required(),
+        stock: yup.number().positive().required()
     });
 
 
 
  
     return <Formik
-        enableReinitialize={true}
 
         initialValues= {{
-            title: dataProduct.name ? dataProduct.name : "" ,
-            category: dataProduct.category ? dataProduct.category : "",
-            price: dataProduct.price ? dataProduct.price : "",
-            stock: dataProduct.stock ? dataProduct.stock : ""
+            title: "" ,
+            category:  "",
+            price:  "",
+            stock: ""
         }}
 
         validationSchema={yupSchema}
@@ -54,6 +66,15 @@ function EditProductForm ({dataProduct,submitForm}) {
             price: parseInt(values.price),
             stock: parseInt(values.stock)
         })}}
+
+        // onSubmit={(values)=>{console.log({
+        //     name: values.title,
+        //     description: descriptionValue,
+        //     category: values.category,
+        //     image: null,
+        //     price: parseInt(values.price),
+        //     stock: parseInt(values.stock)
+        // })}}
     >
     {({ handleSubmit, handleChange, errors, touched, values }) => (
     <Form  onSubmit={handleSubmit}>
@@ -199,9 +220,9 @@ function EditProductForm ({dataProduct,submitForm}) {
                 width: 100%;
             `}
             type="submit"
-        >Modifier</Button>
+        >Creer</Button>
     </Form>
 )}
 </Formik>
 }
-export default EditProductForm;
+export default CreateProductForm;

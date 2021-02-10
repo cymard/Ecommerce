@@ -67,8 +67,7 @@ function EditProduct () {
         <AdminNavBar></AdminNavBar>
         <Container fluid>
             <TitleH1>Modification du produit {id}</TitleH1>
-
-            <EditProductForm dataProduct={dataProduct} setDataProduct={setDataProduct} submitForm={submitForm}></EditProductForm>
+            <EditProductForm dataProduct={dataProduct} submitForm={submitForm}></EditProductForm>
         </Container>
 
     </div>
