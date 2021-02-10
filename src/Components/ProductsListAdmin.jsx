@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 // import DropdownMenu from './DropdownMenu.jsx';
 import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,19 +7,9 @@ import {Link} from "react-router-dom";
 
 function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
 
-    // quand l'id d'un produit est dans le tableau il est selectionné
-
-    // ajout de l'id dans le tableau est instantané
-    // le changement de valeur de checked est instantané 
-    // le selectedIdProduct ne se met pas à jour dans le return 
-    // solution faire un render pour chaque clique
+    // Lorsque l'id d'un produit est dans le tableau il est selectionné
     
     const editIcon = <FontAwesomeIcon icon={faPencilAlt} />
-
-    // let idArray = selectedIdProduct
-
-    // const [value, setValue] = useState() // provoque le render
-
 
     const handleChange = (e) => {
         const productId = parseInt(e.target.id, 10);
@@ -30,11 +20,10 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
         
         if(e.target.checked === true ){
             console.log(e.target.id)
+            // on ajoute la valeur de l'id dans le tableau
             setSelectedProducts([...selectedProducts, productId])
-            // on ajoute sa valeur dans le tableau
-            // idArray.push(e.target.id)
-            // setValue(e.target.id +=2)
             
+
         }else{
             // on cherche son index et l'enleve du tableau
             const index = selectedProducts.indexOf(productId);
@@ -45,11 +34,9 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                 console.log(newSelectedProducts)
 
             }
-            // setValue(e.target.id --)
         }
-        // setSelectedProducts(idArray) 
+
         // return le tableau avec tous les id des produits selectionnés
-        
         console.log(selectedProducts)
     }
 

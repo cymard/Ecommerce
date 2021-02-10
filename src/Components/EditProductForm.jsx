@@ -3,102 +3,88 @@ import React,{useState, useEffect} from 'react';
 import {Form,Row,Col,Button} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
-import { useFormik } from 'formik';
+import {Formik} from 'formik';
 
 function EditProductForm ({dataProduct, setDataProduct,submitForm}) {
 
 
-    // // value wysiwyg tinymce react
-    const [descriptionValue, setDescriptionValue] = useState();
+    // value wysiwyg tinymce react
+    const [descriptionValue, setDescriptionValue] = useState(null);
 
     const handleEditorChange = (content, editor) => {
-        // controle
         setDescriptionValue(content);
-
     }
-
-    const [data, setData] = useState({
-        status: null,
-        name: "",
-        description:  "",
-        category:  "",
-        image:"",
-        price:  "",
-        stock:   ""
-    })
-
 
 
     useEffect(() => {
-        console.log(dataProduct.name)
-        setData({
-            status: 200,
-            name: dataProduct.name,
-            description:  dataProduct.description,
-            category:  dataProduct.category,
-            image: dataProduct.category,
-            price:  dataProduct.price,
-            stock:   dataProduct.stock 
-        }) 
+        // valeur initiale de la description
+        setDescriptionValue(dataProduct.description)
+    }, [setDescriptionValue,dataProduct])
 
-    }, [dataProduct])
 
     let yup = require('yup');
-
-    let schema = yup.object({
-        title: yup.string(),
-        formHorizontalRadios: yup.string(),
+    
+    let yupSchema = yup.object({
+        title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`),
+        category: yup.string(),
         price: yup.number().positive(),
         stock: yup.number().positive()
     });
 
 
 
-    const formik = useFormik({
-        initialValues: {
-            title: data.status === 200 ? data.name : data.name  ,
-            formHorizontalRadios: data.category,
-            price: data.price,
-            stock: data.stock
-        },
-        validationSchema : schema,
+ 
+    return <Formik
+        enableReinitialize={true}
 
-        onSubmit: (values) => {
-            console.log(values)
-        }
-    });
+        initialValues= {{
+            title: dataProduct.name ? dataProduct.name : "" ,
+            category: dataProduct.category ? dataProduct.category : "",
+            price: dataProduct.price ? dataProduct.price : "",
+            stock: dataProduct.stock ? dataProduct.stock : ""
+        }}
 
-    return (
-    <Form  onSubmit={formik.handleSubmit}>
+        validationSchema={yupSchema}
+
+        onSubmit={(values)=>{submitForm({
+            name: values.title,
+            description: descriptionValue,
+            category: values.category,
+            image: null,
+            price: parseInt(values.price),
+            stock: parseInt(values.stock)
+        })}}
+    >
+    {({ handleSubmit, handleChange, errors, touched, values }) => (
+    <Form  onSubmit={handleSubmit}>
 
         {/* titre du produit */}
         <Form.Group as={Row} >
-            <Form.Label column sm={2}>
-                Titre :
-            </Form.Label>
+            <Form.Label column sm={2}>Nom :</Form.Label>
             <Col sm={10}>
                 <Form.Control 
                     id="title"
                     name="title"
-                    // onChange={titleHandleChange}
-                    // value={titleValue}
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    type="titre" placeholder="titre" 
-                    isValid={formik.touched.title && !formik.errors.title}
-                    isInvalid={formik.touched.title && formik.errors.title}
+                    onChange={handleChange}
+                    value={values.title}
+                    type="text"
+                    placeholder="Nom "
+    
+                    isValid={touched.title && !errors.title}
+                    isInvalid={touched.title && errors.title}
                 />
             </Col>
         </Form.Group>
 
         {/* ajouter une image */}
         <Form.Group className="d-flex justify-content-center" controlId="image">
-            <Form.File id="exampleFormControlFile1" />
+            <Form.File/>
         </Form.Group>
         
-        {/* description du produit (WYSIWYG)*/}
+        {/* description du produit (WYSIWYG) */}
         <Editor
             apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
+            outputFormat='html'
             init={{
                 height: 500,
                 menubar: false,
@@ -112,23 +98,17 @@ function EditProductForm ({dataProduct, setDataProduct,submitForm}) {
                     alignleft aligncenter alignright alignjustify | \
                     bullist numlist outdent indent | removeformat | help'
             }}
+
             value={descriptionValue}
             onEditorChange={handleEditorChange}
 
-            // value={formik.values.description}
-            id="description"
-            name="description"
+
+
         />
 
         {/* choisir la catégorie */}
-        <Form.Group as={Row} controlId="category" 
-        // onClick={HandleRadioClick} 
-        >
-            <Form.Label as="legend" column sm={2}
-                value={formik.values.formHorizontalRadios}
-                isValid={formik.touched.title && !formik.errors.formHorizontalRadios}
-                isInvalid={formik.touched.title && formik.errors.formHorizontalRadios}
-            >
+        <Form.Group as={Row} controlId="category" >
+            <Form.Label as="legend" column sm={2} value={values.category}>
                 Catégories : 
             </Form.Label>
             <Col sm={10}>
@@ -136,85 +116,84 @@ function EditProductForm ({dataProduct, setDataProduct,submitForm}) {
                     custom
                     type="radio"
                     label="Sports/vêtements"
-                    name="formHorizontalRadios"
+                    name="category"
                     id="sports/vetements"
                     value="sports/vetements"
-                    onChange={formik.handleChange}
-                    // checked={categoryName === "sports/vetements"}
+                    onChange={handleChange}
+                    checked={values.category === "sports/vetements"}
+
                 />
                 <Form.Check
                     custom
                     type="radio"
                     label="Maison"
-                    name="formHorizontalRadios"
+                    name="category"
                     id="maison"
                     value="maison"
-                    onChange={formik.handleChange}
-                    // checked={categoryName === "maison"}
+                    onChange={handleChange}
+                    checked={values.category === "maison"}
+
                 />
                 <Form.Check
                     custom  
                     type="radio"
                     label="Livres"
-                    name="formHorizontalRadios"
+                    name="category"
                     id="livres"
                     value="livres"
-                    onChange={formik.handleChange}
-                    // checked={categoryName === "livres"}
+                    onChange={handleChange}
+                    checked={values.category === "livres"}
+
                 />
                 <Form.Check
                     custom
                     type="radio"
                     label="Informatique/High-Tech"
-                    name="formHorizontalRadios"
+                    name="category"
                     id="informatique/high-tech"
                     value="informatique/high-tech"
-                    onChange={formik.handleChange}
-                    // checked={categoryName === "informatique/high-tech"}
+                    onChange={handleChange}
+                    checked={values.category === "informatique/high-tech"}
+ 
                 />
             </Col>
         </Form.Group>
 
         {/* prix */}
         <Form.Group as={Row} controlId="price">
-            <Form.Label column sm={2}>
-                Prix : 
-            </Form.Label>
+            <Form.Label column sm={2}> Prix : </Form.Label>
             <Col sm={10}>
                 <Form.Control 
-
                     name="price"
                     type="price" 
                     placeholder="price" 
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
-                    isValid={formik.touched.price && !formik.errors.price}
-                    isInvalid={formik.touched.price && formik.errors.price}
-                    // value={priceValue}
-                    // onChange={priceHandleChange}
+                    onChange={handleChange}
+                    value={values.price}
+
+                    isValid={touched.price && !errors.price}
+                    isInvalid={touched.price && errors.price}
                 />
             </Col>
         </Form.Group>
 
         {/* quantité */}
         <Form.Group as={Row} controlId="stock">
-            <Form.Label column sm={2}>
-                Stock :
-            </Form.Label>
+            <Form.Label column sm={2}> Stock :</Form.Label>
             <Col sm={10}>
                 <Form.Control 
                     name="stock"
                     type="stock" 
                     placeholder="stock" 
-                    onChange={formik.handleChange}
-                    value={formik.values.stock}
-                    isValid={formik.touched.stock && !formik.errors.stock}
-                    isInvalid={formik.touched.stock && formik.errors.stock}
-                    // value={stockValue}
-                    // onChange={stockHandleChange}
+                    onChange={handleChange}
+                    value={values.stock}
+
+                    isValid={touched.stock && !errors.stock}
+                    isInvalid={touched.stock && errors.stock}
+
                 />
             </Col>
         </Form.Group>
+
         <Button 
             css={css`
                 width: 100%;
@@ -222,7 +201,7 @@ function EditProductForm ({dataProduct, setDataProduct,submitForm}) {
             type="submit"
         >Modifier</Button>
     </Form>
-)
+)}
+</Formik>
 }
-
 export default EditProductForm;
