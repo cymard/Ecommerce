@@ -6,7 +6,7 @@ import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import CategoryFilter from '../Components/CategoryFilter.jsx';
 import SortPriceButtons from '../Components/SortPriceButtons.jsx';
-import ProductAdminHome from '../Components/ProductAdminHome.jsx';
+import ProductsListAdmin from '../Components/ProductsListAdmin.jsx';
 import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import {
@@ -16,35 +16,45 @@ import {
 
 
 function AdminHome () {
+    // envoie du data
+    const [data, setData] = useState({status: false, productsList: [], filter: "all"});
+
+    // selectionner ou pas le checkbox selectAll
+    const [checkedSelectAll, setCheckedSelectAll] = useState();
     
-    
-    const [data, setData] = useState({status: false, data: null, filter: "all"});
-    const [selectedIdProduct, setSelectedIdProduct] = useState({array : []})
+    // tableau pour la suppression
+    const [selectedProducts, setSelectedProducts] = useState([])
+
+    // recuperer le pathname
     let history = useHistory();
     const location = useLocation();
-    console.log(location.pathname)
 
+    // Données pour la vérification du compte admin
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
+    // changer
+
+    useEffect(() => {
+        // si les 9 sont selectionnés alors 
+        setCheckedSelectAll(selectedProducts.length === 9);
+    }, [selectedProducts])
+    
+
+    
+
     useEffect(() => {
         // vérification si ROLE_ADMIN
-       
-            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
-                // history.push({
-                //     pathname: '/admin/home',
-                //     search: '?category=all&page=1&sort=default'
-                //   })
 
+            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
                 history.push('/admin/home?category=all&page=1&sort=default')
             }else{
-                // console.log("location :"+location.pathname+ " category : "+ query.get('category'))
-                console.log(`https://127.0.0.1:8000${location.pathname}${location.search}`)
+
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                 axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                 .then(function (response){
                     // handle success
-                    setData({status: true, data: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
+                    setData({status: true, productsList: response.data.pageContent, filter: response.data.category, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
                     console.log(response.data);
 
                 })
@@ -62,28 +72,23 @@ function AdminHome () {
 
     const handleClickSelectAll = (e) => {
         if(e.target.checked === true){
-            console.log("selectionner tous")
-            // selectionne tous les id des products de la page
-            console.log(data.data)
-            let arrayId = []
+            // si il y a deja des products selectionnés il faut les déselectionner
+            // tous les products sont séléctionnés donc push tous les products
+            setSelectedProducts(data.productsList.map(product => product.id));
+            setCheckedSelectAll(true)
 
-            data.data.map(product => arrayId.push(product.id))
-            
-            setSelectedIdProduct({status: true, array: arrayId})
-            // console.log(selectedIdProduct)
 
         }else{
-            let arrayId = []
-            setSelectedIdProduct({array: arrayId})
+            setSelectedProducts([]);
+            setCheckedSelectAll(false)
+            
         }
-        
     }
     
 
     const handleRemove = () => {
-        console.log(selectedIdProduct)
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        selectedIdProduct.array.map(id => 
+        selectedProducts.array.map(id => 
             axios.delete(`https://127.0.0.1:8000/admin/product/${id}`)
             .then(function (response){
                 // handle success
@@ -100,60 +105,61 @@ function AdminHome () {
     }
 
 
-    if(data.status === true){
-        
-        return <div     
-        css={css`
-            min-height: calc(100vh - 64px);
-            display: flex;
-        `}
-        >
-            <AdminNavBar/>
+    return <div     
+    css={css`
+        min-height: calc(100vh - 64px);
+        display: flex;
+    `}
+    >
+        <AdminNavBar/>
 
-            <Container fluid>
-                <h1 className="text-center mt-4 mb-5">Administration</h1>
+        <Container fluid>
+            <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-                <CategoryFilter></CategoryFilter>
+            <CategoryFilter></CategoryFilter>
 
-                <Table className="mb-5 text-center" hover>
-                    <thead>
-                        <tr>
-                            <th>
-                                <Form.Check
-                                    type="checkbox"
-                                    id="selectAll"
-                                    onClick={handleClickSelectAll}
-                                    label=""
-                                    custom
-                                />        
-                            </th>
-                            <th>Nom du Produit</th>
-                            <th>Stock</th>
-                            <th>Catégorie</th>
-                            <th>
-                                <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
-                            </th>
-                            <th>Paramètres</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ProductAdminHome selectedIdProduct={selectedIdProduct} setSelectedIdProduct={setSelectedIdProduct} data={data} setData={setData}></ProductAdminHome>
-                    </tbody>
-                    <Button 
-                        variant="danger"
-                        onClick={handleRemove}
+            <Table className="mb-5 text-center" hover>
+                <thead>
+                    <tr>
+                        <th>
+                            <Form.Check
+                                type="checkbox"
+                                id="selectAll"
+                                onClick={handleClickSelectAll}
+                                checked={checkedSelectAll || selectedProducts.length === 9}
+                                label=""
+                                custom
+                            />        
+                        </th>
+                        <th>Nom du Produit</th>
+                        <th>Stock</th>
+                        <th>Catégorie</th>
+                        <th>
+                            <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
+                        </th>
+                        <th>Paramètres</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.productsList.length > 0 ?
+                    
+                    <ProductsListAdmin selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} data={data.productsList}></ProductsListAdmin>
+                    : <div> Chargement ...</div>
+                    }
+                </tbody>
+                <Button 
+                    variant="danger"
+                    onClick={handleRemove}
 
-                        css={css`
-                            margin-top: 20px;
-                        `}
-                    >Supprimer</Button>
-                </Table>
-                <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
-            </Container>
-        </div>
-    }else {
-        return <div>Patientez...</div>
-    }
+                    css={css`
+                        margin-top: 20px;
+                    `}
+                >Supprimer</Button>
+            </Table>
+            <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
+        </Container>
+    </div>
+   
 }
 
 export default AdminHome;

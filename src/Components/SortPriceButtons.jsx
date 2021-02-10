@@ -16,13 +16,13 @@ function SortPriceButtons ({data, setData}) {
 
     let category = query.get("category")
     let page = query.get("page")
-    let sort = query.get("sort")
+
 
     // boutons arrowUp et arrowDown
     const handleClickArrowUp = () =>  {
 
         // organiser de façon décroissante
-        let newData = data.data.sort(function (a, b) {
+        let newData = data.productsList.sort(function (a, b) {
             return b.price - a.price;
          });
 
@@ -33,7 +33,7 @@ function SortPriceButtons ({data, setData}) {
     const handleClickArrowDown = () =>  {
         
         // organiser de façon décroissante
-        let newData = data.data.sort(function (a, b) {
+        let newData = data.productsList.sort(function (a, b) {
             return a.price - b.price;
          });
 
