@@ -1,18 +1,35 @@
 /** @jsxImportSource @emotion/react */
 import React,{useState, useEffect} from 'react';
-import {Form,Row,Col,Button} from 'react-bootstrap';
+import {Form,Row,Col,Button,Alert} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
 
 function EditProductForm ({dataProduct,submitForm}) {
-
+    let yup = require('yup');
 
     // value wysiwyg tinymce react
     const [descriptionValue, setDescriptionValue] = useState(null);
 
+     // valider ou pas le form
+    const [validated, setValidated] = useState(true);
+
     const handleEditorChange = (content, editor) => {
-        setDescriptionValue(content);
+            // controle du data
+            let schemaDescription =  yup.string().min(3).max(5000).required();
+ 
+            schemaDescription.validate(content)
+            .then(function (valid) {
+                setValidated(true)
+                console.log(content)
+                setDescriptionValue(content);
+            })
+            .catch(function (err) {
+                setValidated(false)
+                console.log(err.name); // => 'ValidationError'
+            });
+            console.log(validated)
+            setDescriptionValue(content);
     }
 
 
@@ -22,13 +39,28 @@ function EditProductForm ({dataProduct,submitForm}) {
     }, [setDescriptionValue,dataProduct])
 
 
-    let yup = require('yup');
+   
     
     let yupSchema = yup.object({
-        title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`),
-        category: yup.string(),
-        price: yup.number().positive(),
-        stock: yup.number().positive()
+        // title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`),
+        // category: yup.string(),
+        // price: yup.number().positive(),
+        // stock: yup.number().positive()
+        title: yup.string()
+            .max(255, `Votre nom de produit dépasse la limite de caractères.`)
+            .min(2, 'Pas assez de caractères')
+            .max(255, 'Trop de caractères')
+            .trim("Trop d'espaces inutiles")
+            .required('Champs requis'),
+        category: yup.string()
+            .required('Champs requis'),
+        price: yup.string()
+            .matches(/^\d+(.\d{1,2})?$/, "Le prix doit être sous la form pppp.pp")
+            .trim("Trop d'espaces inutiles")
+            .required('Champs requis'),
+        stock: yup.number()
+            .positive('Uniquement des nombres prositifs')
+            .required('Champs requis')
     });
 
 
@@ -46,17 +78,22 @@ function EditProductForm ({dataProduct,submitForm}) {
 
         validationSchema={yupSchema}
 
-        onSubmit={(values)=>{submitForm({
+        onSubmit={(values)=>{
+        validated ? 
+            submitForm({
             name: values.title,
             description: descriptionValue,
             category: values.category,
             image: null,
             price: parseInt(values.price),
             stock: parseInt(values.stock)
-        })}}
+            })
+        :
+            console.log("erreur description")
+    }}
     >
     {({ handleSubmit, handleChange, errors, touched, values }) => (
-    <Form  onSubmit={handleSubmit}>
+    <Form novalidate  onSubmit={handleSubmit}>
 
         {/* titre du produit */}
         <Form.Group as={Row} >
@@ -68,7 +105,7 @@ function EditProductForm ({dataProduct,submitForm}) {
                     onChange={handleChange}
                     value={values.title}
                     type="text"
-                    placeholder="Nom "
+                    placeholder="Nom"
     
                     isValid={touched.title && !errors.title}
                     isInvalid={touched.title && errors.title}
@@ -105,6 +142,7 @@ function EditProductForm ({dataProduct,submitForm}) {
 
 
         />
+         {validated === false ? <Alert variant="danger"><Alert.Heading className="text-center">La description du produit n'est pas valide, le formulaire ne sera pas validé.</Alert.Heading></Alert> : null }
 
         {/* choisir la catégorie */}
         <Form.Group as={Row} controlId="category" >

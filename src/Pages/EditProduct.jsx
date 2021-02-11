@@ -8,10 +8,12 @@ import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import EditProductForm from '../Components/EditProductForm.jsx';
+import { useHistory } from "react-router-dom";
 
 function EditProduct () {
     let { id } = useParams();
-
+    let history = useHistory();
+    
     //data
     const [dataProduct, setDataProduct] = useState({}) 
 
@@ -51,6 +53,10 @@ function EditProduct () {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             const response = await axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`, data);
             console.log(response);
+            if(response.status === 201){
+                history.push("/admin/home?category=all&page=1&sort=default");
+            }
+            
         } catch (err) {
             console.error(err.message);
         }
