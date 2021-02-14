@@ -47,7 +47,7 @@ function AdminHome () {
         // vérification si ROLE_ADMIN
 
             if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
-                history.push('/admin/home?category=all&page=1&sort=default')
+                history.push('/admin/home?category=all&page=1&sorting=default')
             }else{
 
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
@@ -88,12 +88,13 @@ function AdminHome () {
 
     const handleRemove = () => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        selectedProducts.array.map(id => 
+        selectedProducts.map(id => 
             axios.delete(`https://127.0.0.1:8000/admin/product/${id}`)
             .then(function (response){
                 // handle success
                 console.log(response.data);
-                history.push("/admin/home/all/1/default");
+                history.push(`${location.pathname}${location.search}`)
+
             })
             .catch(function (error) {
                 // handle error
@@ -118,14 +119,14 @@ function AdminHome () {
 
             <CategoryFilter></CategoryFilter>
 
-            <Table className="mb-5 text-center" hover>
+            <Table className="text-center" hover>
                 <thead>
                     <tr>
                         <th>
                             <Form.Check
                                 type="checkbox"
                                 id="selectAll"
-                                onClick={handleClickSelectAll}
+                                onChange={handleClickSelectAll}
                                 checked={checkedSelectAll || selectedProducts.length === 9}
                                 label=""
                                 custom
@@ -144,18 +145,14 @@ function AdminHome () {
                     {data.productsList.length > 0 ?
                     
                     <ProductsListAdmin selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} data={data.productsList}></ProductsListAdmin>
-                    : <div> Chargement ...</div>
+                    :  <tr><th>Chargement ...</th></tr>
                     }
                 </tbody>
-                <Button 
-                    variant="danger"
-                    onClick={handleRemove}
-
-                    css={css`
-                        margin-top: 20px;
-                    `}
-                >Supprimer</Button>
             </Table>
+            <Button 
+                variant="danger"
+                onClick={handleRemove}
+            >Supprimer</Button>
             <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin>
         </Container>
     </div>

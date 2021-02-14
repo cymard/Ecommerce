@@ -34,6 +34,7 @@ function SortPriceButtons ({data, setData}) {
         
         // organiser de façon décroissante
         let newData = data.productsList.sort(function (a, b) {
+
             return a.price - b.price;
          });
 
@@ -44,7 +45,7 @@ function SortPriceButtons ({data, setData}) {
         // asc fleche du bas
     return <div className="d-flex justify-content-center align-items-center"> Prix 
     <div className="ml-2 d-flex flex-column">
-        <Link to={`/admin/home?category=${category}&page=${page}&sort=desc`}><Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+        <Link to={`/admin/home?category=${category}&page=${page}&sorting=desc`}><Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
             css={css`
                 background-color: white;
                 border: 1px black solid;
@@ -52,7 +53,7 @@ function SortPriceButtons ({data, setData}) {
             `}
         >{arrowUpIcon}</Button></Link>
         
-        <Link to={`/admin/home?category=${category}&page=${page}&sort=asc`}><Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+        <Link to={`/admin/home?category=${category}&page=${page}&sorting=asc`}><Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
             css={css`
                 background-color: white;
                 border: 1px black solid;

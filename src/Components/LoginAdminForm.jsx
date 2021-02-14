@@ -45,7 +45,7 @@ function LoginAdminForm () {
                     token: response.data.token
                 }); 
                 
-                history.push('/admin/home?category=all&page=1&sort=default')
+                history.push('/admin/home?category=all&page=1&sorting=default')
 
             }else{
                 setResponse("La connexion a échouée, merci de réessayer");
