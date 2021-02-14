@@ -61,7 +61,7 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                 <td>{product.stock}</td>
                 <td>{product.category}</td>
                 <td>{product.price}€</td>
-                <td >
+                <td>
                     <Link to={`/admin/product/${product.id}/edit`}><Button variant="secondary">{editIcon}</Button></Link>
                 </td>
 

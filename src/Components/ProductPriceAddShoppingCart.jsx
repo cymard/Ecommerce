@@ -78,7 +78,7 @@ function ProductPriceAddShoppingCart ({price}){
 }
 
 ProductPriceAddShoppingCart.propTypes = {
-    price : PropTypes.string
+    price : PropTypes.number
 }
 
 export default ProductPriceAddShoppingCart;

@@ -93,7 +93,7 @@ function EditProductForm ({dataProduct,submitForm}) {
     }}
     >
     {({ handleSubmit, handleChange, errors, touched, values }) => (
-    <Form novalidate  onSubmit={handleSubmit}>
+    <Form noValidate  onSubmit={handleSubmit}>
 
         {/* titre du produit */}
         <Form.Group as={Row} >

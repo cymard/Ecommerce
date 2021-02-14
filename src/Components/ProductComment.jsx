@@ -39,7 +39,7 @@ ProductComment.propTypes = {
     pseudo : PropTypes.string,
     content : PropTypes.string,
     note : PropTypes.oneOf([0,1,2,3,4,5]),
-    date : PropTypes.number
+    date : PropTypes.string
 }
 
 ProductComment.defaultProps = {

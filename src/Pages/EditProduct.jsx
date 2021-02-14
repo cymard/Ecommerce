@@ -54,7 +54,7 @@ function EditProduct () {
             const response = await axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`, data);
             console.log(response);
             if(response.status === 201){
-                history.push("/admin/home?category=all&page=1&sort=default");
+                history.push("/admin/home?category=all&page=1&sorting=default");
             }
             
         } catch (err) {

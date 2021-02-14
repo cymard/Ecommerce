@@ -24,7 +24,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
         setTheNumber(theNumber-6)
     }
 
-    const create = (sort) => {
+    const create = () => {
         
         const change = () => {
             if(theNumber >= pageNumber){

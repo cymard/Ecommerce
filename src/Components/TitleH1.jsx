@@ -11,7 +11,11 @@ function TitleH1 ({children}) {
 }
 
 TitleH1.propTypes = {
-    children : PropTypes.string
+    children : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.array
+      ])
 }
 
 TitleH1.defaultProps = {

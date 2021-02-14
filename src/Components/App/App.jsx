@@ -132,7 +132,7 @@ export  {App};
 //                             <Footer></Footer>
 //                         </Route>
 
-//                         <Route path={["/Admin/Home/:category/:page/:sort","/admin/home"]}>
+//                         <Route path={["/Admin/Home/:category/:page/:sorting","/admin/home"]}>
 //                             <AdminHome></AdminHome>
 //                         </Route>
                         

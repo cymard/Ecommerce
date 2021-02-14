@@ -15,7 +15,7 @@ function CreateProduct(){
         axios.post('https://127.0.0.1:8000/admin/products', data)
             .then(function (response) {
             console.log(response);
-            history.push("/admin/home?category=all&page=1&sort=default");
+            history.push("/admin/home?category=all&page=1&sorting=default");
         })
             .catch(function (error) {
             console.log(error);

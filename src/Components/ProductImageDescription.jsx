@@ -34,6 +34,6 @@ function ProductImageDescription ({image, children}) {
 export default ProductImageDescription;
 
 ProductImageDescription.propTypes = {
-    image :  PropTypes.element,
+    image :  PropTypes.string,
     children : PropTypes.string
 }

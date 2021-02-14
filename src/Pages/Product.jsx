@@ -24,12 +24,13 @@ function Product({name, content, price}){
                 data: res.data
             }))
     }, [location]);
+
     
     // gerer l'etat avant la réponse de l'api :
     // data.status ? console.log(data) : console.log("wait");
     const title = data.status ? data.data.name : name;
     const description = data.status ? data.data.description : content;
-    const productPrice = data.status ? data.data.price : price;
+    const productPrice = data.status ? data.data.price : parseInt(price);
     const image = data.status ? data.data.image : "holder.js/171x180";
     const stock = data.status ? data.data.stock : "chargement";
     // console.log(mac);
@@ -87,8 +88,7 @@ Product.defaultProps = {
 Product.propTypes = {
     name : PropTypes.string,
     content : PropTypes.string,
-    price : PropTypes.number
-
+    price : PropTypes.string
 }
 
 export default Product;

@@ -16,7 +16,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
     let query = useQuery();
 
     let category = query.get("category")
-    let sort = query.get("sort")
+    let sorting = query.get("sorting")
 
     const handleClickLast = () => {
         setTheNumber(theNumber+6)
@@ -26,7 +26,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
         setTheNumber(theNumber-6)
     }
 
-    const create = (sort) => {
+    const create = (sorting) => {
         
         const change = () => {
             if(theNumber >= pageNumber){
@@ -45,7 +45,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`/admin/home?category=${category}&page=${i}&sort=${sort}`}> 
+            allButtons.push(<Link key={i} to={`/admin/home?category=${category}&page=${i}&sorting=${sorting}`}> 
                 <Button
                     css={css`
                         margin: 0 2px;
@@ -72,7 +72,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
     }
 
 
-    return create(sort) 
+    return create(sorting) 
 
 
 
