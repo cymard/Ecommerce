@@ -3,12 +3,13 @@ import React from 'react';
 import {Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
+import RateWithStars from './RateWithStars.jsx';
 
-function ProductComment ({pseudo, content, note, date}) {
-
+function ProductComment ({pseudo, content, note, date, title}) {
+    // const starIcon = <FontAwesomeIcon color="orange"  icon={faStar} />
     const marginBottom = 0;
 
-    return <Card className="text-center mb-3">
+    return <Card className="text-left mb-3">
         <Card.Header className="d-flex justify-content-between">
             <p 
                 css={css`
@@ -17,13 +18,17 @@ function ProductComment ({pseudo, content, note, date}) {
             >
                 {pseudo}
             </p>
+
+            <p>
+                <strong>{title} </strong>
+            </p>
             
             <p 
                 css={css`
                     margin-bottom: ${marginBottom};
                 `}
             >
-                Note : {note}/5
+                <RateWithStars rate={note}></RateWithStars>
             </p>
         </Card.Header>
         <Card.Body>

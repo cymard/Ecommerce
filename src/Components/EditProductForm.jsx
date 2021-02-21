@@ -139,8 +139,6 @@ function EditProductForm ({dataProduct,submitForm}) {
             value={descriptionValue}
             onEditorChange={handleEditorChange}
 
-
-
         />
          {validated === false ? <Alert variant="danger"><Alert.Heading className="text-center">La description du produit n'est pas valide, le formulaire ne sera pas validé.</Alert.Heading></Alert> : null }
 

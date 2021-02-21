@@ -14,27 +14,59 @@ function Product({name, content, price}){
 
     const location = useLocation();
 
-    const [data,setData] = useState({status:false,data:""})
+    const [data,setData] = useState({status:false})
     
     useEffect(() => {
         const currentPath = location.pathname;
         axios.get(`https://127.0.0.1:8000${currentPath}`)
             .then(res => setData({
                 status: true,
-                data: res.data
+                product: res.data.product,
+                comments: res.data.comments
             }))
     }, [location]);
 
     
     // gerer l'etat avant la réponse de l'api :
-    // data.status ? console.log(data) : console.log("wait");
-    const title = data.status ? data.data.name : name;
-    const description = data.status ? data.data.description : content;
-    const productPrice = data.status ? data.data.price : parseInt(price);
-    const image = data.status ? data.data.image : "holder.js/171x180";
-    const stock = data.status ? data.data.stock : "chargement";
-    // console.log(mac);
+   
+    return <Container className="d-flex flex-column justify-content-around">
+        <TitleH1>{data.status ? data.product.name : name}</TitleH1>
 
+        <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
+        <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
+        <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+
+        <div className="d-flex justify-content-center mt-5 mb-5">
+            <h2>Les Commentaires postés : </h2>
+        </div>
+       { console.log(data.comments)}
+        {data.status?
+        data.comments.map(comment => <ProductComment key={comment.id} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+        :
+        <div>chargement...</div>
+        }
+        
+    </Container>
+}
+
+Product.defaultProps = {
+    name : "Nom de l'objet",
+    content : "Description de l'objet",
+    price : "prix"
+}
+
+Product.propTypes = {
+    name : PropTypes.string,
+    content : PropTypes.string,
+    price : PropTypes.string
+}
+
+export default Product;
+
+
+
+       /* <input type="file" onChange={fileSelectedHandler}/>
+        <button onClick={uploadFile}>salut</button> */
     // méthodes pour upload
     // const [file, setFile] = useState({selectedFile: null});
 
@@ -56,39 +88,3 @@ function Product({name, content, price}){
     //         console.log(error);
     //       });
     // }
-    
-    return <Container className="d-flex flex-column justify-content-around">
-        <TitleH1>{title}</TitleH1>
-
-        {/* <input type="file" onChange={fileSelectedHandler}/>
-        <button onClick={uploadFile}>salut</button> */}
-
-        <ProductImageDescription image={image}>{description}</ProductImageDescription> 
-        <ProductStock stock={stock}></ProductStock>
-        <ProductPriceAddShoppingCart price={productPrice}></ProductPriceAddShoppingCart>
-
-        <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2>Les Commentaires postés : </h2>
-        </div>
-
-        <ProductComment></ProductComment>
-        <ProductComment></ProductComment>
-        <ProductComment></ProductComment>
-        <ProductComment></ProductComment>
-        
-    </Container>
-}
-
-Product.defaultProps = {
-    name : "Nom de l'objet",
-    content : "Description de l'objet",
-    price : "prix"
-}
-
-Product.propTypes = {
-    name : PropTypes.string,
-    content : PropTypes.string,
-    price : PropTypes.string
-}
-
-export default Product;
