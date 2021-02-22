@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Container} from 'react-bootstrap';
+import { Container, Button} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
 import TitleH1 from "../Components/TitleH1.jsx";
@@ -26,6 +26,10 @@ function Product({name, content, price}){
             }))
     }, [location]);
 
+    const handleClick = () => {
+        console.log("clique");
+    }
+
     
     // gerer l'etat avant la réponse de l'api :
    
@@ -41,7 +45,7 @@ function Product({name, content, price}){
         </div>
        { console.log(data.comments)}
         {data.status?
-        data.comments.map(comment => <ProductComment key={comment.id} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+        data.comments.map(comment => <ProductComment key={comment.id} button={<Button variant="primary" onClick={handleClick}>Signaler</Button>} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
         <div>chargement...</div>
         }

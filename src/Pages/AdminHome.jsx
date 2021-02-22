@@ -104,25 +104,6 @@ function AdminHome () {
             // handle error
             console.log(error); 
         })
-        // console.log("supprime " + id)
-        
-
-        // selectedProducts.map(id => 
-        //     axios.delete(`https://127.0.0.1:8000/admin/product/${id}`,{
-        //         headers:{'Authorization': `Bearer ${token}`},
-        //         data:{ }
-        //     })
-        //     .then(function (response){
-        //         // handle success
-        //         console.log(response.data);
-        //         history.push(`${location.pathname}${location.search}`)
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error); 
-        //     })
-        //     // console.log("supprime " + id)
-        // )
     }
 
 
@@ -158,7 +139,8 @@ function AdminHome () {
                         <th>
                             <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
                         </th>
-                        <th>Paramètres</th>
+                        <th>Commentaires</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody>

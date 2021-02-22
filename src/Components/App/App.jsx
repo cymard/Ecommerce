@@ -14,6 +14,7 @@ import {UserContextProvider} from '../UserContext.jsx'
 import {UserAdminContextProvider} from '../UserAdminContext.jsx'
 import EditProduct from '../../Pages/EditProduct.jsx'
 import CreateProduct from '../../Pages/CreateProduct.jsx'
+import ProductComments from '../../Pages/ProductComments.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -61,6 +62,10 @@ function App(){
 
                         <Route exact path="/admin/product/:id/edit">
                             <EditProduct></EditProduct>
+                        </Route>
+
+                        <Route exact path="/admin/product/:id/comments">
+                            <ProductComments></ProductComments>
                         </Route>
                         
                         <Route exact path="/admin/login">
