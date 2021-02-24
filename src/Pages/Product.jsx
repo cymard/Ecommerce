@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Container, Button} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
@@ -8,13 +8,27 @@ import {useLocation} from "react-router-dom";
 import ProductImageDescription from "../Components/ProductImageDescription.jsx";
 import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCart.jsx';
 import ProductStock from '../Components/ProductStock.jsx';
+import {UserContext} from '../Components/UserContext.jsx';
+import RedirectModal from '../Components/RedirectModal.jsx';
+import {Link} from "react-router-dom";
 
 
 function Product({name, content, price}){
 
     const location = useLocation();
+    const informationUser = useContext(UserContext);
+    const token = informationUser.token
 
     const [data,setData] = useState({status:false})
+
+    // state pour la modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const displayModal = () => setShow(true)
+        
+    
+
+
     
     useEffect(() => {
         const currentPath = location.pathname;
@@ -26,8 +40,15 @@ function Product({name, content, price}){
             }))
     }, [location]);
 
-    const handleClick = () => {
-        console.log("clique");
+    const handleReport = (e) => {
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+        axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     
@@ -43,11 +64,19 @@ function Product({name, content, price}){
         <div className="d-flex justify-content-center mt-5 mb-5">
             <h2>Les Commentaires postés : </h2>
         </div>
-       { console.log(data.comments)}
+
+        <RedirectModal 
+            show={show} 
+            onHide={handleClose} 
+            title="Action impossible"
+            firstButton={<Link to="/Login"><Button variant="success">Connectez-vous à votre compte</Button></Link>}
+            secondButton={<Link to="/Register"><Button variant="warning">Inscrivez-vous maintenant</Button></Link>}
+        >Vous devez être connecté pour effectuer cette action.</RedirectModal>
+    
         {data.status?
-        data.comments.map(comment => <ProductComment key={comment.id} button={<Button variant="primary" onClick={handleClick}>Signaler</Button>} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+            data.comments.map(comment => <ProductComment key={comment.id} button={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="danger" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
-        <div>chargement...</div>
+            <div>chargement...</div>
         }
         
     </Container>

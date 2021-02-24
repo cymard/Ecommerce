@@ -40,11 +40,22 @@ function ProductComments () {
             history.push("/admin/home")
 
         })
-    }, [location,token,history])
+    }, [location,token,history,data])
 
-    const handleClick = () => {
+    const handleRemove = (e) => {
         // supprimer le commentaire
-        console.log("tu cliques la !!!")
+        // console.log("tu cliques la !!! "+e.target.id)
+
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+        axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+        .then(function (response){
+            console.log(response);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error); 
+
+        });
     }
 
     return <div     
@@ -59,14 +70,16 @@ function ProductComments () {
             {data.status === false ? <div>Chargement ...</div> : data.comments.map( comment => 
             <>
                 <ProductComment
+                    key={comment.id}
                     pseudo={comment.username} 
                     content={comment.content} 
                     note={comment.note} 
                     date={comment.date} 
                     title={comment.title}
-                    button={<Button variant="danger" onClick={handleClick}>Supprimer</Button>}
+                    button={<Button id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
                 ></ProductComment>
                 <div 
+                    key={comment.id +10}
                     css={css`
                         height : 20px;
                     `}
