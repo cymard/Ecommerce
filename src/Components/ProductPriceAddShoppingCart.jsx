@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useContext, useState} from 'react';
 import {Card, Button} from 'react-bootstrap';
-import ProductFormComment from './ProductFormComment.jsx';
 import {UserContext} from './UserContext.jsx';
 // import RedirectLoginRegister from './RedirectLoginRegister.jsx';
 import {css} from '@emotion/react';
@@ -76,27 +75,8 @@ function ProductPriceAddShoppingCart ({price}){
                         onClick={console.log("ajouter au panier")}
                     >Ajouter au panier</Button>
                 }
-                
-            
         </Card.Body>
     </Card>
-
-    {/* {redirect} */}
-
-    {informationUser.email === null && informationUser.token === null ? 
-        <></>
-    : 
-        <>
-            <div className="d-flex justify-content-center mt-5 mb-5">
-                <h2 
-                    css={css`
-                        white-space: nowrap;
-                    `}
-                > Ecrire un commentaire :</h2>
-            </div>
-            <ProductFormComment></ProductFormComment>
-        </>
-    }
 </>
 }
 

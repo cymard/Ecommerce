@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import axios from 'axios'
 import * as yup from 'yup';
 
-function ProductFormComment () {
+function ProductFormComment ({reFetch}) {
 
     const [pseudoEmail, setPseudoEmail] = useState('')
 
@@ -50,11 +50,12 @@ function ProductFormComment () {
                     username: values.pseudo,
                     note: parseInt(values.note),
                     content: values.content,
-                    product: parseInt(id)
+                    product: parseInt(id),
+                    isReported: false
                 });
                 actions.resetForm()
                 actions.setSubmitting(false);
-   
+                reFetch()
             }, 1000);
    
           }}

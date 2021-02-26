@@ -1,4 +1,5 @@
-import React, {useEffect, useState, useContext} from 'react';
+/** @jsxImportSource @emotion/react */
+import React, {useEffect, useState, useContext, useCallback} from 'react';
 import { Container, Button} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
@@ -11,7 +12,9 @@ import ProductStock from '../Components/ProductStock.jsx';
 import {UserContext} from '../Components/UserContext.jsx';
 import RedirectModal from '../Components/RedirectModal.jsx';
 import {Link} from "react-router-dom";
-
+import {css} from '@emotion/react';
+import ProductFormComment from '../Components/ProductFormComment.jsx';
+import DisplayAveraging from '../Components/DisplayAveraging.jsx';
 
 function Product({name, content, price}){
 
@@ -27,29 +30,37 @@ function Product({name, content, price}){
     const displayModal = () => setShow(true)
         
     
-
+    const displayComments = useCallback(
+        () => {
+            const currentPath = location.pathname;
+            axios.get(`https://127.0.0.1:8000${currentPath}`)
+                .then(res => setData({
+                    status: true,
+                    product: res.data.product,
+                    comments: res.data.comments,
+                    averaging: res.data.averaging,
+                    rateNumber: res.data.rateNumber
+                }))
+        },
+        [location])
 
     
     useEffect(() => {
-        const currentPath = location.pathname;
-        axios.get(`https://127.0.0.1:8000${currentPath}`)
-            .then(res => setData({
-                status: true,
-                product: res.data.product,
-                comments: res.data.comments
-            }))
-    }, [location]);
+        displayComments()
+    }, [displayComments]);
 
-    const handleReport = (e) => {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
+    const handleReport = useCallback(
+        (e) => {
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+            axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        },
+        [token])
 
     
     // gerer l'etat avant la réponse de l'api :
@@ -59,7 +70,30 @@ function Product({name, content, price}){
 
         <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
         <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
+        {data.status ?  <DisplayAveraging rateNumber={data.rateNumber}>{data.averaging}</DisplayAveraging> : <div></div>}
         <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+
+       
+        
+
+        {informationUser.email === null && informationUser.token === null ? 
+        <></>
+        : 
+        <>
+            <div className="d-flex justify-content-center mt-5 mb-5">
+                <h2 
+                    css={css`
+                        white-space: nowrap;
+                    `}
+                > Ecrire un commentaire :</h2>
+            </div>
+            <ProductFormComment reFetch={displayComments}></ProductFormComment>
+        </>
+        }
+
+
+
+
 
         <div className="d-flex justify-content-center mt-5 mb-5">
             <h2>Les Commentaires postés : </h2>

@@ -30,12 +30,12 @@ function EditProduct () {
             console.log(response);
 
             setDataProduct({
-                name: response.data.name,
-                description: response.data.description,
-                category: response.data.category,
-                image: response.data.image,
-                price: response.data.price,
-                stock:  response.data.stock
+                name: response.data.product.name,
+                description: response.data.product.description,
+                category: response.data.product.category,
+                image: response.data.product.image,
+                price: response.data.product.price,
+                stock:  response.data.product.stock
             })
         })
         .catch(function (error) {
