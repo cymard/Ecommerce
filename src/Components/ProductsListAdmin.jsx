@@ -2,7 +2,7 @@ import React from 'react';
 // import DropdownMenu from './DropdownMenu.jsx';
 import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt,faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
 function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
@@ -10,6 +10,7 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
     // Lorsque l'id d'un produit est dans le tableau il est selectionné
     
     const editIcon = <FontAwesomeIcon icon={faPencilAlt} />
+    const commentIcon = <FontAwesomeIcon icon={faCommentAlt} />
 
     const handleChange = (e) => {
         const productId = parseInt(e.target.id, 10);
@@ -40,6 +41,8 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
         console.log(selectedProducts)
     }
 
+    
+
  
 
     return <>
@@ -62,11 +65,12 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                 <td>{product.category}</td>
                 <td>{product.price}€</td>
                 <td>
+                    <Link to={`/admin/product/${product.id}/comments`}><Button variant="secondary">{commentIcon}</Button></Link>
+                </td>
+                <td>
                     <Link to={`/admin/product/${product.id}/edit`}><Button variant="secondary">{editIcon}</Button></Link>
                 </td>
-
             </tr>
-        
         )}      
     </>
 }

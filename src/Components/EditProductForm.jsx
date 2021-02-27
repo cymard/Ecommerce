@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React,{useState, useEffect} from 'react';
-import {Form,Row,Col,Button,Alert} from 'react-bootstrap';
+import React,{useState, useEffect, useRef} from 'react';
+import {Form,Row,Col,Card,Button,Overlay} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
@@ -14,6 +14,9 @@ function EditProductForm ({dataProduct,submitForm}) {
      // valider ou pas le form
     const [validated, setValidated] = useState(true);
 
+    const [show, setShow] = useState(false);
+    const target = useRef(null);
+
     const handleEditorChange = (content, editor) => {
             // controle du data
             let schemaDescription =  yup.string().min(3).max(5000).required();
@@ -26,6 +29,7 @@ function EditProductForm ({dataProduct,submitForm}) {
             })
             .catch(function (err) {
                 setValidated(false)
+                setShow(true)
                 console.log(err.name); // => 'ValidationError'
             });
             console.log(validated)
@@ -119,31 +123,52 @@ function EditProductForm ({dataProduct,submitForm}) {
         </Form.Group>
         
         {/* description du produit (WYSIWYG) */}
-        <Editor
-            apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
-            outputFormat='html'
-            init={{
-                height: 500,
-                menubar: false,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                ],
-                toolbar:
-                    'undo redo | formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat | help'
-            }}
+        <Card 
+            css={css`
+                margin: auto;
+                width: 90%;
+            `}
+            border={validated === false ? "danger" : "secondary" }
+            ref={target}
+        >
+            <Editor
+                apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
+                outputFormat='html'
+                init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                }}
 
-            value={descriptionValue}
-            onEditorChange={handleEditorChange}
+                value={descriptionValue}
+                onEditorChange={handleEditorChange}
 
-
-
-        />
-         {validated === false ? <Alert variant="danger"><Alert.Heading className="text-center">La description du produit n'est pas valide, le formulaire ne sera pas validé.</Alert.Heading></Alert> : null }
-
+            />
+        </Card>
+        {validated === false ? 
+        <Overlay target={target} show={show} placement="bottom-start">
+            <div
+                css={css`
+                    background-color: #DF4857;
+                    color: white;
+                    padding: 5px 7px;
+                    margin-top: 2px;
+                    border-radius: 5px;
+                `}
+            >
+                La description du produit n'est pas valide, le formulaire ne sera pas validé.
+            </div>
+        </Overlay>
+            
+        : null }
         {/* choisir la catégorie */}
         <Form.Group as={Row} controlId="category" >
             <Form.Label as="legend" column sm={2} value={values.category}>

@@ -3,7 +3,7 @@ import {Alert} from 'react-bootstrap';
 
 function ProductStock ({stock}) {
 
-    console.log("nombre : "+stock)
+
     if(stock === 0){
         return <Alert className="text-center" variant="danger">Actuellement Indisponible.</Alert>
     }else if(stock > 0 && stock <= 3){

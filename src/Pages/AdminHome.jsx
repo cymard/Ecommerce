@@ -87,22 +87,23 @@ function AdminHome () {
     
 
     const handleRemove = () => {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        selectedProducts.map(id => 
-            axios.delete(`https://127.0.0.1:8000/admin/product/${id}`)
-            .then(function (response){
-                // handle success
-                console.log(response.data);
-                history.push(`${location.pathname}${location.search}`)
-
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error); 
-
-            })
-            // console.log("supprime " + id)
-        )
+        // axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+        axios.delete(`https://127.0.0.1:8000/admin/product`,{
+            headers:{'Authorization': `Bearer ${token}`},
+            data:{data : selectedProducts}
+        })
+        .then(function (response){
+            // handle success
+            console.log(response.data);
+            // déselectionner
+            setSelectedProducts([])
+            // redirection
+            history.push(`${location.pathname}${location.search}`)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error); 
+        })
     }
 
 
@@ -138,7 +139,8 @@ function AdminHome () {
                         <th>
                             <SortPriceButtons data={data} setData={setData}></SortPriceButtons>
                         </th>
-                        <th>Paramètres</th>
+                        <th>Commentaires</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody>

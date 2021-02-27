@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import RateWithStars from './RateWithStars.jsx';
 
-function ProductComment ({pseudo, content, note, date, title, button}) {
+function ProductCommentAdmin ({pseudo, content, note, date, title, ignoreButton, deleteButton}) {
     // const starIcon = <FontAwesomeIcon color="orange"  icon={faStar} />
     const marginBottom = 0;
 
@@ -38,19 +38,23 @@ function ProductComment ({pseudo, content, note, date, title, button}) {
         </Card.Body>
         <Card.Footer className="text-muted d-flex justify-content-between">
            <p>Publié le {date}</p> 
-           {button}
+            <div>
+                {ignoreButton}
+                {deleteButton}
+            </div>
+           
         </Card.Footer>
     </Card>
 }
 
-ProductComment.propTypes = {
+ProductCommentAdmin.propTypes = {
     pseudo : PropTypes.string,
     content : PropTypes.string,
     note : PropTypes.oneOf([0,1,2,3,4,5]),
     date : PropTypes.string
 }
 
-ProductComment.defaultProps = {
+ProductCommentAdmin.defaultProps = {
     pseudo : "Pseudo",
     content : "Contenu du commentaire",
     note : 5,
@@ -58,4 +62,4 @@ ProductComment.defaultProps = {
 }
 
 
-export default ProductComment;
+export default ProductCommentAdmin;

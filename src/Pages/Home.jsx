@@ -14,7 +14,6 @@ function Home(){
     const [data, setData] = useState({status : false, data: "", filter: ""})
     const location = useLocation();
     const history = useHistory();
-    console.log(location.pathname)
 
     useEffect(()=>{
         if(location.pathname === "/"){
