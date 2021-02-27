@@ -6,7 +6,8 @@ import {css} from '@emotion/react';
 
 
 
-function ShoppingCartProduct ({src, titre, prix}) {
+function ShoppingCartProduct ({image, title, price, quantity}) {
+    
     
 
     return <Card className="d-flex mb-5" 
@@ -27,7 +28,7 @@ function ShoppingCartProduct ({src, titre, prix}) {
                     width: 318px;
                 `}
             >
-                <Card.Img src={src} 
+                <Card.Img image={image} 
                     css={css`
                         height: 318px;
                         width: 318px;
@@ -48,7 +49,7 @@ function ShoppingCartProduct ({src, titre, prix}) {
                 >
                     
                     <div className="p-4 d-flex flex-column align-items-center justify-content-between">
-                        <h2>{titre}</h2>
+                        <h2>{title}</h2>
                         <Form 
                             css={css`
                                 width: 100%;
@@ -66,10 +67,11 @@ function ShoppingCartProduct ({src, titre, prix}) {
                                 >
                                     Quantité : 
                                 </Form.Label>
-                                <Form.Control className="ml-3 mr-3" type="text" 
+                                <Form.Control value={quantity} className="ml-3 mr-3" type="text" 
                                     css={css`
                                         width: 60px;
                                     `}
+                                    
                                 />
                                 <Button>Mettre à jour</Button>
                             </Form.Group>
@@ -77,7 +79,7 @@ function ShoppingCartProduct ({src, titre, prix}) {
                     </div>
 
                     <div className="p-4">
-                        <p>Prix : {prix} €</p>
+                        <p>Prix : {price} €</p>
                     </div>
                 </Row>
                 <Row className="p-4 d-flex justify-content-end align-items-end" 
@@ -102,15 +104,15 @@ function ShoppingCartProduct ({src, titre, prix}) {
 }
 
 ShoppingCartProduct.propTypes = {
-    src : PropTypes.string,
-    titre : PropTypes.string,
-    prix : PropTypes.number
+    image : PropTypes.string,
+    title : PropTypes.string,
+    price : PropTypes.number
 }
 
 ShoppingCartProduct.defaultProps = {
-    src : "holder.js/100px160",
-    titre : "Titre du produit",
-    prix : 10
+    image : "holder.js/100px160",
+    title : "Titre du produit",
+    price : 10
 }
 
 export default ShoppingCartProduct;
