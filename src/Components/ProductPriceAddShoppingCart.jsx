@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useCallback} from 'react';
 import {Card, Button} from 'react-bootstrap';
 import {UserContext} from './UserContext.jsx';
 // import RedirectLoginRegister from './RedirectLoginRegister.jsx';
 import {css} from '@emotion/react';
 import PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
+import {Link,useParams} from "react-router-dom";
 import RedirectModal from './RedirectModal.jsx';
+import axios from 'axios';
 
 function ProductPriceAddShoppingCart ({price}){
 
-    const informationUser = useContext(UserContext);
+    
 
 
     // utiliser un usestate pour faire apparaite la div 
@@ -20,10 +21,36 @@ function ProductPriceAddShoppingCart ({price}){
     //     setRedirect(<RedirectLoginRegister>Pour ajouter le produit au panier, vous devez être connecté : </RedirectLoginRegister>)
     // }
 
+    // context
+    const informationUser = useContext(UserContext);
+    const token = informationUser.token;
+    const email = informationUser.email;
+
+    // params
+    let { id } = useParams();
+
+
     // utiliser la modal 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const displayModal = () => setShow(true)
+
+
+
+    const handleClick = useCallback(
+        () => {
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+            axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
+                "email" : email,
+                "quantity" : 1
+            })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        },[token, id, email])
 
     return <>
     <RedirectModal 
@@ -72,7 +99,7 @@ function ProductPriceAddShoppingCart ({price}){
                         css={css`
                             color: white;
                         `}
-                        onClick={console.log("ajouter au panier")}
+                        onClick={handleClick}
                     >Ajouter au panier</Button>
                 }
         </Card.Body>

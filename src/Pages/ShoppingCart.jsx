@@ -12,13 +12,14 @@ function ShoppingCart(){
 
     const userInformation = useContext(UserContext);
     const token = userInformation.token;
+    const email = userInformation.email;
 
     const [data, setData] = useState({status: false})
 
     const displayArticles = useCallback(() => {
 
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.get('https://127.0.0.1:8000/api/cart/products')
+        axios.post('https://127.0.0.1:8000/api/cart/products', {"email" : email})
             .then(function (response) {
                 // handle success
                 console.log(response.data);
@@ -33,7 +34,7 @@ function ShoppingCart(){
                 // handle error
                 console.log(error);
             })
-    },[token])
+    },[token,email])
 
     useEffect(()=>{
         displayArticles()
@@ -61,7 +62,7 @@ function ShoppingCart(){
                 <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
                 {data.status === true ? 
                 
-                data.allArticles.map(article =>  <ShoppingCartProduct key={article.key} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
+                data.allArticles.map(article =>  <ShoppingCartProduct key={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
 
                 : 
 
