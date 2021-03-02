@@ -62,7 +62,7 @@ function ShoppingCart(){
                 <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
                 {data.status === true ? 
                 
-                data.allArticles.map(article =>  <ShoppingCartProduct key={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
+                data.allArticles.map(article =>  <ShoppingCartProduct reFetch={displayArticles} key={article.id} id={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
 
                 : 
 
