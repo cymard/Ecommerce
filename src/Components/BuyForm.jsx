@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React,{useContext, useEffect} from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
+import axios from 'axios'
+import {UserAdminContext} from './UserAdminContext.jsx';
 
 let yup = require('yup');
 
@@ -21,16 +23,40 @@ const schema = yup.object({
     termsAndConditions: yup.boolean().required()
 });
 
-function BuyForm () {
+function BuyForm ({amount}) {
+
+    const informationUser = useContext(UserAdminContext);
+    const token = informationUser.token
+
 
 
     return <div>
         <Formik 
             validationSchema={schema}
+
             onSubmit={values => {
-                // same shape as initial values
-                console.log(values);
+                axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                axios.post('https://127.0.0.1:8000/admin/order', {
+                    "firstName" :values.firstName,
+                    "lastName" :values.lastName,
+                    "city" :values.city,
+                    "address" :values.address,
+                    "email" :values.email,
+                    "paymentMethod" :values.paymentMethod,
+                    "cardName" :values.cardName,
+                    "cardNumber" : parseInt(values.cardNumber),
+                    "cardExpirationDate" :values.cardExpirationDate,
+                    "cryptogram" :parseInt(values.cryptogram),
+                    "amount" : amount
+                })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             }}
+
             initialValues={{
                 firstName: "",
                 lastName: "",

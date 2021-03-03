@@ -108,7 +108,7 @@ function Product({name, content, price}){
         >Vous devez être connecté pour effectuer cette action.</RedirectModal>
     
         {data.status?
-            data.comments.map(comment => <ProductComment key={comment.id} button={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="danger" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+            data.comments.map(comment => <ProductComment key={comment.id} button={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
             <div>chargement...</div>
         }

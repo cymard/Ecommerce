@@ -16,7 +16,7 @@ import EditProduct from '../../Pages/EditProduct.jsx'
 import CreateProduct from '../../Pages/CreateProduct.jsx'
 import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
-import Order from "../../Pages/Order.jsx"
+import Orders from "../../Pages/Orders.jsx"
 import {
     BrowserRouter as Router,
     Switch,
@@ -89,7 +89,7 @@ function App(){
                         </Route>
 
                         <Route path="/admin/orders">
-                            <Order></Order>
+                            <Orders></Orders>
                         </Route>
 
                         <Route path={["/products","/"]}>
