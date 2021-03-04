@@ -5,9 +5,8 @@ import {Container,Button} from 'react-bootstrap'
 import axios from 'axios';
 import TitleH1 from "../Components/TitleH1.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
-
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
-import ProductCommentAdmin from '../Components/ProductCommentAdmin.jsx'
+import ProductComment from '../Components/ProductComment.jsx'
 
 
 function ReportedComments (){
@@ -85,7 +84,7 @@ function ReportedComments (){
         <Container fluid>
             <TitleH1>Commentaires Signalés</TitleH1>
             {data.status === true ? 
-                data.comments.map(comment => <ProductCommentAdmin key={comment.id} pseudo={comment.pseudo} content={comment.content} note={comment.note} date={comment.date} title={comment.title} ignoreButton={<Button id={comment.id} onClick={handleIgnore}>Ignorer</Button>} deleteButton={<Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button>}></ProductCommentAdmin>)
+                data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.pseudo} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  button={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
             :
                 "chargement"
             }

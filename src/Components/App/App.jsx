@@ -56,7 +56,7 @@ function App(){
                             <Buy></Buy> 
                             <Footer></Footer>
                         </Route>
-                        <Route exact path="/ConnectedAccount">
+                        <Route exact path="/api/connectedAccount">
                             <Header></Header>
                             <ConnectedAccount></ConnectedAccount>
                             <Footer></Footer>

@@ -28,7 +28,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             // axios pour changer la quantité
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/api/cart/product/${id}/quantity`,{
-                "email" : email,
                 "quantity" : quantityToBuy
             })
             .then(function (response){
@@ -47,8 +46,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
     const handleClickDelete = useCallback(
         (e) => {
             axios.delete(`https://127.0.0.1:8000/api/cart/product/${id}/delete`,{
-                headers:{'Authorization': `Bearer ${token}`},
-                data:{email : email}
+                headers:{'Authorization': `Bearer ${token}`}
             })
             .then(function (response){
                 // handle success

@@ -7,7 +7,7 @@ import { UserContext } from './UserContext';
 let yup = require('yup');
 
 
-function ConnectedAccountForm () {
+function ConnectedAccountForm ({userInformation}) {
     
     let schema = yup.object({
         firstName: yup.string().required(),
@@ -28,17 +28,19 @@ function ConnectedAccountForm () {
     console.log(contextInformations);
 
     return<Formik
+        enableReinitialize={true}
+
         initialValues={{ 
-            firstName: 'firstName', 
-            lastName: 'lastName', 
-            Password: 'Password', 
-            address: 'address', 
+            firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
+            lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
+            Password: userInformation.password === null ? undefined : userInformation.password, 
+            address: userInformation.address === null ? undefined : userInformation.address, 
             email: contextInformations.email, 
-            paymentMethod: 'VISA', 
-            cardName: 'cardName', 
-            cardNumber: '000000', 
-            cardExpirationDate: 'MM/JJ', 
-            cryptogram: '123'
+            paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
+            cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
+            cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
+            cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
+            cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram
         }}
         validationSchema={schema}
         onSubmit={values => {
@@ -128,6 +130,7 @@ function ConnectedAccountForm () {
                             value={values.email}
                             isValid={touched.email && !errors.email}
                             isInvalid={touched.email && errors.email}
+                            readOnly
                         />
                     </Form.Group>
                 </Form.Row>

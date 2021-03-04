@@ -41,7 +41,6 @@ function ProductPriceAddShoppingCart ({price}){
         () => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
-                "email" : email,
                 "quantity" : 1
             })
               .then(function (response) {

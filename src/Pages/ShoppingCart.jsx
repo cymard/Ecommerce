@@ -19,7 +19,7 @@ function ShoppingCart(){
     const displayArticles = useCallback(() => {
 
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.post('https://127.0.0.1:8000/api/cart/products', {"email" : email})
+        axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
                 // handle success
                 console.log(response.data);

@@ -207,7 +207,7 @@ function BuyForm ({amount}) {
                             <Form.Label>Date d'expiration de la Carte</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="MM/YY" 
+                                placeholder="MMYY" 
                                 onChange={handleChange}
                                 value={values.cardExpirationDate}
 
