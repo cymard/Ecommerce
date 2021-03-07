@@ -16,6 +16,7 @@ import EditProduct from '../../Pages/EditProduct.jsx'
 import CreateProduct from '../../Pages/CreateProduct.jsx'
 import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
+import Orders from "../../Pages/Orders.jsx"
 import {
     BrowserRouter as Router,
     Switch,
@@ -55,7 +56,7 @@ function App(){
                             <Buy></Buy> 
                             <Footer></Footer>
                         </Route>
-                        <Route exact path="/ConnectedAccount">
+                        <Route exact path="/api/connectedAccount">
                             <Header></Header>
                             <ConnectedAccount></ConnectedAccount>
                             <Footer></Footer>
@@ -83,8 +84,12 @@ function App(){
                             <CreateProduct></CreateProduct>
                         </Route>
 
-                        <Route path={"/admin/home"}>
+                        <Route path="/admin/home">
                             <AdminHome></AdminHome>
+                        </Route>
+
+                        <Route path="/admin/orders">
+                            <Orders></Orders>
                         </Route>
 
                         <Route path={["/products","/"]}>

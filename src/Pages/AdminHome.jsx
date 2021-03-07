@@ -88,10 +88,7 @@ function AdminHome () {
 
     const handleRemove = () => {
         // axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.delete(`https://127.0.0.1:8000/admin/product`,{
-            headers:{'Authorization': `Bearer ${token}`},
-            data:{data : selectedProducts}
-        })
+        axios.delete(`https://127.0.0.1:8000/admin/product`,)
         .then(function (response){
             // handle success
             console.log(response.data);

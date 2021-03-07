@@ -1,12 +1,66 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import { Card, Button ,Row, Form} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
+import axios from 'axios';
+import {UserContext} from './UserContext.jsx'
 
 
 
-function ShoppingCartProduct ({src, titre, prix}) {
+
+function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
+    
+    const [quantityToBuy, setQuantityToBuy] = useState(quantity)
+
+    const quantityToBuyChange = (e) => {
+        setQuantityToBuy(e.target.value)
+    }
+
+
+    const informationUser = useContext(UserContext);
+    const token = informationUser.token;
+    const email = informationUser.email;
+
+
+    const updateQuantity = useCallback(
+        (e) => {
+            // axios pour changer la quantité
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+            axios.put(`https://127.0.0.1:8000/api/cart/product/${id}/quantity`,{
+                "quantity" : quantityToBuy
+            })
+            .then(function (response){
+                // handle success
+                console.log(response.data);
+                reFetch()
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error); 
+            })
+        },
+        [token,email,quantityToBuy,id],
+    )
+
+    const handleClickDelete = useCallback(
+        (e) => {
+            axios.delete(`https://127.0.0.1:8000/api/cart/product/${id}/delete`,{
+                headers:{'Authorization': `Bearer ${token}`}
+            })
+            .then(function (response){
+                // handle success
+                console.log(response.data);
+                reFetch()
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error); 
+            })
+        },
+        [token,email,id],
+    )
+
     
 
     return <Card className="d-flex mb-5" 
@@ -27,7 +81,7 @@ function ShoppingCartProduct ({src, titre, prix}) {
                     width: 318px;
                 `}
             >
-                <Card.Img src={src} 
+                <Card.Img image={image} 
                     css={css`
                         height: 318px;
                         width: 318px;
@@ -48,13 +102,13 @@ function ShoppingCartProduct ({src, titre, prix}) {
                 >
                     
                     <div className="p-4 d-flex flex-column align-items-center justify-content-between">
-                        <h2>{titre}</h2>
+                        <h2>{title}</h2>
                         <Form 
                             css={css`
                                 width: 100%;
                             `}
                         >
-                            <Form.Group  className="d-flex" controlId="formQuantity"
+                            <Form.Group  className="d-flex"
                                 css={css`
                                     width: 100%;
                                 `}
@@ -66,18 +120,19 @@ function ShoppingCartProduct ({src, titre, prix}) {
                                 >
                                     Quantité : 
                                 </Form.Label>
-                                <Form.Control className="ml-3 mr-3" type="text" 
+                                <Form.Control id="quantityToBuy" value={quantityToBuy} onChange={quantityToBuyChange} className="ml-3 mr-3" type="text" 
                                     css={css`
                                         width: 60px;
                                     `}
+                                    
                                 />
-                                <Button>Mettre à jour</Button>
+                                <Button onClick={updateQuantity}>Mettre à jour</Button>
                             </Form.Group>
                         </Form>
                     </div>
 
                     <div className="p-4">
-                        <p>Prix : {prix} €</p>
+                        <p>Prix : {price} €</p>
                     </div>
                 </Row>
                 <Row className="p-4 d-flex justify-content-end align-items-end" 
@@ -87,10 +142,12 @@ function ShoppingCartProduct ({src, titre, prix}) {
                         height: 30%;
                     `}
                 >
-                    <Button variant="danger" 
+                    <Button 
+                        variant="danger" 
                         css={css`
                             height : 40px;
                         `}
+                        onClick={handleClickDelete}
                     >
                         Supprimer
                     </Button>
@@ -102,15 +159,15 @@ function ShoppingCartProduct ({src, titre, prix}) {
 }
 
 ShoppingCartProduct.propTypes = {
-    src : PropTypes.string,
-    titre : PropTypes.string,
-    prix : PropTypes.number
+    image : PropTypes.string,
+    title : PropTypes.string,
+    price : PropTypes.number
 }
 
 ShoppingCartProduct.defaultProps = {
-    src : "holder.js/100px160",
-    titre : "Titre du produit",
-    prix : 10
+    image : "holder.js/100px160",
+    title : "Titre du produit",
+    price : 10
 }
 
 export default ShoppingCartProduct;

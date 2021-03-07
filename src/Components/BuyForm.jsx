@@ -1,8 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React,{useContext, useEffect} from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
+import axios from 'axios'
+import {UserContext} from './UserContext.jsx';
+import {useHistory} from 'react-router-dom'
 
 let yup = require('yup');
 
@@ -15,33 +18,110 @@ const schema = yup.object({
     paymentMethod: yup.string().required(),
     cardName: yup.string().required(),
     cardNumber: yup.number().positive().required(),
-    cardExpirationDate: yup.date().required(),
+    cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
     cryptogram: yup.number().positive().required(),
     bankData: yup.boolean(),
     termsAndConditions: yup.boolean().required()
 });
 
-function BuyForm () {
+function BuyForm ({amount, userInformation}) {
+
+    const informationUser = useContext(UserContext);
+    const token = informationUser.token
+    const email = informationUser.email
+    let history = useHistory();
 
 
     return <div>
         <Formik 
+            enableReinitialize={true}
             validationSchema={schema}
+
             onSubmit={values => {
-                // same shape as initial values
-                console.log(values);
+                if(values.bankData === true){
+                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                    axios.post('https://127.0.0.1:8000/api/order', {
+                        "firstName" :values.firstName,
+                        "lastName" :values.lastName,
+                        "city" :values.city,
+                        "address" :values.address,
+                        "email" :values.email,
+                        "paymentMethod" :values.paymentMethod,
+                        "cardName" :values.cardName,
+                        "cardNumber" : parseInt(values.cardNumber),
+                        "cardExpirationDate" :values.cardExpirationDate,
+                        "cryptogram" :parseInt(values.cryptogram),
+                        "amount" : amount
+                    })
+                    .then(function (response) {
+                        console.log(response);
+
+                        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                        axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
+                            "firstName" :values.firstName,
+                            "lastName" :values.lastName,
+                            "city" :values.city,
+                            "address" :values.address,
+                            "email" :values.email,
+                            "paymentMethod" :values.paymentMethod,
+                            "cardName" :values.cardName,
+                            "cardNumber" : parseInt(values.cardNumber),
+                            "cardExpirationDate" :values.cardExpirationDate,
+                            "cryptogram" :parseInt(values.cryptogram)
+                        })
+                        .then(function (response) {
+                            console.log(response);
+                            // redirection
+                            return history.push('/');
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                
+                }else{
+                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                    axios.post('https://127.0.0.1:8000/api/order', {
+                        "firstName" :values.firstName,
+                        "lastName" :values.lastName,
+                        "city" :values.city,
+                        "address" :values.address,
+                        "email" :values.email,
+                        "paymentMethod" :values.paymentMethod,
+                        "cardName" :values.cardName,
+                        "cardNumber" : parseInt(values.cardNumber),
+                        "cardExpirationDate" :values.cardExpirationDate,
+                        "cryptogram" :parseInt(values.cryptogram),
+                        "amount" : amount
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        // redirection
+                        return history.push('/');
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
             }}
+
             initialValues={{
-                firstName: "",
-                lastName: "",
-                city: "",
-                address: "",
-                email: "",
-                paymentMethod: "VISA",
-                cardName: "",
-                cardNumber: "",
-                cardExpirationDate: "",
-                cryptogram: "",
+
+                firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
+                lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
+                city: userInformation.city === null ? undefined : userInformation.city, 
+                address: userInformation.address === null ? undefined : userInformation.address, 
+                email: email, 
+                paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
+                cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
+                cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
+                cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
+                cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram,
                 bankData: "",
                 termsAndConditions: "",
             }}
@@ -181,7 +261,7 @@ function BuyForm () {
                             <Form.Label>Date d'expiration de la Carte</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="MM/YY" 
+                                placeholder="MMYY" 
                                 onChange={handleChange}
                                 value={values.cardExpirationDate}
 

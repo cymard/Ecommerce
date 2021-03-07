@@ -36,7 +36,7 @@ function HeaderNavBar () {
           </Form>
           
           <Nav className="mr-auto">
-            {userInformations.email ? <ModifiedLinksRouter color="black" to="/ConnectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
+            {userInformations.email ? <ModifiedLinksRouter color="black" to="/api/connectedAccount">Compte</ModifiedLinksRouter> : <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>}
   
             <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
           </Nav>  
