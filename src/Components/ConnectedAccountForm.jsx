@@ -4,7 +4,10 @@ import { Form, Button, Col } from "react-bootstrap";
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
 import { UserContext } from './UserContext';
+import axios from 'axios';
+
 let yup = require('yup');
+
 
 
 function ConnectedAccountForm ({userInformation}) {
@@ -19,13 +22,13 @@ function ConnectedAccountForm ({userInformation}) {
         paymentMethod: yup.string().required(),
         cardName: yup.string().required(),
         cardNumber: yup.number().required().positive(),
-        cardExpirationDate: yup.date().required(),
-        cryptogram: yup.number().required().positive().max(3).min(3)
+        cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
+        cryptogram: yup.number().positive().moreThan(99).lessThan(1000).required()
     });
 
 
     const contextInformations = useContext(UserContext);
-    console.log(contextInformations);
+    const token = contextInformations.token
 
     return<Formik
         enableReinitialize={true}
@@ -34,6 +37,7 @@ function ConnectedAccountForm ({userInformation}) {
             firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
             lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
             Password: userInformation.password === null ? undefined : userInformation.password, 
+            city: userInformation.city === null ? undefined : userInformation.city, 
             address: userInformation.address === null ? undefined : userInformation.address, 
             email: contextInformations.email, 
             paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
@@ -44,7 +48,26 @@ function ConnectedAccountForm ({userInformation}) {
         }}
         validationSchema={schema}
         onSubmit={values => {
+            // tout sauf email et le password
             console.log(values);
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+            axios.put('https://127.0.0.1:8000/api/user/paymentInformations',{
+                firstName: values.firstName,
+                lastName: values.lastName,
+                city: values.city,
+                address: values.address,
+                paymentMethod: values.paymentMethod,
+                cardName: values.cardName,
+                cardNumber: values.cardNumber,
+                cryptogram: values.cryptogram,
+                cardExpirationDate: values.cardExpirationDate
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }}
 
     >
@@ -87,7 +110,7 @@ function ConnectedAccountForm ({userInformation}) {
                         value={values.Password}
                         isValid={touched.Password && !errors.Password}
                         isInvalid={touched.Password && errors.Password}
-                        
+                        readOnly
                     />
                 </Form.Group>
 
