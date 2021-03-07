@@ -17,6 +17,7 @@ import CreateProduct from '../../Pages/CreateProduct.jsx'
 import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
 import Orders from "../../Pages/Orders.jsx"
+import OrderShoppingCart from "../../Pages/OrderShoppingCart.jsx"
 import {
     BrowserRouter as Router,
     Switch,
@@ -84,13 +85,19 @@ function App(){
                             <CreateProduct></CreateProduct>
                         </Route>
 
+                        <Route exact path="/admin/orders">
+                            <Orders></Orders>
+                        </Route>
+
+                        <Route exact path="/admin/order/:orderId/cart">
+                            <OrderShoppingCart></OrderShoppingCart>
+                        </Route>
+
                         <Route path="/admin/home">
                             <AdminHome></AdminHome>
                         </Route>
 
-                        <Route path="/admin/orders">
-                            <Orders></Orders>
-                        </Route>
+                        
 
                         <Route path={["/products","/"]}>
                             <Header></Header>
