@@ -4,18 +4,21 @@ import {css} from '@emotion/react';
 import {Table, Container, Form, Button} from 'react-bootstrap'
 import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
-import CategoryFilter from '../Components/CategoryFilter.jsx';
+import SearchBar from '../Components/SearchBar.jsx';
 // import SortPriceButtons from '../Components/SortPriceButtons.jsx';
 // import ProductsListAdmin from '../Components/ProductsListAdmin.jsx';
-// import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
+import PaginationOrdersAdmin from '../Components/PaginationOrdersAdmin.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import OrdersListAdmin from '../Components/OrdersListAdmin.jsx';
-// import {
-//     useLocation,
-//     useHistory
-// } from "react-router-dom";
+import {
+    useLocation,
+    useHistory
+} from "react-router-dom";
 
 function Orders() {
+    let location = useLocation();
+    let history = useHistory();
+
 
     // selectionner ou pas le checkbox selectAll
     const [checkedSelectAll, setCheckedSelectAll] = useState();
@@ -36,20 +39,29 @@ function Orders() {
 
 
     const getOrders = useCallback(()=>{
-        axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-        axios.get('https://127.0.0.1:8000/admin/orders')
-        .then(function(response){
-            console.log(response)
-            setData({
-                status: true,
-                orders: response.data
+        if(location.pathname === "/admin/orders" && location.search === "" ){ //redirection en cas de mauvaise url
+            history.push('/admin/orders?page=1')
+        }else{
+
+            axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
+            axios.get(`https://127.0.0.1:8000/admin/orders${location.search}`)
+            .then(function(response){
+                console.log(response)
+                setData({
+                    status: true,
+                    orders: response.data.pageContent,
+                    allOrdersNumber: response.data.allOrdersNumber,
+                    ordersPerPage: response.data.ordersPerPage,
+                    totalPageNumber: response.data.totalPageNumber
+                })
             })
-        })
-        .catch(function(error){
-            console.log(error)
-        })
+            .catch(function(error){
+                console.log(error)
+            })
+
+        }
         
-    },[token])
+    },[token, location])
 
     useEffect(()=>{
         getOrders()
@@ -82,7 +94,8 @@ function Orders() {
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-            <CategoryFilter></CategoryFilter>
+            <SearchBar></SearchBar>
+            <div>Recherche</div>
 
             <Table className="text-center" hover>
                 <thead>
@@ -122,7 +135,8 @@ function Orders() {
                 variant="danger"
                 // onClick={handleRemove}
             >Supprimer</Button>
-            {/* <PaginationProductsAdmin setData={setData}  data={data} ></PaginationProductsAdmin> */}
+
+            <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
         </Container>
     </div>
    

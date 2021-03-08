@@ -85,12 +85,12 @@ function App(){
                             <CreateProduct></CreateProduct>
                         </Route>
 
-                        <Route exact path="/admin/orders">
-                            <Orders></Orders>
-                        </Route>
-
                         <Route exact path="/admin/order/:orderId/cart">
                             <OrderShoppingCart></OrderShoppingCart>
+                        </Route>
+
+                        <Route path="/admin/orders">
+                            <Orders></Orders>
                         </Route>
 
                         <Route path="/admin/home">

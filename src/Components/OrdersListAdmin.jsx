@@ -1,10 +1,13 @@
 import React from 'react';
 import {Form, Button } from 'react-bootstrap';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPencilAlt,faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearchPlus, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
 function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
+    const zoomItem = <FontAwesomeIcon icon={faSearchPlus}/>;
+    const checkedItem = <FontAwesomeIcon icon={faCheckCircle}/>; 
+    const errorItem = <FontAwesomeIcon icon={faTimesCircle}/>;
 
     const handleChange = (e) => {
         const orderId = parseInt(e.target.id, 10);
@@ -49,13 +52,13 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
                     />        
                 </td>
                 <td>{order.id}</td>
-                <td>status de la commande</td>
+                <td>{checkedItem}</td>
                 <td>{order.amount}€</td>
                 <td>{order.lastName}</td>
                 <td>{order.firstName}</td>
                 <td>{order.email}</td>
                 <td>{order.createdDate}</td>
-                <td><Link to={`/admin/order/${order.id}/cart`}><Button>Afficher la commande</Button></Link></td>
+                <td><Link to={`/admin/order/${order.id}/cart`}><Button>{zoomItem}</Button></Link></td>
             </tr>)
         }
     </>
