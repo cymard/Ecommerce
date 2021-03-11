@@ -39,7 +39,7 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
     }
 
     return <>
-        {orders.map(order => 
+        {orders ? orders.map(order => 
             <tr key={order.id}>
                 <td>
                     <Form.Check
@@ -60,6 +60,8 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
                 <td>{order.createdDate}</td>
                 <td><Link to={`/admin/order/${order.id}/cart`}><Button>{zoomItem}</Button></Link></td>
             </tr>)
+            :
+            <p>aucun data</p>
         }
     </>
 

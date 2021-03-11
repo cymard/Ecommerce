@@ -5,8 +5,6 @@ import {Table, Container, Form, Button} from 'react-bootstrap'
 import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import SearchBar from '../Components/SearchBar.jsx';
-// import SortPriceButtons from '../Components/SortPriceButtons.jsx';
-// import ProductsListAdmin from '../Components/ProductsListAdmin.jsx';
 import PaginationOrdersAdmin from '../Components/PaginationOrdersAdmin.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import OrdersListAdmin from '../Components/OrdersListAdmin.jsx';
@@ -40,7 +38,7 @@ function Orders() {
 
     const getOrders = useCallback(()=>{
         if(location.pathname === "/admin/orders" && location.search === "" ){ //redirection en cas de mauvaise url
-            history.push('/admin/orders?page=1')
+            history.push('/admin/orders?page=1&search=default')
         }else{
 
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
@@ -94,8 +92,7 @@ function Orders() {
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-            <SearchBar></SearchBar>
-            <div>Recherche</div>
+            <SearchBar reFetch={getOrders}></SearchBar>
 
             <Table className="text-center" hover>
                 <thead>
@@ -122,11 +119,10 @@ function Orders() {
                 </thead>
                 <tbody>
 
-
-                    {data.status === true ?
+                    {data.status === true && data.allOrdersNumber != 0?
                         // selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} data={data.productsList}
                     <OrdersListAdmin orders={data.orders} setSelectedOrders={setSelectedOrders} selectedOrders={selectedOrders}></OrdersListAdmin>
-                    :  <tr><th>Chargement ...</th></tr>
+                    :  <tr><th>Aucune commande trouvée </th></tr>
                     }
 
                 </tbody>
@@ -135,8 +131,12 @@ function Orders() {
                 variant="danger"
                 // onClick={handleRemove}
             >Supprimer</Button>
-
-            <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
+            {data.status === true && data.allOrdersNumber != 0? 
+                <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
+            :
+            <></>
+            }
+            
         </Container>
     </div>
    

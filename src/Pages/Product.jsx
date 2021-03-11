@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import { Container, Button} from 'react-bootstrap';
+import { Container, Button, Card} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
 import TitleH1 from "../Components/TitleH1.jsx";
@@ -14,7 +14,7 @@ import RedirectModal from '../Components/RedirectModal.jsx';
 import {Link} from "react-router-dom";
 import {css} from '@emotion/react';
 import ProductFormComment from '../Components/ProductFormComment.jsx';
-import DisplayAveraging from '../Components/DisplayAveraging.jsx';
+import RateWithStars from '../Components/RateWithStars.jsx'
 
 function Product({name, content, price}){
 
@@ -70,7 +70,18 @@ function Product({name, content, price}){
 
         <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
         <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
-        {data.status ?  <DisplayAveraging rateNumber={data.rateNumber}>{data.averaging}</DisplayAveraging> : <div></div>}
+        {data.status ?  
+            <Card className="mt-4">
+                <Card.Body className=" d-flex justify-content-around align-items-center">
+                    Note moyenne du Produit : 
+                    <div>
+                        <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
+                    </div> 
+                </Card.Body> 
+            </Card> 
+        : 
+        <div></div>
+        }
         <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
 
        
@@ -90,8 +101,6 @@ function Product({name, content, price}){
             <ProductFormComment reFetch={displayComments}></ProductFormComment>
         </>
         }
-
-
 
 
 

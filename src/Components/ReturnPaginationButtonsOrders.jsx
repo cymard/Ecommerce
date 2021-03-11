@@ -13,6 +13,12 @@ function ReturnPaginationButtonsOrders ({totalPageNumber, handleFocus, test}) {
     let pageNumber = totalPageNumber;
     let allButtons = []
 
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+
+    let search = query.get("search")
+
+
     const handleClickLast = () => {
         setTheNumber(theNumber+6)
     }
@@ -40,7 +46,7 @@ function ReturnPaginationButtonsOrders ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`/admin/orders?page=${i}`}>
+            allButtons.push(<Link key={i} to={`/admin/orders?page=${i}&search=${search}`}> 
                 <Button
                     css={css`
                         margin: 0 2px;
