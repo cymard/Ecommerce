@@ -108,7 +108,7 @@ function Orders() {
                             />        
                         </th>
                         <th>Id</th>
-                        <th>Status</th>
+                        <th>Status du Paiement</th>
                         <th>Total</th>
                         <th>Nom</th>
                         <th>Prénom</th>

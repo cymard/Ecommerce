@@ -15,7 +15,6 @@ function ConnectedAccountForm ({userInformation}) {
     let schema = yup.object({
         firstName: yup.string().required(),
         lastName: yup.string().required(),
-        Password: yup.string().required(),
         city: yup.string().required(),
         address: yup.string().required(),
         email: yup.string().email().required(),
@@ -36,7 +35,6 @@ function ConnectedAccountForm ({userInformation}) {
         initialValues={{ 
             firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
             lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
-            Password: userInformation.password === null ? undefined : userInformation.password, 
             city: userInformation.city === null ? undefined : userInformation.city, 
             address: userInformation.address === null ? undefined : userInformation.address, 
             email: contextInformations.email, 
@@ -100,19 +98,6 @@ function ConnectedAccountForm ({userInformation}) {
                         />
                     </Form.Group>
                 </Form.Row>
-                
-                <Form.Group controlId="Password">
-                    <Form.Label>Mot de Passe</Form.Label>
-                    <Form.Control 
-                        type="password" 
-                        onChange={handleChange}
-                        placeholder="Entrez votre mot de passe ..." 
-                        value={values.Password}
-                        isValid={touched.Password && !errors.Password}
-                        isInvalid={touched.Password && errors.Password}
-                        readOnly
-                    />
-                </Form.Group>
 
                 <Form.Row>
                     <Form.Group as={Col} controlId="city">
