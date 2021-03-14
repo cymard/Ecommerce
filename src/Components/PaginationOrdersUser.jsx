@@ -2,10 +2,10 @@
 import React,{useState, useEffect} from 'react';
 import {Pagination} from 'react-bootstrap';
 import {css} from '@emotion/react';
-import ReturnPaginationButtonsOrders from "./ReturnPaginationButtonsOrders.jsx"
+import ReturnPaginationButtonsOrdersUser from "./ReturnPaginationButtonsOrdersUser.jsx"
 import {useLocation} from "react-router-dom";
 
-function PaginationOrdersAdmin ({data}) {
+function PaginationOrdersUser ({data}) {
 
     const [test, setTest] = useState(1)
     const useQuery = () => new URLSearchParams(useLocation().search);
@@ -38,11 +38,11 @@ function PaginationOrdersAdmin ({data}) {
         {
         data.status === true 
         ? 
-        <ReturnPaginationButtonsOrders totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtonsOrders>
+        <ReturnPaginationButtonsOrdersUser totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtonsOrdersUser>
         : 
         <></>
         }
     </Pagination>
 }
 
-export default PaginationOrdersAdmin;
+export default PaginationOrdersUser;

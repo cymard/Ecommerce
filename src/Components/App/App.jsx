@@ -18,6 +18,8 @@ import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
 import Orders from "../../Pages/Orders.jsx"
 import OrderShoppingCart from "../../Pages/OrderShoppingCart.jsx"
+import UserOrders from '../../Pages/UserOrders.jsx'
+import UserOrderDetails from '../../Pages/UserOrderDetails.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -60,6 +62,16 @@ function App(){
                         <Route exact path="/api/connectedAccount">
                             <Header></Header>
                             <ConnectedAccount></ConnectedAccount>
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/api/orders">
+                            <Header></Header>
+                            <UserOrders></UserOrders>
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/api/order/:orderId/details">
+                            <Header></Header>
+                            <UserOrderDetails></UserOrderDetails>
                             <Footer></Footer>
                         </Route>
 
