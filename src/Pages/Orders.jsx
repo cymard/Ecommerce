@@ -59,7 +59,7 @@ function Orders() {
 
         }
         
-    },[token, location])
+    },[token, location, history])
 
     useEffect(()=>{
         getOrders()
@@ -119,7 +119,7 @@ function Orders() {
                 </thead>
                 <tbody>
 
-                    {data.status === true && data.allOrdersNumber != 0?
+                    {data.status === true && data.allOrdersNumber !== 0?
                         // selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} data={data.productsList}
                     <OrdersListAdmin orders={data.orders} setSelectedOrders={setSelectedOrders} selectedOrders={selectedOrders}></OrdersListAdmin>
                     :  <tr><th>Aucune commande trouvée </th></tr>
@@ -131,7 +131,7 @@ function Orders() {
                 variant="danger"
                 // onClick={handleRemove}
             >Supprimer</Button>
-            {data.status === true && data.allOrdersNumber != 0? 
+            {data.status === true && data.allOrdersNumber !== 0? 
                 <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
             :
             <></>

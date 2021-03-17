@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import { Container,Button, Card } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 import ConnectedAccountForm from '../Components/ConnectedAccountForm.jsx';
 import TitleH1 from "../Components/TitleH1.jsx";
 import ConnectedAccountDisconnection from "../Components/ConnectedAccountDisconnection.jsx";
@@ -9,7 +9,7 @@ import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBullseye, faTruck} from '@fortawesome/free-solid-svg-icons';
+import { faTruck} from '@fortawesome/free-solid-svg-icons';
 
 function ConnectedAccount () {
 

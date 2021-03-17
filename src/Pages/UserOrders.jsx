@@ -1,15 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import { Container,Button, Card, Table,Row,Col } from "react-bootstrap";
-import ConnectedAccountForm from '../Components/ConnectedAccountForm.jsx';
+import { Container, Table,Row,Col } from "react-bootstrap";
 import TitleH1 from "../Components/TitleH1.jsx";
-import ConnectedAccountDisconnection from "../Components/ConnectedAccountDisconnection.jsx";
-import {css} from '@emotion/react';
 import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
 import OrdersListUser from '../Components/OrdersListUser.jsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTruck} from '@fortawesome/free-solid-svg-icons';
 import PaginationOrdersUser from '../Components/PaginationOrdersUser.jsx';
 import SortDateButtons from '../Components/SortDateButtons.jsx';
 import {
@@ -56,7 +51,7 @@ function UserOrders (){
             getUserOrders()
         }
         
-    }, [getUserOrders, location])
+    }, [getUserOrders, location, history])
 
     return <Container>
         <TitleH1>L'historique de mes commandes</TitleH1>

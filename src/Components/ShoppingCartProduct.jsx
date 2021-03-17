@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useState, useCallback, useContext} from 'react';
-import { Card, Button ,Row, Form} from 'react-bootstrap';
+import { Card, Button ,Row, Form, Modal} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import axios from 'axios';
@@ -17,6 +17,11 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
         setQuantityToBuy(e.target.value)
     }
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
@@ -33,14 +38,22 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             .then(function (response){
                 // handle success
                 console.log(response.data);
-                reFetch()
+                if(response.data.message){
+                    console.log("cool");
+                }else{
+                    console.log("probleme");
+                    setShowModal(true);
+                    setQuantityToBuy(response.data.number);
+                }
+                reFetch();
+                
             })
             .catch(function (error) {
                 // handle error
                 console.log(error); 
             })
         },
-        [token,email,quantityToBuy,id],
+        [token,email,quantityToBuy,id]
     )
 
     const handleClickDelete = useCallback(
@@ -69,6 +82,13 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             height : 318px;
         `}
     >
+        <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+                <Modal.Title>Erreur</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.</Modal.Body>
+        </Modal>
+
         <Row 
             css={css`
                 margin-right : 0;

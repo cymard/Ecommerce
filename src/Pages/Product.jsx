@@ -11,7 +11,7 @@ import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCa
 import ProductStock from '../Components/ProductStock.jsx';
 import {UserContext} from '../Components/UserContext.jsx';
 import RedirectModal from '../Components/RedirectModal.jsx';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {css} from '@emotion/react';
 import ProductFormComment from '../Components/ProductFormComment.jsx';
 import RateWithStars from '../Components/RateWithStars.jsx'
@@ -23,6 +23,10 @@ function Product({name, content, price}){
     const token = informationUser.token
 
     const [data,setData] = useState({status:false})
+
+    const [informationProduct, setInformationProduct] = useState({status: false})
+
+    let { id } = useParams();
 
     // state pour la modal
     const [show, setShow] = useState(false);
@@ -41,13 +45,34 @@ function Product({name, content, price}){
                     averaging: res.data.averaging,
                     rateNumber: res.data.rateNumber
                 }))
+                .catch(function(error){
+                    console.log(error)
+                })
         },
         [location])
 
+    // recuperer la quantité du produit en stock
+    
+    const getInformationProduct = useCallback(
+        () => {
+            axios.get(`https://127.0.0.1:8000/product/${id}`)
+                .then(function(response){
+                    console.log(response)
+                    setInformationProduct({
+                        status: true,
+                        stock: response.data.product.stock
+                    })
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        },
+        [id])
     
     useEffect(() => {
         displayComments()
-    }, [displayComments]);
+        getInformationProduct()
+    }, [displayComments,getInformationProduct]);
 
     const handleReport = useCallback(
         (e) => {
@@ -82,7 +107,14 @@ function Product({name, content, price}){
         : 
         <div></div>
         }
-        <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+
+        {
+            informationProduct.stock > 0 ?
+                <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+            :
+                <></>
+        }
+        
 
        
         

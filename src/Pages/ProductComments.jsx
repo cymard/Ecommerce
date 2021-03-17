@@ -42,7 +42,7 @@ function ProductComments () {
     
             })
         },
-        [token, location]
+        [token, location,history]
     )
 
     useEffect(() => {

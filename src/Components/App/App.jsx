@@ -112,8 +112,8 @@ function App(){
                         
 
                         <Route path={["/products","/"]}>
-                            <Header></Header>
-                            <Home></Home>
+                                <Header></Header>
+                                <Home></Home>
                             <Footer></Footer>
                         </Route>
                     </Switch>
@@ -123,60 +123,3 @@ function App(){
 }
 
 export  {App};
-
-
-// return <Router>
-//             <UserAdminContextProvider>
-//                 <UserContextProvider>
-//                     <Switch>
-//                         <Route exact path="/Login">
-//                             <Header></Header>
-//                             <Login></Login>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Register">
-//                             <Header></Header>
-//                             <Register></Register>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/ShoppingCart">
-//                             <Header></Header>
-//                             <ShoppingCart></ShoppingCart>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Product/:id">
-//                             <Header></Header>
-//                             <Product></Product>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Buy">
-//                             <Header></Header>
-//                             <Buy></Buy> 
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/ConnectedAccount">
-//                             <Header></Header>
-//                             <ConnectedAccount></ConnectedAccount>
-//                             <Footer></Footer>
-//                         </Route>
-                        
-//                         <Route exact path="/admin/login">
-//                             <Header></Header>
-//                             <LoginAdmin></LoginAdmin>
-//                             <Footer></Footer>
-//                         </Route>
-
-//                         <Route path={["/Admin/Home/:category/:page/:sorting","/admin/home"]}>
-//                             <AdminHome></AdminHome>
-//                         </Route>
-                        
-
-//                         <Route path={["/:category/:page","/"]}>
-//                             <Header></Header>
-//                             <Home></Home>
-//                             <Footer></Footer>
-//                         </Route>
-//                     </Switch>
-//                 </UserContextProvider>
-//             </UserAdminContextProvider>
-//     </Router> 

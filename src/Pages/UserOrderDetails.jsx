@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import {css} from '@emotion/react';
 import React,{useCallback, useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {UserContext} from "../Components/UserContext.jsx";
-import AdminNavBar from "../Components/AdminNavBar.jsx";
-import {Table, Container,Card,Spinner, Form, Button} from 'react-bootstrap'
+import {Container,Card,Spinner} from 'react-bootstrap'
 
 
 function UserOrderDetails () {

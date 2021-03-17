@@ -12,7 +12,6 @@ function ShoppingCart(){
 
     const userInformation = useContext(UserContext);
     const token = userInformation.token;
-    const email = userInformation.email;
 
     const [data, setData] = useState({status: false})
 
@@ -22,6 +21,7 @@ function ShoppingCart(){
         axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
                 // handle success
+                console.log("refetch");
                 console.log(response.data);
                 setData({
                     status: true,
@@ -34,7 +34,7 @@ function ShoppingCart(){
                 // handle error
                 console.log(error);
             })
-    },[token,email])
+    },[token])
 
     useEffect(()=>{
         displayArticles()
@@ -60,14 +60,13 @@ function ShoppingCart(){
         : 
             <>
                 <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
+
                 {data.status === true ? 
-                
-                data.allArticles.map(article =>  <ShoppingCartProduct reFetch={displayArticles} key={article.id} id={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
-
+                    data.allArticles.map(article =>  <ShoppingCartProduct reFetch={displayArticles} key={article.id} id={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
                 : 
-
-                <div>chargement</div>}
-
+                    <div>chargement</div>
+                }
+                
                 <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
             </>
         }

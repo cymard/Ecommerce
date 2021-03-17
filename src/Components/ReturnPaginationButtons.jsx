@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Pagination, Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {
@@ -11,6 +11,17 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
     let category = query.get('category');
+    let search = query.get('search');
+
+    const [firstQueryParam, setFisrtQueryParam] = useState('')
+
+    useEffect(() => {
+        if(category === null){
+            setFisrtQueryParam(`search=${search}`);
+        }else{
+            setFisrtQueryParam(`category=${category}`);
+        }
+    }, [category,search])
 
     const [theNumber, setTheNumber] = useState(0)
     let pageNumber = totalPageNumber;
@@ -43,7 +54,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`/products?category=${category}&page=${i}`}>
+            allButtons.push(<Link key={i} to={`/products?${firstQueryParam}&page=${i}`}>
                 <Button
                     css={css`
                         margin: 0 2px;
