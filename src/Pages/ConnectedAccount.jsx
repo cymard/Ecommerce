@@ -1,16 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import { Container } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 import ConnectedAccountForm from '../Components/ConnectedAccountForm.jsx';
 import TitleH1 from "../Components/TitleH1.jsx";
 import ConnectedAccountDisconnection from "../Components/ConnectedAccountDisconnection.jsx";
 import {css} from '@emotion/react';
 import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTruck} from '@fortawesome/free-solid-svg-icons';
 
 function ConnectedAccount () {
 
+    const itemTruck = <FontAwesomeIcon icon={faTruck} size="7x" />
     const [userInformation, setUserInformation] = useState({status: false})
+
+    const [userOrderNumber, setUserOrderNumber] = useState({status: false})
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token
@@ -44,23 +50,72 @@ function ConnectedAccount () {
             });
         },[token,setUserInformation]
     )
+
+
+    const getUserOrderNumber = useCallback(
+        () => {
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+            axios.get('https://127.0.0.1:8000/api/user/order')
+            .then(function (response) {
+                console.log(response);
+                setUserOrderNumber({
+                    status: true,
+                    orderNumber: response.data.orderNumber 
+                })
+                
+            
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },[token,setUserOrderNumber]
+    )
+
+
     
     useEffect(() => {
         getUserInformation()
-    }, [ getUserInformation])
+        getUserOrderNumber()
+    }, [ getUserInformation,getUserOrderNumber])
 
     // pré remplir le form avec
 
     return <Container>
         <TitleH1>Mon Compte</TitleH1>
         <ConnectedAccountDisconnection></ConnectedAccountDisconnection>
+
+        {/* Return ce lien uniquement si le client à au moins une commande */}
+        {userOrderNumber.status && userOrderNumber.orderNumber > 0 ?
+            <>
+                <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+                    <h2 
+                        css={css`
+                            font-size: 2.5em;
+                        `}
+                    >
+                        Mes Commandes :
+                    </h2>
+                </div>
+                <Link color="white" to="/api/orders?page=1&date=desc">
+                    <Card className="d-flex justify-content-center">
+                        <Card.Body className="d-flex flex-column text-center">
+                            <div className="mb-3">{itemTruck}</div>
+                            <Card.Text>Cliquez pour acceder à vos commandes</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Link>
+            </>
+        :
+            <></>
+        }
+
         <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
             <h2 
                 css={css`
                     font-size: 2.5em;
                 `}
             >
-                Mes Informations
+                Mes Informations :
             </h2>
         </div>
         <ConnectedAccountForm userInformation={userInformation}></ConnectedAccountForm>

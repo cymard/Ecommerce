@@ -16,15 +16,8 @@ function AdminNavBar () {
     }
 
     return  <Navbar bg="dark" variant="dark"
-    css={css`
-        height: 100vh;
-        position: sticky;
-        top: 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        line-height: 100px;
-    `}
+    
+    
     >
         <div>
 

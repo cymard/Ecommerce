@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Pagination, Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {
@@ -7,25 +7,17 @@ import {
     useLocation
   } from "react-router-dom";
 
-function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
-    const useQuery = () => new URLSearchParams(useLocation().search);
-    let query = useQuery();
-    let category = query.get('category');
-    let search = query.get('search');
-
-    const [firstQueryParam, setFisrtQueryParam] = useState('')
-
-    useEffect(() => {
-        if(category === null){
-            setFisrtQueryParam(`search=${search}`);
-        }else{
-            setFisrtQueryParam(`category=${category}`);
-        }
-    }, [category,search])
+function ReturnPaginationButtonsOrdersUser ({totalPageNumber, handleFocus, test}) {
 
     const [theNumber, setTheNumber] = useState(0)
     let pageNumber = totalPageNumber;
     let allButtons = []
+
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    let query = useQuery();
+
+    let search = query.get("date")
+
 
     const handleClickLast = () => {
         setTheNumber(theNumber+6)
@@ -54,7 +46,7 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
             // changer l'id dans l'url
             
 
-            allButtons.push(<Link key={i} to={`/products?${firstQueryParam}&page=${i}`}>
+            allButtons.push(<Link key={i} to={`/api/orders?page=${i}&date=${search}`}> 
                 <Button
                     css={css`
                         margin: 0 2px;
@@ -83,10 +75,6 @@ function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
 
     return create() 
 
-
-
-
- 
 }
 
-export default ReturnPaginationButtons;
+export default ReturnPaginationButtonsOrdersUser;

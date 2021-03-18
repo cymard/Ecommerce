@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import { Container, Button} from 'react-bootstrap';
+import { Container, Button, Card} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
 import TitleH1 from "../Components/TitleH1.jsx";
@@ -11,10 +11,10 @@ import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCa
 import ProductStock from '../Components/ProductStock.jsx';
 import {UserContext} from '../Components/UserContext.jsx';
 import RedirectModal from '../Components/RedirectModal.jsx';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {css} from '@emotion/react';
 import ProductFormComment from '../Components/ProductFormComment.jsx';
-import DisplayAveraging from '../Components/DisplayAveraging.jsx';
+import RateWithStars from '../Components/RateWithStars.jsx'
 
 function Product({name, content, price}){
 
@@ -23,6 +23,10 @@ function Product({name, content, price}){
     const token = informationUser.token
 
     const [data,setData] = useState({status:false})
+
+    const [informationProduct, setInformationProduct] = useState({status: false})
+
+    let { id } = useParams();
 
     // state pour la modal
     const [show, setShow] = useState(false);
@@ -41,13 +45,34 @@ function Product({name, content, price}){
                     averaging: res.data.averaging,
                     rateNumber: res.data.rateNumber
                 }))
+                .catch(function(error){
+                    console.log(error)
+                })
         },
         [location])
 
+    // recuperer la quantité du produit en stock
+    
+    const getInformationProduct = useCallback(
+        () => {
+            axios.get(`https://127.0.0.1:8000/product/${id}`)
+                .then(function(response){
+                    console.log(response)
+                    setInformationProduct({
+                        status: true,
+                        stock: response.data.product.stock
+                    })
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        },
+        [id])
     
     useEffect(() => {
         displayComments()
-    }, [displayComments]);
+        getInformationProduct()
+    }, [displayComments,getInformationProduct]);
 
     const handleReport = useCallback(
         (e) => {
@@ -70,8 +95,26 @@ function Product({name, content, price}){
 
         <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
         <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
-        {data.status ?  <DisplayAveraging rateNumber={data.rateNumber}>{data.averaging}</DisplayAveraging> : <div></div>}
-        <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+        {data.status ?  
+            <Card className="mt-4">
+                <Card.Body className=" d-flex justify-content-around align-items-center">
+                    Note moyenne du Produit : 
+                    <div>
+                        <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
+                    </div> 
+                </Card.Body> 
+            </Card> 
+        : 
+        <div></div>
+        }
+
+        {
+            informationProduct.stock > 0 ?
+                <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+            :
+                <></>
+        }
+        
 
        
         
@@ -93,8 +136,6 @@ function Product({name, content, price}){
 
 
 
-
-
         <div className="d-flex justify-content-center mt-5 mb-5">
             <h2>Les Commentaires postés : </h2>
         </div>
@@ -108,7 +149,7 @@ function Product({name, content, price}){
         >Vous devez être connecté pour effectuer cette action.</RedirectModal>
     
         {data.status?
-            data.comments.map(comment => <ProductComment key={comment.id} button={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+            data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
             <div>chargement...</div>
         }

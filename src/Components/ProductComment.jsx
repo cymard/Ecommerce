@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import RateWithStars from './RateWithStars.jsx';
 
-function ProductComment ({pseudo, content, note, date, title, button}) {
+function ProductComment ({pseudo, content, note, date, title, buttons}) {
     // const starIcon = <FontAwesomeIcon color="orange"  icon={faStar} />
     const marginBottom = 0;
 
@@ -38,7 +38,7 @@ function ProductComment ({pseudo, content, note, date, title, button}) {
         </Card.Body>
         <Card.Footer className="text-muted d-flex justify-content-between">
            <p>Publié le {date}</p> 
-           {button}
+           {buttons}
         </Card.Footer>
     </Card>
 }

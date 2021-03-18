@@ -17,6 +17,9 @@ import CreateProduct from '../../Pages/CreateProduct.jsx'
 import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
 import Orders from "../../Pages/Orders.jsx"
+import OrderShoppingCart from "../../Pages/OrderShoppingCart.jsx"
+import UserOrders from '../../Pages/UserOrders.jsx'
+import UserOrderDetails from '../../Pages/UserOrderDetails.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -61,6 +64,16 @@ function App(){
                             <ConnectedAccount></ConnectedAccount>
                             <Footer></Footer>
                         </Route>
+                        <Route exact path="/api/orders">
+                            <Header></Header>
+                            <UserOrders></UserOrders>
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/api/order/:orderId/details">
+                            <Header></Header>
+                            <UserOrderDetails></UserOrderDetails>
+                            <Footer></Footer>
+                        </Route>
 
                         <Route exact path="/admin/product/:id/edit">
                             <EditProduct></EditProduct>
@@ -84,17 +97,23 @@ function App(){
                             <CreateProduct></CreateProduct>
                         </Route>
 
-                        <Route path="/admin/home">
-                            <AdminHome></AdminHome>
+                        <Route exact path="/admin/order/:orderId/cart">
+                            <OrderShoppingCart></OrderShoppingCart>
                         </Route>
 
                         <Route path="/admin/orders">
                             <Orders></Orders>
                         </Route>
 
+                        <Route path="/admin/home">
+                            <AdminHome></AdminHome>
+                        </Route>
+
+                        
+
                         <Route path={["/products","/"]}>
-                            <Header></Header>
-                            <Home></Home>
+                                <Header></Header>
+                                <Home></Home>
                             <Footer></Footer>
                         </Route>
                     </Switch>
@@ -104,60 +123,3 @@ function App(){
 }
 
 export  {App};
-
-
-// return <Router>
-//             <UserAdminContextProvider>
-//                 <UserContextProvider>
-//                     <Switch>
-//                         <Route exact path="/Login">
-//                             <Header></Header>
-//                             <Login></Login>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Register">
-//                             <Header></Header>
-//                             <Register></Register>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/ShoppingCart">
-//                             <Header></Header>
-//                             <ShoppingCart></ShoppingCart>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Product/:id">
-//                             <Header></Header>
-//                             <Product></Product>
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/Buy">
-//                             <Header></Header>
-//                             <Buy></Buy> 
-//                             <Footer></Footer>
-//                         </Route>
-//                         <Route exact path="/ConnectedAccount">
-//                             <Header></Header>
-//                             <ConnectedAccount></ConnectedAccount>
-//                             <Footer></Footer>
-//                         </Route>
-                        
-//                         <Route exact path="/admin/login">
-//                             <Header></Header>
-//                             <LoginAdmin></LoginAdmin>
-//                             <Footer></Footer>
-//                         </Route>
-
-//                         <Route path={["/Admin/Home/:category/:page/:sorting","/admin/home"]}>
-//                             <AdminHome></AdminHome>
-//                         </Route>
-                        
-
-//                         <Route path={["/:category/:page","/"]}>
-//                             <Header></Header>
-//                             <Home></Home>
-//                             <Footer></Footer>
-//                         </Route>
-//                     </Switch>
-//                 </UserContextProvider>
-//             </UserAdminContextProvider>
-//     </Router> 

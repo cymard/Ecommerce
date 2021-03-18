@@ -42,7 +42,7 @@ function ProductComments () {
     
             })
         },
-        [token, location]
+        [token, location,history]
     )
 
     useEffect(() => {
@@ -90,7 +90,7 @@ function ProductComments () {
                     note={comment.note} 
                     date={comment.date} 
                     title={comment.title}
-                    button={<Button id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
+                    buttons={<Button id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
                 ></ProductComment>
                 <div 
                     key={comment.id +10}
