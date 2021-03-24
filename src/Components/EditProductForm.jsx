@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React,{useState, useEffect, useRef} from 'react';
+import React,{useState, useCallback, useEffect, useRef} from 'react';
+import axios from 'axios';
 import {Form,Row,Col,Card,Button,Overlay} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
+import DownloadImage from './DownloadImage.jsx';
 
 function EditProductForm ({dataProduct,submitForm}) {
     let yup = require('yup');
@@ -67,6 +69,9 @@ function EditProductForm ({dataProduct,submitForm}) {
             .required('Champs requis')
     });
 
+    const [imageId, setImageId] = useState({
+        status: false
+    })
 
 
  
@@ -85,13 +90,21 @@ function EditProductForm ({dataProduct,submitForm}) {
         onSubmit={(values)=>{
         validated ? 
             submitForm({
-            name: values.title,
-            description: descriptionValue,
-            category: values.category,
-            image: null,
-            price: parseInt(values.price),
-            stock: parseInt(values.stock)
+                name: values.title,
+                description: descriptionValue,
+                category: values.category,
+                image: imageId.status ? imageId.data : undefined ,
+                price: parseInt(values.price),
+                stock: parseInt(values.stock)
             })
+            // console.log({
+            //     name: values.title,
+            //     description: descriptionValue,
+            //     category: values.category,
+            //     image: imageId.status ? imageId.data : undefined ,
+            //     price: parseInt(values.price),
+            //     stock: parseInt(values.stock)
+            // })
         :
             console.log("erreur description")
     }}
@@ -118,9 +131,7 @@ function EditProductForm ({dataProduct,submitForm}) {
         </Form.Group>
 
         {/* ajouter une image */}
-        <Form.Group className="d-flex justify-content-center" controlId="image">
-            <Form.File/>
-        </Form.Group>
+        <DownloadImage setImageId={setImageId}></DownloadImage>
         
         {/* description du produit (WYSIWYG) */}
         <Card 
@@ -263,6 +274,7 @@ function EditProductForm ({dataProduct,submitForm}) {
             `}
             type="submit"
         >Modifier</Button>
+         
     </Form>
 )}
 </Formik>

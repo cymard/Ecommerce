@@ -9,6 +9,7 @@ import axios from 'axios';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import EditProductForm from '../Components/EditProductForm.jsx';
 import { useHistory } from "react-router-dom";
+// import DownloadImage from '../Components/DownloadImage.jsx';
 
 function EditProduct () {
     let { id } = useParams();
@@ -51,11 +52,19 @@ function EditProduct () {
 
         try {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            const response = await axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`, data);
-            console.log(response);
-            if(response.status === 201){
-                history.push("/admin/home?category=all&page=1&sorting=default");
-            }
+            // const response = await axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`, data);
+            // console.log(response);w
+            axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
+                .then(function(response){
+                    console.log(response);
+                    history.push("/admin/home?category=all&page=1&sorting=default");
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            // if(response.status === 201){
+            //     history.push("/admin/home?category=all&page=1&sorting=default");
+            // }
             
         } catch (err) {
             console.error(err.message);

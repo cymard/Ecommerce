@@ -9,10 +9,10 @@ import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTruck} from '@fortawesome/free-solid-svg-icons';
+import {faLock, faTruck} from '@fortawesome/free-solid-svg-icons';
 
 function ConnectedAccount () {
-
+    const itemPassword = <FontAwesomeIcon icon={faLock} size="7x" /> 
     const itemTruck = <FontAwesomeIcon icon={faTruck} size="7x" />
     const [userInformation, setUserInformation] = useState({status: false})
 
@@ -108,6 +108,24 @@ function ConnectedAccount () {
         :
             <></>
         }
+
+        <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+            <h2 
+                css={css`
+                    font-size: 2.5em;
+                `}
+            >
+                Changer de mot de passe :
+            </h2>
+        </div>
+        <Link to="/api/verify/actualpassword">
+            <Card className="d-flex justify-content-center">
+                <Card.Body className="d-flex flex-column text-center">
+                    <div className="mb-3">{itemPassword}</div>
+                    <Card.Text>Cliquez pour changer votre mot de passe</Card.Text>
+                </Card.Body>
+            </Card>
+        </Link>
 
         <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
             <h2 

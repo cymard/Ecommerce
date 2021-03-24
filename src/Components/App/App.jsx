@@ -20,6 +20,7 @@ import Orders from "../../Pages/Orders.jsx"
 import OrderShoppingCart from "../../Pages/OrderShoppingCart.jsx"
 import UserOrders from '../../Pages/UserOrders.jsx'
 import UserOrderDetails from '../../Pages/UserOrderDetails.jsx'
+import ChangePassword from '../../Pages/ChangePassword.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -72,6 +73,11 @@ function App(){
                         <Route exact path="/api/order/:orderId/details">
                             <Header></Header>
                             <UserOrderDetails></UserOrderDetails>
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/api/verify/actualpassword">
+                            <Header></Header>
+                            <ChangePassword></ChangePassword>
                             <Footer></Footer>
                         </Route>
 

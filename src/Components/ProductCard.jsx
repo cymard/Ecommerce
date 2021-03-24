@@ -10,7 +10,7 @@ import {
 import screen from '../images/screen.jpg';
 
 
-function ProductCard ({title,textButton,id}) {
+function ProductCard ({urlImage,title,textButton,id}) {
 
     
     return <Card 
@@ -24,9 +24,16 @@ function ProductCard ({title,textButton,id}) {
                     text-align: center;
                 `}
             >{title}</Card.Title>
-            <Card.Img variant="top" src={screen} />
+            <Card.Img 
+                variant="top" 
+                src={ urlImage || screen} 
+                css={css`
+                    max-height: 200px;
+                `}
+            />
+            {/* <img src="https://i.ibb.co/j3Z8Nwz/mac.jpg" alt="mac" border="0"></img> */}
             {/* holder.js/100px180 */}
-            <Card.Body className="pt-4 pb-4 m-auto">
+            <Card.Body className="m-auto">
                 <Link to={`/product/${id}`}><Button>{textButton}</Button></Link>
             </Card.Body>
         </Card>

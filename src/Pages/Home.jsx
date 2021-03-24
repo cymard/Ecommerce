@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React,{useState, useEffect, useCallback} from 'react';
-import {Container} from 'react-bootstrap';
+import {Container,Image} from 'react-bootstrap';
 import HomeCarousel from '../Components/HomeCarousel.jsx';
 import axios from 'axios';
 import FrontNavBarFilter from '../Components/FrontNavBarFilter.jsx';
@@ -98,7 +98,6 @@ function Home(){
     return <Container className="d-flex justify-content-around flex-wrap">
         <FrontNavBarFilter></FrontNavBarFilter>
         <HomeCarousel></HomeCarousel>
-
         { data.status === "nothing" ?
             <div
                 css={css`
@@ -117,7 +116,7 @@ function Home(){
             
         }
     </Container>
-    
+        
 }
 
 export default Home;
