@@ -75,7 +75,7 @@ function App(){
                             <UserOrderDetails></UserOrderDetails>
                             <Footer></Footer>
                         </Route>
-                        <Route exact path="/api/verify/actualpassword">
+                        <Route exact path="/api/modify/password">
                             <Header></Header>
                             <ChangePassword></ChangePassword>
                             <Footer></Footer>

@@ -118,7 +118,7 @@ function ConnectedAccount () {
                 Changer de mot de passe :
             </h2>
         </div>
-        <Link to="/api/verify/actualpassword">
+        <Link to="/api/modify/password">
             <Card className="d-flex justify-content-center">
                 <Card.Body className="d-flex flex-column text-center">
                     <div className="mb-3">{itemPassword}</div>
