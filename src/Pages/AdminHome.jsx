@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext} from 'react'
 import {css} from '@emotion/react';
-import {Table, Container, Form, Button} from 'react-bootstrap'
+import {Table, Container, Form, Button, Row} from 'react-bootstrap'
 import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import CategoryFilter from '../Components/CategoryFilter.jsx';
@@ -11,11 +11,17 @@ import PaginationProductsAdmin from '../Components/PaginationProductsAdmin.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
 import {
     useLocation,
-    useHistory
+    useHistory,
+    Link
 } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
 
 
 function AdminHome () {
+
+    const itemPlus = <FontAwesomeIcon icon={faPlus} color="white" /> 
+
     // envoie du data
     const [data, setData] = useState({status: false, productsList: [], filter: "all"});
 
@@ -114,8 +120,12 @@ function AdminHome () {
 
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Administration</h1>
-
-            <CategoryFilter></CategoryFilter>
+            <Row className="d-flex justify-content-between">
+                <Link to="/admin/CreateProduct" className="ml-3 mb-3 d-flex align-items-end"><Button> {itemPlus} Ajouter un Produit</Button></Link>
+                <CategoryFilter></CategoryFilter>
+                <div></div>
+            </Row>
+           
 
             <Table className="text-center" hover>
                 <thead>

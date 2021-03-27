@@ -170,29 +170,3 @@ Product.propTypes = {
 }
 
 export default Product;
-
-
-
-       /* <input type="file" onChange={fileSelectedHandler}/>
-        <button onClick={uploadFile}>salut</button> */
-    // méthodes pour upload
-    // const [file, setFile] = useState({selectedFile: null});
-
-    // const fileSelectedHandler = (event) => {
-    //     setFile({selectedFile: event.target.files[0]})
-    //     console.log(file)
-    // }
-
-    // const uploadFile = () => {
-    //     console.log(file)
-    //     const fd = new FormData();
-    //     const uriPath = location.pathname
-    //     fd.append('image',file.selectedFile, file.selectedFile.name)
-    //     axios.put(`https://127.0.0.1:8000${uriPath}`,fd)
-    //       .then(function (response) {
-    //         console.log(response);
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    // }

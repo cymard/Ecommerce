@@ -15,21 +15,42 @@ function AdminNavBar () {
         })
     }
 
-    return  <Navbar bg="dark" variant="dark"
-    
-    
+    return <>  
+    <Navbar 
+        bg="dark"
+        variant="dark"
+        css={css`
+            display: flex;
+            height: 100vh;
+            position: fixed;       
+            padding: 20px;
+        `} 
     >
-        <div>
-
+        <div 
+            css={css`
+                height: 100vh;
+                position: sticky;
+                display: flex;
+                flex-direction: column;
+                max-width: 170px;
+                justify-content: space-around;        
+            `} 
+        >
             <ModifiedLinksRouter color="white" to="/admin/home">PRODUITS</ModifiedLinksRouter>
-            <ModifiedLinksRouter color="white" to="/admin/CreateProduct">CREER</ModifiedLinksRouter>
+            {/* <ModifiedLinksRouter color="white" to="/admin/CreateProduct">CRÉER UN PRODUIT</ModifiedLinksRouter> */}
             <ModifiedLinksRouter color="white" to="/admin/orders">COMMANDES</ModifiedLinksRouter>
-            <ModifiedLinksRouter color="white" to="/admin/comments/reported">SIGNALEMENTS</ModifiedLinksRouter>
-            <ModifiedLinksRouter onClick={handleClick} color="white" to="/">DECONNEXION</ModifiedLinksRouter>
-            <ModifiedLinksRouter color="white" to="/">ACCEDER AU SITE</ModifiedLinksRouter>
+            <ModifiedLinksRouter color="white" to="/admin/comments/reported">COMMENTAIRES SIGNALÉS</ModifiedLinksRouter>
+            <ModifiedLinksRouter onClick={handleClick} color="white" to="/">DÉCONNEXION</ModifiedLinksRouter>
+            <ModifiedLinksRouter color="white" to="/">ACCÉDER AU SITE</ModifiedLinksRouter>
         </div>
         
     </Navbar>
+    <div 
+        css={css`
+            width: 220px;
+        `}
+    ></div>
+    </>
 }
 
 export default AdminNavBar;

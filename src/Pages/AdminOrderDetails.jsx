@@ -8,7 +8,7 @@ import AdminNavBar from "../Components/AdminNavBar.jsx";
 import {Container,Card,Spinner} from 'react-bootstrap'
 
 
-function OrderShoppingCart () {
+function AdminOrderDetails () {
 
     let { orderId } = useParams();
     const adminInformation = useContext(UserAdminContext)
@@ -77,9 +77,9 @@ function OrderShoppingCart () {
             <div className="d-flex justify-content-center">
             {data.status === true ? data.products.map(product => 
                 <Card className="mr-2 ml-2"  key={product.product.id} style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
+                    <Card.Img variant="top" src={product.product.image || "holder.js/100px180"} />
                     <Card.Body>
-                        <Card.Title>{product.product.name}</Card.Title>
+                        <Card.Title className="text-center">{product.product.name}</Card.Title>
                         <Card.Text>
                         {/* {product.product.description} */}
                             prix : {product.product.price}€
@@ -101,7 +101,14 @@ function OrderShoppingCart () {
             { informationOrder.status ? 
             <Card>
             <Card.Body>
-                <Card.Title>Identité de l'acheteur</Card.Title>
+                <Card.Text>
+                    Date de la Commande : {informationOrder.data.createdDate}
+                    <br/>
+                    Montant de la Commande :  {informationOrder.data.amount}€
+                    <br/>
+                    Numéro de la Commande :  {informationOrder.data.id}
+                </Card.Text>
+                <Card.Title className="text-center mt-5">Identité de l'acheteur</Card.Title>
                 <Card.Text>
                     Prénom : {informationOrder.data.firstName}
                     <br/>
@@ -114,7 +121,7 @@ function OrderShoppingCart () {
                     Adresse : {informationOrder.data.address}
 
                 </Card.Text>
-                <Card.Title>Mode de paiement</Card.Title>
+                <Card.Title className="text-center mt-5">Mode de paiement</Card.Title>
                 <Card.Text>
                     Mode de Paiement : {informationOrder.data.paymentMethod}
                     <br/>
@@ -124,14 +131,6 @@ function OrderShoppingCart () {
                     Propriétaire de la Carte :  {informationOrder.data.cardName}
                     <br/>
                     Date d'expiration de la Carte : {informationOrder.data.cardExpirationDate}
-                </Card.Text>
-                <Card.Title>Autres informations</Card.Title>
-                <Card.Text>
-                    Date de la Commande : {informationOrder.data.createdDate}
-                    <br/>
-                    Montant de la Commande :  {informationOrder.data.amount}€
-                    <br/>
-                    Numéro de la Commande :  {informationOrder.data.id}
                 </Card.Text>
             </Card.Body>
         </Card>
@@ -147,4 +146,4 @@ function OrderShoppingCart () {
     </div>
 }
 
-export default OrderShoppingCart;
+export default AdminOrderDetails;

@@ -5,7 +5,6 @@ import {Form,Row,Col,Card,Button,Overlay} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
-import DownloadImage from './DownloadImage.jsx';
 
 function EditProductForm ({dataProduct,submitForm}) {
     let yup = require('yup');
@@ -48,10 +47,6 @@ function EditProductForm ({dataProduct,submitForm}) {
    
     
     let yupSchema = yup.object({
-        // title: yup.string().max(255, `Votre nom de produit dépasse la limite de caractères.`),
-        // category: yup.string(),
-        // price: yup.number().positive(),
-        // stock: yup.number().positive()
         title: yup.string()
             .max(255, `Votre nom de produit dépasse la limite de caractères.`)
             .min(2, 'Pas assez de caractères')
@@ -73,7 +68,24 @@ function EditProductForm ({dataProduct,submitForm}) {
         status: false
     })
 
+    const handleImageChange= (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
 
+        fileReader.onload = (e) => {
+            const informationFile = e.target.result
+
+            // on récupère uniquement la base64 de l'image
+            const base64 = informationFile.split(',');
+           
+            setImageId({
+                status: true,
+                data: base64[1]
+            })             
+
+        }
+    }
  
     return <Formik
         enableReinitialize={true}
@@ -93,7 +105,7 @@ function EditProductForm ({dataProduct,submitForm}) {
                 name: values.title,
                 description: descriptionValue,
                 category: values.category,
-                image: imageId.status ? imageId.data : undefined ,
+                image: imageId.status ? imageId.data : null ,
                 price: parseInt(values.price),
                 stock: parseInt(values.stock)
             })
@@ -101,7 +113,7 @@ function EditProductForm ({dataProduct,submitForm}) {
             //     name: values.title,
             //     description: descriptionValue,
             //     category: values.category,
-            //     image: imageId.status ? imageId.data : undefined ,
+            //     image: imageId.status ? imageId.data : null ,
             //     price: parseInt(values.price),
             //     stock: parseInt(values.stock)
             // })
@@ -131,7 +143,12 @@ function EditProductForm ({dataProduct,submitForm}) {
         </Form.Group>
 
         {/* ajouter une image */}
-        <DownloadImage setImageId={setImageId}></DownloadImage>
+        <Form.Group  className="d-flex justify-content-center" controlId="formulary">
+            <Form.File 
+                id="importImage"
+                onChange={handleImageChange}
+            />
+        </Form.Group>
         
         {/* description du produit (WYSIWYG) */}
         <Card 
