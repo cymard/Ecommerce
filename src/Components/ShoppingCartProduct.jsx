@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, {useState, useCallback, useContext} from 'react';
-import { Card, Button ,Row, Form, Modal} from 'react-bootstrap';
+import { Button ,Row, Form, Modal, Col,Image} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import axios from 'axios';
-import {UserContext} from './UserContext.jsx'
+import {UserContext} from './UserContext.jsx';
+import screen from '../images/screen.jpg';
 
 
 
@@ -74,12 +75,11 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
         [token,email,id],
     )
 
-    
 
-    return <Card className="d-flex mb-5" 
+    return <div className="d-flex mb-5" 
         css={css`
             width: 100%;
-            height : 318px;
+
         `}
     >
         <Modal show={showModal} onHide={handleCloseModal}>
@@ -89,48 +89,87 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             <Modal.Body>Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.</Modal.Body>
         </Modal>
 
-        <Row 
+
+
+        <Row
             css={css`
-                margin-right : 0;
-                margin-left : 0;
                 height: 100%;
+                width: 100%;
+                margin: 0;
             `}
         >
-            <div 
-                css={css`
-                    width: 318px;
-                `}
+            <Col
+                sm={12}
+                md={12}
+                lg={4}
+                className="d-flex justify-content-center p-0"
+
             >
-                <Card.Img image={image} 
+                <Image 
                     css={css`
                         height: 318px;
                         width: 318px;
                     `}
+                    src={image || screen} 
+                    rounded 
                 />
-            </div>
-            <div 
-                css={css`
-                    width: calc(100% - 318px);
+            </Col>
+
+            <Col  
+                css = {css`
+                    height: 20px;
                 `}
+                sm={12}
+                md={12}
+                lg={1}
+            ></Col>
+
+            <Col
+                css={css`
+                    display: flex;
+                    flex-direction: column;
+                    border: solid #DFDFDF 1px;
+                    border-radius: 5px;
+                    min-height: 318px;
+                `}
+                sm={12}
+                md={12}
+                lg={7}
             >
-                <Row className="d-flex justify-content-between" 
-                css={css`
-                    margin-right : 0;
-                    margin-left : 0;
-                    height: 70%;
-                `}
+                <Row 
+                    css={css`
+                       height: 40%;
+                    `}
                 >
-                    
-                    <div className="p-4 d-flex flex-column align-items-center justify-content-between">
+                    <Col className="text-center pt-2" lg={5} sm={12}>
                         <h2>{title}</h2>
+                    </Col>    
+                    <Col lg={4} sm={0}></Col>
+                    <Col className="text-center pt-2" lg={3} sm={12} >
+                        <p 
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >Prix : {price} €</p>
+                    </Col> 
+                </Row>   
+                <Row 
+                    css={css`
+                        height: 40%;
+                    `}
+                >
+                    <Col lg={3} sm={0}></Col>
+                    <Col lg={7} md={12} sm={12}>
                         <Form 
                             css={css`
                                 width: 100%;
                             `}
                         >
-                            <Form.Group  className="d-flex"
+                            <Form.Group 
                                 css={css`
                                     width: 100%;
+                                    display: flex;
+                                    justify-content: center;
                                 `}
                             >
                                 <Form.Label 
@@ -148,21 +187,14 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                                 />
                                 <Button onClick={updateQuantity}>Mettre à jour</Button>
                             </Form.Group>
-                        </Form>
-                    </div>
+                        </Form>    
 
-                    <div className="p-4">
-                        <p>Prix : {price} €</p>
-                    </div>
-                </Row>
-                <Row className="p-4 d-flex justify-content-end align-items-end" 
-                    css={css`
-                        marginRight : 0;
-                        marginLeft : 0;
-                        height: 30%;
-                    `}
-                >
-                    <Button 
+                    </Col>
+                    <Col lg={2} sm={0}></Col>
+
+                </Row> 
+                <Row className="h-auto d-flex justify-content-center">
+                    <Button
                         variant="danger" 
                         css={css`
                             height : 40px;
@@ -170,11 +202,14 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                         onClick={handleClickDelete}
                     >
                         Supprimer
-                    </Button>
-                </Row>
-            </div>
+                    </Button>    
+                </Row>  
+            </Col>            
         </Row>
-    </Card>
+
+       
+
+    </div>
 
 }
 

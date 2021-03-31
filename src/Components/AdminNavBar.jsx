@@ -47,7 +47,7 @@ function AdminNavBar () {
     </Navbar>
     <div 
         css={css`
-            width: 220px;
+            width: 250px;
         `}
     ></div>
     </>

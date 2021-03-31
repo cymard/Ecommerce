@@ -74,8 +74,8 @@ function EditProduct () {
 
 
     return <div     
+    // min-height: calc(100vh - 64px);
     css={css`
-        min-height: calc(100vh - 64px);
         display: flex;
     `}
     >

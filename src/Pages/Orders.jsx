@@ -82,8 +82,10 @@ function Orders() {
 
 
     return <div     
+
+    // min-height: calc(100vh - 64px);
     css={css`
-        min-height: calc(100vh - 64px);
+        
         display: flex;
     `}
     >
@@ -94,7 +96,7 @@ function Orders() {
 
             <SearchBar reFetch={getOrders}></SearchBar>
 
-            <Table className="text-center" hover>
+            <Table className="text-center"  hover>
                 <thead>
                     <tr>
                         <th>

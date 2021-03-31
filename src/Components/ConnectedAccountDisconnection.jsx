@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React,{useContext} from 'react';
-import {Button, Card, Row} from 'react-bootstrap';
+import {Button, Card, Row, Col} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {UserContext} from './UserContext';
 import { useHistory } from "react-router-dom";
@@ -29,9 +29,14 @@ function ConnectedAccountDisconnection () {
                 margin-right: 0px;
                 margin-left: 0px;
             `} 
-        >
-            <h3>Se déconnecter : </h3>
-            <Button onClick={handleClick}>Déconnexion</Button>
+        >   
+            <Col  lg={3}  className="text-center text-nowrap">
+                <h3>Se déconnecter : </h3>
+            </Col>
+            <Col lg={2} className="text-center">
+                <Button className="w-100" onClick={handleClick}>Déconnexion</Button>
+            </Col>
+            
         </Row>
         
     </Card>

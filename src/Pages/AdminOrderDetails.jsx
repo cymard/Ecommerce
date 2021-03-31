@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import {UserAdminContext} from "../Components/UserAdminContext.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import {Container,Card,Spinner} from 'react-bootstrap'
+import screen from '../images/screen.jpg';
 
 
 function AdminOrderDetails () {
@@ -63,8 +64,9 @@ function AdminOrderDetails () {
     },[getProducts,getInformationOrder])
 
     return <div     
+    
     css={css`
-        min-height: calc(100vh - 64px);
+        min-height: 90vh;
         display: flex;
     `}
     >
@@ -77,7 +79,7 @@ function AdminOrderDetails () {
             <div className="d-flex justify-content-center">
             {data.status === true ? data.products.map(product => 
                 <Card className="mr-2 ml-2"  key={product.product.id} style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.product.image || "holder.js/100px180"} />
+                    <Card.Img variant="top" src={product.product.image || screen} />
                     <Card.Body>
                         <Card.Title className="text-center">{product.product.name}</Card.Title>
                         <Card.Text>

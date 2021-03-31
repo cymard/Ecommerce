@@ -2,11 +2,12 @@
 import React from 'react';
 import { css} from '@emotion/react';
 
-function Footer(){
-
+function FooterSmallPage(){
     return <div 
         css={css`            
             background-color: black;
+            position:absolute;
+            bottom:0;
             width:100%;
             height:50px;
         `}
@@ -22,4 +23,4 @@ function Footer(){
     </div>
 }
 
-export default Footer;
+export default FooterSmallPage;

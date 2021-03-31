@@ -145,7 +145,6 @@ function EditProductForm ({dataProduct,submitForm}) {
         {/* ajouter une image */}
         <Form.Group  className="d-flex justify-content-center" controlId="formulary">
             <Form.File 
-                id="importImage"
                 onChange={handleImageChange}
             />
         </Form.Group>

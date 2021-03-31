@@ -31,6 +31,7 @@ function HeaderNavBar () {
         <Navbar.Brand>
           <ModifiedLinksRouter color="black" to="/">LOGO</ModifiedLinksRouter>
         </Navbar.Brand>
+        
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">

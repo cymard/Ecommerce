@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {UserContext} from "../Components/UserContext.jsx";
 import {Container,Card,Spinner} from 'react-bootstrap';
 import {css} from '@emotion/react';
+import screen from '../images/screen.jpg';
 
 
 function UserOrderDetails () {
@@ -61,7 +62,11 @@ function UserOrderDetails () {
         getInformationOrder()
     },[getProducts,getInformationOrder])
 
-    return <Container fluid>
+    return <Container fluid
+        css={css`
+            min-height: 90vh;
+        `}
+    >
             <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
 
             <h2 className="text-center mb-5">Les produits commandés : </h2>
@@ -74,7 +79,7 @@ function UserOrderDetails () {
                                 max-width: 18rem;
                             `}
                             variant="top" 
-                            src={product.product.image || "holder.js/100px180"} 
+                            src={product.product.image || screen} 
                         />
                         <Card.Body>
                             <Card.Title className="text-center">{product.product.name}</Card.Title>
@@ -96,7 +101,7 @@ function UserOrderDetails () {
         
             <div className="d-flex justify-content-center mb-5">
                 {informationOrder.status ? 
-                    <Card>
+                    <Card className="mb-5">
                         <Card.Body>
                             <Card.Text>
                                 Date de la Commande : {informationOrder.data.createdDate}

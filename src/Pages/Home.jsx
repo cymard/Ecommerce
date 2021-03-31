@@ -71,8 +71,9 @@ function Home(){
         },[location]
     )
     
-    const regexSearch = new RegExp('\\?search=[a-z]+&page=[0-9]+');
-    const regexCategory = new RegExp('\\?category=[a-z]+&page=[0-9]+');
+    // const regexSearch = new RegExp('\\?search=[a-z]+&page=[0-9]+');
+    const regexSearch = new RegExp('\\?search=[a-zA-Zéèàç]+&page=[0-9]+');
+    const regexCategory = new RegExp('\\?category=[a-zA-Zéèàç]+&page=[0-9]+');
 
     useEffect(()=>{
       
@@ -95,7 +96,12 @@ function Home(){
         
     },[location,history,displayProductsWithCategory,displayProductsWithSearch])
 
-    return <Container className="d-flex justify-content-around flex-wrap">
+    return <Container 
+        css={css`
+            min-height: 90vh;
+        `}
+        className="d-flex justify-content-around flex-wrap"
+    >
         <FrontNavBarFilter></FrontNavBarFilter>
         <HomeCarousel></HomeCarousel>
         { data.status === "nothing" ?
@@ -105,7 +111,7 @@ function Home(){
                     margin-bottom : 100px;
                 `}
             >
-                <h3>Aucun produit trouvé pour votre recherche...</h3> 
+                <h3 className="text-center">Aucun produit trouvé pour votre recherche...</h3> 
             </div>
         :
             

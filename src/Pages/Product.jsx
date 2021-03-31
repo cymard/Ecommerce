@@ -90,7 +90,11 @@ function Product({name, content, price}){
     
     // gerer l'etat avant la réponse de l'api :
    
-    return <Container className="d-flex flex-column justify-content-around">
+    return <Container className="d-flex flex-column justify-content-around"
+        css={css`
+            min-height: 90vh;
+        `}
+    >
         <TitleH1>{data.status ? data.product.name : name}</TitleH1>
 
         <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
@@ -137,7 +141,7 @@ function Product({name, content, price}){
 
 
         <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2>Les Commentaires postés : </h2>
+            <h2 className="text-center">Les Commentaires postés : </h2>
         </div>
 
         <RedirectModal 
@@ -149,7 +153,7 @@ function Product({name, content, price}){
         >Vous devez être connecté pour effectuer cette action.</RedirectModal>
     
         {data.status?
-            data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+            data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button className="w-100" id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button className="w-100" variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
             <div>chargement...</div>
         }

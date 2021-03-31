@@ -78,7 +78,7 @@ function ChangeEmail () {
     <div
         css={css`
             width: 100%;
-            height: calc(100vh - 184px);
+            padding: 0 2%;
         `}
         className="d-flex flex-column  align-items-center"
     >

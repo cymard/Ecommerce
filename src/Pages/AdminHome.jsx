@@ -111,8 +111,9 @@ function AdminHome () {
 
 
     return <div     
+    
     css={css`
-        min-height: calc(100vh - 64px);
+        min-height: 90vh;
         display: flex;
     `}
     >

@@ -86,13 +86,14 @@ function ConnectedAccount () {
         <TitleH1>Mon Compte</TitleH1>
         <ConnectedAccountDisconnection></ConnectedAccountDisconnection>
 
-        {/* Return ce lien uniquement si le client à au moins une commande */}
+        {/* Return ce lien uniquement si le client a au moins une commande */}
         {userOrderNumber.status && userOrderNumber.orderNumber > 0 ?
             <>
-                <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+                <div className="d-flex justify-content-center align-items-center mb-4">
                     <h2 
                         css={css`
                             font-size: 2.5em;
+                            margin-top: 100px;
                         `}
                     >
                         Mes Commandes :
@@ -111,10 +112,12 @@ function ConnectedAccount () {
             <></>
         }
 
-        <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+        <div className="d-flex justify-content-center align-items-center mb-4 ">
             <h2 
                 css={css`
                     font-size: 2.5em;
+                    margin-top: 100px;
+                    text-align: center;
                 `}
             >
                 Changer de mot de passe :
@@ -129,10 +132,12 @@ function ConnectedAccount () {
             </Card>
         </Link>
 
-        <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+        <div className="d-flex justify-content-center align-items-center mb-4 ">
             <h2 
                 css={css`
                     font-size: 2.5em;
+                    margin-top: 100px;
+                    text-align: center;
                 `}
             >
                 Changer d'adresse email :
@@ -147,10 +152,12 @@ function ConnectedAccount () {
             </Card>
         </Link>
 
-        <div className="d-flex justify-content-center align-items-center mb-5 mt-5">
+        <div className="d-flex justify-content-center align-items-center mb-4">
             <h2 
                 css={css`
                     font-size: 2.5em;
+                    margin-top: 100px;
+                    text-align: center;
                 `}
             >
                 Mes Informations :
