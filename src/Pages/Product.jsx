@@ -102,7 +102,7 @@ function Product({name, content, price}){
         {data.status ?  
             <Card className="mt-4">
                 <Card.Body className=" d-flex justify-content-around align-items-center">
-                    Note moyenne du Produit : 
+                    Note moyenne du produit : 
                     <div>
                         <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
                     </div> 
@@ -141,7 +141,7 @@ function Product({name, content, price}){
 
 
         <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2 className="text-center">Les Commentaires postés : </h2>
+            <h2 className="text-center">Les commentaires postés : </h2>
         </div>
 
         <RedirectModal 

@@ -2,7 +2,7 @@
 import React, {useContext, useState, useCallback} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faShoppingCart, faHome} from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import {UserContext} from './UserContext';
 import { css} from '@emotion/react';
@@ -12,6 +12,7 @@ function HeaderNavBar () {
 
     const searchIcon = <FontAwesomeIcon icon={faSearch} />
     const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
+    const itemHome = <FontAwesomeIcon icon={faHome} size="2x" />;
 
     // utilisation du contexte
     const userInformations = useContext(UserContext);
@@ -26,10 +27,10 @@ function HeaderNavBar () {
 
   
     return <> 
-      <Navbar collapseOnSelect fixed="top" bg="light" expand="lg" > 
+      <Navbar css={css`box-shadow: 1px 2px 3px gray;`} collapseOnSelect fixed="top" bg="light" expand="lg" > 
 
         <Navbar.Brand>
-          <ModifiedLinksRouter color="black" to="/">LOGO</ModifiedLinksRouter>
+          <ModifiedLinksRouter color="black" to="/">{itemHome}</ModifiedLinksRouter>
         </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -42,10 +43,9 @@ function HeaderNavBar () {
                 `}
             >
                 <FormControl value={value} onChange={handleChange} type="text" placeholder="Rechercher" className="mr-sm-2" />
-                <Link to={`/products?search=${value}&page=1`}>
+                <Link to={`/products?search=${encodeURIComponent(value)}&page=1`}>
                     <Button variant="outline-success">{searchIcon}</Button>
                 </Link>
-            
             </Form>
           
             <Nav className="mr-auto">

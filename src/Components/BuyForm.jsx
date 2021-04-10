@@ -243,10 +243,10 @@ function BuyForm ({amount, userInformation}) {
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="cardNumber">
-                            <Form.Label>Numero de la Carte</Form.Label>
+                            <Form.Label>Numéro de la Carte</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="Enter le numero de la Carte" 
+                                placeholder="Enter le numéro de la Carte" 
                                 onChange={handleChange}
                                 value={values.cardNumber}
 
