@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import {Card} from 'react-bootstrap';
+import {Card, Col, Row} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import RateWithStars from './RateWithStars.jsx';
@@ -36,9 +36,26 @@ function ProductComment ({pseudo, content, note, date, title, buttons}) {
                 {content}
             </Card.Text>
         </Card.Body>
-        <Card.Footer className="text-muted d-flex justify-content-between">
-           <p>Publié le {date}</p> 
-           {buttons}
+        {/* className="text-muted d-flex justify-content-between" */}
+        <Card.Footer >
+            {/*  <Row>
+                <Col sm={6} lg={10}>
+                    <Row sm={0} lg={12}>
+                        <Col  md={2}><p>Publié le</p></Col>
+                        <Col className="text-left"  md={10}><p>{date}</p></Col>
+                    </Row>
+                    
+ 
+                </Col>
+                <Col  sm={6}  className="text-right" lg={2}>{buttons}</Col>
+            </Row> */}
+
+            <Row>
+                <Col lg={3}><p>Publié le {date}</p></Col>
+                <Col sm={0} lg={7}></Col>
+                <Col lg={2}>{buttons}</Col>
+            </Row>
+            
         </Card.Footer>
     </Card>
 }

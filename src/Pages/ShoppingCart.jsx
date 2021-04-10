@@ -43,12 +43,12 @@ function ShoppingCart(){
 
     return <Container
         css={css`
-            min-height: calc(100vh - 232px); 
+            min-height: 90vh; 
         `}
     >
         <div className="d-flex justify-content-center  mt-5 "
             css={css`
-                margin-bottom: 180px;
+                margin-bottom: 100px;
             `}
         >
             <h1> Voici votre panier :</h1>

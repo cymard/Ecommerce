@@ -7,6 +7,7 @@ import {UserContext} from '../Components/UserContext.jsx'
 import OrdersListUser from '../Components/OrdersListUser.jsx'
 import PaginationOrdersUser from '../Components/PaginationOrdersUser.jsx';
 import SortDateButtons from '../Components/SortDateButtons.jsx';
+import {css} from '@emotion/react';
 import {
     useLocation,
     useHistory
@@ -53,11 +54,15 @@ function UserOrders (){
         
     }, [getUserOrders, location, history])
 
-    return <Container>
+    return <Container
+        css={css`
+            min-height: 90vh;
+        `}
+    >
         <TitleH1>L'historique de mes commandes</TitleH1>
 
         
-            <Table className="text-center" hover>
+            <Table className="text-center" responsive hover>
                 <thead>
                     <tr>
                         <th>N° </th>

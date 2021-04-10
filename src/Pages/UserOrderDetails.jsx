@@ -3,7 +3,9 @@ import React,{useCallback, useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {UserContext} from "../Components/UserContext.jsx";
-import {Container,Card,Spinner} from 'react-bootstrap'
+import {Container,Card,Spinner} from 'react-bootstrap';
+import {css} from '@emotion/react';
+import screen from '../images/screen.jpg';
 
 
 function UserOrderDetails () {
@@ -60,17 +62,53 @@ function UserOrderDetails () {
         getInformationOrder()
     },[getProducts,getInformationOrder])
 
-    return <Container fluid>
+    return <Container fluid
+        css={css`
+            min-height: 90vh;
+        `}
+    >
             <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
 
             <h2 className="text-center mb-5">Les produits commandés : </h2>
-
+            {informationOrder.status ? 
+                <div className="d-flex justify-content-center mb-5 ">
+                    <Card className="p-3">
+                        <p>Date de la Commande :  <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.createdDate}</span>  </p> 
+                        <br/>
+                        <p>Montant de la Commande : <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.amount}€</span> </p>
+                        <br/>
+                        <p>Numéro de la Commande :  <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.id}</span>  </p> 
+                    </Card>
+                </div>
+                
+            : 
+                <div><Spinner animation="border" /></div>
+            }
             <div className="d-flex justify-content-center flex-wrap">
                 {data.status === true ? data.products.map(product => 
                     <Card className="mr-2 ml-2 mb-4"  key={product.product.id} style={{ minWidth: '18rem' }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
+                        <Card.Img  
+                            css={css`
+                                max-height: 200px;
+                                max-width: 18rem;
+                            `}
+                            variant="top" 
+                            src={product.product.image || screen} 
+                        />
                         <Card.Body>
-                            <Card.Title>{product.product.name}</Card.Title>
+                            <Card.Title className="text-center">{product.product.name}</Card.Title>
                             <Card.Text>
                             {/* {product.product.description} */}
                                 prix : {product.product.price}€
@@ -89,9 +127,9 @@ function UserOrderDetails () {
         
             <div className="d-flex justify-content-center mb-5">
                 {informationOrder.status ? 
-                    <Card>
+                    <Card className="mb-5">
                         <Card.Body>
-                            <Card.Title>Identité de l'acheteur</Card.Title>
+                            <Card.Title  className="font-weight-bold">Identité de l'acheteur</Card.Title>
                             <Card.Text>
                                 Prénom : {informationOrder.data.firstName}
                                 <br/>
@@ -103,7 +141,7 @@ function UserOrderDetails () {
                                 <br/>
                                 Adresse : {informationOrder.data.address}
                             </Card.Text>
-                            <Card.Title>Mode de paiement</Card.Title>
+                            <Card.Title className="mt-5 font-weight-bold">Mode de paiement</Card.Title>
                             <Card.Text>
                                 Mode de Paiement : {informationOrder.data.paymentMethod}
                                 <br/>
@@ -113,15 +151,7 @@ function UserOrderDetails () {
                                 Propriétaire de la Carte :  {informationOrder.data.cardName}
                                 <br/>
                                 Date d'expiration de la Carte : {informationOrder.data.cardExpirationDate}
-                            </Card.Text>
-                            <Card.Title>Autres informations</Card.Title>
-                            <Card.Text>
-                                Date de la Commande : {informationOrder.data.createdDate}
-                                <br/>
-                                Montant de la Commande :  {informationOrder.data.amount}€
-                                <br/>
-                                Numéro de la Commande :  {informationOrder.data.id}
-                            </Card.Text>
+                            </Card.Text>                            
                         </Card.Body>
                     </Card>
                 :

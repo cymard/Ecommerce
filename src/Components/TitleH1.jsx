@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 function TitleH1 ({children}) {
 
-    return <div className="d-flex justify-content-center mb-5 mt-5 ">
+    return <div className="d-flex justify-content-center mb-5 mt-5 text-center ">
         <h1> {children} :</h1>
     </div>
 

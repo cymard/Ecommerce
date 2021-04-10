@@ -60,6 +60,28 @@ function CreateProductForm ({submitForm}) {
     });
 
 
+    const [imageId, setImageId] = useState({
+        status: false
+    })
+
+    const handleImageChange= (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (e) => {
+            const informationFile = e.target.result
+
+            // on récupère uniquement la base64 de l'image
+            const base64 = informationFile.split(',');
+           
+            setImageId({
+                status: true,
+                data: base64[1]
+            })             
+
+        }
+    }
 
  
     return <Formik
@@ -77,12 +99,12 @@ function CreateProductForm ({submitForm}) {
         validated ? 
 
             submitForm({
-            name: values.title,
-            description: descriptionValue,
-            category: values.category,
-            image: null,
-            price: parseInt(values.price),
-            stock: parseInt(values.stock)
+                name: values.title,
+                description: descriptionValue,
+                category: values.category,
+                image: imageId.status ? imageId.data : null,
+                price: parseInt(values.price),
+                stock: parseInt(values.stock)
             })
 
         :
@@ -121,8 +143,13 @@ function CreateProductForm ({submitForm}) {
                 
         {/* ajouter une image */}
         <Form.Group className="d-flex justify-content-center" controlId="image">
-            <Form.File/>
+            <Form.File
+                onChange={handleImageChange}
+            />
         </Form.Group>
+
+
+
         
         {/* description du produit (WYSIWYG) */}
         <Card 
@@ -173,6 +200,8 @@ function CreateProductForm ({submitForm}) {
     </div>
         // <Alert variant="danger"><Alert.Heading className="text-center">La description du produit n'est pas valide, le formulaire ne sera pas validé.</Alert.Heading></Alert> 
         : null } */}
+
+
         {validated === false ? 
         <Overlay target={target} show={show} placement="bottom-start">
             <div

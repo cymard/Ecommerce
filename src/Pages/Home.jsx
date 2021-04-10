@@ -9,16 +9,25 @@ import PaginationProducts from '../Components/PaginationProducts.jsx';
 import {css} from '@emotion/react';
 import {
     useLocation,
-    useHistory
+    useHistory,
+    useParams
   } from "react-router-dom";
 
 function Home(){
+
     const [data, setData] = useState({status : false, data: "", filter: ""});
     const location = useLocation();
     const history = useHistory();
 
+    // récuperation et séparation des valeurs de l'uri
+    const query = new URLSearchParams(location.search);
+    const searchValue = query.get('search');
+    const categoryValue = query.get('category');
+    const pageValue = query.get('page');
 
-
+    // encoder la recherche
+    // encode URI sur toute l'url avec encodeURI ou juste la recherche avec encodeURIComponent
+    let encodedUri = "?search=" + encodeURIComponent(searchValue) + "&page=" + pageValue;
 
     const displayProductsWithCategory = useCallback(
         () => {
@@ -46,10 +55,10 @@ function Home(){
 
     const displayProductsWithSearch = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
+            axios.get(`https://127.0.0.1:8000${location.pathname}${encodedUri}`)
             .then(function(res){
                 console.log(res.data);  
-
+                console.log("encodedUri value : "+ encodedUri)
                 if(res.status && res.data.data.length > 0){
                     console.log(res.data);
                     setData({
@@ -68,36 +77,52 @@ function Home(){
             .catch(function(err){
                 console.log(err);
             })
-        },[location]
+        },[location,encodedUri]
     )
     
-    const regexSearch = new RegExp('\\?search=[a-z]+&page=[0-9]+');
-    const regexCategory = new RegExp('\\?category=[a-z]+&page=[0-9]+');
+    // const regexSearch = new RegExp('\\?search=[a-z]+&page=[0-9]+');
+    // const regexSearch = new RegExp('\\?search=[a-zA-Zéèàç]+&page=[0-9]+');
+    // const regexCategory = new RegExp('\\?category=[a-zA-Zéèàç]+&page=[0-9]+');
+
+
 
     useEffect(()=>{
-      
-
+        // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category"
+        // en fonction de ça on va appeler labonne méthode
+        console.log("search value : " + "?search=" +searchValue + "&page=" + pageValue);
+        console.log("resultat recherché: "+ location.search)
+        
         if(location.pathname === "/"){
-            // redirection
             history.push("/products?category=all&page=1");
-
-        }else if(regexCategory.test(location.search)){
-            // Recherche de produit via les catégories    
+        
+        }else if(searchValue === null && categoryValue !== null){
+            // Recherche de produit via les catégories
             displayProductsWithCategory();
-            
-        }else if(regexSearch.test(location.search)){
+
+        }else if(categoryValue === null && searchValue !== null){
             // Recherche des produits via le champs recherche 
             displayProductsWithSearch();
-            
+        
         }else{
             history.push("/products?category=all&page=1");
         }
         
-    },[location,history,displayProductsWithCategory,displayProductsWithSearch])
+    },[location, pageValue, searchValue, categoryValue,history,displayProductsWithCategory,displayProductsWithSearch])
 
-    return <Container className="d-flex justify-content-around flex-wrap">
+
+
+
+
+
+
+    return <Container 
+        css={css`
+            min-height: 90vh;
+        `}
+        className="d-flex justify-content-around flex-wrap"
+    >
         <FrontNavBarFilter></FrontNavBarFilter>
-        <HomeCarousel></HomeCarousel>
+        <div css={css`width: 100%; height: 20px;`}></div>
         { data.status === "nothing" ?
             <div
                 css={css`
@@ -105,7 +130,7 @@ function Home(){
                     margin-bottom : 100px;
                 `}
             >
-                <h3>Aucun produit trouvé pour votre recherche...</h3> 
+                <h3 className="text-center">Aucun produit trouvé pour votre recherche...</h3> 
             </div>
         :
             

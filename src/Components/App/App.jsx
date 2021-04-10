@@ -17,11 +17,12 @@ import CreateProduct from '../../Pages/CreateProduct.jsx'
 import ProductComments from '../../Pages/ProductComments.jsx'
 import ReportedComments from '../../Pages/ReportedComments.jsx'
 import Orders from "../../Pages/Orders.jsx"
-import OrderShoppingCart from "../../Pages/OrderShoppingCart.jsx"
+import AdminOrderDetails from "../../Pages/AdminOrderDetails.jsx"
 import UserOrders from '../../Pages/UserOrders.jsx'
 import UserOrderDetails from '../../Pages/UserOrderDetails.jsx'
 import ChangePassword from '../../Pages/ChangePassword.jsx'
 import ChangeEmail from '../../Pages/ChangeEmail.jsx'
+import FooterSmallPage from '../FooterSmallPage.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -39,12 +40,12 @@ function App(){
                         <Route exact path="/Login">
                             <Header></Header>
                             <Login></Login>
-                            <Footer></Footer>
+                            <FooterSmallPage></FooterSmallPage>
                         </Route>
                         <Route exact path="/Register">
                             <Header></Header>
                             <Register></Register>
-                            <Footer></Footer>
+                            <FooterSmallPage></FooterSmallPage>
                         </Route>
                         <Route exact path="/ShoppingCart">
                             <Header></Header>
@@ -79,13 +80,13 @@ function App(){
                         <Route exact path="/api/modify/password">
                             <Header></Header>
                             <ChangePassword></ChangePassword>
-                            <Footer></Footer>
+                            <FooterSmallPage></FooterSmallPage>
                         </Route>
 
                         <Route exact path="/api/modify/email">
                             <Header></Header>
                             <ChangeEmail></ChangeEmail>
-                            <Footer></Footer>
+                            <FooterSmallPage></FooterSmallPage>
                         </Route>
 
                         <Route exact path="/admin/product/:id/edit">
@@ -99,7 +100,7 @@ function App(){
                         <Route exact path="/admin/login">
                             <Header></Header>
                             <LoginAdmin></LoginAdmin>
-                            <Footer></Footer>
+                            <FooterSmallPage></FooterSmallPage>
                         </Route>
 
                         <Route exact path="/admin/comments/reported">
@@ -111,7 +112,7 @@ function App(){
                         </Route>
 
                         <Route exact path="/admin/order/:orderId/cart">
-                            <OrderShoppingCart></OrderShoppingCart>
+                            <AdminOrderDetails></AdminOrderDetails>
                         </Route>
 
                         <Route path="/admin/orders">

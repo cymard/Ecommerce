@@ -6,9 +6,10 @@ import {useParams} from "react-router-dom";
 import {UserAdminContext} from "../Components/UserAdminContext.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import {Container,Card,Spinner} from 'react-bootstrap'
+import screen from '../images/screen.jpg';
 
 
-function OrderShoppingCart () {
+function AdminOrderDetails () {
 
     let { orderId } = useParams();
     const adminInformation = useContext(UserAdminContext)
@@ -63,8 +64,9 @@ function OrderShoppingCart () {
     },[getProducts,getInformationOrder])
 
     return <div     
+    
     css={css`
-        min-height: calc(100vh - 64px);
+        min-height: 90vh;
         display: flex;
     `}
     >
@@ -74,12 +76,45 @@ function OrderShoppingCart () {
             <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
             <h2 className="text-center mb-5">Les produits commandés : </h2>
 
+            {informationOrder.status ? 
+                <div className="d-flex justify-content-center mb-5 ">
+                    <Card className="p-3">
+                        <p>Date de la Commande :  <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.createdDate}</span>  </p> 
+                        <br/>
+                        <p>Montant de la Commande : <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.amount}€</span> </p>
+                        <br/>
+                        <p>Numéro de la Commande :  <span
+                            css={css`
+                                font-size: 20px;
+                            `}
+                        >{informationOrder.data.id}</span>  </p> 
+                    </Card>
+                </div>
+                
+            : 
+                <div><Spinner animation="border" /></div>
+            }
+
             <div className="d-flex justify-content-center">
             {data.status === true ? data.products.map(product => 
                 <Card className="mr-2 ml-2"  key={product.product.id} style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
+                    <Card.Img 
+                        variant="top"
+                        src={product.product.image || screen} 
+                        css={css`
+                            max-height: 200px;
+                        `}    
+                    />
                     <Card.Body>
-                        <Card.Title>{product.product.name}</Card.Title>
+                        <Card.Title className="text-center">{product.product.name}</Card.Title>
                         <Card.Text>
                         {/* {product.product.description} */}
                             prix : {product.product.price}€
@@ -101,7 +136,7 @@ function OrderShoppingCart () {
             { informationOrder.status ? 
             <Card>
             <Card.Body>
-                <Card.Title>Identité de l'acheteur</Card.Title>
+                <Card.Title className="font-weight-bold">Identité de l'acheteur</Card.Title>
                 <Card.Text>
                     Prénom : {informationOrder.data.firstName}
                     <br/>
@@ -114,7 +149,7 @@ function OrderShoppingCart () {
                     Adresse : {informationOrder.data.address}
 
                 </Card.Text>
-                <Card.Title>Mode de paiement</Card.Title>
+                <Card.Title className="font-weight-bold mt-5">Mode de paiement</Card.Title>
                 <Card.Text>
                     Mode de Paiement : {informationOrder.data.paymentMethod}
                     <br/>
@@ -124,14 +159,6 @@ function OrderShoppingCart () {
                     Propriétaire de la Carte :  {informationOrder.data.cardName}
                     <br/>
                     Date d'expiration de la Carte : {informationOrder.data.cardExpirationDate}
-                </Card.Text>
-                <Card.Title>Autres informations</Card.Title>
-                <Card.Text>
-                    Date de la Commande : {informationOrder.data.createdDate}
-                    <br/>
-                    Montant de la Commande :  {informationOrder.data.amount}€
-                    <br/>
-                    Numéro de la Commande :  {informationOrder.data.id}
                 </Card.Text>
             </Card.Body>
         </Card>
@@ -147,4 +174,4 @@ function OrderShoppingCart () {
     </div>
 }
 
-export default OrderShoppingCart;
+export default AdminOrderDetails;

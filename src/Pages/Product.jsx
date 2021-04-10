@@ -90,7 +90,11 @@ function Product({name, content, price}){
     
     // gerer l'etat avant la réponse de l'api :
    
-    return <Container className="d-flex flex-column justify-content-around">
+    return <Container className="d-flex flex-column justify-content-around"
+        css={css`
+            min-height: 90vh;
+        `}
+    >
         <TitleH1>{data.status ? data.product.name : name}</TitleH1>
 
         <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
@@ -98,7 +102,7 @@ function Product({name, content, price}){
         {data.status ?  
             <Card className="mt-4">
                 <Card.Body className=" d-flex justify-content-around align-items-center">
-                    Note moyenne du Produit : 
+                    Note moyenne du produit : 
                     <div>
                         <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
                     </div> 
@@ -137,7 +141,7 @@ function Product({name, content, price}){
 
 
         <div className="d-flex justify-content-center mt-5 mb-5">
-            <h2>Les Commentaires postés : </h2>
+            <h2 className="text-center">Les commentaires postés : </h2>
         </div>
 
         <RedirectModal 
@@ -149,7 +153,7 @@ function Product({name, content, price}){
         >Vous devez être connecté pour effectuer cette action.</RedirectModal>
     
         {data.status?
-            data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
+            data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button className="w-100" id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button className="w-100" variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
         :
             <div>chargement...</div>
         }
@@ -170,29 +174,3 @@ Product.propTypes = {
 }
 
 export default Product;
-
-
-
-       /* <input type="file" onChange={fileSelectedHandler}/>
-        <button onClick={uploadFile}>salut</button> */
-    // méthodes pour upload
-    // const [file, setFile] = useState({selectedFile: null});
-
-    // const fileSelectedHandler = (event) => {
-    //     setFile({selectedFile: event.target.files[0]})
-    //     console.log(file)
-    // }
-
-    // const uploadFile = () => {
-    //     console.log(file)
-    //     const fd = new FormData();
-    //     const uriPath = location.pathname
-    //     fd.append('image',file.selectedFile, file.selectedFile.name)
-    //     axios.put(`https://127.0.0.1:8000${uriPath}`,fd)
-    //       .then(function (response) {
-    //         console.log(response);
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    // }

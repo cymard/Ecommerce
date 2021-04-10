@@ -177,11 +177,11 @@ function ConnectedAccountForm ({userInformation}) {
 
                 <Form.Row>
                     <Form.Group as={Col} controlId="cardNumber">
-                        <Form.Label>Numero de la Carte</Form.Label>
+                        <Form.Label>Numéro de la Carte</Form.Label>
                         <Form.Control 
                             type="text" 
                             onChange={handleChange}
-                            placeholder="Enter le numero de la Carte" 
+                            placeholder="Enter le numéro de la Carte" 
                             value={values.cardNumber}
                             isValid={touched.cardNumber && !errors.cardNumber}
                             isInvalid={ touched.cardNumber && errors.cardNumber}
