@@ -20,12 +20,12 @@ function ProductImageDescription ({image, children}) {
             <Accordion defaultActiveKey="0">
                 <Card>
                     <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                       Cliquez pour voir la Description
-                    </Accordion.Toggle>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                        Cliquez pour voir la Description
+                        </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
-                    <Card.Body>{children}</Card.Body>
+                        <Card.Body>{children}</Card.Body>
                     </Accordion.Collapse>
                 </Card>
             </Accordion>

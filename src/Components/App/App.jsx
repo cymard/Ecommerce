@@ -126,8 +126,8 @@ function App(){
                         
 
                         <Route path={["/products","/"]}>
-                                <Header></Header>
-                                <Home></Home>
+                            <Header></Header>
+                            <Home></Home>
                             <Footer></Footer>
                         </Route>
                     </Switch>

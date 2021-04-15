@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, {useContext, useState, useCallback} from 'react';
+import React, {useContext, useState} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faShoppingCart, faHome} from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faShoppingCart, faHome, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import {UserContext} from './UserContext';
 import { css} from '@emotion/react';
@@ -11,12 +11,11 @@ import {Link} from "react-router-dom";
 function HeaderNavBar () {
 
     const searchIcon = <FontAwesomeIcon icon={faSearch} />
-    const shoppingCartIcon = <FontAwesomeIcon icon={faShoppingCart} />
     const itemHome = <FontAwesomeIcon icon={faHome} size="2x" />;
+
 
     // utilisation du contexte
     const userInformations = useContext(UserContext);
-
 
     const [value, setValue] = useState();
 
@@ -24,6 +23,8 @@ function HeaderNavBar () {
         setValue(e.target.value);
         console.log(value);
     }
+
+
 
   
     return <> 
@@ -56,7 +57,19 @@ function HeaderNavBar () {
                 : 
                     <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
                 }
-                <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier {shoppingCartIcon}</ModifiedLinksRouter>
+                {/* <ModifiedLinksRouter color="black" to="/ShoppingCart">{shoppingCartIcon} Panier </ModifiedLinksRouter>
+                <ModifiedLinksRouter color="black" to="/ShoppingCart">{itemEmail} Contact </ModifiedLinksRouter> */}
+                <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
+                <Nav.Link className="p-0" href="https://127.0.0.1:8000/contact">
+                    <div className="d-flex justify-content-center align-items-center p-1" 
+                        css={css`
+                            white-space: nowrap;
+                            color: black;
+                        `}
+                    >
+                        Contact
+                    </div>
+                </Nav.Link>
             </Nav>  
         </Navbar.Collapse>
 
