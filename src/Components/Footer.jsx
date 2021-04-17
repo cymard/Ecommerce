@@ -3,10 +3,10 @@ import React from 'react';
 import { css} from '@emotion/react';
 import {Link} from "react-router-dom";
 import {Row, Col} from 'react-bootstrap';
+import {Nav} from 'react-bootstrap';
 
 
 function Footer(){
-    // height:50px;
     return <div 
         css={css`            
             background-color: gray;
@@ -25,15 +25,26 @@ function Footer(){
         {/* modifications visuelles avec css / adapter au différents formats */}
         <Row className="m-0">
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
-                <Link css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1 ">MENTIONS LEGALES</Link>  
+                <Link to="/informations/mentions_legales" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1 ">MENTIONS LEGALES</Link>  
             </Col>
 
             <Col  xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
-                <Link css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONDITIONS GENERALES DE VENTE</Link> 
+                <Link to="/informations/condition_de_vente" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONDITIONS GENERALES DE VENTE</Link> 
             </Col>
 
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
-                <Link css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONTACT</Link> 
+                {/* <Link to="https://127.0.0.1:8000/contact" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONTACT</Link>  */}
+                <Nav.Link className="pr-4 pt-1 pb-1" href="https://127.0.0.1:8000/contact"
+                    css={css`
+                        color: white;
+                        &:hover{
+                            color: white;
+                            text-decoration: underline;
+                        }
+                    `}
+                >
+                    CONTACT
+                </Nav.Link>
             </Col>
 
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">

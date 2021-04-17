@@ -23,6 +23,8 @@ import UserOrderDetails from '../../Pages/UserOrderDetails.jsx'
 import ChangePassword from '../../Pages/ChangePassword.jsx'
 import ChangeEmail from '../../Pages/ChangeEmail.jsx'
 import FooterSmallPage from '../FooterSmallPage.jsx'
+import LegalNotice from "../../Pages/LegalNotice.jsx"
+import SaleConditions from "../../Pages/SaleConditions.jsx"
 import {
     BrowserRouter as Router,
     Switch,
@@ -60,6 +62,16 @@ function App(){
                         <Route exact path="/Buy">
                             <Header></Header>
                             <Buy></Buy> 
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/informations/mentions_legales">
+                            <Header></Header>
+                            <LegalNotice></LegalNotice> 
+                            <Footer></Footer>
+                        </Route>
+                        <Route exact path="/informations/condition_de_vente">
+                            <Header></Header>
+                            <SaleConditions></SaleConditions> 
                             <Footer></Footer>
                         </Route>
                         <Route exact path="/api/connectedAccount">
