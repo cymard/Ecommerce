@@ -86,9 +86,9 @@ function Home(){
 
     useEffect(()=>{
         // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category"
-        // en fonction de ça on va appeler labonne méthode
-        console.log("search value : " + "?search=" +searchValue + "&page=" + pageValue);
-        console.log("resultat recherché: "+ location.search)
+        // en fonction de ça on va appeler la bonne méthode
+        // console.log("search value : " + "?search=" +searchValue + "&page=" + pageValue);
+        // console.log("resultat recherché: "+ location.search)
         
         if(location.pathname === "/"){
             history.push("/products?category=all&page=1");

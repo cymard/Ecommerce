@@ -76,7 +76,7 @@ function ChangePasswordForm ({request, changePassword}) {
                                 // placeholder="Entrez votre nouveau mot de passe"
                                 value={values.newPasswordOne}
                                 isValid={touched.newPasswordOne && !errors.newPasswordOne && values.newPasswordOne === values.newPasswordTwo}
-                                isInvalid={touched.newPasswordOne &&  errors.newPasswordOne || values.newPasswordOne != values.newPasswordTwo}
+                                isInvalid={(touched.newPasswordOne &&  errors.newPasswordOne) || (values.newPasswordOne !== values.newPasswordTwo)}
                             />
                             {/* <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback> */}
@@ -92,7 +92,7 @@ function ChangePasswordForm ({request, changePassword}) {
                                 // placeholder="Entrez votre nouveau mot de passe"
                                 value={values.newPasswordTwo}
                                 isValid={touched.newPasswordTwo && !errors.newPasswordTwo && values.newPasswordOne === values.newPasswordTwo}
-                                isInvalid={touched.newPasswordTwo &&  errors.newPasswordTwo || values.newPasswordOne !== values.newPasswordTwo}
+                                isInvalid={(touched.newPasswordTwo &&  errors.newPasswordTwo) || (values.newPasswordOne !== values.newPasswordTwo)}
                             />
                             {/* <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback> */}

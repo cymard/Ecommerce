@@ -122,7 +122,7 @@ function AdminHome () {
             }
         
         
-    }, [history,location,token,encodedUri])
+    }, [history,location,token,encodedUri,querySearchValue])
 
     const handleClickSelectAll = (e) => {
         if(e.target.checked === true){
@@ -174,7 +174,7 @@ function AdminHome () {
             history.push(`/admin/home?search=${encodeURIComponent(searchValue)}&category=all&page=1&sorting=default`);
             
         },
-        [searchValue],
+        [searchValue,history],
     )
 
     return <div     

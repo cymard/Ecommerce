@@ -49,7 +49,7 @@ function ChangeEmail () {
                 })
             })
         },
-        [token]
+        [token, history]
     )
 
 

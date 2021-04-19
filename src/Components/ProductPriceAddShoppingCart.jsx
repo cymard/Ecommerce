@@ -11,9 +11,6 @@ import axios from 'axios';
 
 function ProductPriceAddShoppingCart ({price}){
 
-    
-
-
     // utiliser un usestate pour faire apparaite la div 
     // const [redirect, setRedirect] = useState();
     // const handleClickAddShoppingCart = () => {
@@ -24,7 +21,6 @@ function ProductPriceAddShoppingCart ({price}){
     // context
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
-    const email = informationUser.email;
 
     // params
     let { id } = useParams();
@@ -49,7 +45,7 @@ function ProductPriceAddShoppingCart ({price}){
               .catch(function (error) {
                 console.log(error);
               });
-        },[token, id, email])
+        },[token, id])
 
     return <>
     <RedirectModal 

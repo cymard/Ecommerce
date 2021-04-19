@@ -44,7 +44,7 @@ function RateWithStars ({rate}) {
             }       
         }
 
-    },[setSolidStatus,setRegularStatus])
+    },[setSolidStatus, setRegularStatus, rate])
 
 
     // permet de concatener 2 tableaux de données

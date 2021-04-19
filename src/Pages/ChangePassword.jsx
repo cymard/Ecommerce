@@ -39,7 +39,7 @@ function ChangePassword () {
                 })
             })
         },
-        [token]
+        [token, history]
     )
 
 

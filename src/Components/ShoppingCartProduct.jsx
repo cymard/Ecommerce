@@ -26,8 +26,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
-    const email = informationUser.email;
-
 
     const updateQuantity = useCallback(
         (e) => {
@@ -54,7 +52,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 console.log(error); 
             })
         },
-        [token,email,quantityToBuy,id]
+        [token,quantityToBuy,id,reFetch]
     )
 
     const handleClickDelete = useCallback(
@@ -72,7 +70,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 console.log(error); 
             })
         },
-        [token,email,id],
+        [token,id,reFetch],
     )
 
 

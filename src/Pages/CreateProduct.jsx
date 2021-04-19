@@ -29,7 +29,7 @@ function CreateProduct(){
                 console.log(error);
             });
         },
-        [token]
+        [token, history]
     )
     
 
