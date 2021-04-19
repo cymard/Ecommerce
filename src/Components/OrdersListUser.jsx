@@ -1,7 +1,7 @@
 import React from 'react';
-import {Form, Button } from 'react-bootstrap';
+import {Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchPlus, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import { faSearchPlus} from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
 function OrdersListUser ({orders}) {

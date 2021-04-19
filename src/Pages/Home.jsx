@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React,{useState, useEffect, useCallback} from 'react';
-import {Container,Image} from 'react-bootstrap';
-import HomeCarousel from '../Components/HomeCarousel.jsx';
+import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import FrontNavBarFilter from '../Components/FrontNavBarFilter.jsx';
 import DisplayProductHome from '../Components/DisplayProductHome.jsx';
@@ -10,7 +9,6 @@ import {css} from '@emotion/react';
 import {
     useLocation,
     useHistory,
-    useParams
   } from "react-router-dom";
 
 function Home(){

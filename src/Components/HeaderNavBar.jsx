@@ -2,7 +2,7 @@
 import React, {useContext, useState} from 'react';
 import {Navbar,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faShoppingCart, faHome, faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faHome} from '@fortawesome/free-solid-svg-icons';
 import ModifiedLinksRouter from './ModifiedLinksRouter.jsx';
 import {UserContext} from './UserContext';
 import { css} from '@emotion/react';

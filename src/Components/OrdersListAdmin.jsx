@@ -1,13 +1,12 @@
 import React from 'react';
 import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchPlus, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import { faSearchPlus, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
 function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
     const zoomItem = <FontAwesomeIcon icon={faSearchPlus}/>;
     const checkedItem = <FontAwesomeIcon icon={faCheckCircle}/>; 
-    const errorItem = <FontAwesomeIcon icon={faTimesCircle}/>;
 
     const handleChange = (e) => {
         const orderId = parseInt(e.target.id, 10);
