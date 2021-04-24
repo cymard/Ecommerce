@@ -13,18 +13,14 @@ function HeaderNavBar () {
     const searchIcon = <FontAwesomeIcon icon={faSearch} />
     const itemHome = <FontAwesomeIcon icon={faHome} size="2x" />;
 
-
-    // utilisation du contexte
     const userInformations = useContext(UserContext);
 
     const [value, setValue] = useState();
     const searchInput = useRef(null);
+
     const handleChange = () => {
         setValue(searchInput.current.value);
     }
-
-
-
   
     return <> 
         <Navbar css={css`box-shadow: 1px 2px 3px gray;`} collapseOnSelect fixed="top" bg="light" expand="lg" > 
@@ -56,8 +52,6 @@ function HeaderNavBar () {
                     : 
                         <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
                     }
-                    {/* <ModifiedLinksRouter color="black" to="/ShoppingCart">{shoppingCartIcon} Panier </ModifiedLinksRouter>
-                    <ModifiedLinksRouter color="black" to="/ShoppingCart">{itemEmail} Contact </ModifiedLinksRouter> */}
                     <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
                     <Nav.Link className="p-0" href="https://127.0.0.1:8000/contact">
                         <div className="d-flex justify-content-center align-items-center p-1" 
@@ -73,12 +67,12 @@ function HeaderNavBar () {
             </Navbar.Collapse>
     </Navbar>
 
-      <div 
+    <div 
         css={css`
           height: 64px;
         `}
-      ></div>
-  </>
+    ></div>
+    </>
 }
 
 export default HeaderNavBar;

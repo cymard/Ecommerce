@@ -7,7 +7,6 @@ import {Container,Card,Spinner} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import screen from '../images/screen.jpg';
 
-
 function UserOrderDetails () {
 
     let { orderId } = useParams();
@@ -25,7 +24,6 @@ function UserOrderDetails () {
                 setData({
                     status: true,
                     products: response.data.data
-                    
                 })
             })
             .catch(function(error){
@@ -44,7 +42,6 @@ function UserOrderDetails () {
                 setInformationOrder({
                     status: true,
                     data: response.data.orderInformations
-                    // stringCardNumber: response.data.orderInformations.cardNumber.toString()
                 })
             })
             .catch(function(error){
@@ -72,23 +69,38 @@ function UserOrderDetails () {
             {informationOrder.status ? 
                 <div className="d-flex justify-content-center mb-5 ">
                     <Card className="p-3">
-                        <p>Date de la Commande :  <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.createdDate}</span>  </p> 
+                        <p>
+                            Date de la Commande :  
+                            <span
+                                css={css`
+                                    font-size: 20px;
+                                `}
+                            >
+                            {informationOrder.data.createdDate}
+                            </span>  
+                        </p> 
                         <br/>
-                        <p>Montant de la Commande : <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.amount}€</span> </p>
+                        <p>
+                            Montant de la Commande : 
+                            <span
+                                css={css`
+                                    font-size: 20px;
+                                `}
+                            >
+                                {informationOrder.data.amount}€
+                            </span> 
+                        </p>
                         <br/>
-                        <p>Numéro de la Commande :  <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.id}</span>  </p> 
+                        <p>
+                            Numéro de la Commande :  
+                            <span
+                                css={css`
+                                    font-size: 20px;
+                                `}
+                            >
+                                {informationOrder.data.id}
+                            </span>  
+                        </p> 
                     </Card>
                 </div>
                 
@@ -109,7 +121,6 @@ function UserOrderDetails () {
                         <Card.Body>
                             <Card.Title className="text-center">{product.product.name}</Card.Title>
                             <Card.Text>
-                            {/* {product.product.description} */}
                                 prix : {product.product.price}€
                                 <br/>
                                 quantité : {product.quantity}
@@ -144,7 +155,6 @@ function UserOrderDetails () {
                             <Card.Text>
                                 Mode de Paiement : {informationOrder.data.paymentMethod}
                                 <br/>
-                                {/* Numéro de la Carte :  ***{informationOrder.stringCardNumber.substr(-3)} */}
                                 Numéro de la Carte :  {informationOrder.data.cardNumber}
                                 <br/>
                                 Propriétaire de la Carte :  {informationOrder.data.cardName}

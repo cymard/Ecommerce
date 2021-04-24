@@ -28,7 +28,6 @@ function SearchSortPriceButtons ({data, setData}) {
          });
 
         setData({...data, data: newData})
-        // faire un setData avec le nouveau tableau pour changer le filter 
     }
 
     const handleClickArrowDown = () =>  {
@@ -43,24 +42,31 @@ function SearchSortPriceButtons ({data, setData}) {
         // faire un setData avec le nouveau tableau pour changer le filter 
     }
 
-        // asc fleche du bas
     return <div className="d-flex justify-content-center align-items-center"> Prix 
     <div className="ml-2 d-flex flex-column">
-        <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=desc`}><Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+        <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=desc`}>
+            <Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
             css={css`
                 background-color: white;
                 border: 1px black solid;
                 color: black;
             `}
-        >{arrowUpIcon}</Button></Link>
+            >
+                {arrowUpIcon}
+            </Button>
+        </Link>
         
-        <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=asc`}><Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
-            css={css`
-                background-color: white;
-                border: 1px black solid;
-                color: black;
-            `}
-        >{arrowDownIcon}</Button></Link>
+        <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=asc`}>
+            <Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+                css={css`
+                    background-color: white;
+                    border: 1px black solid;
+                    color: black;
+                `}
+            >
+                {arrowDownIcon}
+            </Button>
+        </Link>
     </div>
 </div>
 }

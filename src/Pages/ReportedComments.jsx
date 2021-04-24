@@ -13,7 +13,6 @@ function ReportedComments (){
 
     const [data, setData] = useState({status: false})
 
-    // Données pour la vérification du compte admin
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
@@ -21,16 +20,12 @@ function ReportedComments (){
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.get(`https://127.0.0.1:8000/admin/comments/reported`)
         .then(function (response) {
-            // handle success
-
             setData({
                 status: true,
                 comments: response.data
             })
-
         })
         .catch(function (error) {
-            // handle error
             console.log(error);
         })
     },[token])
@@ -45,11 +40,9 @@ function ReportedComments (){
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
-                // handle success
                 displayReportedComments()
             })
             .catch(function (error) {
-                // handle error
                 console.log(error);
             })
         },[token,displayReportedComments]
@@ -60,11 +53,9 @@ function ReportedComments (){
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
-                // handle success
                 displayReportedComments()
             })
             .catch(function (error) {
-                // handle error
                 console.log(error);
             })
         },[displayReportedComments, token]
@@ -72,10 +63,9 @@ function ReportedComments (){
 
 
     return <div    
-    // min-height: calc(100vh - 64px); 
-    css={css`
-        display: flex;
-    `}
+        css={css`
+            display: flex;
+        `}
     >
         <AdminNavBar/>
 

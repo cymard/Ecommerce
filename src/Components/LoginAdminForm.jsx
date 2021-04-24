@@ -36,8 +36,6 @@ function LoginAdminForm () {
                 setResponse("connexion au compte ...");
             
                 // mise à jour du context
-                // prise en compte du token
-                // prendre l'email depuis la requête envoyée
                 userAdminInformation.setUserAdminInformation({
                     email: values.formBasicEmail,
                     token: response.data.token

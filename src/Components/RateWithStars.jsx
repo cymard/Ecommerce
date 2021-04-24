@@ -10,7 +10,6 @@ function RateWithStars ({rate}) {
 
     useEffect(( ) => {
 
-        // 1ere etat 
         let solidStarsArray = [] // tableau contenant le nombre d'étoile correspondant à la note sur 5
         let regularStarsArray = [] // les étoiles non colorées lorsque la note est inférieure à la note maximale
         const regularStarsNumber = 5-rate
@@ -33,7 +32,7 @@ function RateWithStars ({rate}) {
         if(regularStarsNumber === 0 ){
             setRegularStatus({status : true, stars : []})
         }else{
-            // push le nombre d'étoiles non coloriées
+            // push le nombre d'étoiles non colorées
             for(let i = 0; i<regularStarsNumber; i++){
                 regularStarsArray.push(<FontAwesomeIcon key={i+10}  color="orange"  icon={faStarRegular} />  );
                 if(i === (regularStarsNumber-1)){

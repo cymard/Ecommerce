@@ -27,9 +27,9 @@ function UserAdminContextProvider({ children }) {
         }
 
         // remplace le userAdminDefaultInformation
-        setUserAdminInformation(userAdminInformationData); // ne s'applique pas
+        setUserAdminInformation(userAdminInformationData); 
 
-    }; //useMemo
+    };
     
 
     return <UserAdminContext.Provider value={{ ...userAdminInformation, setUserAdminInformation: setUserAdminInformationData }}> 

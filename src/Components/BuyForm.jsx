@@ -86,8 +86,6 @@ function BuyForm ({amount, userInformation}) {
                             "cryptogram" :parseInt(values.cryptogram)
                         })
                         .then(function (response) {
-                           
-                            // redirection
                             return history.push('/');
                         })
                         .catch(function (error) {
@@ -117,7 +115,6 @@ function BuyForm ({amount, userInformation}) {
                     })
                     .then(function (response) {
                        
-                        // redirection
                         return history.push('/');
                     })
                     .catch(function (error) {
@@ -125,23 +122,6 @@ function BuyForm ({amount, userInformation}) {
                     });
                 }
             }}
-
-
-            // initialValues={{
-
-            //     firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
-            //     lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
-            //     city: userInformation.city === null ? undefined : userInformation.city, 
-            //     address: userInformation.address === null ? undefined : userInformation.address, 
-            //     email: email, 
-            //     paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
-            //     cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
-            //     cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
-            //     cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
-            //     cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram,
-            //     bankData: "",
-            //     termsAndConditions: "",
-            // }}
         >
             {({handleChange, handleSubmit,values,touched,errors}) => (
 

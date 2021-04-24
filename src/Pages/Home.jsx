@@ -24,7 +24,6 @@ function Home(){
     const pageValue = query.get('page');
 
     // encoder la recherche
-    // encode URI sur toute l'url avec encodeURI ou juste la recherche avec encodeURIComponent
     let encodedUri = "?search=" + encodeURIComponent(searchValue) + "&page=" + pageValue;
 
     const displayProductsWithCategory = useCallback(
@@ -73,20 +72,10 @@ function Home(){
             })
         },[location,encodedUri]
     )
-    
-    // const regexSearch = new RegExp('\\?search=[a-z]+&page=[0-9]+');
-    // const regexSearch = new RegExp('\\?search=[a-zA-Zéèàç]+&page=[0-9]+');
-    // const regexCategory = new RegExp('\\?category=[a-zA-Zéèàç]+&page=[0-9]+');
-
 
 
     useEffect(()=>{
-        // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category"
-        // en fonction de ça on va appeler la bonne méthode
-        // console.log("search value : " + "?search=" +searchValue + "&page=" + pageValue);
-        // console.log("resultat recherché: "+ location.search)
-        // console.log("la valeur : "+searchValue);
-        
+        // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category" 
         if(location.pathname === "/"){
             history.push("/products?category=all&page=1");
         
@@ -103,10 +92,6 @@ function Home(){
         }
         
     },[location, pageValue, searchValue, categoryValue,history,displayProductsWithCategory,displayProductsWithSearch])
-
-
-
-
 
 
 

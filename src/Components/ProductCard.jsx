@@ -6,7 +6,6 @@ import {css} from '@emotion/react';
 import {
     Link
   } from "react-router-dom";
-// import image from '../images/mac.jpg';
 import screen from '../images/screen.jpg';
 
 
@@ -23,7 +22,9 @@ function ProductCard ({urlImage,title,textButton,id}) {
                 css={css`
                     text-align: center;
                 `}
-            >{title}</Card.Title>
+            >
+                {title}
+            </Card.Title>
             <Card.Img 
                 variant="top" 
                 src={ urlImage || screen} 
@@ -31,8 +32,6 @@ function ProductCard ({urlImage,title,textButton,id}) {
                     max-height: 200px;
                 `}
             />
-            {/* <img src="https://i.ibb.co/j3Z8Nwz/mac.jpg" alt="mac" border="0"></img> */}
-            {/* holder.js/100px180 */}
             <Card.Body className="m-auto">
                 <Link to={`/product/${id}`}><Button>{textButton}</Button></Link>
             </Card.Body>

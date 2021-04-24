@@ -15,7 +15,7 @@ function OrdersListUser ({orders}) {
                 <td>{order.amount}€</td>
                 <td><Link to={`/api/order/${order.id}/details`}><Button>{zoomItem}</Button></Link></td>
             </tr>)
-            :
+        :
             <p>aucun data</p>
         }
     </>

@@ -23,17 +23,16 @@ function ShoppingCartTotal ({price}) {
                 <Col sm={0} lg={6}></Col>
                 <Col sm={12} lg={3} className="text-center">
 
-                {price !== 0 ? 
+                {price !== 0 
+                ? 
                     <ModifiedLinksRouter color="white" to="/Buy">
                         <Button className="w-100" variant="success">Passer la commande</Button>  
                     </ModifiedLinksRouter> 
                 :
                     <Button disabled className="w-100" variant="success">Passer la commande</Button>  
                 }
-                    
                 </Col>
             </Row>
-           
         </Card.Body>
     </Card>
 }

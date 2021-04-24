@@ -12,20 +12,10 @@ import axios from 'axios';
 
 function ProductPriceAddShoppingCart ({price, stock}){
 
-    // utiliser un usestate pour faire apparaite la div 
-    // const [redirect, setRedirect] = useState();
-    // const handleClickAddShoppingCart = () => {
-    //     // console.log("clique")
-    //     setRedirect(<RedirectLoginRegister>Pour ajouter le produit au panier, vous devez être connecté : </RedirectLoginRegister>)
-    // }
-
-    // context
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
 
-    // params
     let { id } = useParams();
-
 
     // utiliser la modal 
     const [show, setShow] = useState(false);
@@ -34,56 +24,21 @@ function ProductPriceAddShoppingCart ({price, stock}){
 
 
     // cacher le bouton add lorsque qu'il n'y a plus d'exemplaire du produit
-    // const [hideAddShoppingCart, setHideAddShoppingCart] = useState(false);
-  
-    // const handleClickAddShoppingCart = () => {
-    //     const nombre = clickCount;
-    //     setClickCount(nombre++);
-
-    //     // si le nombre de produit dispo = nombre de clique
-    //     // il faut hide le bouton pour ajouter un produit supplémentaire
-    //     // console.log(informationProduct.stock);
-    //     // if(informationProduct.stock === clickCount){
-    //     //     setHideAddShoppingCart(true);
-    //     // }
-    // }
     const [disabledAdd, setDisabledAdd] = useState(false);
     const [clickCount, setClickCount] = useState(1);
     const ClickCounter = () => {
         setClickCount(prevCount => prevCount + 1);
         console.log("le clickcount: "+clickCount);
 
-        // si le nombre de produit dispo = nombre de clique
-        // il faut hide le bouton pour ajouter un produit supplémentaire
+        // Ne pas commander plus de fois que d'exemplaire en stock
         if( clickCount >= stock ){
             setDisabledAdd(true);
         }
     }
 
-    // const handleClick = useCallback(
-    //     () => {
-    //         // compter le nombre de clique
-    //         ClickCounter()
-
-    //         // requête
-    //         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-    //         axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
-    //             "quantity" : 1
-    //         })
-    //           .then(function (response) {
-    //             console.log(response);
-    //           })
-    //           .catch(function (error) {
-    //             console.log(error);
-    //           });
-
-    //     },[token, id, ClickCounter])
-
     const handleClick = () => {
-            // compter le nombre de clique
             ClickCounter()
 
-            // requête
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
                 "quantity" : 1

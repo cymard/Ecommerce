@@ -43,8 +43,6 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
 
         for(let i = 1;i<=pageNumber; i++){
             // changer l'id dans l'url
-            
-
             allButtons.push(<Link key={i} to={`/admin/home?category=${category}&page=${i}&sorting=${sorting}`}> 
                 <Button
                     css={css`
@@ -55,7 +53,7 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
             </Link>)
         }
 
-        // afficher ou pas flèches First et Last en fonction du nombre de page
+        // afficher ou pas les flèches First et Last en fonction du nombre de page
         if(pageNumber < 6){
             return change()
         }else{
@@ -73,11 +71,6 @@ function ReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test}) {
 
 
     return create(sorting) 
-
-
-
-
- 
 }
 
 export default ReturnPaginationButtonsAdmin;

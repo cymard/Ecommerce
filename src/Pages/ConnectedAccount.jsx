@@ -23,7 +23,6 @@ function ConnectedAccount () {
     const informationUser = useContext(UserContext);
     const token = informationUser.token
 
-    // récuperer le paymentMethod.data du user 
     const getUserInformation = useCallback(
         () => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
@@ -62,8 +61,6 @@ function ConnectedAccount () {
                     status: true,
                     orderNumber: response.data.orderNumber 
                 })
-                
-            
             })
             .catch(function (error) {
                 console.log(error);
@@ -78,7 +75,6 @@ function ConnectedAccount () {
         getUserOrderNumber()
     }, [ getUserInformation,getUserOrderNumber])
 
-    // pré remplir le form avec
 
     return <Container>
         <TitleH1>Mon Compte</TitleH1>

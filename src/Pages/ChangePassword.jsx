@@ -9,15 +9,12 @@ import ChangePasswordForm from '../Components/ChangePasswordForm.jsx';
 
 function ChangePassword () {
     let history = useHistory();
-    // Context
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
 
-    // state
     const [changePassword, setChangePassword] = useState({})
 
 
-    // requete verif mdp
     const modifyPassword = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}

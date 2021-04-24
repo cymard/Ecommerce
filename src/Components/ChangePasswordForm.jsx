@@ -9,8 +9,6 @@ let yup = require('yup');
 
 function ChangePasswordForm ({request, changePassword}) {
 
-
-    // schema verif mdp
     let schema = yup.object({
         oldPassword: yup.string().required(),
         newPasswordOne: yup.string().min(2).max(30).required(),
@@ -30,7 +28,6 @@ function ChangePasswordForm ({request, changePassword}) {
     validationSchema={schema}
 
     onSubmit={values => {
-      
         request({
             oldPassword: values.oldPassword,
             newPasswordOne: values.newPasswordOne,
@@ -57,13 +54,10 @@ function ChangePasswordForm ({request, changePassword}) {
                             <Form.Control 
                                 type="password" 
                                 onChange={handleChange}
-                                // placeholder="Entrez votre mot de passe actuel"
                                 value={values.oldPassword}
                                 isValid={touched.oldPassword && !errors.oldPassword}
                                 isInvalid={touched.oldPassword &&  errors.oldPassword}
                             />
-                            {/* <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback> */}
                         </Form.Group>
                     </Form.Row>
 
@@ -73,7 +67,6 @@ function ChangePasswordForm ({request, changePassword}) {
                             <Form.Control 
                                 type="password" 
                                 onChange={handleChange}
-                                // placeholder="Entrez votre nouveau mot de passe"
                                 value={values.newPasswordOne}
                                 isValid={touched.newPasswordOne && !errors.newPasswordOne && values.newPasswordOne === values.newPasswordTwo}
                                 isInvalid={(touched.newPasswordOne &&  errors.newPasswordOne) || (values.newPasswordOne !== values.newPasswordTwo)}
@@ -87,13 +80,10 @@ function ChangePasswordForm ({request, changePassword}) {
                             <Form.Control 
                                 type="password" 
                                 onChange={handleChange}
-                                // placeholder="Entrez votre nouveau mot de passe"
                                 value={values.newPasswordTwo}
                                 isValid={touched.newPasswordTwo && !errors.newPasswordTwo && values.newPasswordOne === values.newPasswordTwo}
                                 isInvalid={(touched.newPasswordTwo &&  errors.newPasswordTwo) || (values.newPasswordOne !== values.newPasswordTwo)}
                             />
-                            {/* <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback> */}
                         </Form.Group>
                     </Form.Row>
 
@@ -110,13 +100,15 @@ function ChangePasswordForm ({request, changePassword}) {
                 </Form>
             </Card.Body>
         </Card>
-       <p 
-        css={css`
-            margin-top: 30px;
-            color: red;
-            font-size: 25px;
-         `}
-       >{changePassword.message}</p> 
+        <p 
+            css={css`
+                margin-top: 30px;
+                color: red;
+                font-size: 25px;
+            `}
+        >
+           {changePassword.message}
+        </p> 
     </div>
     
 )}

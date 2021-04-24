@@ -20,7 +20,6 @@ function ShoppingCart(){
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
-                // handle success
                 setData({
                     status: true,
                     allArticles: response.data.allProducts,
@@ -29,7 +28,6 @@ function ShoppingCart(){
                 })
             })
             .catch(function (error) {
-                // handle error
                 console.log(error);
             })
     },[token])

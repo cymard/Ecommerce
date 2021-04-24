@@ -47,9 +47,6 @@ function AdminNavBar () {
                 <LinkAdminNavBar url="/admin/orders">COMMANDES</LinkAdminNavBar>
                 <LinkAdminNavBar url="/admin/comments/reported">COMMENTAIRES SIGNALÉS</LinkAdminNavBar>
 
-                {/* <Link to="/admin/home">PRODUITS</Link>
-                <Link to="/admin/orders">COMMANDES</Link>
-                <Link to="/admin/comments/reported">COMMENTAIRES SIGNALÉS</Link> */}
             </div>
             <div
                 css={css`
@@ -60,8 +57,6 @@ function AdminNavBar () {
                 
                 <LinkAdminNavBar url="/">ACCÉDER AU SITE</LinkAdminNavBar>
                 <LinkAdminNavBar url="/" onClick={handleClick}>DÉCONNEXION</LinkAdminNavBar>
-                {/* <Link onClick={handleClick} to="/">DÉCONNEXION</Link>
-                <Link to="/">ACCÉDER AU SITE</Link> */}
             </div>
         </div>
         

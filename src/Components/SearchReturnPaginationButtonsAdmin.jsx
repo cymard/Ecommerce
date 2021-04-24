@@ -43,9 +43,6 @@ function SearchReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test
         }
 
         for(let i = 1;i<=pageNumber; i++){
-            // changer l'id dans l'url
-            
-
             allButtons.push(<Link key={i} to={`/admin/home?search=${search}&category=${category}&page=${i}&sorting=${sorting}`}> 
                 <Button
                     css={css`
@@ -56,7 +53,7 @@ function SearchReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test
             </Link>)
         }
 
-        // afficher ou pas flèches First et Last en fonction du nombre de page
+        // afficher ou pas les flèches First et Last en fonction du nombre de page
         if(pageNumber < 6){
             return change()
         }else{
@@ -68,17 +65,8 @@ function SearchReturnPaginationButtonsAdmin ({totalPageNumber, handleFocus, test
                 return [<Pagination.First onClick={handleClickFirst} key={0} />,  change(), <Pagination.Last onClick={handleClickLast}  key={"last"} />]
             }
         }
-
-        
     }
-
-
     return create(sorting) 
-
-
-
-
- 
 }
 
 export default SearchReturnPaginationButtonsAdmin;

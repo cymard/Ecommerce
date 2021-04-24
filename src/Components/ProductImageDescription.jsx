@@ -23,8 +23,6 @@ function ProductImageDescription ({image, children}) {
         }
     }
 
-    
-
     return <Row ref={refRow} className="d-flex justify-content-center mb-4">
 
         <div  className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center ">
@@ -33,7 +31,6 @@ function ProductImageDescription ({image, children}) {
                     max-height: 318px;
                     max-width: 318px;
                 `}
-                
             />
         </div>
         
@@ -41,13 +38,14 @@ function ProductImageDescription ({image, children}) {
             <Card>
                 <Card.Body className="d-flex flex-column justify-content-center align-items-center">
                     {children.length > 200 && refRow.current.clientWidth < 500 ?
-                        showText === true ?
+                        showText === true 
+                        ?
                             <>
                                 {children.substr(0, 200)}...
                                 <br/>
                                 <Button className="mt-2" variant="secondary" onClick={handleClick}>{plusItem}</Button>
                             </>
-                            :
+                        :
                             <>
                                 {children}
                                 <br/>
@@ -60,7 +58,6 @@ function ProductImageDescription ({image, children}) {
                 </Card.Body>
             </Card>
         </div>
-        
     </Row>
 }
 

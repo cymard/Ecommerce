@@ -11,14 +11,13 @@ function EditProductForm ({dataProduct,submitForm}) {
     // value wysiwyg tinymce react
     const [descriptionValue, setDescriptionValue] = useState(null);
 
-     // valider ou pas le form
+    // valider ou pas le form
     const [validated, setValidated] = useState(true);
 
     const [show, setShow] = useState(false);
     const target = useRef(null);
 
     const handleEditorChange = (content, editor) => {
-            // controle du data
             let schemaDescription =  yup.string().min(3).max(5000).required();
  
             schemaDescription.validate(content)
@@ -36,7 +35,6 @@ function EditProductForm ({dataProduct,submitForm}) {
 
 
     useEffect(() => {
-        // valeur initiale de la description
         setDescriptionValue(dataProduct.description)
     }, [setDescriptionValue,dataProduct])
 
@@ -106,14 +104,6 @@ function EditProductForm ({dataProduct,submitForm}) {
                 price: parseInt(values.price),
                 stock: parseInt(values.stock)
             })
-            // console.log({
-            //     name: values.title,
-            //     description: descriptionValue,
-            //     category: values.category,
-            //     image: imageId.status ? imageId.data : null ,
-            //     price: parseInt(values.price),
-            //     stock: parseInt(values.stock)
-            // })
         :
             console.log("erreur description")
     }}
@@ -121,7 +111,6 @@ function EditProductForm ({dataProduct,submitForm}) {
     {({ handleSubmit, handleChange, errors, touched, values }) => (
     <Form noValidate  onSubmit={handleSubmit}>
 
-        {/* titre du produit */}
         <Form.Group as={Row} >
             <Form.Label column sm={2}>Nom :</Form.Label>
             <Col sm={10}>
@@ -139,7 +128,6 @@ function EditProductForm ({dataProduct,submitForm}) {
             </Col>
         </Form.Group>
 
-        {/* ajouter une image */}
         <Form.Group  className="d-flex justify-content-center" controlId="formulary">
             <Form.File 
                 onChange={handleImageChange}
@@ -190,7 +178,6 @@ function EditProductForm ({dataProduct,submitForm}) {
         </Overlay>
             
         : null }
-        {/* choisir la catégorie */}
         <Form.Group as={Row} controlId="category" >
             <Form.Label as="legend" column sm={2} value={values.category}>
                 Catégories : 
@@ -243,7 +230,6 @@ function EditProductForm ({dataProduct,submitForm}) {
             </Col>
         </Form.Group>
 
-        {/* prix */}
         <Form.Group as={Row} controlId="price">
             <Form.Label column sm={2}> Prix : </Form.Label>
             <Col sm={10}>
@@ -253,14 +239,12 @@ function EditProductForm ({dataProduct,submitForm}) {
                     placeholder="price" 
                     onChange={handleChange}
                     value={values.price}
-
                     isValid={touched.price && !errors.price}
                     isInvalid={touched.price && errors.price}
                 />
             </Col>
         </Form.Group>
 
-        {/* quantité */}
         <Form.Group as={Row} controlId="stock">
             <Form.Label column sm={2}> Stock :</Form.Label>
             <Col sm={10}>
@@ -270,10 +254,8 @@ function EditProductForm ({dataProduct,submitForm}) {
                     placeholder="stock" 
                     onChange={handleChange}
                     value={values.stock}
-
                     isValid={touched.stock && !errors.stock}
                     isInvalid={touched.stock && errors.stock}
-
                 />
             </Col>
         </Form.Group>
@@ -283,8 +265,9 @@ function EditProductForm ({dataProduct,submitForm}) {
                 width: 100%;
             `}
             type="submit"
-        >Modifier</Button>
-         
+        >
+            Modifier
+        </Button>
     </Form>
 )}
 </Formik>

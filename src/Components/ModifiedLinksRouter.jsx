@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import PropTypes from 'prop-types'; // ES6
+import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import {
     Link
@@ -10,7 +10,6 @@ function ModifiedLinksRouter ({color, to, children, onClick}){
 
     const style = (color === "white" ? "white" : "black") ;
 
-    // les changements
     const blackOrWhiteColor = style;
     
     return <Link color={blackOrWhiteColor} onClick={onClick} to={to} 

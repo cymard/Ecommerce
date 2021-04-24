@@ -8,8 +8,6 @@ import axios from 'axios';
 
 let yup = require('yup');
 
-
-
 function ConnectedAccountForm ({userInformation}) {
     
     let schema = yup.object({
@@ -21,7 +19,7 @@ function ConnectedAccountForm ({userInformation}) {
         paymentMethod: yup.string().required(),
         cardName: yup.string().required(),
         cardNumber: yup.number().required().positive(),
-        cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
+        cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(),   
         cryptogram: yup.number().positive().moreThan(99).lessThan(1000).required()
     });
 
@@ -30,8 +28,6 @@ function ConnectedAccountForm ({userInformation}) {
     const token = contextInformations.token
 
     return userInformation.firstName !== undefined ? <Formik
-        // enableReinitialize={false}
-
         initialValues={{ 
             firstName:  userInformation.firstName, 
             lastName: userInformation.lastName, 
@@ -46,22 +42,10 @@ function ConnectedAccountForm ({userInformation}) {
         }}
 
 
-        // initialValues={{ 
-        //     firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
-        //     lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
-        //     city: userInformation.city === null ? undefined : userInformation.city, 
-        //     address: userInformation.address === null ? undefined : userInformation.address, 
-        //     email: contextInformations.email, 
-        //     paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
-        //     cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
-        //     cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
-        //     cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
-        //     cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram
-        // }}
-
+       
         validationSchema={schema}
         onSubmit={values => {
-            // tout sauf email et le password
+            // change tout sauf l'email et le password
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put('https://127.0.0.1:8000/api/user/paymentInformations',{
                 firstName: values.firstName,

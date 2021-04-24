@@ -2,8 +2,6 @@ import React from 'react';
 import {Alert} from 'react-bootstrap';
 
 function ProductStock ({stock}) {
-
-
     if(stock === 0){
         return <Alert className="text-center" variant="danger">Actuellement Indisponible.</Alert>
     }else if(stock > 0 && stock <= 3){
@@ -13,7 +11,6 @@ function ProductStock ({stock}) {
     }else{
         return <Alert className="text-center" variant="success">En stock.</Alert>
     }
-        
 }
 
 export default ProductStock;

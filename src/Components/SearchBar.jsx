@@ -18,13 +18,10 @@ function SearchBar ({reFetch}) {
     const [searchValue, setSearchValue] = useState('');
 
     const handleChange = (e) => {
-        
         setSearchValue(e.target.value)
-        
     }
 
     const handleClearSearch = () => {
-        // mettre la query en default
         history.push({
             pathname: '/admin/orders',
             search: `?page=1&search=default`
@@ -33,7 +30,6 @@ function SearchBar ({reFetch}) {
     }
 
     const handleSubmit = (e) => {
-        // changer la query search
         if(searchValue === ""){
             history.push({
                 pathname: '/admin/orders',
@@ -45,8 +41,6 @@ function SearchBar ({reFetch}) {
                 search: `?page=1&search=${searchValue}`
             })
         }
-       
-        // reFetch()
     }
 
     return <Form className="d-flex justify-content-around">

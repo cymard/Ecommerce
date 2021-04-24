@@ -10,31 +10,36 @@ import {useLocation} from "react-router-dom";
 function SortDateButtons ({data, setData}){
     const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
     const arrowDownIcon = <FontAwesomeIcon icon={faAngleDown} />
-
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
-
     let page = query.get("page")
-
 
 
     return <div className="d-flex justify-content-center align-items-center">
         <div className="ml-2 d-flex flex-column">
-            <Link to={`/api/orders?page=${page}&date=asc`}><Button variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
-                css={css`
-                    background-color: white;
-                    border: 1px black solid;
-                    color: black;
-                `}
-            >{arrowUpIcon}</Button></Link>
+            <Link to={`/api/orders?page=${page}&date=asc`}>
+                <Button variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+                    css={css`
+                        background-color: white;
+                        border: 1px black solid;
+                        color: black;
+                    `}
+                >
+                    {arrowUpIcon}
+                </Button>
+            </Link>
             
-            <Link to={`/api/orders?page=${page}&date=desc`}><Button  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
-                css={css`
-                    background-color: white;
-                    border: 1px black solid;
-                    color: black;
-                `}
-            >{arrowDownIcon}</Button></Link>
+            <Link to={`/api/orders?page=${page}&date=desc`}>
+                <Button  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+                    css={css`
+                        background-color: white;
+                        border: 1px black solid;
+                        color: black;
+                    `}
+                >
+                    {arrowDownIcon}
+                </Button>
+            </Link>
         </div>
     </div>
 }

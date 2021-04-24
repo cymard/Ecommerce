@@ -15,8 +15,6 @@ function CreateProduct(){
     const informationAdmin = useContext(UserAdminContext);
     const token = informationAdmin.token;
 
-
-    // axios post 
     const submitForm = useCallback(
         (data) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
@@ -33,15 +31,13 @@ function CreateProduct(){
     
 
     return <div     
-    // min-height: calc(100vh - 64px);
-    css={css`
-        display: flex;
-    `}
+        css={css`
+            display: flex;
+        `}
     >
         <AdminNavBar></AdminNavBar>
         <Container fluid>
             <TitleH1>Création d'un produit </TitleH1>
-
             <CreateProductForm submitForm={submitForm}></CreateProductForm>
         </Container>
 

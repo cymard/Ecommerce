@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// isConnected: localStorage.getItem('email') ? true : false,
+
 const userDefaultInformation = {
     email: localStorage.getItem('email'),
     token: localStorage.getItem('token')
@@ -27,10 +27,9 @@ function UserContextProvider({ children }) {
         }
 
         // remplace le userDefaultInformation
-        setUserInformation(userInformationData); // ne s'applique pas
+        setUserInformation(userInformationData);
 
-    }; //useMemo
-    
+    }; 
 
     return <UserContext.Provider value={{ ...userInformation, setUserInformation: setUserInformationData }}> 
         {children}

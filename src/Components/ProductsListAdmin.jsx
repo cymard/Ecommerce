@@ -7,8 +7,6 @@ import {Link} from "react-router-dom";
 
 function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
 
-    // Lorsque l'id d'un produit est dans le tableau il est selectionné
-    
     const editIcon = <FontAwesomeIcon icon={faPencilAlt} />
     const commentIcon = <FontAwesomeIcon icon={faCommentAlt} />
 
@@ -22,8 +20,6 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
         if(e.target.checked === true ){
             // on ajoute la valeur de l'id dans le tableau
             setSelectedProducts([...selectedProducts, productId])
-            
-
         }else{
             // on cherche son index et l'enleve du tableau
             const index = selectedProducts.indexOf(productId);
@@ -31,13 +27,9 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                 const newSelectedProducts = [...selectedProducts];
                 newSelectedProducts.splice(index, 1);
                 setSelectedProducts(newSelectedProducts);
-
             }
         }
-
     }
-
-    
 
  
 
@@ -49,10 +41,7 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                         onChange={handleChange}
                         type="checkbox"
                         id={product.id}
-                        // si son id est dans le tableau check
-                        // selectedIdProduct.indexOf(product.id.toString()) === -1 ? false : true
                         checked={selectedProducts.indexOf(product.id) !== -1} 
-                        // key={value}
                         custom
                     />        
                 </td>

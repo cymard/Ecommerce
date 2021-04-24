@@ -15,7 +15,6 @@ import {
 
 function UserOrders (){
 
-    // recuperer le pathname
     let history = useHistory();
     const location = useLocation();
 
@@ -45,10 +44,10 @@ function UserOrders (){
     )
 
     useEffect(() => {
-        if(location.pathname === "/api/orders" && location.search === "" ){ //redirection en cas de mauvaise url
+        if(location.pathname === "/api/orders" && location.search === "" ){ // redirection en cas de mauvaise url
             history.push('https://127.0.0.1:8000/api/orders?page=1&date=desc')
         }else{
-            getUserOrders()
+            getUserOrders();
         }
         
     }, [getUserOrders, location, history])
@@ -61,29 +60,30 @@ function UserOrders (){
         <TitleH1>L'historique de mes commandes</TitleH1>
 
         
-            <Table className="text-center" responsive hover>
-                <thead>
-                    <tr>
-                        <th>N° </th>
-                        <th>
-                            <Row >
-                                <Col className="d-flex justify-content-center align-items-center">Commande éffectuée le<SortDateButtons></SortDateButtons></Col>
-                            </Row>
-                        </th>
-                        <th>Total</th>
-                        <th>Détails de la commande</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.status ?
-                    
+        <Table className="text-center" responsive hover>
+            <thead>
+                <tr>
+                    <th>N° </th>
+                    <th>
+                        <Row >
+                            <Col className="d-flex justify-content-center align-items-center">Commande éffectuée le<SortDateButtons></SortDateButtons></Col>
+                        </Row>
+                    </th>
+                    <th>Total</th>
+                    <th>Détails de la commande</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.status 
+                ?
                     <OrdersListUser orders={data.orders}></OrdersListUser>
-                    :  <tr><th>Chargement ...</th></tr>
-                    }
-                </tbody>
-            </Table>
+                :  
+                    <tr><th>Chargement ...</th></tr>
+                }
+            </tbody>
+        </Table>
 
-            <PaginationOrdersUser setData={setData}  data={data} ></PaginationOrdersUser>
+        <PaginationOrdersUser setData={setData}  data={data}></PaginationOrdersUser>
     </Container>
     
 }

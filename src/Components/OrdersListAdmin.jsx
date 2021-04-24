@@ -18,8 +18,6 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
         if(e.target.checked === true ){
             // on ajoute la valeur de l'id dans le tableau
             setSelectedOrders([...selectedOrders, orderId])
-            
-
         }else{
             // on cherche son index et l'enleve du tableau
             const index = selectedOrders.indexOf(orderId);
@@ -30,8 +28,6 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
 
             }
         }
-
-        // return le tableau avec tous les id des produits selectionnés
     }
 
     return <>

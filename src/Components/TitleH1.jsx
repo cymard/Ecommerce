@@ -15,7 +15,7 @@ TitleH1.propTypes = {
         PropTypes.string,
         PropTypes.number,
         PropTypes.array
-      ])
+    ])
 }
 
 TitleH1.defaultProps = {

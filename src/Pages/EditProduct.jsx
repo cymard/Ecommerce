@@ -15,19 +15,14 @@ function EditProduct () {
     let { id } = useParams();
     let history = useHistory();
     
-    //data
     const [dataProduct, setDataProduct] = useState({}) 
 
-
-    // Données pour la vérification du compte admin
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
-    // pré remplir les champs du produit
     useEffect(() => {
         axios.get(`https://127.0.0.1:8000/product/${id}`)
         .then(function (response) {
-            // handle success
 
             setDataProduct({
                 name: response.data.product.name,
@@ -39,20 +34,16 @@ function EditProduct () {
             })
         })
         .catch(function (error) {
-            // handle error
             console.log(error);
         })
     }, [id,setDataProduct])
 
 
 
-    // requête axios put
     const submitForm = async (data) => {
 
         try {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            // const response = await axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`, data);
-            // console.log(response);
             axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
                 .then(function(response){
                     history.push("/admin/home?category=all&page=1&sorting=default");
@@ -60,9 +51,6 @@ function EditProduct () {
                 .catch(function(error){
                     console.log(error);
                 })
-            // if(response.status === 201){
-            //     history.push("/admin/home?category=all&page=1&sorting=default");
-            // }
             
         } catch (err) {
             console.error(err.message);
@@ -72,10 +60,9 @@ function EditProduct () {
 
 
     return <div     
-    // min-height: calc(100vh - 64px);
-    css={css`
-        display: flex;
-    `}
+        css={css`
+            display: flex;
+        `}
     >
         <AdminNavBar></AdminNavBar>
         <Container fluid>

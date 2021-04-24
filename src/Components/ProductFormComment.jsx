@@ -24,7 +24,6 @@ function ProductFormComment ({reFetch}) {
     });
       
     useEffect(()=>{
-        // récuperer la partie avant le @ de l'email
         setPseudoEmail(informationUser.email.split("@")[0]);
     },[informationUser])
 
@@ -42,8 +41,6 @@ function ProductFormComment ({reFetch}) {
         onSubmit={(values, actions) => {
 
             setTimeout(() => {
-            // Send a POST request
-
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                 axios.post(`https://127.0.0.1:8000/api/product/${id}/comment`,  {
                     title: values.title,
@@ -123,7 +120,8 @@ function ProductFormComment ({reFetch}) {
                     />
                 </Form.Group>
 
-                {informationUser.email === null && informationUser.token === null?
+                {informationUser.email === null && informationUser.token === null
+                ?
                     <Link to="/login"><Button  variant="primary" size="lg"
                         css={css`
                             width: 100%; 

@@ -52,20 +52,18 @@ function Product({name, content, price}){
         },
         [location])
 
-    // recuperer la quantité du produit en stock
-    
     const getInformationProduct = useCallback(
         () => {
             axios.get(`https://127.0.0.1:8000/product/${id}`)
-                .then(function(response){
-                    setInformationProduct({
-                        status: true,
-                        stock: response.data.product.stock
-                    })
+            .then(function(response){
+                setInformationProduct({
+                    status: true,
+                    stock: response.data.product.stock
                 })
-                .catch(function(error){
-                    console.log(error)
-                })
+            })
+            .catch(function(error){
+                console.log(error)
+            })
         },
         [id])
     
@@ -78,11 +76,11 @@ function Product({name, content, price}){
         (e) => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
-              .then(function (response) {
-              })
-              .catch(function (error) {
+            .then(function (response) {
+            })
+            .catch(function (error) {
                 console.log(error);
-              });
+            });
         },
         [token])
 
@@ -122,19 +120,20 @@ function Product({name, content, price}){
        
         
 
-        {informationUser.email === null && informationUser.token === null ? 
-        <></>
+        {informationUser.email === null && informationUser.token === null 
+        ? 
+            <></>
         : 
-        <>
-            <div className="d-flex justify-content-center mt-5 mb-5">
-                <h2 
-                    css={css`
-                        white-space: nowrap;
-                    `}
-                > Ecrire un commentaire :</h2>
-            </div>
-            <ProductFormComment reFetch={displayComments}></ProductFormComment>
-        </>
+            <>
+                <div className="d-flex justify-content-center mt-5 mb-5">
+                    <h2 
+                        css={css`
+                            white-space: nowrap;
+                        `}
+                    > Ecrire un commentaire :</h2>
+                </div>
+                <ProductFormComment reFetch={displayComments}></ProductFormComment>
+            </>
         }
 
 
@@ -149,7 +148,9 @@ function Product({name, content, price}){
             title="Action impossible"
             firstButton={<Link to="/Login"><Button variant="success">Connectez-vous à votre compte</Button></Link>}
             secondButton={<Link to="/Register"><Button variant="warning">Inscrivez-vous maintenant</Button></Link>}
-        >Vous devez être connecté pour effectuer cette action.</RedirectModal>
+        >
+            Vous devez être connecté pour effectuer cette action.
+        </RedirectModal>
     
         {data.status?
             data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button className="w-100" id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button className="w-100" variant="primary" onClick={displayModal}>Signaler</Button> } title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)

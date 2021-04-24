@@ -9,7 +9,6 @@ function CategoryFilter () {
     let sorting = query.get('sorting');
     let category = query.get('category');
 
-    // récupère la valeur de l'input
     if(category === "sports"){
       category = "sports/vetements"
     }else if(category === "informatique"){
@@ -17,9 +16,6 @@ function CategoryFilter () {
     }
     
     const [value, setValue] = useState(category === null ? undefined : category);
-
-
-   
 
     const handleChange = (e) => {
         // changer l'url
@@ -56,7 +52,6 @@ function CategoryFilter () {
         <Form.Group>
             <Form.Label>Catégorie :</Form.Label>
             <div className="d-flex">
-                {/* erreur console value should not be null*/}
                 <Form.Control value={value} onChange={handleChange} as="select"> 
                     <option>Toutes</option>
                     <option>sports/vetements</option>

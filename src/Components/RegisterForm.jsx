@@ -8,7 +8,6 @@ import {useHistory} from 'react-router-dom'
 let yup = require('yup');
 
 
-
 function RegisterForm () {
 
     let history = useHistory();
@@ -32,7 +31,6 @@ function RegisterForm () {
         .catch(function (error) {
             console.log(error);
             if(error.response){
-                console.log(error.response.data.violations[0].title); // => the response payload 
                 setMessageError(error.response.data.violations[0].title);
             }
         });
@@ -52,10 +50,12 @@ function RegisterForm () {
            
             <Form noValidate onSubmit={handleSubmit}>
                 <p
-                css={css`
-                    color: red;
-                `}
-                >{messageError}</p>
+                    css={css`
+                        color: red;
+                    `}
+                >
+                    {messageError}
+                </p>
                 <Form.Group controlId="email">
                     <Form.Label>Adresse Email</Form.Label>
                     <Form.Control
@@ -107,7 +107,6 @@ function RegisterForm () {
                 </Button>
             </Form>
         )}
-
     </Formik>
 }
 

@@ -20,7 +20,6 @@ function CreateProductForm ({submitForm}) {
     const target = useRef(null);
 
     const handleEditorChange = (content, editor) => {
-        // controle du data
         let schemaDescription =  yup.string().min(3).max(5000).required();
  
         schemaDescription.validate(content)
@@ -31,14 +30,11 @@ function CreateProductForm ({submitForm}) {
         .catch(function (err) {
             setValidated(false)
             setShow(true)
-            console.log(err.name); // => 'ValidationError'
+            console.log(err.name);
         });
         setDescriptionValue(content);
     }
 
-
-    
-    
     let yupSchema = yup.object({
         title: yup.string()
             .max(255, `Votre nom de produit dépasse la limite de caractères.`)
@@ -95,7 +91,6 @@ function CreateProductForm ({submitForm}) {
 
         onSubmit={(values)=>{
         validated ? 
-
             submitForm({
                 name: values.title,
                 description: descriptionValue,
@@ -109,15 +104,9 @@ function CreateProductForm ({submitForm}) {
             console.log("erreur description")
         }}
         
-        
-        
-
-        // onSubmit={(values)=>{console.log("erreur c'est dommage")}}
     >
     {({ handleSubmit, handleChange, errors, touched, values }) => (
     <Form noValidate  onSubmit={handleSubmit}>
-
-        {/* titre du produit */}
         <Form.Group as={Row} >
             <Form.Label column sm={2}>Nom :</Form.Label>
             <Col sm={10}>
@@ -128,14 +117,11 @@ function CreateProductForm ({submitForm}) {
                     value={values.title}
                     type="text"
                     placeholder="Nom "
-    
                     isValid={touched.title && !errors.title}
                     isInvalid={touched.title && errors.title}
                 />
                 {errors.title && touched.title ?  <Form.Control.Feedback type="invalid" tooltip>{errors.title}</Form.Control.Feedback> : null}
             </Col>
-           
-            
         </Form.Group>
         
                 
@@ -178,26 +164,9 @@ function CreateProductForm ({submitForm}) {
 
             />
         </Card>
-        
-        {/* {validated === false ? 
-        <div
-        css={css`
-            display: inline-block;
-            background-color: red;
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            
 
-        `}
-    >
-        Erreur
-    </div>
-        // <Alert variant="danger"><Alert.Heading className="text-center">La description du produit n'est pas valide, le formulaire ne sera pas validé.</Alert.Heading></Alert> 
-        : null } */}
-
-
-        {validated === false ? 
+        {validated === false 
+        ? 
         <Overlay target={target} show={show} placement="bottom-start">
             <div
                 css={css`
@@ -211,11 +180,9 @@ function CreateProductForm ({submitForm}) {
                 La description du produit n'est pas valide, le formulaire ne sera pas validé.
             </div>
         </Overlay>
-            
-        : null }
+        : 
+        null }
 
-        
-        {/* choisir la catégorie */}
         <Form.Group className="mt-5 mb-5" as={Row} controlId="category" >
             <Form.Label as="legend" column sm={2} value={values.category}>
                 Catégories : 
@@ -265,7 +232,6 @@ function CreateProductForm ({submitForm}) {
             </Col>
         </Form.Group>
 
-        {/* prix */}
         <Form.Group  as={Row} controlId="price">
             <Form.Label column sm={2}> Prix : </Form.Label>
             <Col sm={10}>
@@ -283,7 +249,6 @@ function CreateProductForm ({submitForm}) {
             </Col>
         </Form.Group>
 
-        {/* quantité */}
         <Form.Group className="mb-5 mt-5"  as={Row} controlId="stock">
             <Form.Label column sm={2}> Stock :</Form.Label>
             <Col sm={10}>
@@ -307,7 +272,9 @@ function CreateProductForm ({submitForm}) {
                 margin-bottom: 10px;
             `}
             type="submit"
-        >Creer</Button>
+        >
+            Creer
+        </Button>
     </Form>
 )}
 </Formik>

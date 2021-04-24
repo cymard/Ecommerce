@@ -18,12 +18,10 @@ function SearchPaginationProductsAdmin ({data}) {
        
     },[setTest,page])
 
-    // console.log(typeof page)
-
     const handleFocus = (e) => {
         // Récuperer le numéro de la page
         let page = e.target.innerHTML ; 
-        // mettre test = page pour activer le focus sur le bouton
+        // activer le focus sur le bouton
         setTest(page)
     }
 
@@ -36,8 +34,7 @@ function SearchPaginationProductsAdmin ({data}) {
         `}
     >
               
-        {
-        data.status === true 
+        {data.status === true 
         ? 
         <SearchReturnPaginationButtonsAdmin totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></SearchReturnPaginationButtonsAdmin>
         : 

@@ -14,20 +14,16 @@ function ChangeEmail () {
 
     let history = useHistory();
 
-    // Context
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
 
-    // schema verif mdp
     let schema = yup.object({
         password: yup.string().min(2).max(30).required(),
         newEmail: yup.string().email().min(2).max(30).required(),
     });
 
-        // state
-        const [changeEmail, setChangeEmail] = useState({})
+    const [changeEmail, setChangeEmail] = useState({})
 
-    // modifier l'email
     const modifyEmail = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
@@ -55,8 +51,6 @@ function ChangeEmail () {
 
     return <Formik
 
-    enableReinitialize={false}
-
     initialValues={{ 
         password: '',
         newEmail: ''
@@ -70,7 +64,6 @@ function ChangeEmail () {
             newEmail: values.newEmail,
         });
     }}
-
     >
     {({handleChange, handleSubmit, values, errors, touched }) => (
     <div
@@ -90,7 +83,6 @@ function ChangeEmail () {
                             <Form.Control 
                                 type="password" 
                                 onChange={handleChange}
-                                // placeholder="Entrez votre mot de passe actuel"
                                 value={values.password}
                                 isValid={touched.password && !errors.password}
                                 isInvalid={touched.password &&  errors.password}
@@ -106,7 +98,6 @@ function ChangeEmail () {
                             <Form.Control 
                                 type="text" 
                                 onChange={handleChange}
-                                // placeholder="Entrez votre nouveau mot de passe"
                                 value={values.newEmail}
                                 isValid={touched.newEmail && !errors.newEmail}
                                 isInvalid={touched.newEmail &&  errors.newEmail}
@@ -129,13 +120,15 @@ function ChangeEmail () {
                 </Form>
             </Card.Body>
         </Card>
-       <p 
-        css={css`
-            margin-top: 30px;
-            color: red;
-            font-size: 25px;
-         `}
-       >{changeEmail.message}</p> 
+        <p 
+            css={css`
+                margin-top: 30px;
+                color: red;
+                font-size: 25px;
+            `}
+        >
+           {changeEmail.message}
+        </p> 
     </div>
     
 )}

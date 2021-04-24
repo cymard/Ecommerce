@@ -26,7 +26,6 @@ function AdminHome () {
     const itemPlus = <FontAwesomeIcon icon={faPlus} color="white" /> 
     const itemSearch = <FontAwesomeIcon icon={faSearch}  /> 
 
-    // envoie du data
     const [data, setData] = useState({status: false, productsList: [], filter: "all"});
 
     // selectionner ou pas le checkbox selectAll
@@ -35,20 +34,16 @@ function AdminHome () {
     // tableau pour la suppression
     const [selectedProducts, setSelectedProducts] = useState([])
 
-    // recuperer le pathname
     let history = useHistory();
     const location = useLocation();
 
-    // Données pour la vérification du compte admin
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
-    // controller l'input de la recherche
     const [searchValue, setSearchValue] = useState();
 
     useEffect(() => {
-        // si les 9 sont selectionnés alors 
-        // dépend du nombre de produits de la page => data.productsList.length
+        // déclenchement du select all lorsque tous les checkbox sont séléctionnés
         setCheckedSelectAll(selectedProducts.length === data.productsList.length);
     }, [selectedProducts, data])
     
@@ -61,14 +56,10 @@ function AdminHome () {
 
     let encodedUri = "?search=" + encodeURIComponent(querySearchValue) +"&category=" + queryCategoryValue + "&page=" + queryPageValue + "&sorting=" + querySortingValue;
    
-    // http://localhost:3000/admin/home?category=all&page=1&sorting=default
-    // http://localhost:3000/admin/home?search=text&page=1
-    // new http://localhost:3000/admin/home?search=text&category=all&page=1&sorting=default
-    // /admin/home?search=d&page=1
+
     useEffect(() => {
         // vérification si ROLE_ADMIN
-
-            if(location.pathname === "/admin/home" && location.search === "" ){ //redirection en cas de mauvaise url
+            if(location.pathname === "/admin/home" && location.search === "" ){ // redirection en cas de mauvaise url
                 history.push('/admin/home?category=all&page=1&sorting=default')
             }else{
                 if(querySearchValue !== null && querySearchValue !== "" ){
@@ -76,7 +67,6 @@ function AdminHome () {
                     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.get(`https://127.0.0.1:8000${location.pathname}${encodedUri}`) // encode location.search
                     .then(function (response){
-                        // handle success
                         if(response.data.pageContent.length > 0){
                             setData({status: true, productsList: response.data.pageContent, search: response.data.search, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
                         }else{
@@ -85,10 +75,7 @@ function AdminHome () {
     
                     })
                     .catch(function (error) {
-                        // handle error
-                        console.log(error); 
-                        // history.push("/admin/login")
-    
+                        console.log(error);   
                     })
 
                 }else if(querySearchValue === ""){
@@ -97,7 +84,6 @@ function AdminHome () {
                     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                     .then(function (response){
-                        // handle success
                         setData({status: true, 
                             productsList: response.data.pageContent, 
                             filter: response.data.category, 
@@ -107,10 +93,8 @@ function AdminHome () {
     
                     })
                     .catch(function (error) {
-                        // handle error
                         console.log(error); 
                         history.push("/admin/login")
-    
                     })
                 }
                
@@ -122,8 +106,7 @@ function AdminHome () {
 
     const handleClickSelectAll = (e) => {
         if(e.target.checked === true){
-            // si il y a deja des products selectionnés il faut les déselectionner
-            // tous les products sont séléctionnés donc push tous les products
+            // séléctionner tous les checkboxs
             setSelectedProducts(data.productsList.map(product => product.id));
             setCheckedSelectAll(true)
 
@@ -136,21 +119,16 @@ function AdminHome () {
     
 
     const handleRemove = () => {
-        // axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.delete(`https://127.0.0.1:8000/admin/product`,)
         .then(function (response){
-            // handle success
-            // déselectionner
+            // déselectionner checkbox
             setSelectedProducts([])
-            // redirection
             history.push(`${location.pathname}${location.search}`)
         })
         .catch(function (error) {
-            // handle error
             console.log(error); 
         })
     }
-
 
 
     const handleChangeSearch = useCallback(
@@ -164,9 +142,7 @@ function AdminHome () {
 
     const handleClickSubmitSearch = useCallback(
         () => {
-            // changer les query params de l'uri
             history.push(`/admin/home?search=${encodeURIComponent(searchValue)}&category=all&page=1&sorting=default`);
-            
         },
         [searchValue,history],
     )
@@ -266,7 +242,10 @@ function AdminHome () {
             <Button 
                 variant="danger"
                 onClick={handleRemove}
-            >Supprimer</Button>
+            >
+                Supprimer
+            </Button>
+            
             {querySearchValue !== null ?
                 <SearchPaginationProductsAdmin setData={setData}  data={data}></SearchPaginationProductsAdmin>
             :

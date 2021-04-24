@@ -17,12 +17,10 @@ function PaginationOrdersUser ({data}) {
         setTest(parseInt(page))
     },[setTest,page])
 
-    // console.log(typeof page)
-
     const handleFocus = (e) => {
         // Récuperer le numéro de la page
         let page = e.target.innerHTML ; 
-        // mettre test = page pour activer le focus sur le bouton
+        // activer le focus sur le bouton
         setTest(page)
     }
 
@@ -35,10 +33,9 @@ function PaginationOrdersUser ({data}) {
         `}
     >
               
-        {
-        data.status === true 
+        {data.status === true 
         ? 
-        <ReturnPaginationButtonsOrdersUser totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtonsOrdersUser>
+            <ReturnPaginationButtonsOrdersUser totalPageNumber={data.totalPageNumber} handleFocus={handleFocus} test={test}></ReturnPaginationButtonsOrdersUser>
         : 
         <></>
         }

@@ -8,8 +8,6 @@ import {UserContext} from './UserContext.jsx';
 import screen from '../images/screen.jpg';
 
 
-
-
 function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
     
     const [quantityToBuy, setQuantityToBuy] = useState(quantity)
@@ -29,13 +27,11 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
 
     const updateQuantity = useCallback(
         (e) => {
-            // axios pour changer la quantité
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/api/cart/product/${id}/quantity`,{
                 "quantity" : quantityToBuy
             })
             .then(function (response){
-                // handle success
                 if(response.data.message){
                 }else{
                     setShowModal(true);
@@ -45,7 +41,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 
             })
             .catch(function (error) {
-                // handle error
                 console.log(error); 
             })
         },
@@ -80,7 +75,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             </Modal.Header>
             <Modal.Body>Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.</Modal.Body>
         </Modal>
-
 
 
         <Row
@@ -142,7 +136,9 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                             css={css`
                                 font-size: 20px;
                             `}
-                        >Prix : {price} €</p>
+                        >
+                            Prix : {price} €
+                        </p>
                     </Col> 
                 </Row>   
                 <Row 
@@ -175,7 +171,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                                     css={css`
                                         width: 60px;
                                     `}
-                                    
                                 />
                                 <Button onClick={updateQuantity}>Mettre à jour</Button>
                             </Form.Group>
@@ -183,7 +178,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
 
                     </Col>
                     <Col lg={2} sm={0}></Col>
-
                 </Row> 
                 <Row className="h-auto d-flex justify-content-center">
                     <Button
@@ -198,11 +192,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 </Row>  
             </Col>            
         </Row>
-
-       
-
     </div>
-
 }
 
 ShoppingCartProduct.propTypes = {

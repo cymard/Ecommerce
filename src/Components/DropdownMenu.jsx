@@ -10,9 +10,6 @@ function DropdownMenu () {
     const deleteIcon = <FontAwesomeIcon icon={faTrashAlt} />
     const parameterIcon = <FontAwesomeIcon icon={faCog} />
 
-
-        // supprimer un produit
-    // récuperation du token
     const userInformation = useContext(UserContext);
     const token  = userInformation.token
 

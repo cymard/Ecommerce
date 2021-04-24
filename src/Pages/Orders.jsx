@@ -24,14 +24,13 @@ function Orders() {
     // tableau des commandes selectionnées
     const [selectedOrders, setSelectedOrders] = useState([])
 
-    // data
     const [data, setData] = useState({status: false})
 
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token;
 
     useEffect(() => {
-        // si les 9 sont selectionnés alors 
+        // si les 9 sont selectionnés alors select all
         setCheckedSelectAll(selectedOrders.length === 9);
     }, [selectedOrders])
 
@@ -67,26 +66,21 @@ function Orders() {
 
     const handleClickSelectAll = (e) => {
         if(e.target.checked === true){
-            // toutes les commandes sont séléctionnés 
+            // select all selectionne toutes les commandes
             setSelectedOrders(data.orders.map(order => order.id));
             setCheckedSelectAll(true)
-
-
         }else{
             setSelectedOrders([]);
             setCheckedSelectAll(false)
-            
         }
     }
 
 
     return <div     
-
-    // min-height: calc(100vh - 64px);
-    css={css`
-        
-        display: flex;
-    `}
+        css={css`
+            
+            display: flex;
+        `}
     >
         <AdminNavBar/>
 
@@ -121,7 +115,6 @@ function Orders() {
                 <tbody>
 
                     {data.status === true && data.allOrdersNumber !== 0?
-                        // selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} data={data.productsList}
                     <OrdersListAdmin orders={data.orders} setSelectedOrders={setSelectedOrders} selectedOrders={selectedOrders}></OrdersListAdmin>
                     :  <tr><th>Aucune commande trouvée </th></tr>
                     }
@@ -130,12 +123,14 @@ function Orders() {
             </Table>
             <Button 
                 variant="danger"
-                // onClick={handleRemove}
-            >Supprimer</Button>
-            {data.status === true && data.allOrdersNumber !== 0? 
+            >
+                Supprimer
+            </Button>
+            {data.status === true && data.allOrdersNumber !== 0
+            ? 
                 <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
             :
-            <></>
+                <></>
             }
             
         </Container>

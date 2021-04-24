@@ -22,7 +22,6 @@ function Footer(){
             
         `}
     >
-        {/* modifications visuelles avec css / adapter au différents formats */}
         <Row className="m-0">
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
                 <Link to="/informations/mentions_legales" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1 ">MENTIONS LEGALES</Link>  
@@ -33,7 +32,6 @@ function Footer(){
             </Col>
 
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
-                {/* <Link to="https://127.0.0.1:8000/contact" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONTACT</Link>  */}
                 <Nav.Link className="pr-4 pt-1 pb-1" href="https://127.0.0.1:8000/contact"
                     css={css`
                         color: white;
