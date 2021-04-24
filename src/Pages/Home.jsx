@@ -39,7 +39,6 @@ function Home(){
                     totalPageNumber: response.data.totalPageNumber,  
                     allProductsNumber: response.data.allProductsNumber
                 })
-                console.log(response);
             })
             .catch(function (error) {
 
@@ -55,10 +54,7 @@ function Home(){
         () => {
             axios.get(`https://127.0.0.1:8000${location.pathname}${encodedUri}`)
             .then(function(res){
-                console.log(res.data);  
-                console.log("encodedUri value : "+ encodedUri)
                 if(res.status && res.data.data.length > 0){
-                    console.log(res.data);
                     setData({
                         status: true, 
                         data: res.data.data, 

@@ -29,7 +29,6 @@ function ConnectedAccount () {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
             .then(function (response) {
-                console.log(response);
                 setUserInformation({
                     status: true,
                     address: response.data.address,
@@ -59,7 +58,6 @@ function ConnectedAccount () {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get('https://127.0.0.1:8000/api/user/order')
             .then(function (response) {
-                console.log(response);
                 setUserOrderNumber({
                     status: true,
                     orderNumber: response.data.orderNumber 

@@ -62,7 +62,6 @@ function ConnectedAccountForm ({userInformation}) {
         validationSchema={schema}
         onSubmit={values => {
             // tout sauf email et le password
-            console.log(values);
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put('https://127.0.0.1:8000/api/user/paymentInformations',{
                 firstName: values.firstName,
@@ -76,7 +75,6 @@ function ConnectedAccountForm ({userInformation}) {
                 cardExpirationDate: values.cardExpirationDate
             })
             .then(function (response) {
-                console.log(response);
             })
             .catch(function (error) {
                 console.log(error);

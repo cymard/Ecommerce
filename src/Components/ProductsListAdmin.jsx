@@ -20,7 +20,6 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
         }
         
         if(e.target.checked === true ){
-            console.log(e.target.id)
             // on ajoute la valeur de l'id dans le tableau
             setSelectedProducts([...selectedProducts, productId])
             
@@ -32,13 +31,10 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
                 const newSelectedProducts = [...selectedProducts];
                 newSelectedProducts.splice(index, 1);
                 setSelectedProducts(newSelectedProducts);
-                console.log(newSelectedProducts)
 
             }
         }
 
-        // return le tableau avec tous les id des produits selectionnés
-        console.log(selectedProducts)
     }
 
     

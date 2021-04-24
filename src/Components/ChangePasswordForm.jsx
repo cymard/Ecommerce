@@ -30,7 +30,7 @@ function ChangePasswordForm ({request, changePassword}) {
     validationSchema={schema}
 
     onSubmit={values => {
-        console.log(values);
+      
         request({
             oldPassword: values.oldPassword,
             newPasswordOne: values.newPasswordOne,

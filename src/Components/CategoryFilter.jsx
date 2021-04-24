@@ -19,10 +19,9 @@ function CategoryFilter () {
     const [value, setValue] = useState(category === null ? undefined : category);
 
 
-    console.log(value);
+   
 
     const handleChange = (e) => {
-        console.log(e.target.value);
         // changer l'url
         if(e.target.value === "sports/vetements"){
             setValue("sports/vetements");

@@ -50,7 +50,6 @@ function AdminHome () {
         // si les 9 sont selectionnés alors 
         // dépend du nombre de produits de la page => data.productsList.length
         setCheckedSelectAll(selectedProducts.length === data.productsList.length);
-        console.log("le nombre de produit dans cette page: " + data.productsList.length)
     }, [selectedProducts, data])
     
     // récuperation et séparation des valeurs de l'uri
@@ -80,11 +79,9 @@ function AdminHome () {
                         // handle success
                         if(response.data.pageContent.length > 0){
                             setData({status: true, productsList: response.data.pageContent, search: response.data.search, totalPageNumber: response.data.totalPageNumber,  allProductsNumber: response.data.allProductsNumber})
-                            console.log(response.data);
                         }else{
                             setData({status: "nothing"})
                         }
-                        console.log(response.data);
     
                     })
                     .catch(function (error) {
@@ -107,7 +104,6 @@ function AdminHome () {
                             totalPageNumber: response.data.totalPageNumber, 
                             allProductsNumber: response.data.allProductsNumber
                         })
-                        console.log(response.data);
     
                     })
                     .catch(function (error) {
@@ -144,7 +140,6 @@ function AdminHome () {
         axios.delete(`https://127.0.0.1:8000/admin/product`,)
         .then(function (response){
             // handle success
-            console.log(response.data);
             // déselectionner
             setSelectedProducts([])
             // redirection
@@ -170,7 +165,6 @@ function AdminHome () {
     const handleClickSubmitSearch = useCallback(
         () => {
             // changer les query params de l'uri
-            console.log("j'encode comme ça : " + encodeURIComponent(searchValue));
             history.push(`/admin/home?search=${encodeURIComponent(searchValue)}&category=all&page=1&sorting=default`);
             
         },

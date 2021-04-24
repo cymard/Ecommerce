@@ -16,7 +16,6 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
         }
         
         if(e.target.checked === true ){
-            console.log(e.target.id)
             // on ajoute la valeur de l'id dans le tableau
             setSelectedOrders([...selectedOrders, orderId])
             
@@ -28,13 +27,11 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
                 const newSelectedOrders = [...selectedOrders];
                 newSelectedOrders.splice(index, 1);
                 setSelectedOrders(newSelectedOrders);
-                console.log(newSelectedOrders)
 
             }
         }
 
         // return le tableau avec tous les id des produits selectionnés
-        console.log(selectedOrders)
     }
 
     return <>

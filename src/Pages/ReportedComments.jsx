@@ -46,7 +46,6 @@ function ReportedComments (){
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
                 // handle success
-                console.log(response)
                 displayReportedComments()
             })
             .catch(function (error) {
@@ -62,7 +61,6 @@ function ReportedComments (){
             axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
                 // handle success
-                console.log(response)
                 displayReportedComments()
             })
             .catch(function (error) {

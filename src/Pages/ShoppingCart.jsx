@@ -21,8 +21,6 @@ function ShoppingCart(){
         axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
                 // handle success
-                console.log("refetch");
-                console.log(response.data);
                 setData({
                     status: true,
                     allArticles: response.data.allProducts,

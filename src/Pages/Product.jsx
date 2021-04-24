@@ -58,7 +58,6 @@ function Product({name, content, price}){
         () => {
             axios.get(`https://127.0.0.1:8000/product/${id}`)
                 .then(function(response){
-                    console.log(response)
                     setInformationProduct({
                         status: true,
                         stock: response.data.product.stock
@@ -80,7 +79,6 @@ function Product({name, content, price}){
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
               .then(function (response) {
-                console.log(response);
               })
               .catch(function (error) {
                 console.log(error);

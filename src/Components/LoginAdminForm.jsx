@@ -26,12 +26,10 @@ function LoginAdminForm () {
     const submitForm = async (values) => {
 
         try {
-            console.log("--------------------------")
             const response = await axios.post('https://127.0.0.1:8000/admin/login_admin_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
-            console.log(response);
 
             if(response.status === 200){
 

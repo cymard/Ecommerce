@@ -89,7 +89,6 @@ function ProductPriceAddShoppingCart ({price, stock}){
                 "quantity" : 1
             })
               .then(function (response) {
-                console.log(response);
               })
               .catch(function (error) {
                 console.log(error);

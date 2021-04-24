@@ -29,7 +29,6 @@ function UserOrders (){
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
             .then(function(response){
-                console.log(response.data.pageContent)
                 setData({
                     status: true,
                     orders: response.data.pageContent,

@@ -28,7 +28,6 @@ function EditProduct () {
         axios.get(`https://127.0.0.1:8000/product/${id}`)
         .then(function (response) {
             // handle success
-            console.log(response);
 
             setDataProduct({
                 name: response.data.product.name,
@@ -56,7 +55,6 @@ function EditProduct () {
             // console.log(response);
             axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
                 .then(function(response){
-                    console.log(response);
                     history.push("/admin/home?category=all&page=1&sorting=default");
                 })
                 .catch(function(error){

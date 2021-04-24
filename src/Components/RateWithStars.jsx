@@ -23,7 +23,6 @@ function RateWithStars ({rate}) {
                 solidStarsArray.push(<FontAwesomeIcon key={i} color="orange"  icon={faStar} />);
 
                 if(i === (rate-1)){
-                    console.log( "changement de status solid")
                     setSolidStatus({status : true, stars : solidStarsArray})
                 }
             }
@@ -38,7 +37,6 @@ function RateWithStars ({rate}) {
             for(let i = 0; i<regularStarsNumber; i++){
                 regularStarsArray.push(<FontAwesomeIcon key={i+10}  color="orange"  icon={faStarRegular} />  );
                 if(i === (regularStarsNumber-1)){
-                    console.log( "changement de status regular")
                     setRegularStatus({status : true, stars : regularStarsArray})
                 }
             }       

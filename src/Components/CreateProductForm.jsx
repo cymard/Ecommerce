@@ -26,7 +26,6 @@ function CreateProductForm ({submitForm}) {
         schemaDescription.validate(content)
         .then(function (valid) {
             setValidated(true)
-            console.log(content)
             setDescriptionValue(content);
         })
         .catch(function (err) {
@@ -34,7 +33,6 @@ function CreateProductForm ({submitForm}) {
             setShow(true)
             console.log(err.name); // => 'ValidationError'
         });
-        console.log(validated)
         setDescriptionValue(content);
     }
 

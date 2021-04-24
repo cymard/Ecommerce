@@ -35,7 +35,6 @@ function ChangeEmail () {
                 dataPassword 
             )
             .then(function(response) {
-                console.log(response);
                 setChangeEmail({
                     message: response.data.message
                 })
@@ -66,7 +65,6 @@ function ChangeEmail () {
     validationSchema={schema}
 
     onSubmit={values => {
-        console.log(values);
         modifyEmail({
             password: values.password,
             newEmail: values.newEmail,

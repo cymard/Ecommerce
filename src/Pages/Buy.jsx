@@ -19,7 +19,6 @@ function Buy(){
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
             .then(function (response) {
-                console.log(response);
                 setUserInformation({
                     status: true,
                     address: response.data.address,
@@ -48,7 +47,6 @@ function Buy(){
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.get('https://127.0.0.1:8000/api/cart/products')
         .then(function (response) {
-            console.log(response.data.totalPrice);
             setAmount(response.data.totalPrice)
         })
         .catch(function (error) {

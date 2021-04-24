@@ -20,7 +20,6 @@ function HeaderNavBar () {
     const [value, setValue] = useState();
     const searchInput = useRef(null);
     const handleChange = () => {
-        console.log(searchInput.current.value)
         setValue(searchInput.current.value);
     }
 

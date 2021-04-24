@@ -25,7 +25,6 @@ function ChangePassword () {
                 dataPassword 
             )
             .then(function(response) {
-                console.log(response);
                 setChangePassword({
                     message: response.data.message
                 })

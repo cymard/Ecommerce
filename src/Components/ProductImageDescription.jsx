@@ -8,7 +8,6 @@ import screen from '../images/screen.jpg';
 import { faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 
 function ProductImageDescription ({image, children}) {
-    console.log("image : "+image);
     const refRow = useRef(null);
 
     const lessItem = <FontAwesomeIcon icon={faAngleUp}/>;

@@ -12,8 +12,6 @@ function SearchBar ({reFetch}) {
     let history = useHistory();
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
-    console.log(query.get('search'));
-    // console.log(useQuery)
 
     const searchItem = <FontAwesomeIcon icon={faSearch}/>;
 
@@ -35,7 +33,6 @@ function SearchBar ({reFetch}) {
     }
 
     const handleSubmit = (e) => {
-        console.log(searchValue);
         // changer la query search
         if(searchValue === ""){
             history.push({

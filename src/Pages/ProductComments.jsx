@@ -32,7 +32,6 @@ function ProductComments () {
             .then(function (response){
                 // handle success
                 setData({status: true, comments : response.data})
-                console.log(response.data);
     
             })
             .catch(function (error) {
@@ -53,12 +52,10 @@ function ProductComments () {
     const handleRemove = useCallback(
         (e) => {
             // supprimer le commentaire
-            // console.log("tu cliques la !!! "+e.target.id)
     
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response){
-                console.log(response);
                 displayComments()
             })
             .catch(function (error) {

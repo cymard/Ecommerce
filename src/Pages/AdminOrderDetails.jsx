@@ -23,7 +23,6 @@ function AdminOrderDetails () {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/admin/order/${orderId}/cart`)
             .then(function(response){
-                console.log(response);
                 setData({
                     status: true,
                     products: response.data.data
@@ -42,7 +41,6 @@ function AdminOrderDetails () {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/admin/order/${orderId}`)
             .then(function(response){
-                console.log(response.data.orderInformations.cardNumber);
                 setInformationOrder({
                     status: true,
                     data: response.data.orderInformations

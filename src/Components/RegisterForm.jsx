@@ -27,7 +27,6 @@ function RegisterForm () {
             "password": values.password
         })
         .then(function (response) {
-            console.log(response);
             return history.push('/login');
         })
         .catch(function (error) {

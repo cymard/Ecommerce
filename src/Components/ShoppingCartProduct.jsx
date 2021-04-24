@@ -36,11 +36,8 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             })
             .then(function (response){
                 // handle success
-                console.log(response.data);
                 if(response.data.message){
-                    console.log("cool");
                 }else{
-                    console.log("probleme");
                     setShowModal(true);
                     setQuantityToBuy(response.data.number);
                 }
@@ -61,12 +58,9 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 headers:{'Authorization': `Bearer ${token}`}
             })
             .then(function (response){
-                // handle success
-                console.log(response.data);
                 reFetch()
             })
             .catch(function (error) {
-                // handle error
                 console.log(error); 
             })
         },

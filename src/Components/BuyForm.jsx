@@ -70,7 +70,7 @@ function BuyForm ({amount, userInformation}) {
                         "amount" : amount
                     })
                     .then(function (response) {
-                        console.log(response);
+
 
                         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                         axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
@@ -86,17 +86,17 @@ function BuyForm ({amount, userInformation}) {
                             "cryptogram" :parseInt(values.cryptogram)
                         })
                         .then(function (response) {
-                            console.log(response);
+                           
                             // redirection
                             return history.push('/');
                         })
                         .catch(function (error) {
-                            console.log(error);
+                           
                         });
                     
                     })
                     .catch(function (error) {
-                        console.log(error);
+                       
                     });
 
                 
@@ -116,12 +116,12 @@ function BuyForm ({amount, userInformation}) {
                         "amount" : amount
                     })
                     .then(function (response) {
-                        console.log(response);
+                       
                         // redirection
                         return history.push('/');
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        
                     });
                 }
             }}

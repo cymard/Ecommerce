@@ -22,7 +22,6 @@ function UserOrderDetails () {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/api/order/${orderId}/cart`)
             .then(function(response){
-                console.log(response);
                 setData({
                     status: true,
                     products: response.data.data
