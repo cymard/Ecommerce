@@ -4,10 +4,11 @@ import {Row, Image, Card,Button} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { css} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import screen from '../images/screen.jpg';
 import { faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 
 function ProductImageDescription ({image, children}) {
-
+    console.log("image : "+image);
     const refRow = useRef(null);
 
     const lessItem = <FontAwesomeIcon icon={faAngleUp}/>;
@@ -23,19 +24,12 @@ function ProductImageDescription ({image, children}) {
         }
     }
 
-    // const [testLe, setTestLe] = useState()
-
-    // useEffect(() => {
-    //     setTestLe({value: refRow.current.clientWidth})
-        
-    // }, [refRow,setTestLe])
-
     
 
     return <Row ref={refRow} className="d-flex justify-content-center mb-4">
 
         <div  className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center ">
-            <Image className="m-2" src={image} rounded 
+            <Image className="m-2" src={image !== null ? image : screen} rounded 
                 css={css`
                     max-height: 318px;
                     max-width: 318px;
@@ -46,7 +40,7 @@ function ProductImageDescription ({image, children}) {
         
         <div className="col-lg-7 col-md-12">
             <Card>
-                <Card.Body>
+                <Card.Body className="d-flex flex-column justify-content-center align-items-center">
                     {children.length > 200 && refRow.current.clientWidth < 500 ?
                         showText === true ?
                             <>

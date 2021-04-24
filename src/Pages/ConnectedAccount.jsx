@@ -50,7 +50,7 @@ function ConnectedAccount () {
             .catch(function (error) {
                 console.log(error);
             });
-        },[token,setUserInformation]
+        },[token]
     )
 
 

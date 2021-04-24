@@ -29,21 +29,36 @@ function ConnectedAccountForm ({userInformation}) {
     const contextInformations = useContext(UserContext);
     const token = contextInformations.token
 
-    return<Formik
-        enableReinitialize={true}
+    return userInformation.firstName !== undefined ? <Formik
+        // enableReinitialize={false}
 
         initialValues={{ 
-            firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
-            lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
-            city: userInformation.city === null ? undefined : userInformation.city, 
-            address: userInformation.address === null ? undefined : userInformation.address, 
+            firstName:  userInformation.firstName, 
+            lastName: userInformation.lastName, 
+            city: userInformation.city , 
+            address: userInformation.address, 
             email: contextInformations.email, 
-            paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
-            cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
-            cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
-            cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
-            cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram
+            paymentMethod: userInformation.paymentMethod, 
+            cardName: userInformation.cardName, 
+            cardNumber: userInformation.cardNumber, 
+            cardExpirationDate: userInformation.cardExpirationDate , 
+            cryptogram: userInformation.cryptogram 
         }}
+
+
+        // initialValues={{ 
+        //     firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
+        //     lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
+        //     city: userInformation.city === null ? undefined : userInformation.city, 
+        //     address: userInformation.address === null ? undefined : userInformation.address, 
+        //     email: contextInformations.email, 
+        //     paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
+        //     cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
+        //     cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
+        //     cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
+        //     cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram
+        // }}
+
         validationSchema={schema}
         onSubmit={values => {
             // tout sauf email et le password
@@ -82,8 +97,6 @@ function ConnectedAccountForm ({userInformation}) {
                             isValid={touched.firstName && !errors.firstName}
                             isInvalid={touched.firstName &&  errors.firstName}
                         />
-                        <Form.Control.Feedback type="valid" tooltip>Looks good!</Form.Control.Feedback>
-                        <Form.Control.Feedback type="invalid" tooltip>Looks bad!</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="lastName">
@@ -230,6 +243,9 @@ function ConnectedAccountForm ({userInformation}) {
             </Form>
         )}
     </Formik>
-}
+    :
+    <div>Chargement ...</div>
+    }
+
 
 export default ConnectedAccountForm;

@@ -9,32 +9,48 @@ import {useHistory} from 'react-router-dom'
 
 let yup = require('yup');
 
-const schema = yup.object({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    city: yup.string().required(),
-    address: yup.string().required(),
-    email: yup.string().email().required(),
-    paymentMethod: yup.string().required(),
-    cardName: yup.string().required(),
-    cardNumber: yup.number().positive().required(),
-    cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
-    cryptogram: yup.number().positive().required(),
-    bankData: yup.boolean(),
-    termsAndConditions: yup.boolean().required()
-});
-
 function BuyForm ({amount, userInformation}) {
+
+    const schema = yup.object({
+        firstName: yup.string().required(),
+        lastName: yup.string().required(),
+        city: yup.string().required(),
+        address: yup.string().required(),
+        email: yup.string().email().required(),
+        paymentMethod: yup.string().required(),
+        cardName: yup.string().required(),
+        cardNumber: yup.number().positive().required(),
+        cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
+        cryptogram: yup.number().positive().required(),
+        bankData: yup.boolean(),
+        termsAndConditions: yup.boolean().required()
+    });
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token
     const email = informationUser.email
     let history = useHistory();
 
-
-    return <div>
+    return userInformation.firstName !== undefined ? <div>
         <Formik 
-            enableReinitialize={true}
+           
+
+            initialValues={{
+
+                firstName: userInformation.firstName, 
+                lastName: userInformation.lastName, 
+                city: userInformation.city, 
+                address: userInformation.address, 
+                email: email, 
+                paymentMethod: userInformation.paymentMethod, 
+                cardName: userInformation.cardName, 
+                cardNumber: userInformation.cardNumber, 
+                cardExpirationDate:userInformation.cardExpirationDate, 
+                cryptogram: userInformation.cryptogram,
+                bankData: "",
+                termsAndConditions: "",
+            }}
+
             validationSchema={schema}
 
             onSubmit={values => {
@@ -110,21 +126,22 @@ function BuyForm ({amount, userInformation}) {
                 }
             }}
 
-            initialValues={{
 
-                firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
-                lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
-                city: userInformation.city === null ? undefined : userInformation.city, 
-                address: userInformation.address === null ? undefined : userInformation.address, 
-                email: email, 
-                paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
-                cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
-                cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
-                cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
-                cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram,
-                bankData: "",
-                termsAndConditions: "",
-            }}
+            // initialValues={{
+
+            //     firstName: userInformation.firstName === null ? undefined : userInformation.firstName, 
+            //     lastName: userInformation.lastName === null ? undefined : userInformation.lastName, 
+            //     city: userInformation.city === null ? undefined : userInformation.city, 
+            //     address: userInformation.address === null ? undefined : userInformation.address, 
+            //     email: email, 
+            //     paymentMethod: userInformation.paymentMethod === null ? undefined : userInformation.paymentMethod, 
+            //     cardName: userInformation.cardName === null ? undefined : userInformation.cardName, 
+            //     cardNumber: userInformation.cardNumber === null ? undefined : userInformation.cardNumber, 
+            //     cardExpirationDate: userInformation.cardExpirationDate === null ? undefined : userInformation.cardExpirationDate, 
+            //     cryptogram: userInformation.cryptogram === null ? undefined : userInformation.cryptogram,
+            //     bankData: "",
+            //     termsAndConditions: "",
+            // }}
         >
             {({handleChange, handleSubmit,values,touched,errors}) => (
 
@@ -212,7 +229,6 @@ function BuyForm ({amount, userInformation}) {
                             <Form.Label>Mode de Paiement</Form.Label>
                             <Form.Control 
                                 as="select" 
-                                defaultValue="Choisissez votre mode de Paiement"
                                 onChange={handleChange}
                                 value={values.paymentMethod}
 
@@ -325,6 +341,9 @@ function BuyForm ({amount, userInformation}) {
             )}
         </Formik>
     </div>
+    :
+    <div>Chargement ...</div>
 }
+
 
 export default BuyForm

@@ -15,6 +15,7 @@ import {Link, useParams} from "react-router-dom";
 import {css} from '@emotion/react';
 import ProductFormComment from '../Components/ProductFormComment.jsx';
 import RateWithStars from '../Components/RateWithStars.jsx'
+import screen from '../images/screen.jpg';
 
 function Product({name, content, price}){
 
@@ -88,7 +89,7 @@ function Product({name, content, price}){
         [token])
 
     
-    // gerer l'etat avant la réponse de l'api :
+  
    
     return <Container className="d-flex flex-column justify-content-around"
         css={css`
@@ -97,7 +98,7 @@ function Product({name, content, price}){
     >
         <TitleH1>{data.status ? data.product.name : name}</TitleH1>
 
-        <ProductImageDescription image={data.status ? data.product.image : "holder.js/171x180"}>{data.status ? data.product.description : content}</ProductImageDescription> 
+        <ProductImageDescription image={data.status ? data.product.image : screen}>{data.status ? data.product.description : content}</ProductImageDescription> 
         <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
         {data.status ?  
             <Card className="mt-4">
@@ -109,12 +110,12 @@ function Product({name, content, price}){
                 </Card.Body> 
             </Card> 
         : 
-        <div></div>
+            <div></div>
         }
 
         {
             informationProduct.stock > 0 ?
-                <ProductPriceAddShoppingCart price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
+                <ProductPriceAddShoppingCart stock={data.status ? data.product.stock : undefined}  price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
             :
                 <></>
         }

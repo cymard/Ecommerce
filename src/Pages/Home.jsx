@@ -89,6 +89,7 @@ function Home(){
         // en fonction de ça on va appeler la bonne méthode
         // console.log("search value : " + "?search=" +searchValue + "&page=" + pageValue);
         // console.log("resultat recherché: "+ location.search)
+        // console.log("la valeur : "+searchValue);
         
         if(location.pathname === "/"){
             history.push("/products?category=all&page=1");
@@ -97,7 +98,7 @@ function Home(){
             // Recherche de produit via les catégories
             displayProductsWithCategory();
 
-        }else if(categoryValue === null && searchValue !== null){
+        }else if(categoryValue === null && searchValue !== null &&  searchValue !== ''){
             // Recherche des produits via le champs recherche 
             displayProductsWithSearch();
         
