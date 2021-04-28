@@ -79,7 +79,7 @@ function ProductComments () {
                     note={comment.note} 
                     date={comment.date} 
                     title={comment.title}
-                    buttons={<Button id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
+                    buttons={<Button className="w-100" id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
                 ></ProductComment>
                 <div 
                     key={comment.id +10}

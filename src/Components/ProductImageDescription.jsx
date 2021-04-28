@@ -41,16 +41,16 @@ function ProductImageDescription ({image, children}) {
                         showText === true 
                         ?
                             <>
-                                {children.substr(0, 200)}...
-                                <br/>
-                                <Button className="mt-2" variant="secondary" onClick={handleClick}>{plusItem}</Button>
-                            </>
-                        :
-                            <>
                                 {children}
                                 <br/>
                                 <Button className="mt-2" variant="secondary" onClick={handleClick}>{lessItem}</Button>
                             </> 
+                        :
+                            <>
+                                {children.substr(0, 200)}...
+                                <br/>
+                                <Button className="mt-2" variant="secondary" onClick={handleClick}>{plusItem}</Button>
+                            </>
                     :
                         children
                     }
