@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import { Container, Card } from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import ConnectedAccountForm from '../Components/ConnectedAccountForm.jsx';
 import TitleH1 from "../Components/TitleH1.jsx";
 import ConnectedAccountDisconnection from "../Components/ConnectedAccountDisconnection.jsx";
 import {css} from '@emotion/react';
 import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
-import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLock, faTruck, faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import ConnectedAccountCard from '../Components/ConnectedAccountCard.jsx';
 
 function ConnectedAccount () {
     const itemPassword = <FontAwesomeIcon icon={faLock} size="7x" /> 
@@ -83,68 +83,33 @@ function ConnectedAccount () {
         {/* Return ce lien uniquement si le client a au moins une commande */}
         {userOrderNumber.status && userOrderNumber.orderNumber > 0 ?
             <>
-                <div className="d-flex justify-content-center align-items-center mb-4">
-                    <h2 
-                        css={css`
-                            font-size: 2.5em;
-                            margin-top: 100px;
-                        `}
-                    >
-                        Mes Commandes :
-                    </h2>
-                </div>
-                <Link color="white" to="/api/orders?page=1&date=desc">
-                    <Card className="d-flex justify-content-center">
-                        <Card.Body className="d-flex flex-column text-center">
-                            <div className="mb-3">{itemTruck}</div>
-                            <Card.Text>Cliquez pour acceder à vos commandes</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Link>
+                <ConnectedAccountCard
+                    item={itemTruck} 
+                    text="Cliquez pour acceder à vos commandes" 
+                    to="/api/orders?page=1&date=desc"
+                >
+                    Mes Commandes :
+                </ConnectedAccountCard>
             </>
         :
             <></>
         }
 
-        <div className="d-flex justify-content-center align-items-center mb-4 ">
-            <h2 
-                css={css`
-                    font-size: 2.5em;
-                    margin-top: 100px;
-                    text-align: center;
-                `}
-            >
-                Changer de mot de passe :
-            </h2>
-        </div>
-        <Link to="/api/modify/password">
-            <Card className="d-flex justify-content-center">
-                <Card.Body className="d-flex flex-column text-center">
-                    <div className="mb-3">{itemPassword}</div>
-                    <Card.Text>Cliquez pour changer votre mot de passe</Card.Text>
-                </Card.Body>
-            </Card>
-        </Link>
+        <ConnectedAccountCard
+            item={itemPassword} 
+            text="Cliquez pour changer votre mot de passe" 
+            to="/api/modify/password"
+        >
+            Changer de mot de passe :
+        </ConnectedAccountCard>
 
-        <div className="d-flex justify-content-center align-items-center mb-4 ">
-            <h2 
-                css={css`
-                    font-size: 2.5em;
-                    margin-top: 100px;
-                    text-align: center;
-                `}
-            >
-                Changer d'adresse email :
-            </h2>
-        </div>
-        <Link to="/api/modify/email">
-            <Card className="d-flex justify-content-center">
-                <Card.Body className="d-flex flex-column text-center">
-                    <div className="mb-3">{itemEmail}</div>
-                    <Card.Text>Cliquez pour changer votre adresse email</Card.Text>
-                </Card.Body>
-            </Card>
-        </Link>
+        <ConnectedAccountCard
+            item={itemEmail} 
+            text="Cliquez pour changer votre adresse email" 
+            to="/api/modify/email"
+        >
+            Changer d'adresse email :
+        </ConnectedAccountCard>
 
         <div className="d-flex justify-content-center align-items-center mb-4">
             <h2 

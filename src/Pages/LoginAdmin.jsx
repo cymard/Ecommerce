@@ -7,9 +7,7 @@ import LoginAdminForm from '../Components/LoginAdminForm.jsx'
 
 
 function LoginAdmin() {
-    return <Container className="d-flex justify-content-center"
-
->
+    return <Container className="d-flex justify-content-center">
     <div 
         css={css`
             width: 100%;

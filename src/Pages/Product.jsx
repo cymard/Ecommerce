@@ -1,21 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import { Container, Button, Card} from 'react-bootstrap';
+import { Container, Button} from 'react-bootstrap';
 import ProductComment from '../Components/ProductComment.jsx';
 import PropTypes from 'prop-types';
-import TitleH1 from "../Components/TitleH1.jsx";
 import axios from 'axios';
 import {useLocation} from "react-router-dom";
-import ProductImageDescription from "../Components/ProductImageDescription.jsx";
-import ProductPriceAddShoppingCart from '../Components/ProductPriceAddShoppingCart.jsx';
-import ProductStock from '../Components/ProductStock.jsx';
 import {UserContext} from '../Components/UserContext.jsx';
 import RedirectModal from '../Components/RedirectModal.jsx';
 import {Link, useParams} from "react-router-dom";
 import {css} from '@emotion/react';
 import ProductFormComment from '../Components/ProductFormComment.jsx';
-import RateWithStars from '../Components/RateWithStars.jsx'
-import screen from '../images/screen.jpg';
+import ProductInformations from "../Components/ProductInformations.jsx";
 
 function Product({name, content, price}){
 
@@ -43,7 +38,7 @@ function Product({name, content, price}){
                     status: true,
                     product: res.data.product,
                     comments: res.data.comments,
-                    averaging: res.data.averaging,
+                    averaging: res.data.arrayAveraging,
                     rateNumber: res.data.rateNumber
                 }))
                 .catch(function(error){
@@ -84,41 +79,13 @@ function Product({name, content, price}){
         },
         [token])
 
-    
-  
-   
+
     return <Container className="d-flex flex-column justify-content-around"
         css={css`
             min-height: 90vh;
         `}
     >
-        <TitleH1>{data.status ? data.product.name : name}</TitleH1>
-
-        <ProductImageDescription image={data.status ? data.product.image : screen}>{data.status ? data.product.description : content}</ProductImageDescription> 
-        <ProductStock stock={data.status ? data.product.stock : "chargement"}></ProductStock>
-        {data.status ?  
-            <Card className="mt-4">
-                <Card.Body className=" d-flex justify-content-around align-items-center">
-                    Note moyenne du produit : 
-                    <div>
-                        <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
-                    </div> 
-                </Card.Body> 
-            </Card> 
-        : 
-            <div></div>
-        }
-
-        {
-            informationProduct.stock > 0 ?
-                <ProductPriceAddShoppingCart stock={data.status ? data.product.stock : undefined}  price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
-            :
-                <></>
-        }
-        
-
-       
-        
+        <ProductInformations content={content} price={price} name={name} data={data} informationProduct={informationProduct}></ProductInformations>
 
         {informationUser.email === null && informationUser.token === null 
         ? 

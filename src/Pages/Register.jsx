@@ -7,8 +7,7 @@ import { css} from '@emotion/react';
 
 function Compte(){
 
-    return <Container  className="d-flex justify-content-center"
-    >
+    return <Container  className="d-flex justify-content-center">
         <div 
             css={css`
                 width: 100%;

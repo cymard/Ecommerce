@@ -37,7 +37,7 @@ function CreateProduct(){
     >
         <AdminNavBar></AdminNavBar>
         <Container fluid>
-            <TitleH1>Création d'un produit </TitleH1>
+            <TitleH1>Création d'un produit</TitleH1>
             <CreateProductForm submitForm={submitForm}></CreateProductForm>
         </Container>
 

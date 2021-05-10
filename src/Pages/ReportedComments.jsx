@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext,useCallback} from 'react'
 import {css} from '@emotion/react';
-import {Container,Button} from 'react-bootstrap'
+import {Container, Button, Spinner} from 'react-bootstrap'
 import axios from 'axios';
 import TitleH1 from "../Components/TitleH1.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
@@ -74,7 +74,9 @@ function ReportedComments (){
             {data.status === true ? 
                 data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  buttons={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
             :
-                "chargement"
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
             }
         </Container>
 </div>

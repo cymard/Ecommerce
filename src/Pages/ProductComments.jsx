@@ -2,11 +2,11 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react'
 import TitleH1 from '../Components/TitleH1.jsx'
 import AdminNavBar from '../Components/AdminNavBar.jsx'
-import {Container, Button} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import axios from 'axios'
 import {css} from '@emotion/react';
-import ProductComment from '../Components/ProductComment.jsx'
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
+import ProductCommentCard from '../Components/ProductCommentCard.jsx';
 import {
     useLocation,
     useHistory
@@ -71,23 +71,7 @@ function ProductComments () {
         <Container fluid>
             <TitleH1>Commentaires </TitleH1>
             {data.status === false ? <div>Chargement ...</div> : data.comments.map( comment => 
-            <div key={comment.id}>
-                <ProductComment
-                    key={comment.id}
-                    pseudo={comment.username} 
-                    content={comment.content} 
-                    note={comment.note} 
-                    date={comment.date} 
-                    title={comment.title}
-                    buttons={<Button className="w-100" id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
-                ></ProductComment>
-                <div 
-                    key={comment.id +10}
-                    css={css`
-                        height : 20px;
-                    `}
-                ></div>
-            </div>
+                <ProductCommentCard comment={comment} handleRemove={handleRemove}></ProductCommentCard>
             )}
         </Container> 
     </div>

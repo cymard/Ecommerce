@@ -6,6 +6,7 @@ import FrontNavBarFilter from '../Components/FrontNavBarFilter.jsx';
 import DisplayProductHome from '../Components/DisplayProductHome.jsx';
 import PaginationProducts from '../Components/PaginationProducts.jsx';
 import {css} from '@emotion/react';
+import Space from '../Components/Space.jsx';
 import {
     useLocation,
     useHistory,
@@ -102,7 +103,8 @@ function Home(){
         className="d-flex justify-content-around flex-wrap"
     >
         <FrontNavBarFilter></FrontNavBarFilter>
-        <div css={css`width: 100%; height: 20px;`}></div>
+        <Space></Space>
+
         { data.status === "nothing" ?
             <div
                 css={css`
@@ -115,8 +117,8 @@ function Home(){
         :
             
             <>
-            <DisplayProductHome data={data}></DisplayProductHome>
-            <PaginationProducts data={data}></PaginationProducts>
+                <DisplayProductHome data={data}></DisplayProductHome>
+                <PaginationProducts data={data}></PaginationProducts>
             </>
             
         }
