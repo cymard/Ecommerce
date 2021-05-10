@@ -27,14 +27,20 @@ function ChangeEmail () {
     const modifyEmail = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.post('https://127.0.0.1:8000/api/modify/email',
+            axios.put('https://127.0.0.1:8000/api/modify/email',
                 dataPassword 
             )
             .then(function(response) {
                 setChangeEmail({
                     message: response.data.message
                 })
-                history.push('/home');
+                // se déconnecter du compte
+                informationUser.setUserInformation({
+                    email: null,
+                    token: null
+                });
+                // redirection vers la page de connexion
+                history.push('/login');
 
             })
             .catch(function(error) {
@@ -44,7 +50,7 @@ function ChangeEmail () {
                 })
             })
         },
-        [token, history]
+        [token, history,informationUser]
     )
 
 

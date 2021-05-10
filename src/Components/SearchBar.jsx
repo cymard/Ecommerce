@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {
     useLocation,
     useHistory
@@ -47,7 +47,7 @@ function SearchBar ({reFetch}) {
     <Form.Group className="d-flex justify-content-center">
         <div className="d-flex ">
             <Form.Label htmlFor="inlineFormInputGroupUsername" srOnly>
-                Rechercher ...
+                Rechercher...
             </Form.Label>
             <FormControl onChange={handleChange} value={searchValue} id="inlineFormInputGroupUsername" placeholder="Email" />
         </div>

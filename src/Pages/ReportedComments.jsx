@@ -72,7 +72,7 @@ function ReportedComments (){
         <Container fluid>
             <TitleH1>Commentaires Signalés</TitleH1>
             {data.status === true ? 
-                data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.pseudo} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  buttons={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
+                data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  buttons={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
             :
                 "chargement"
             }

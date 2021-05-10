@@ -5,9 +5,10 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {UserAdminContext} from "../Components/UserAdminContext.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
-import {Container,Card,Spinner} from 'react-bootstrap'
-import screen from '../images/screen.jpg';
-
+import {Container,Spinner} from 'react-bootstrap';
+import OrderIdentificationInformations from '../Components/OrderIdentificationInformations.jsx';
+import ProductsInformationsOfOrder from '../Components/ProductsInformationsOfOrder.jsx';
+import PersonalOrderInformations from '../Components/PersonalOrderInformations.jsx';
 
 function AdminOrderDetails () {
 
@@ -61,11 +62,10 @@ function AdminOrderDetails () {
     },[getProducts,getInformationOrder])
 
     return <div     
-    
-    css={css`
-        min-height: 90vh;
-        display: flex;
-    `}
+        css={css`
+            min-height: 90vh;
+            display: flex;
+        `}
     >
         <AdminNavBar/>
 
@@ -74,28 +74,7 @@ function AdminOrderDetails () {
             <h2 className="text-center mb-5">Les produits commandés : </h2>
 
             {informationOrder.status ? 
-                <div className="d-flex justify-content-center mb-5 ">
-                    <Card className="p-3">
-                        <p>Date de la Commande :  <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.createdDate}</span>  </p> 
-                        <br/>
-                        <p>Montant de la Commande : <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.amount}€</span> </p>
-                        <br/>
-                        <p>Numéro de la Commande :  <span
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >{informationOrder.data.id}</span>  </p> 
-                    </Card>
-                </div>
-                
+                <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
             : 
                 <div><Spinner animation="border" /></div>
             }
@@ -105,26 +84,7 @@ function AdminOrderDetails () {
                 {data.status === true 
                 ? 
                 data.products.map(product => 
-                    <Card className="mr-2 ml-2"  key={product.product.id} style={{ width: '18rem' }}>
-                        <Card.Img 
-                            variant="top"
-                            src={product.product.image || screen} 
-                            css={css`
-                                max-height: 200px;
-                            `}    
-                        />
-                        <Card.Body>
-                            <Card.Title className="text-center">{product.product.name}</Card.Title>
-                            <Card.Text>
-                                prix : {product.product.price}€
-                                <br/>
-                                quantité : {product.quantity}
-                            </Card.Text>
-                                
-                        </Card.Body>
-                    </Card>
-                    
-                    
+                    <ProductsInformationsOfOrder product={product}></ProductsInformationsOfOrder>
                 ) 
                 : 
                 <div><Spinner animation="border" /></div>}
@@ -136,36 +96,10 @@ function AdminOrderDetails () {
             <div className="d-flex justify-content-center mb-5">
                 { informationOrder.status 
                 ? 
-                <Card>
-                    <Card.Body>
-                        <Card.Title className="font-weight-bold">Identité de l'acheteur</Card.Title>
-                        <Card.Text>
-                            Prénom : {informationOrder.data.firstName}
-                            <br/>
-                            Nom : {informationOrder.data.lastName}
-                            <br/>
-                            Email : {informationOrder.data.email}
-                            <br/>
-                            Ville : {informationOrder.data.city}
-                            <br/>
-                            Adresse : {informationOrder.data.address}
-
-                        </Card.Text>
-                        <Card.Title className="font-weight-bold mt-5">Mode de paiement</Card.Title>
-                        <Card.Text>
-                            Mode de Paiement : {informationOrder.data.paymentMethod}
-                            <br/>
-                            Numéro de la Carte :  {informationOrder.data.cardNumber}
-                            <br/>
-                            Propriétaire de la Carte :  {informationOrder.data.cardName}
-                            <br/>
-                            Date d'expiration de la Carte : {informationOrder.data.cardExpirationDate}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+                    <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
                 :
-                <div><Spinner animation="border" /></div>}
-                    
+                    <div><Spinner animation="border" /></div>
+                }  
             </div>
             
         </Container>

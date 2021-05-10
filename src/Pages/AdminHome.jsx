@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React,{useEffect,useState,useContext, useCallback} from 'react';
+import React,{useEffect,useState,useContext} from 'react';
 import {css} from '@emotion/react';
 import {Table, Container, Form, Button, Row} from 'react-bootstrap';
 import axios from 'axios';
@@ -18,21 +18,17 @@ import {
     Link
 } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import SearchProductAdmin from '../Components/SearchProductAdmin.jsx'
 
 
 function AdminHome () {
 
     const itemPlus = <FontAwesomeIcon icon={faPlus} color="white" /> 
-    const itemSearch = <FontAwesomeIcon icon={faSearch}  /> 
 
     const [data, setData] = useState({status: false, productsList: [], filter: "all"});
-
-    // selectionner ou pas le checkbox selectAll
-    const [checkedSelectAll, setCheckedSelectAll] = useState();
-    
-    // tableau pour la suppression
-    const [selectedProducts, setSelectedProducts] = useState([])
+    const [isSelectAllChecked, setSelectAllChecked] = useState(); // sélectionner ou pas le checkbox selectAll
+    const [selectedProducts, setSelectedProducts] = useState([]); // les produits sélectionnés
 
     let history = useHistory();
     const location = useLocation();
@@ -40,11 +36,9 @@ function AdminHome () {
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
 
-    const [searchValue, setSearchValue] = useState();
-
     useEffect(() => {
         // déclenchement du select all lorsque tous les checkbox sont séléctionnés
-        setCheckedSelectAll(selectedProducts.length === data.productsList.length);
+        setSelectAllChecked(selectedProducts.length === data.productsList.length);
     }, [selectedProducts, data])
     
     // récuperation et séparation des valeurs de l'uri
@@ -108,11 +102,11 @@ function AdminHome () {
         if(e.target.checked === true){
             // séléctionner tous les checkboxs
             setSelectedProducts(data.productsList.map(product => product.id));
-            setCheckedSelectAll(true)
+            setSelectAllChecked(true)
 
         }else{
             setSelectedProducts([]);
-            setCheckedSelectAll(false)
+            setSelectAllChecked(false)
             
         }
     }
@@ -131,21 +125,8 @@ function AdminHome () {
     }
 
 
-    const handleChangeSearch = useCallback(
-        (e) => {
-            setSearchValue(e.target.value);
-        },
-        [],
-    )
 
 
-
-    const handleClickSubmitSearch = useCallback(
-        () => {
-            history.push(`/admin/home?search=${encodeURIComponent(searchValue)}&category=all&page=1&sorting=default`);
-        },
-        [searchValue,history],
-    )
 
     return <div     
     
@@ -158,27 +139,16 @@ function AdminHome () {
 
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Administration</h1>
+
             <Row className="d-flex justify-content-between mr-3">
                 <Link to="/admin/CreateProduct" className="ml-3 mb-3 d-flex align-items-end"><Button> {itemPlus} Ajouter un Produit</Button></Link>
-                <Form>
-                    <Form.Group  controlId="search">
-                        <Form.Label>Rechercher :</Form.Label>
-                        <div className="d-flex">
-                            <Form.Control className="mr-1" onChange={handleChangeSearch} type="text" value={searchValue}/>
-                            <Button onClick={handleClickSubmitSearch}>{itemSearch}</Button>
-                        </div>
-                        
-                    </Form.Group>
-                </Form>
+                <SearchProductAdmin ></SearchProductAdmin>
 
                 {querySearchValue !== null ?
                     <SearchCategoryFilter></SearchCategoryFilter>
                 :
                     <CategoryFilter></CategoryFilter> 
                 }
-               
-                
-                
             </Row>
            
 
@@ -190,7 +160,7 @@ function AdminHome () {
                                 type="checkbox"
                                 id="selectAll"
                                 onChange={handleClickSelectAll}
-                                checked={checkedSelectAll || selectedProducts.length === 9}
+                                checked={isSelectAllChecked || selectedProducts.length === 9}
                                 label=""
                                 custom
                             />        
@@ -239,6 +209,7 @@ function AdminHome () {
                     }
                 </tbody>
             </Table>
+
             <Button 
                 variant="danger"
                 onClick={handleRemove}
