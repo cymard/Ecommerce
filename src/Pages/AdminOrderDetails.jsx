@@ -5,15 +5,17 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {UserAdminContext} from "../Components/UserAdminContext.jsx";
 import AdminNavBar from "../Components/AdminNavBar.jsx";
-import {Container,Spinner} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import OrderIdentificationInformations from '../Components/OrderIdentificationInformations.jsx';
 import ProductsInformationsOfOrder from '../Components/ProductsInformationsOfOrder.jsx';
 import PersonalOrderInformations from '../Components/PersonalOrderInformations.jsx';
+import CenteredSpinner from '../Components/CenteredSpinner.jsx';
 
 function AdminOrderDetails () {
 
     let { orderId } = useParams();
-    const adminInformation = useContext(UserAdminContext)
+
+    const adminInformation = useContext(UserAdminContext);
     const token = adminInformation.token
 
     const [data, setData] = useState({status: false})
@@ -71,37 +73,28 @@ function AdminOrderDetails () {
 
         <Container fluid>
             <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
-            <h2 className="text-center mb-5">Les produits commandés : </h2>
+            <h2 className="text-center mb-5">Les produits commandés :</h2>
 
             {informationOrder.status ? 
+                <>
                 <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
+                    {data.status === true ? 
+                        <div className="d-flex justify-content-center">
+                            {data.products.map(product => 
+                                <ProductsInformationsOfOrder product={product} key={product.product.id}></ProductsInformationsOfOrder>
+                            )}
+                        </div>
+                    : 
+                        <CenteredSpinner></CenteredSpinner>
+                    }
+                
+
+                <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
+                </>
             : 
-                <div><Spinner animation="border" /></div>
+                <CenteredSpinner></CenteredSpinner>
             }
 
-            <div className="d-flex justify-content-center">
-
-                {data.status === true 
-                ? 
-                data.products.map(product => 
-                    <ProductsInformationsOfOrder product={product}></ProductsInformationsOfOrder>
-                ) 
-                : 
-                <div><Spinner animation="border" /></div>}
-           
-            </div>
-
-            <h2 className="text-center mt-5 mb-5">Les informations liées à la commande : </h2>
-            
-            <div className="d-flex justify-content-center mb-5">
-                { informationOrder.status 
-                ? 
-                    <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
-                :
-                    <div><Spinner animation="border" /></div>
-                }  
-            </div>
-            
         </Container>
     </div>
 }

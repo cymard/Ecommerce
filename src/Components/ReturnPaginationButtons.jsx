@@ -10,6 +10,7 @@ import {
 function ReturnPaginationButtons ({totalPageNumber, handleFocus, test}) {
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
+    
     let category = query.get('category');
     let search = query.get('search');
 

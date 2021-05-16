@@ -7,6 +7,7 @@ import {UserContext} from "../Components/UserContext.jsx";
 import {css} from '@emotion/react';
 import RedirectLoginRegister from '../Components/RedirectLoginRegister';
 import axios from 'axios';
+import CenteredSpinner from '../Components/CenteredSpinner.jsx';
 
 function ShoppingCart(){
 
@@ -16,7 +17,6 @@ function ShoppingCart(){
     const [data, setData] = useState({status: false})
 
     const displayArticles = useCallback(() => {
-
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
@@ -42,8 +42,11 @@ function ShoppingCart(){
             min-height: 90vh; 
         `}
     >
-        <div className="d-flex justify-content-center  mt-5 "
+        <div 
             css={css`
+                display: flex;
+                justify-content: center;
+                margin-top: 60px;
                 margin-bottom: 100px;
             `}
         >
@@ -55,15 +58,15 @@ function ShoppingCart(){
             <RedirectLoginRegister></RedirectLoginRegister>
         : 
             <>
-                <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
+            <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
 
-                {data.status === true ? 
-                    data.allArticles.map(article =>  <ShoppingCartProduct reFetch={displayArticles} key={article.id} id={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
-                : 
-                    <div>chargement</div>
-                }
-                
-                <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
+            {data.status === true ? 
+                data.allArticles.map(article =>  <ShoppingCartProduct reFetch={displayArticles} key={article.id} id={article.id} quantity={article.quantity} image={article.image} title={article.title} price={article.price}></ShoppingCartProduct>) 
+            : 
+                <CenteredSpinner></CenteredSpinner>
+            }
+            
+            <ShoppingCartTotal price={data.status === true ? data.totalPrice : 0}></ShoppingCartTotal>
             </>
         }
         

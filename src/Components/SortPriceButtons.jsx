@@ -55,7 +55,8 @@ function SortPriceButtons ({data, setData}) {
             </Button>
         </Link>
         
-        <Link to={`/admin/home?category=${category}&page=${page}&sorting=asc`}><Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
+        <Link to={`/admin/home?category=${category}&page=${page}&sorting=asc`}>
+            <Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
                 css={css`
                     background-color: white;
                     border: 1px black solid;

@@ -1,22 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext,useCallback} from 'react'
 import {css} from '@emotion/react';
-import {Table, Container, Form, Button} from 'react-bootstrap'
+import {Container, Button} from 'react-bootstrap';
 import axios from 'axios';
 import AdminNavBar from "../Components/AdminNavBar.jsx";
 import SearchBar from '../Components/SearchBar.jsx';
-import PaginationOrdersAdmin from '../Components/PaginationOrdersAdmin.jsx';
+import PaginationButtons from '../Components/PaginationButtons.jsx';
 import {UserAdminContext} from '../Components/UserAdminContext.jsx';
-import OrdersListAdmin from '../Components/OrdersListAdmin.jsx';
 import {
     useLocation,
     useHistory
 } from "react-router-dom";
+import OrdersTable from '../Components/OrdersTable.jsx';
 
 function Orders() {
     let location = useLocation();
     let history = useHistory();
-
 
     // selectionner ou pas le checkbox selectAll
     const [checkedSelectAll, setCheckedSelectAll] = useState();
@@ -88,54 +87,28 @@ function Orders() {
             <h1 className="text-center mt-4 mb-5">Administration</h1>
 
             <SearchBar reFetch={getOrders}></SearchBar>
+            <OrdersTable
+                data={data}
+                handleClickSelectAll={handleClickSelectAll} 
+                checkedSelectAll={checkedSelectAll} 
+                selectedOrders={selectedOrders} 
+                setSelectedOrders={setSelectedOrders}
+            ></OrdersTable>
 
-            <Table className="text-center"  hover>
-                <thead>
-                    <tr>
-                        <th>
-                            <Form.Check
-                                type="checkbox"
-                                id="selectAll"
-                                onChange={handleClickSelectAll}
-                                checked={checkedSelectAll || selectedOrders.length === 9}
-                                label=""
-                                custom
-                            />        
-                        </th>
-                        <th>Id</th>
-                        <th>Status du Paiement</th>
-                        <th>Total</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Commande</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {data.status === true && data.allOrdersNumber !== 0?
-                    <OrdersListAdmin orders={data.orders} setSelectedOrders={setSelectedOrders} selectedOrders={selectedOrders}></OrdersListAdmin>
-                    :  <tr><th>Aucune commande trouvée </th></tr>
-                    }
-
-                </tbody>
-            </Table>
             <Button 
                 variant="danger"
             >
                 Supprimer
             </Button>
-            {data.status === true && data.allOrdersNumber !== 0
-            ? 
-                <PaginationOrdersAdmin setData={setData}  data={data} ></PaginationOrdersAdmin>
+
+            {data.status === true && data.allOrdersNumber !== 0 ? 
+                <PaginationButtons isOrder={true} isAdmin={true} queryName={"search"} data={data}></PaginationButtons>
             :
                 <></>
             }
             
         </Container>
-    </div>
-   
+    </div> 
 }
 
 export default Orders;

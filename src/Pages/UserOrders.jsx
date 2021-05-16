@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import { Container, Table,Row,Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import TitleH1 from "../Components/TitleH1.jsx";
 import axios from 'axios'
 import {UserContext} from '../Components/UserContext.jsx'
-import OrdersListUser from '../Components/OrdersListUser.jsx'
-import PaginationOrdersUser from '../Components/PaginationOrdersUser.jsx';
-import SortDateButtons from '../Components/SortDateButtons.jsx';
 import {css} from '@emotion/react';
 import {
     useLocation,
     useHistory
 } from "react-router-dom";
+import UserOrdersTable from '../Components/UserOrdersTable.jsx';
+import PaginationButtons from '../Components/PaginationButtons.jsx';
 
 function UserOrders (){
 
@@ -58,32 +57,8 @@ function UserOrders (){
         `}
     >
         <TitleH1>L'historique de mes commandes</TitleH1>
-
-        
-        <Table className="text-center" responsive hover>
-            <thead>
-                <tr>
-                    <th>N° </th>
-                    <th>
-                        <Row >
-                            <Col className="d-flex justify-content-center align-items-center">Commande éffectuée le<SortDateButtons></SortDateButtons></Col>
-                        </Row>
-                    </th>
-                    <th>Total</th>
-                    <th>Détails de la commande</th>
-                </tr>
-            </thead>
-            <tbody>
-                {data.status 
-                ?
-                    <OrdersListUser orders={data.orders}></OrdersListUser>
-                :  
-                    <tr><th>Chargement ...</th></tr>
-                }
-            </tbody>
-        </Table>
-
-        <PaginationOrdersUser setData={setData}  data={data}></PaginationOrdersUser>
+        <UserOrdersTable data={data}></UserOrdersTable>
+        <PaginationButtons isAdmin={false} isOrder={true} queryName={"search"} data={data}></PaginationButtons>
     </Container>
     
 }

@@ -5,7 +5,7 @@ import screen from '../images/screen.jpg';
 import {Card} from 'react-bootstrap';
 
 function ProductsInformationsOfOrder ({product}){
-    return <Card className="mr-2 ml-2"  key={product.product.id} style={{ width: '18rem' }}>
+    return <Card className="mr-2 ml-2" style={{ width: '18rem' }}>
         <Card.Img 
             variant="top"
             src={product.product.image || screen} 

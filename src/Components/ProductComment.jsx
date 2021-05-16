@@ -8,7 +8,7 @@ import RateWithStars from './RateWithStars.jsx';
 function ProductComment ({pseudo, content, note, date, title, buttons}) {
     const marginBottom = 0;
 
-    return <Card className="text-left mb-3">
+    return <Card className="text-left mb-5">
         <Card.Header className="d-flex justify-content-between">
             <p 
                 css={css`

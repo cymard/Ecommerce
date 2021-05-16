@@ -4,13 +4,13 @@ import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import FrontNavBarFilter from '../Components/FrontNavBarFilter.jsx';
 import DisplayProductHome from '../Components/DisplayProductHome.jsx';
-import PaginationProducts from '../Components/PaginationProducts.jsx';
 import {css} from '@emotion/react';
 import Space from '../Components/Space.jsx';
 import {
     useLocation,
     useHistory,
   } from "react-router-dom";
+import PaginationButtons from "../Components/PaginationButtons.jsx"; 
 
 function Home(){
 
@@ -118,7 +118,7 @@ function Home(){
             
             <>
                 <DisplayProductHome data={data}></DisplayProductHome>
-                <PaginationProducts data={data}></PaginationProducts>
+                <PaginationButtons isAdmin={false} isOrder={false} queryName={"search"} data={data}></PaginationButtons>
             </>
             
         }
