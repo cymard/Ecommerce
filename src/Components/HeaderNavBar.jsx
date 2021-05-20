@@ -45,14 +45,13 @@ function HeaderNavBar () {
                 </Form>
             
                 <Nav className="mr-auto">
-                    {
-                        userInformations.email 
-                    ? 
+                    {userInformations.email ? 
                         <ModifiedLinksRouter color="black" to="/api/connectedAccount">Compte</ModifiedLinksRouter> 
                     : 
                         <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
                     }
                     <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
+                    
                     <Nav.Link className="p-0" href="https://127.0.0.1:8000/contact">
                         <div className="d-flex justify-content-center align-items-center p-1" 
                             css={css`
@@ -63,7 +62,8 @@ function HeaderNavBar () {
                             Contact
                         </div>
                     </Nav.Link>
-                </Nav>  
+                </Nav> 
+
             </Navbar.Collapse>
     </Navbar>
 

@@ -9,7 +9,6 @@ import {Formik} from 'formik';
 function CreateProductForm ({submitForm}) {
     let yup = require('yup');
 
-    
     // value wysiwyg tinymce react
     const [descriptionValue, setDescriptionValue] = useState(undefined);
 

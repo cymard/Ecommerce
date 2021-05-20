@@ -19,13 +19,13 @@ function ProductComments () {
 
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     let history = useHistory();
     const location = useLocation();
 
     const displayComments = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000${location.pathname}`)
             .then(function (response){
                 setData({status: true, comments : response.data})
@@ -35,7 +35,7 @@ function ProductComments () {
                 history.push("/admin/home")
             })
         },
-        [token, location,history]
+        [location,history]
     )
 
     useEffect(() => {
@@ -46,7 +46,6 @@ function ProductComments () {
     const handleRemove = useCallback(
         (e) => {
             // supprimer le commentaire
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response){
                 displayComments()
@@ -57,7 +56,7 @@ function ProductComments () {
             });
         
         },
-        [token, displayComments]
+        [displayComments]
     )
     
 

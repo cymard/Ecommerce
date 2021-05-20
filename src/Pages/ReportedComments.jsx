@@ -10,14 +10,15 @@ import ProductComment from '../Components/ProductComment.jsx'
 
 
 function ReportedComments (){
-
+   
     const [data, setData] = useState({status: false})
 
     const userAdminInformation = useContext(UserAdminContext);
     const token = userAdminInformation.token
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     const displayReportedComments = useCallback(() => {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+        
         axios.get(`https://127.0.0.1:8000/admin/comments/reported`)
         .then(function (response) {
             setData({
@@ -28,7 +29,7 @@ function ReportedComments (){
         .catch(function (error) {
             console.log(error);
         })
-    },[token])
+    },[])
 
     useEffect(()=>{
         displayReportedComments()
@@ -37,7 +38,6 @@ function ReportedComments (){
 
     const handleDelete = useCallback(
         (e) => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
                 displayReportedComments()
@@ -45,12 +45,11 @@ function ReportedComments (){
             .catch(function (error) {
                 console.log(error);
             })
-        },[token,displayReportedComments]
+        },[displayReportedComments]
     )
 
     const handleIgnore =  useCallback(
         (e) => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
                 displayReportedComments()
@@ -58,7 +57,7 @@ function ReportedComments (){
             .catch(function (error) {
                 console.log(error);
             })
-        },[displayReportedComments, token]
+        },[displayReportedComments]
     )
 
 

@@ -13,10 +13,11 @@ function Buy(){
 
     const [amount, setAmount] = useState();
     const [userInformation, setUserInformation] = useState({status: false})
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     const getUserInformation = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+           
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
@@ -39,12 +40,11 @@ function Buy(){
             .catch(function (error) {
                 console.log(error);
             });
-        },[token,setUserInformation]
+        },[setUserInformation]
     )
 
     useEffect(()=>{
         getUserInformation()
-        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
         axios.get('https://127.0.0.1:8000/api/cart/products')
         .then(function (response) {
             setAmount(response.data.totalPrice)

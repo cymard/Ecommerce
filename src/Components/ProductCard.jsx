@@ -8,10 +8,7 @@ import {
   } from "react-router-dom";
 import screen from '../images/screen.jpg';
 
-
 function ProductCard ({urlImage,title,textButton,id}) {
-
-    
     return <Card 
         css={css`
             width: 20rem;

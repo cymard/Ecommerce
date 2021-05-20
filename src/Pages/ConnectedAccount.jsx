@@ -22,10 +22,10 @@ function ConnectedAccount () {
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     const getUserInformation = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
@@ -48,13 +48,12 @@ function ConnectedAccount () {
             .catch(function (error) {
                 console.log(error);
             });
-        },[token]
+        },[]
     )
 
 
     const getUserOrderNumber = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.get('https://127.0.0.1:8000/api/user/order')
             .then(function (response) {
                 setUserOrderNumber({
@@ -65,7 +64,7 @@ function ConnectedAccount () {
             .catch(function (error) {
                 console.log(error);
             });
-        },[token,setUserOrderNumber]
+        },[setUserOrderNumber]
     )
 
 

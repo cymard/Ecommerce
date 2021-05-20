@@ -49,7 +49,6 @@ function LoginAdminForm () {
         
         } catch (err) {
             setResponse("La connexion a échouée, merci de réessayer");
-            console.log("erreur");
             console.error(err.message);
         }
     };

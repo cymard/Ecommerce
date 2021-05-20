@@ -15,6 +15,7 @@ function UserOrderDetails () {
     let { orderId } = useParams();
     const userInformation = useContext(UserContext)
     const token = userInformation.token
+    axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
 
     const [data, setData] = useState({status: false})
     const [informationOrder, setInformationOrder] = useState({status: false})
@@ -23,7 +24,6 @@ function UserOrderDetails () {
 
     const getProducts = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/api/order/${orderId}/cart`)
             .then(function(response){
                 setData({
@@ -40,12 +40,11 @@ function UserOrderDetails () {
                 }
             })
         },
-        [orderId,token]
+        [orderId]
     )
 
     const getInformationOrder = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/api/order/${orderId}`)
             .then(function(response){
                 console.log(response.data.orderInformations.cardNumber);
@@ -58,7 +57,7 @@ function UserOrderDetails () {
                 console.log(error);
             })
         },
-        [orderId,token]
+        [orderId]
     )
 
 

@@ -15,7 +15,6 @@ function Footer(){
             padding: 10px 0;
             color: white;
             font-size: 18px;
-
             display: flex;
             justify-content: center;
             align-items: center;

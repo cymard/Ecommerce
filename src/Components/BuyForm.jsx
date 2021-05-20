@@ -30,11 +30,12 @@ function BuyForm ({amount, userInformation}) {
     const token = informationUser.token
     const email = informationUser.email
     let history = useHistory();
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
 
     return userInformation.firstName !== undefined ? <div>
         <Formik 
            
-
             initialValues={{
 
                 firstName: userInformation.firstName, 
@@ -55,7 +56,6 @@ function BuyForm ({amount, userInformation}) {
 
             onSubmit={values => {
                 if(values.bankData === true){
-                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.post('https://127.0.0.1:8000/api/order', {
                         "firstName" :values.firstName,
                         "lastName" :values.lastName,
@@ -70,9 +70,6 @@ function BuyForm ({amount, userInformation}) {
                         "amount" : amount
                     })
                     .then(function (response) {
-
-
-                        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                         axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
                             "firstName" :values.firstName,
                             "lastName" :values.lastName,
@@ -99,7 +96,6 @@ function BuyForm ({amount, userInformation}) {
 
                 
                 }else{
-                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.post('https://127.0.0.1:8000/api/order', {
                         "firstName" :values.firstName,
                         "lastName" :values.lastName,

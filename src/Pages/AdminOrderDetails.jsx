@@ -20,10 +20,10 @@ function AdminOrderDetails () {
 
     const [data, setData] = useState({status: false})
     const [informationOrder, setInformationOrder] = useState({status: false})
+    axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
 
     const getProducts = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/admin/order/${orderId}/cart`)
             .then(function(response){
                 setData({
@@ -36,12 +36,11 @@ function AdminOrderDetails () {
                 console.log(error);
             })
         },
-        [orderId,token]
+        [orderId]
     )
 
     const getInformationOrder = useCallback(
         () => {
-            axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
             axios.get(`https://127.0.0.1:8000/admin/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
@@ -53,7 +52,7 @@ function AdminOrderDetails () {
                 console.log(error);
             })
         },
-        [orderId,token]
+        [orderId]
     )
 
 

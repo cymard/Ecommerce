@@ -13,6 +13,7 @@ import {
 import AdminHomeTable from '../Components/AdminHomeTable.jsx';
 import AdminHomeTableOptions from '../Components/AdminHomeTableOptions.jsx';
 
+
 function AdminHome () {
 
     const [data, setData] = useState({status: false, productsList: [], filter: "all"});
@@ -49,8 +50,9 @@ function AdminHome () {
             if((location.pathname === "/admin/home" && location.search === "" ) || querySearchValue === ""){ // redirection en cas de mauvaise url
                 history.push('/admin/home?category=all&page=1&sorting=default');
             }else{
+                axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
                 if(querySearchValue !== null){ // Requête avec la barre de recherche
-                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.get(`https://127.0.0.1:8000${location.pathname}${encodedUri}`) // encode location.search car on retrouve la valeur de la recherche dans l'uri
                     .then(function (response){
                         // existe t-il de la data pour cette recherche ?
@@ -72,7 +74,6 @@ function AdminHome () {
                     })
 
                 }else{  // Affichage des données avec les filtres
-                    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                     axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
                     .then(function (response){
                         setData({
@@ -137,11 +138,7 @@ function AdminHome () {
             </AdminHomeTableOptions>
             
             
-            {querySearchValue !== null ?
-                <PaginationButtons isSearch={true} isAdmin={true} isOrder={false} queryName={"search"} data={data}></PaginationButtons>
-            :
-                <PaginationButtons isAdmin={true} isOrder={false} queryName={"search"} data={data}></PaginationButtons>
-            }
+        <PaginationButtons isSearch={querySearchValue !== null} isAdmin={true} isOrder={false} queryName={"search"} data={data}></PaginationButtons>
             
         </Container>
     </div>

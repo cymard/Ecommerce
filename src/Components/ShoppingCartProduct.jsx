@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, {useState, useCallback, useContext} from 'react';
-import { Button ,Row, Form, Modal, Col,Image} from 'react-bootstrap';
+import { Row, Modal, Col} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import axios from 'axios';
 import {UserContext} from './UserContext.jsx';
-import screen from '../images/screen.jpg';
+import ShoppingCartProductImage from './ShoppingCartProductImage.jsx';
+import ShoppingCartProductInformations from './ShoppingCartProductInformations.jsx';
 
 
 function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
@@ -84,23 +85,8 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 margin: 0;
             `}
         >
-            <Col
-                sm={12}
-                md={12}
-                lg={4}
-                className="d-flex justify-content-center p-0"
-
-            >
-                <Image 
-                    css={css`
-                        height: 318px;
-                        width: 318px;
-                    `}
-                    src={image || screen} 
-                    rounded 
-                />
-            </Col>
-
+            <ShoppingCartProductImage image={image} />
+            
             <Col  
                 css = {css`
                     height: 20px;
@@ -110,87 +96,14 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 lg={1}
             ></Col>
 
-            <Col
-                css={css`
-                    display: flex;
-                    flex-direction: column;
-                    border: solid #DFDFDF 1px;
-                    border-radius: 5px;
-                    min-height: 318px;
-                `}
-                sm={12}
-                md={12}
-                lg={7}
-            >
-                <Row 
-                    css={css`
-                       height: 40%;
-                    `}
-                >
-                    <Col className="text-center pt-2" lg={5} sm={12}>
-                        <h2>{title}</h2>
-                    </Col>    
-                    <Col lg={4} sm={0}></Col>
-                    <Col className="text-center pt-2" lg={3} sm={12} >
-                        <p 
-                            css={css`
-                                font-size: 20px;
-                            `}
-                        >
-                            Prix : {price} €
-                        </p>
-                    </Col> 
-                </Row>   
-                <Row 
-                    css={css`
-                        height: 40%;
-                    `}
-                >
-                    <Col lg={3} sm={0}></Col>
-                    <Col lg={7} md={12} sm={12}>
-                        <Form 
-                            css={css`
-                                width: 100%;
-                            `}
-                        >
-                            <Form.Group 
-                                css={css`
-                                    width: 100%;
-                                    display: flex;
-                                    justify-content: center;
-                                `}
-                            >
-                                <Form.Label 
-                                    css={css`
-                                        fontSize : 1.2em;
-                                    `}
-                                >
-                                    Quantité : 
-                                </Form.Label>
-                                <Form.Control id="quantityToBuy" value={quantityToBuy} onChange={quantityToBuyChange} className="ml-3 mr-3" type="text" 
-                                    css={css`
-                                        width: 60px;
-                                    `}
-                                />
-                                <Button onClick={updateQuantity}>Mettre à jour</Button>
-                            </Form.Group>
-                        </Form>    
-
-                    </Col>
-                    <Col lg={2} sm={0}></Col>
-                </Row> 
-                <Row className="h-auto d-flex justify-content-center">
-                    <Button
-                        variant="danger" 
-                        css={css`
-                            height : 40px;
-                        `}
-                        onClick={handleClickDelete}
-                    >
-                        Supprimer
-                    </Button>    
-                </Row>  
-            </Col>            
+            <ShoppingCartProductInformations
+                title={title} 
+                price={price} 
+                quantityToBuy={quantityToBuy} 
+                quantityToBuyChange={quantityToBuyChange} 
+                updateQuantity={updateQuantity} 
+                handleClickDelete={handleClickDelete}
+            ></ShoppingCartProductInformations>
         </Row>
     </div>
 }

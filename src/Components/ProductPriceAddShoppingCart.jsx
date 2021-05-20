@@ -26,6 +26,7 @@ function ProductPriceAddShoppingCart ({price, stock}){
     // cacher le bouton add lorsque qu'il n'y a plus d'exemplaire du produit
     const [disabledAdd, setDisabledAdd] = useState(false);
     const [clickCount, setClickCount] = useState(1);
+    
     const ClickCounter = () => {
         setClickCount(prevCount => prevCount + 1);
         console.log("le clickcount: "+clickCount);

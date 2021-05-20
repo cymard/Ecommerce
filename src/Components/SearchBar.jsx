@@ -3,15 +3,13 @@ import {Form, FormControl, Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {
-    useLocation,
     useHistory
 } from "react-router-dom";
 
-function SearchBar ({reFetch}) {
+function SearchBar () {
     
     let history = useHistory();
-    const useQuery = () => new URLSearchParams(useLocation().search);
-    let query = useQuery();
+
 
     const searchItem = <FontAwesomeIcon icon={faSearch}/>;
 

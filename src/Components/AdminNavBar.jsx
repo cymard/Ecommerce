@@ -3,12 +3,14 @@ import React, {useContext} from 'react';
 import {Navbar} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import {UserAdminContext} from './UserAdminContext.jsx';
-import LinkAdminNavBar from './LinkAdminNavBar.jsx';
+import AdminNavBarTop from './AdminNavBarTop.jsx';
+import AdminNavBarBottom from './AdminNavBarBottom.jsx';
 
 
 function AdminNavBar () {
     const userAdminInformation = useContext(UserAdminContext);
-    const handleClick = () => {
+
+    const disconnection = () => {
         userAdminInformation.setUserAdminInformation({
             email: null,
             token: null
@@ -36,30 +38,9 @@ function AdminNavBar () {
                 justify-content: space-between;        
             `} 
         >
-            <div 
-                css={css`
-                    display: flex;
-                    flex-flow: column nowrap;
-
-                `} 
-            >
-                <LinkAdminNavBar url="/admin/home">PRODUITS</LinkAdminNavBar>
-                <LinkAdminNavBar url="/admin/orders">COMMANDES</LinkAdminNavBar>
-                <LinkAdminNavBar url="/admin/comments/reported">COMMENTAIRES SIGNALÉS</LinkAdminNavBar>
-
-            </div>
-            <div
-                css={css`
-                    display: flex;
-                    flex-direction: column;
-                `} 
-            >
-                
-                <LinkAdminNavBar url="/">ACCÉDER AU SITE</LinkAdminNavBar>
-                <LinkAdminNavBar url="/" onClick={handleClick}>DÉCONNEXION</LinkAdminNavBar>
-            </div>
+            <AdminNavBarTop/>
+            <AdminNavBarBottom disconnection={disconnection}/>
         </div>
-        
     </Navbar>
     <div 
         css={css`
