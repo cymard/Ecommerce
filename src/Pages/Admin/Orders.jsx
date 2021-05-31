@@ -136,6 +136,7 @@ function Orders() {
                 searchValue={searchValue}
                 changeSearchValue={changeSearchValue}
             />
+            
             <OrdersTable
                 data={data}
                 handleClickSelectAll={handleClickSelectAll} 

@@ -3,6 +3,8 @@ import {Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchPlus} from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function OrdersListUser ({orders}) {
     const zoomItem = <FontAwesomeIcon icon={faSearchPlus}/>;
@@ -19,8 +21,10 @@ function OrdersListUser ({orders}) {
             <p>Aucune commande trouvée</p>
         }
     </>
+}
 
-    
+OrdersListUser.propTypes = {
+    orders : PropTypes.object.isRequired 
 }
 
 export default OrdersListUser

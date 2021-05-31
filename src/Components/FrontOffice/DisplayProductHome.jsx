@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
 import CenteredSpinner from '../All/CenteredSpinner.jsx';
+import PropTypes from 'prop-types';
 
 function DisplayProductHome ({data}) {
     return <>
@@ -10,6 +11,10 @@ function DisplayProductHome ({data}) {
             <CenteredSpinner/>
         }
     </>
+}
+
+DisplayProductHome.propTypes = {
+    data : PropTypes.array.isRequired
 }
 
 export default DisplayProductHome;

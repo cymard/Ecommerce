@@ -6,6 +6,7 @@ import { css} from '@emotion/react'
 import axios from 'axios'
 import {UserContext} from '../Context/UserContext.jsx';
 import {useHistory} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 let yup = require('yup');
 
@@ -321,5 +322,9 @@ function BuyForm ({amount, userInformation}) {
     <div>Chargement ...</div>
 }
 
+BuyForm.propTypes = {
+    amount : PropTypes.number.isRequired,
+    userInformation : PropTypes.object.isRequired
+}
 
 export default BuyForm

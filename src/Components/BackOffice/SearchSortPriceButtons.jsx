@@ -6,6 +6,8 @@ import {faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function SearchSortPriceButtons ({data, setData}) {
     const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
@@ -69,6 +71,11 @@ function SearchSortPriceButtons ({data, setData}) {
         </Link>
     </div>
 </div>
+}
+
+SearchSortPriceButtons.propTypes = {
+    data : PropTypes.object.isRequired,
+    setData : PropTypes.element.isRequired
 }
 
 export default SearchSortPriceButtons;

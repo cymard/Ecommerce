@@ -3,6 +3,8 @@ import React from 'react';
 import {Nav, Button, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { css} from '@emotion/react';
+import PropTypes from 'prop-types';
+
 
 function FrontNavBarFilter ({toutes, sports, informatique, maison, livres}) {
     
@@ -14,7 +16,6 @@ function FrontNavBarFilter ({toutes, sports, informatique, maison, livres}) {
             margin-top: 20px;
         `}
     >
-
         <Col xs={12} md={4} lg={"auto"}>
             <Nav.Item>
                 <Link to={toutes}><Button  css={css`font-size: 22px;`} variant="link">Toutes</Button></Link> 
@@ -47,6 +48,14 @@ function FrontNavBarFilter ({toutes, sports, informatique, maison, livres}) {
             </Nav.Item>
         </Col>
     </Nav>
+}
+
+FrontNavBarFilter.propTypes = {
+    toutes : PropTypes.string.isRequired,
+    sports : PropTypes.string.isRequired,
+    informatique : PropTypes.string.isRequired,
+    maison : PropTypes.string.isRequired,
+    livres : PropTypes.string.isRequired,
 }
 
 export default FrontNavBarFilter;

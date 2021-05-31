@@ -6,6 +6,8 @@ import {
     useLocation,
     Link
   } from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function ReturnPaginationButtons ({allLinks, totalPageNumber}) {
 
@@ -92,6 +94,11 @@ function ReturnPaginationButtons ({allLinks, totalPageNumber}) {
     return <div className="d-flex justify-content-center align-items-center">
         <Pagination>{create()}</Pagination>
     </div>
+}
+
+ReturnPaginationButtons.propTypes = {
+    allLinks : PropTypes.array.isRequired, 
+    totalPageNumber : PropTypes.number.isRequired
 }
 
 

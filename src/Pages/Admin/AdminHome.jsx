@@ -159,7 +159,8 @@ function AdminHome () {
                     setSelectAllChecked={setSelectAllChecked}
                     setSelectedProducts={setSelectedProducts} 
                     selectedProducts={selectedProducts}
-                    data={data} setData={setData} 
+                    data={data} 
+                    setData={setData} 
                 ></AdminHomeTable>
 
             </AdminHomeTableOptions>

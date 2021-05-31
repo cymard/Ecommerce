@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
-// import React, {useContext, useState, useCallback} from 'react';
 import React, {useContext, useState} from 'react';
 import {Card, Button} from 'react-bootstrap';
 import {UserContext} from '../Context/UserContext.jsx';
-// import RedirectLoginRegister from './RedirectLoginRegister.jsx';
 import {css} from '@emotion/react';
 import PropTypes from 'prop-types';
 import {Link,useParams} from "react-router-dom";
@@ -29,7 +27,6 @@ function ProductPriceAddShoppingCart ({price, stock}){
     
     const ClickCounter = () => {
         setClickCount(prevCount => prevCount + 1);
-        console.log("le clickcount: "+clickCount);
 
         // Ne pas commander plus de fois que d'exemplaire en stock
         if( clickCount >= stock ){
@@ -56,7 +53,6 @@ function ProductPriceAddShoppingCart ({price, stock}){
     <RedirectModal 
         show={show} 
         onHide={handleClose} 
-        title="Action impossible"
         firstButton={<Link to="/Login"><Button variant="success">Connectez-vous à votre compte</Button></Link>}
         secondButton={<Link to="/Register"><Button variant="warning">Inscrivez-vous maintenant</Button></Link>}
     >
@@ -114,7 +110,8 @@ function ProductPriceAddShoppingCart ({price, stock}){
 }
 
 ProductPriceAddShoppingCart.propTypes = {
-    price : PropTypes.number
+    price : PropTypes.number.isRequired,
+    stock : PropTypes.number.isRequired
 }
 
 export default ProductPriceAddShoppingCart;

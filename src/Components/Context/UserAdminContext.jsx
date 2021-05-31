@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const userAdminDefaultInformation = {
     email: localStorage.getItem('email_admin'),
@@ -35,6 +36,10 @@ function UserAdminContextProvider({ children }) {
     return <UserAdminContext.Provider value={{ ...userAdminInformation, setUserAdminInformation: setUserAdminInformationData }}> 
         {children}
     </UserAdminContext.Provider>
+}
+
+UserAdminContext.propTypes = {
+    children : PropTypes.element.isRequired
 }
 
 export { UserAdminContext, UserAdminContextProvider };

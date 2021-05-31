@@ -39,7 +39,10 @@ function ChangePassword () {
     )
 
 
-    return <ChangePasswordForm request={modifyPassword} changePassword={changePassword}></ChangePasswordForm>
+    return <ChangePasswordForm 
+        request={modifyPassword} 
+        changePassword={changePassword}
+    ></ChangePasswordForm>
 }
 
 export default ChangePassword;

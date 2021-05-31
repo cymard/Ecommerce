@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 function CategoryFilter ({changeUri}) {
 
@@ -34,6 +35,10 @@ function CategoryFilter ({changeUri}) {
             </div>
         </Form.Group>
     </Form>
+}
+
+CategoryFilter.propTypes = {
+    changeUri : PropTypes.func.isRequired
 }
 
 export default CategoryFilter;

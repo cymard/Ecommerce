@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchProductAdmin from './SearchProductAdmin.jsx';
 import {useHistory,useLocation,Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function AdminHomeTableOptions ({handleRemove, querySearchValue, children}) {
     let history = useHistory();
@@ -50,6 +52,12 @@ function AdminHomeTableOptions ({handleRemove, querySearchValue, children}) {
             Supprimer
         </Button>
     </div>
+}
+
+AdminHomeTableOptions.propTypes = {
+    handleRemove : PropTypes.func.isRequired,
+    querySearchValue : PropTypes.string.isRequired,
+    children : PropTypes.element.isRequired
 }
 
 export default AdminHomeTableOptions;

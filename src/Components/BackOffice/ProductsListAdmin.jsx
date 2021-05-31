@@ -3,6 +3,8 @@ import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt,faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
 
@@ -57,6 +59,12 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
             </tr>
         )}      
     </>
+}
+
+ProductsListAdmin.propTypes = {
+    data : PropTypes.object.isRequired,
+    setSelectedProducts : PropTypes.element.isRequired,
+    selectedProducts : PropTypes.array.isRequired
 }
 
 export default ProductsListAdmin;

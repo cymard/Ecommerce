@@ -1,6 +1,7 @@
 import React from "react";
 import {Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 function ConnectedAccountCardContent({ text, to, item}){
@@ -12,6 +13,13 @@ function ConnectedAccountCardContent({ text, to, item}){
             </Card.Body>
         </Card>
     </Link>
+}
+
+ConnectedAccountCardContent.propTypes = {
+    text : PropTypes.string,
+    to : PropTypes.string.isRequired,
+    item : PropTypes.element,
+
 }
 
 export default ConnectedAccountCardContent;

@@ -5,6 +5,7 @@ import {Table,Form} from 'react-bootstrap';
 import SortPriceButtons from './SortPriceButtons.jsx';
 import SearchSortPriceButtons from './SearchSortPriceButtons.jsx';
 import ProductsListAdmin from './ProductsListAdmin.jsx';
+import PropTypes from 'prop-types';
 
 
 function AdminHomeTable ({data, querySearchValue, setData, setSelectAllChecked, isSelectAllChecked, setSelectedProducts, selectedProducts}) {
@@ -80,6 +81,16 @@ function AdminHomeTable ({data, querySearchValue, setData, setSelectAllChecked, 
         }
     </tbody>
 </Table>
+}
+
+AdminHomeTable.propTypes = {
+    data : PropTypes.object.isRequired, 
+    querySearchValue : PropTypes.string.isRequired, 
+    setData : PropTypes.element.isRequired,
+    setSelectAllChecked : PropTypes.element.isRequired, 
+    isSelectAllChecked : PropTypes.bool.isRequired, 
+    setSelectedProducts : PropTypes.element.isRequired, 
+    selectedProducts : PropTypes.array.isRequired
 }
 
 export default AdminHomeTable;

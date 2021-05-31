@@ -1,6 +1,8 @@
 import React from 'react'
 import {Table, Form} from 'react-bootstrap'
 import OrdersListAdmin from './OrdersListAdmin.jsx';
+import PropTypes from 'prop-types';
+
 
 function OrdersTable ({data, handleClickSelectAll, checkedSelectAll, selectedOrders, setSelectedOrders}) {
     return <Table className="text-center" hover>
@@ -36,6 +38,14 @@ function OrdersTable ({data, handleClickSelectAll, checkedSelectAll, selectedOrd
 
     </tbody>
 </Table>
+}
+
+OrdersTable.propTypes = {
+    data : PropTypes.object.isRequired,
+    handleClickSelectAll : PropTypes.func.isRequired,
+    checkedSelectAll : PropTypes.bool.isRequired,
+    selectedOrders : PropTypes.array.isRequired,
+    setSelectedOrders : PropTypes.element.isRequired
 }
 
 export default OrdersTable;

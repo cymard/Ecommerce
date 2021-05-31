@@ -9,7 +9,7 @@ import {
 function SearchProductAdmin (){
     const itemSearch = <FontAwesomeIcon icon={faSearch}  /> 
 
-    const [searchValue, setSearchValue] = useState();
+    const [searchValue, setSearchValue] = useState("");
     let history = useHistory();
     const handleChangeSearch = useCallback(
         (e) => {

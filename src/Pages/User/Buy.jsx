@@ -56,7 +56,10 @@ function Buy(){
 
     return <Container>
         <TitleH1>Formulaire de Paiement</TitleH1>
-        <BuyForm amount={amount} userInformation={userInformation}></BuyForm>
+        <BuyForm 
+            amount={amount}
+            userInformation={userInformation}
+        ></BuyForm>
     </Container>
 
     

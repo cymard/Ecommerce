@@ -2,6 +2,8 @@
 import React from 'react';
 import { Button, Row, Col, Form} from 'react-bootstrap';
 import {css} from '@emotion/react';
+import PropTypes from 'prop-types';
+
 
 function ShoppingCartProductQuantity ({quantityToBuyChange, quantityToBuy, updateQuantity}) {
     return  <Row 
@@ -42,5 +44,12 @@ function ShoppingCartProductQuantity ({quantityToBuyChange, quantityToBuy, updat
     <Col lg={2} sm={0}></Col>
 </Row> 
 }
+
+ShoppingCartProductQuantity.propTypes = {
+    quantityToBuyChange : PropTypes.func,
+    quantityToBuy : PropTypes.number,
+    updateQuantity : PropTypes.func,
+}
+
 
 export default ShoppingCartProductQuantity;

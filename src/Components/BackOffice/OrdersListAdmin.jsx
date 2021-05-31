@@ -3,6 +3,8 @@ import {Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchPlus, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
     const zoomItem = <FontAwesomeIcon icon={faSearchPlus}/>;
@@ -58,6 +60,12 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
     </>
 
     
+}
+
+OrdersListAdmin.propTypes = {
+    orders : PropTypes.object.isRequired,
+    setSelectedOrders : PropTypes.element.isRequired,
+    selectedOrders : PropTypes.array.isRequired
 }
 
 export default OrdersListAdmin

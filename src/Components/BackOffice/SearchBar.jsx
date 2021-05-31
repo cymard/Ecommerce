@@ -1,6 +1,8 @@
 import React from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
+
 
 function SearchBar ({searchValue, handleClearSearch, handleSubmit, changeSearchValue}) {
     const searchItem = <FontAwesomeIcon icon={faSearch}/>;
@@ -17,6 +19,13 @@ function SearchBar ({searchValue, handleClearSearch, handleSubmit, changeSearchV
         <Button onClick={handleSubmit}>{searchItem}</Button>
     </Form.Group>
 </Form>
+}
+
+SearchBar.propTypes = {
+    searchValue : PropTypes.string.isRequired, 
+    handleClearSearch : PropTypes.func.isRequired, 
+    handleSubmit : PropTypes.func.isRequired, 
+    changeSearchValue : PropTypes.func.isRequired
 }
 
 export default SearchBar;

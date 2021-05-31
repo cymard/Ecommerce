@@ -111,7 +111,10 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
 ShoppingCartProduct.propTypes = {
     image : PropTypes.string,
     title : PropTypes.string,
-    price : PropTypes.number
+    price : PropTypes.number,
+    quantity : PropTypes.number,
+    id : PropTypes.number,
+
 }
 
 ShoppingCartProduct.defaultProps = {

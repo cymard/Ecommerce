@@ -87,8 +87,7 @@ function Product({name, content, price}){
     >
         <ProductInformations content={content} price={price} name={name} data={data} informationProduct={informationProduct}></ProductInformations>
 
-        {informationUser.email === null && informationUser.token === null 
-        ? 
+        {informationUser.email === null && informationUser.token === null ? 
             <></>
         : 
             <>
@@ -112,7 +111,6 @@ function Product({name, content, price}){
         <RedirectModal 
             show={show} 
             onHide={handleClose} 
-            title="Action impossible"
             firstButton={<Link to="/Login"><Button variant="success">Connectez-vous à votre compte</Button></Link>}
             secondButton={<Link to="/Register"><Button variant="warning">Inscrivez-vous maintenant</Button></Link>}
         >
@@ -131,13 +129,13 @@ function Product({name, content, price}){
 Product.defaultProps = {
     name : "Nom de l'objet",
     content : "Description de l'objet",
-    price : "prix"
+    price : 10
 }
 
 Product.propTypes = {
     name : PropTypes.string,
     content : PropTypes.string,
-    price : PropTypes.string
+    price : PropTypes.number
 }
 
 export default Product;

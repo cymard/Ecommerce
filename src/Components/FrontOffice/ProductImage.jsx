@@ -3,6 +3,8 @@ import React from 'react';
 import {Image} from 'react-bootstrap';
 import { css} from '@emotion/react';
 import screen from '../../images/screen.jpg';
+import PropTypes from 'prop-types';
+
 
 function ProductImage ({image}) {
     return  <div  className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center ">
@@ -13,6 +15,10 @@ function ProductImage ({image}) {
         `}
     />
 </div>
+}
+
+ProductImage.propTypes = {
+    image : PropTypes.string.isRequired
 }
 
 export default ProductImage;

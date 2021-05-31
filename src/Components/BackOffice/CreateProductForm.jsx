@@ -4,7 +4,7 @@ import {Form,Row,Col,Button,Card,Overlay} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
-
+import PropTypes from 'prop-types';
 
 function CreateProductForm ({submitForm}) {
     let yup = require('yup');
@@ -277,5 +277,9 @@ function CreateProductForm ({submitForm}) {
     </Form>
 )}
 </Formik>
+}
+
+CreateProductForm.propTypes = {
+    submitForm : PropTypes.func.isRequired
 }
 export default CreateProductForm;

@@ -5,6 +5,7 @@ import {css} from '@emotion/react';
 import ShoppingCartProductQuantity from './ShoppingCartProductQuantity.jsx';
 import ShoppingCartProductTitleAndPrice from './ShoppingCartProductTitleAndPrice.jsx';
 import ShoppingCartProductDelete from './ShoppingCartProductDelete.jsx';
+import PropTypes from 'prop-types';
 
 
 function ShoppingCartProductInformations ({title, price, quantityToBuy, quantityToBuyChange, updateQuantity, handleClickDelete}) {
@@ -33,5 +34,15 @@ function ShoppingCartProductInformations ({title, price, quantityToBuy, quantity
     <ShoppingCartProductDelete handleClickDelete={handleClickDelete}/>
 </Col>      
 }
+
+ShoppingCartProductInformations.propTypes = {
+    title : PropTypes.string.isRequired,
+    price : PropTypes.number.isRequired,
+    quantityToBuy : PropTypes.number.isRequired,
+    quantityToBuyChange : PropTypes.func.isRequired,
+    updateQuantity : PropTypes.func.isRequired,
+    handleClickDelete : PropTypes.func.isRequired,
+}
+
 
 export default ShoppingCartProductInformations;

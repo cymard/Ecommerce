@@ -26,7 +26,7 @@ function ShoppingCartTotal ({price}) {
 }
 
 ShoppingCartTotal.propTypes = {
-    price : PropTypes.number
+    price : PropTypes.number.isRequired
 }
 
 ShoppingCartTotal.defaultProps = {

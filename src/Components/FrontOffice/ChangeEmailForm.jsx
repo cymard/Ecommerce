@@ -4,6 +4,8 @@ import { Form, Button, Col, Card } from "react-bootstrap";
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
 import TitleH1 from '../All/TitleH1.jsx';
+import PropTypes from 'prop-types';
+
 let yup = require('yup');
 
 function ChangeEmailForm({request, changeEmail}){
@@ -93,6 +95,11 @@ function ChangeEmailForm({request, changeEmail}){
     
 )}
 </Formik>
+}
+
+ChangeEmailForm.propTypes = {
+    request : PropTypes.func.isRequired,
+    changeEmail : PropTypes.object.isRequired
 }
 
 export default ChangeEmailForm;

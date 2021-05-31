@@ -6,6 +6,8 @@ import {faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import PropTypes from 'prop-types';
+
 
 function SortDateButtons ({data, setData}){
     const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
@@ -44,6 +46,11 @@ function SortDateButtons ({data, setData}){
             </Link>
         </div>
     </div>
+}
+
+SortDateButtons.propTypes = {
+    data : PropTypes.object.isRequired,
+    setData : PropTypes.element.isRequired
 }
 
 export default SortDateButtons;

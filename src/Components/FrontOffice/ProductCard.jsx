@@ -36,8 +36,10 @@ function ProductCard ({link, urlImage,title,textButton}) {
 }
 
 ProductCard.propTypes = {
-    title : PropTypes.node,
-    textButton : PropTypes.node
+    link : PropTypes.string,
+    urlImage : PropTypes.string,
+    title : PropTypes.string,
+    textButton : PropTypes.element
 }
 
 ProductCard.defaultProps = {

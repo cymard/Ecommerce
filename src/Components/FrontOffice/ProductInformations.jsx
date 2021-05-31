@@ -6,6 +6,8 @@ import ProductPriceAddShoppingCart from './ProductPriceAddShoppingCart.jsx';
 import ProductStock from './ProductStock.jsx';
 import screen from '../../images/screen.jpg';
 import ProductAverageRating from '../All/ProductAverageRating.jsx';
+import PropTypes from 'prop-types';
+
 
 function ProductInformations({data, informationProduct, name, content, price}){
     return <>
@@ -34,6 +36,14 @@ function ProductInformations({data, informationProduct, name, content, price}){
             <></>
     }
 </>
+}
+
+ProductInformations.propTypes = {
+    data :  PropTypes.object.isRequired,
+    informationProduct :  PropTypes.object.isRequired,
+    name :  PropTypes.string.isRequired,
+    content :  PropTypes.string.isRequired,
+    price :  PropTypes.number.isRequired,
 }
 
 export default ProductInformations;

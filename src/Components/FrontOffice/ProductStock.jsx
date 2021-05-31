@@ -1,6 +1,8 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
 import CenteredSpinner from '../All/CenteredSpinner';
+import PropTypes from 'prop-types';
+
 
 function ProductStock ({stock}) {
     if(stock === 0){
@@ -14,7 +16,10 @@ function ProductStock ({stock}) {
     }else{
         return <Alert className="text-center" variant="success">En stock.</Alert>
     }
+}
 
+ProductStock.propTypes = {
+    stock : PropTypes.number.isRequired
 }
 
 export default ProductStock;

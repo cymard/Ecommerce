@@ -49,6 +49,8 @@ function ProductComment ({pseudo, content, note, date, title, buttons}) {
 
 ProductComment.propTypes = {
     pseudo : PropTypes.string,
+    title : PropTypes.string,
+    buttons : PropTypes.element,
     content : PropTypes.string,
     note : PropTypes.oneOf([0,1,2,3,4,5]),
     date : PropTypes.string

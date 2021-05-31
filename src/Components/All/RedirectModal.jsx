@@ -1,5 +1,7 @@
 import React from 'react';
 import {Modal} from 'react-bootstrap'
+import PropTypes from 'prop-types';
+
 
 function RedirectModal({show, onHide, children,firstButton, secondButton}){
     return <Modal centered={true} show={show} onHide={onHide}>
@@ -10,8 +12,13 @@ function RedirectModal({show, onHide, children,firstButton, secondButton}){
         {secondButton}
     </Modal.Footer>
 </Modal>
-
-
 }
 
+RedirectModal.propTypes = {
+    show : PropTypes.bool.isRequired,
+    onHide : PropTypes.func.isRequired,
+    children : PropTypes.string.isRequired,
+    firstButton : PropTypes.element,
+    secondButton : PropTypes.element
+}
 export default RedirectModal;

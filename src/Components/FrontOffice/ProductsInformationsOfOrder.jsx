@@ -3,6 +3,8 @@ import React from 'react';
 import {css} from '@emotion/react';
 import screen from '../../images/screen.jpg';
 import {Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
 
 function ProductsInformationsOfOrder ({product}){
     return <Card className="mr-2 ml-2" style={{ width: '18rem' }}>
@@ -16,13 +18,17 @@ function ProductsInformationsOfOrder ({product}){
         <Card.Body>
             <Card.Title className="text-center">{product.product.name}</Card.Title>
             <Card.Text>
-                prix : {product.product.price}€
+                Prix : {product.product.price}€
                 <br/>
-                quantité : {product.quantity}
+                Quantité : {product.quantity}
             </Card.Text>
                 
         </Card.Body>
     </Card>
+}
+
+ProductsInformationsOfOrder.propTypes = {
+    product : PropTypes.array.isRequired
 }
 
 export default ProductsInformationsOfOrder;

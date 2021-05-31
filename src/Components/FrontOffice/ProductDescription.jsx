@@ -3,6 +3,7 @@ import React,{useState} from 'react';
 import {Card,Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 
 function ProductDescription ({children, refRow}) {
@@ -42,6 +43,11 @@ function ProductDescription ({children, refRow}) {
             </Card.Body>
         </Card>
     </div>
+}
+
+ProductDescription.propTypes = {
+    children : PropTypes.string.isRequired,
+    refRow : PropTypes.element.isRequired
 }
 
 export default ProductDescription;

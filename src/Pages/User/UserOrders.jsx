@@ -43,6 +43,8 @@ function UserOrders (){
         [token,location]
     )
 
+
+
     useEffect(() => {
         if(location.pathname === "/api/orders" && location.search === "" ){ // redirection en cas de mauvaise url
             history.push('https://127.0.0.1:8000/api/orders?page=1&date=desc')
@@ -71,8 +73,6 @@ function UserOrders (){
 
         setAllLinks(links)
     }, [searchValue, data.totalPageNumber])
-
-
 
     return <Container
         css={css`

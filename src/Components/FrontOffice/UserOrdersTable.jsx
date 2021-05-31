@@ -2,6 +2,8 @@ import React from "react";
 import {Table,Row,Col } from "react-bootstrap";
 import OrdersListUser from './OrdersListUser.jsx'
 import SortDateButtons from './SortDateButtons.jsx';
+import PropTypes from 'prop-types';
+
 
 function UserOrdersTable ({data}) {
     return <Table className="text-center" responsive hover>
@@ -26,6 +28,10 @@ function UserOrdersTable ({data}) {
         }
     </tbody>
 </Table>
+}
+
+UserOrdersTable.propTypes = {
+    data : PropTypes.object.isRequired
 }
 
 export default UserOrdersTable;

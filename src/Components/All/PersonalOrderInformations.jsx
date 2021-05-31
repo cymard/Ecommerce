@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 function PersonalOrderInformations({informationOrder}){
     return <> 
@@ -35,6 +36,10 @@ function PersonalOrderInformations({informationOrder}){
     </div>  
     </>
     
+}
+
+PersonalOrderInformations.propTypes = {
+    informationOrder : PropTypes.string.isRequired
 }
 
 export default PersonalOrderInformations;

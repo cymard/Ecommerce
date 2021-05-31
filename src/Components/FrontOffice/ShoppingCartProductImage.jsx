@@ -3,13 +3,15 @@ import React from 'react';
 import {Col,Image} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import screen from '../../images/screen.jpg';
+import PropTypes from 'prop-types';
+
 
 function ShoppingCartProductImage({image}) {
     return <Col
         sm={12}
         md={12}
         lg={4}
-        className="d-flex justify-content-center p-0"
+        className="d-flex justify-content-center align-items-center p-0"
     >
     <Image 
         css={css`
@@ -20,6 +22,10 @@ function ShoppingCartProductImage({image}) {
         rounded 
     />
 </Col>
+}
+
+ShoppingCartProductImage.propTypes = {
+    image : PropTypes.string.isRequired
 }
 
 export default ShoppingCartProductImage;

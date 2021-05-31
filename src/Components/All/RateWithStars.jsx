@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {faStar as faStarRegular} from '@fortawesome/free-regular-svg-icons';
+import PropTypes from 'prop-types';
 
 function RateWithStars ({rate}) {
 
@@ -54,6 +55,9 @@ function RateWithStars ({rate}) {
     return solidStatus.status === true && regularStatus.status === true ?  displayRateWithStars(solidStatus.stars, regularStatus.stars) : "chargement"
 }
 
+RateWithStars.propTypes = {
+    rate : PropTypes.number.isRequired
+}
 
 export default RateWithStars;
 

@@ -46,7 +46,10 @@ function ChangeEmail () {
 
 
 
-    return <ChangeEmailForm request={modifyEmail} changeEmail={changeEmail}></ChangeEmailForm>
+    return <ChangeEmailForm 
+        request={modifyEmail} 
+        changeEmail={changeEmail}
+    ></ChangeEmailForm>
 }
 
 

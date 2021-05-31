@@ -1,6 +1,8 @@
 import React from 'react';
 import RateWithStars from './RateWithStars.jsx';
 import {Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
 
 function ProductAverageRating({data}){
     return <Card className="mt-4">
@@ -11,6 +13,10 @@ function ProductAverageRating({data}){
         </div> 
     </Card.Body> 
 </Card> 
+}
+
+ProductAverageRating.propTypes = {
+    ProductAverageRating : PropTypes.string.isRequired
 }
 
 export default ProductAverageRating;

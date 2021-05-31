@@ -4,6 +4,7 @@ import {Form,Row,Col,Card,Button,Overlay} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
+import PropTypes from 'prop-types';
 
 function EditProductForm ({dataProduct,submitForm}) {
     let yup = require('yup');
@@ -272,4 +273,10 @@ function EditProductForm ({dataProduct,submitForm}) {
 )}
 </Formik>
 }
+
+EditProductForm.propTypes = {
+    dataProduct : PropTypes.object.isRequired,
+    submitForm : PropTypes.func.isRequired
+}
+
 export default EditProductForm;

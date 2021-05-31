@@ -7,6 +7,8 @@ import { css} from '@emotion/react';
 import { Formik } from 'formik';
 import axios from 'axios'
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
+
 
 function ProductFormComment ({reFetch}) {
 
@@ -137,6 +139,10 @@ function ProductFormComment ({reFetch}) {
 )}
 </Formik>     
 
+}
+
+ProductFormComment.propTypes = {
+    reFetch : PropTypes.func.isRequired
 }
 
 export default ProductFormComment;

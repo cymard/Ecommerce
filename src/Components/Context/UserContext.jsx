@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const userDefaultInformation = {
     email: localStorage.getItem('email'),
@@ -34,6 +35,10 @@ function UserContextProvider({ children }) {
     return <UserContext.Provider value={{ ...userInformation, setUserInformation: setUserInformationData }}> 
         {children}
     </UserContext.Provider>
+}
+
+UserContext.propTypes = {
+    children : PropTypes.element.isRequired
 }
 
 export { UserContext, UserContextProvider };

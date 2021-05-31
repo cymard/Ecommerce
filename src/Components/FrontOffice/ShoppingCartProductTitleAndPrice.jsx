@@ -2,6 +2,8 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import {css} from '@emotion/react';
+import PropTypes from 'prop-types';
+
 
 function ShoppingCartProductTitleAndPrice ({title, price}) {
     return <Row 
@@ -23,6 +25,11 @@ function ShoppingCartProductTitleAndPrice ({title, price}) {
         </p>
     </Col> 
 </Row>   
+}
+
+ShoppingCartProductTitleAndPrice.propTypes = {
+    title : PropTypes.string.isRequired,
+    price : PropTypes.number.isRequired
 }
 
 export default ShoppingCartProductTitleAndPrice;

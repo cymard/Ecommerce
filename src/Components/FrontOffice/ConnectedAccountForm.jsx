@@ -5,6 +5,8 @@ import { Formik } from 'formik';
 import { css} from '@emotion/react'
 import { UserContext } from '../Context/UserContext';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 
 let yup = require('yup');
 
@@ -227,7 +229,10 @@ function ConnectedAccountForm ({userInformation}) {
     </Formik>
     :
     <div>Chargement ...</div>
-    }
+}
 
+ConnectedAccountForm.propTypes = {
+    userInformation : PropTypes.object.isRequired
+}
 
 export default ConnectedAccountForm;

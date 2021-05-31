@@ -4,8 +4,9 @@ import { Form, Button, Col, Card } from "react-bootstrap";
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
 import TitleH1 from '../All/TitleH1.jsx';
-let yup = require('yup');
+import PropTypes from 'prop-types';
 
+let yup = require('yup');
 
 function ChangePasswordForm ({request, changePassword}) {
 
@@ -113,6 +114,11 @@ function ChangePasswordForm ({request, changePassword}) {
     
 )}
 </Formik>
+}
+
+ChangePasswordForm.propTypes = {
+    request : PropTypes.func.isRequired,
+    changePassword : PropTypes.object.isRequired
 }
 
 export default ChangePasswordForm;

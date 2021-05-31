@@ -2,10 +2,11 @@
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import {css} from '@emotion/react';
-import {faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function SortPriceButtons ({data, setData}) {
     const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
@@ -68,6 +69,11 @@ function SortPriceButtons ({data, setData}) {
         </Link>
     </div>
 </div>
+}
+
+SortPriceButtons.propTypes = {
+    data : PropTypes.object.isRequired,
+    setData : PropTypes.element.isRequired
 }
 
 export default SortPriceButtons;
