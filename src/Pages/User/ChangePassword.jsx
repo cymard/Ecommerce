@@ -18,7 +18,7 @@ function ChangePassword () {
     const modifyPassword = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.put('https://relaxed-sammet-0deed4.netlify.app/api/modify/password',dataPassword )
+            axios.put('https://127.0.0.1:8000/api/modify/password',dataPassword )
             .then(function(response) {
                 setChangePassword({
                     message: response.data.message

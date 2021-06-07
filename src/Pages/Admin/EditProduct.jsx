@@ -21,7 +21,7 @@ function EditProduct () {
 
     const getProductInformation = useCallback(
         () => {
-            axios.get(`https://relaxed-sammet-0deed4.netlify.app/product/${id}`)
+            axios.get(`https://127.0.0.1:8000/product/${id}`)
                 .then(function (response) {
                     setDataProduct({
                         name: response.data.product.name,
@@ -48,7 +48,7 @@ function EditProduct () {
 
         try {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put(`https://relaxed-sammet-0deed4.netlify.app/admin/product/${id}/edit`,data)
+            axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
                 .then(function(response){
                     history.push("/admin/home?category=all&page=1&sorting=default");
                 })

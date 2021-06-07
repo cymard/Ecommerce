@@ -31,7 +31,7 @@ function Footer(){
             </Col>
 
             <Col xs={12} lg={"auto"} className="pr-4 d-flex justify-content-center align-items-center">
-                <Nav.Link className="pr-4 pt-1 pb-1" href="https://relaxed-sammet-0deed4.netlify.app/contact"
+                <Nav.Link className="pr-4 pt-1 pb-1" href="https://127.0.0.1:8000/contact"
                     css={css`
                         color: white;
                         &:hover{

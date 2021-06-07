@@ -22,7 +22,7 @@ function ShoppingCart(){
 
     const displayArticles = useCallback(() => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.get('https://relaxed-sammet-0deed4.netlify.app/api/cart/products')
+        axios.get('https://127.0.0.1:8000/api/cart/products')
             .then(function (response) {
                 setData({
                     status: true,

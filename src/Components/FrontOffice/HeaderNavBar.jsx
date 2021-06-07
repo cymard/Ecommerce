@@ -51,7 +51,7 @@ function HeaderNavBar () {
                 }
                 <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
                 
-                <Nav.Link className="p-0" href="https://relaxed-sammet-0deed4.netlify.app/contact">
+                <Nav.Link className="p-0" href="https://127.0.0.1:8000/contact">
                     <div className="d-flex justify-content-center align-items-center p-1" 
                         css={css`
                             white-space: nowrap;

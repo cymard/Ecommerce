@@ -23,7 +23,7 @@ function AdminOrderDetails () {
 
     const getProducts = useCallback(
         () => {
-            axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/order/${orderId}/cart`)
+            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}/cart`)
             .then(function(response){
                 setData({
                     status: true,
@@ -39,7 +39,7 @@ function AdminOrderDetails () {
 
     const getInformationOrder = useCallback(
         () => {
-            axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/order/${orderId}`)
+            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
                     status: true,

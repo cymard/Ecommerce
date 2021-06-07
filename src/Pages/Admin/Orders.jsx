@@ -51,7 +51,7 @@ function Orders() {
         }else{
 
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/orders?page=${queryPageValue}&search=${querySearchValue}`)
+            axios.get(`https://127.0.0.1:8000/admin/orders?page=${queryPageValue}&search=${querySearchValue}`)
             .then(function(response){
                 setData({
                     status: true,
@@ -140,7 +140,7 @@ function Orders() {
 
     const handleDelete = useCallback(
         () => {
-            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/order`,{
+            axios.delete(`https://127.0.0.1:8000/admin/order`,{
                 data:{
                     selectedOrders
                 }
