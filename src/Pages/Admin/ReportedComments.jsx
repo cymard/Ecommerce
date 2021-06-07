@@ -18,7 +18,7 @@ function ReportedComments (){
 
     const getReportedComments = useCallback(() => {
         
-        axios.get(`https://127.0.0.1:8000/admin/comments/reported`)
+        axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/comments/reported`)
         .then(function (response) {
             setData({
                 status: true,
@@ -37,7 +37,7 @@ function ReportedComments (){
 
     const handleDelete = useCallback(
         (e) => {
-            axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
             })
@@ -49,7 +49,7 @@ function ReportedComments (){
 
     const handleIgnore =  useCallback(
         (e) => {
-            axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.put(`https://relaxed-sammet-0deed4.netlify.app/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
             })

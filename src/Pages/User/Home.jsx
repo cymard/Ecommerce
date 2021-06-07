@@ -26,7 +26,7 @@ function Home(){
 
     const displayProducts = useCallback(
         (uriParam) => {
-            axios.get(`https://127.0.0.1:8000/products?${uriParam}&page=${queryPageValue}`)
+            axios.get(`https://relaxed-sammet-0deed4.netlify.app/products?${uriParam}&page=${queryPageValue}`)
             .then(function (response){
                 if(response.data.allProductsNumber === 0) {
                     setData({

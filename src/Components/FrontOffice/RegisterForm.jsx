@@ -21,7 +21,7 @@ function RegisterForm () {
     const [messageError, setMessageError] = useState("");
 
     const handleOnSubmit = async (values) => {
-        await axios.post('https://127.0.0.1:8000/register', {
+        await axios.post('https://relaxed-sammet-0deed4.netlify.app/register', {
             "email": values.email,
             "password": values.password
         })

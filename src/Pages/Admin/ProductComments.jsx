@@ -24,7 +24,7 @@ function ProductComments () {
 
     const getProductComments = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/product/${id}/comments`)
+            axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/product/${id}/comments`)
             .then(function (response){
                 setData({
                     status: true, 
@@ -47,7 +47,7 @@ function ProductComments () {
     const handleRemove = useCallback(
         (e) => {
             // supprimer le commentaire
-            axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/comment/${e.target.id}`)
             .then(function (response){
                 getProductComments()
             })

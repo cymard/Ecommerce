@@ -26,7 +26,7 @@ function LoginForm () {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
+            const response = await axios.post('https://relaxed-sammet-0deed4.netlify.app/api/login_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });

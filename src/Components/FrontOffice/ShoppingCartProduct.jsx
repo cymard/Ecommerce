@@ -23,7 +23,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
     const updateQuantity = useCallback(
         (e) => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put(`https://127.0.0.1:8000/api/cart/product/${id}/quantity`,{
+            axios.put(`https://relaxed-sammet-0deed4.netlify.app/api/cart/product/${id}/quantity`,{
                 "quantity" : quantityToBuy
             })
             .then(function (response){
@@ -63,7 +63,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
 
     const handleClickDelete = useCallback(
         (e) => {
-            axios.delete(`https://127.0.0.1:8000/api/cart/product/${id}/delete`,{
+            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/api/cart/product/${id}/delete`,{
                 headers:{'Authorization': `Bearer ${token}`}
             })
             .then(function (response){

@@ -18,7 +18,7 @@ function ChangeEmail () {
     const modifyEmail = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.put('https://127.0.0.1:8000/api/modify/email', dataPassword)
+            axios.put('https://relaxed-sammet-0deed4.netlify.app/api/modify/email', dataPassword)
             .then(function(response) {
                 setChangeEmail({
                     message: response.data.message

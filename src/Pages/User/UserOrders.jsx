@@ -29,7 +29,7 @@ function UserOrders (){
     const getUserOrders = useCallback(
         () => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.get(`https://127.0.0.1:8000/api/orders?page=${queryPageValue}&date=${queryDateValue}`)
+            axios.get(`https://relaxed-sammet-0deed4.netlify.app/api/orders?page=${queryPageValue}&date=${queryDateValue}`)
             .then(function(response){
                 setData({
                     status: true,
@@ -49,7 +49,7 @@ function UserOrders (){
 
     useEffect(() => {
         if(location.pathname === "/api/orders" && location.search === "" ){ // redirection en cas de mauvaise url
-            history.push('https://127.0.0.1:8000/api/orders?page=1&date=desc')
+            history.push('https://relaxed-sammet-0deed4.netlify.app/api/orders?page=1&date=desc')
         }else{
             getUserOrders();
         }

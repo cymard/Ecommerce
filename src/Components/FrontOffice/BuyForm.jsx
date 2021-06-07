@@ -57,7 +57,7 @@ function BuyForm ({amount, userInformation}) {
 
             onSubmit={values => {
                 if(values.bankData === true){
-                    axios.post('https://127.0.0.1:8000/api/order', {
+                    axios.post('https://relaxed-sammet-0deed4.netlify.app/api/order', {
                         "firstName" :values.firstName,
                         "lastName" :values.lastName,
                         "city" :values.city,
@@ -71,7 +71,7 @@ function BuyForm ({amount, userInformation}) {
                         "amount" : amount
                     })
                     .then(function (response) {
-                        axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
+                        axios.put('https://relaxed-sammet-0deed4.netlify.app/api/user/paymentInformations', {
                             "firstName" :values.firstName,
                             "lastName" :values.lastName,
                             "city" :values.city,
@@ -97,7 +97,7 @@ function BuyForm ({amount, userInformation}) {
 
                 
                 }else{
-                    axios.post('https://127.0.0.1:8000/api/order', {
+                    axios.post('https://relaxed-sammet-0deed4.netlify.app/api/order', {
                         "firstName" :values.firstName,
                         "lastName" :values.lastName,
                         "city" :values.city,
