@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import {App} from './Components/App/App.jsx'
+import {App} from './Components/App.jsx'
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
 
