@@ -19,7 +19,10 @@ function ProductStock ({stock}) {
 }
 
 ProductStock.propTypes = {
-    stock : PropTypes.number.isRequired
+    stock : PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ])  
 }
 
 export default ProductStock;

@@ -27,9 +27,9 @@ function EditProductForm ({dataProduct,submitForm}) {
                 setDescriptionValue(content);
             })
             .catch(function (err) {
+                // ValidationError
                 setValidated(false)
                 setShow(true)
-                console.log(err.name); // => 'ValidationError'
             });
             setDescriptionValue(content);
     }

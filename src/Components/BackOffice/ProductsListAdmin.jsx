@@ -62,8 +62,8 @@ function ProductsListAdmin ({data,setSelectedProducts,selectedProducts}) {
 }
 
 ProductsListAdmin.propTypes = {
-    data : PropTypes.object.isRequired,
-    setSelectedProducts : PropTypes.element.isRequired,
+    data : PropTypes.array.isRequired,
+    setSelectedProducts : PropTypes.func.isRequired,
     selectedProducts : PropTypes.array.isRequired
 }
 

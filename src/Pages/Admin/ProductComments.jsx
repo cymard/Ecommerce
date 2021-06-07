@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useEffect, useState, useContext, useCallback} from 'react'
-import TitleH1 from '../../Components/All/TitleH1.jsx'
+import Title from '../../Components/All/Title.jsx'
 import AdminNavBar from '../../Components/BackOffice/AdminNavBar.jsx'
 import {Container, Button} from 'react-bootstrap';
 import axios from 'axios'
@@ -8,39 +8,40 @@ import {css} from '@emotion/react';
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
 import ProductComment from '../../Components/FrontOffice/ProductComment.jsx';
 import {
-    useLocation,
-    useHistory
+    useHistory,
+    useParams
 } from "react-router-dom";
 
 
 function ProductComments () {
 
     const [data, setData] = useState({status: false})
-
-    const userAdminInformation = useContext(UserAdminContext);
-    const token = userAdminInformation.token
+    let { id } = useParams();
+    const {token} = useContext(UserAdminContext);
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     let history = useHistory();
-    const location = useLocation();
 
-    const displayComments = useCallback(
+    const getProductComments = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000${location.pathname}`)
+            axios.get(`https://127.0.0.1:8000/admin/product/${id}/comments`)
             .then(function (response){
-                setData({status: true, comments : response.data})
+                setData({
+                    status: true, 
+                    comments : response.data
+                })
             })
             .catch(function (error) {
-                console.log(error); 
+                console.warn(error); 
                 history.push("/admin/home")
             })
         },
-        [location,history]
+        [history, id]
     )
 
     useEffect(() => {
-        displayComments()
-    }, [displayComments])
+        getProductComments()
+    }, [getProductComments])
 
 
     const handleRemove = useCallback(
@@ -48,15 +49,15 @@ function ProductComments () {
             // supprimer le commentaire
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response){
-                displayComments()
+                getProductComments()
             })
             .catch(function (error) {
-                console.log(error); 
+                console.warn(error); 
     
             });
         
         },
-        [displayComments]
+        [getProductComments]
     )
     
 
@@ -68,7 +69,7 @@ function ProductComments () {
     >
         <AdminNavBar/>
         <Container fluid>
-            <TitleH1>Commentaires</TitleH1>
+            <Title>Commentaires</Title>
             {data.status === false ? <div>Chargement ...</div> : data.comments.map( comment => 
                 <ProductComment
                     key={comment.id}

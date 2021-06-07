@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useState, useCallback, useContext} from 'react';
-import { Row, Modal, Col} from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
 import axios from 'axios';
@@ -9,18 +9,12 @@ import ShoppingCartProductImage from './ShoppingCartProductImage.jsx';
 import ShoppingCartProductInformations from './ShoppingCartProductInformations.jsx';
 
 
-function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
+function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, closeAlert, setAlertState}) {
     
     const [quantityToBuy, setQuantityToBuy] = useState(quantity)
 
     const quantityToBuyChange = (e) => {
         setQuantityToBuy(e.target.value)
-    }
-
-    const [showModal, setShowModal] = useState(false);
-
-    const handleCloseModal = () => {
-        setShowModal(false);
     }
 
     const informationUser = useContext(UserContext);
@@ -34,18 +28,37 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
             })
             .then(function (response){
                 if(response.data.message){
+                    setAlertState({
+                        isOpen: true,
+                        text: "Panier mis à jour.",
+                        variant: "success"
+                    })
+                    closeAlert()
+                   
                 }else{
-                    setShowModal(true);
+                    setAlertState({
+                        isOpen: true,
+                        text: "Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.",
+                        variant: "danger"
+                    })
+                    closeAlert()
                     setQuantityToBuy(response.data.number);
                 }
                 reFetch();
+
                 
             })
             .catch(function (error) {
-                console.log(error); 
+                console.warn(error); 
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la mise à jour du panier.",
+                    variant: "danger"
+                })
+                closeAlert()
             })
         },
-        [token,quantityToBuy,id,reFetch]
+        [token,quantityToBuy,id,reFetch,closeAlert,setAlertState]
     )
 
     const handleClickDelete = useCallback(
@@ -54,13 +67,25 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
                 headers:{'Authorization': `Bearer ${token}`}
             })
             .then(function (response){
+                setAlertState({
+                    isOpen: true,
+                    text: "Panier mis à jour.",
+                    variant: "success"
+                })
+                closeAlert()
                 reFetch()
             })
             .catch(function (error) {
-                console.log(error); 
+                console.warn(error); 
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la mise à jour du panier.",
+                    variant: "danger"
+                })
+                closeAlert()
             })
         },
-        [token,id,reFetch],
+        [token,id,reFetch,closeAlert,setAlertState],
     )
 
 
@@ -70,14 +95,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id}) {
 
         `}
     >
-        <Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>Erreur</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.</Modal.Body>
-        </Modal>
-
-
         <Row
             css={css`
                 height: 100%;
@@ -114,6 +131,8 @@ ShoppingCartProduct.propTypes = {
     price : PropTypes.number,
     quantity : PropTypes.number,
     id : PropTypes.number,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 
 }
 

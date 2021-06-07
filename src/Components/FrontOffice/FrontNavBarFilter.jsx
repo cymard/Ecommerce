@@ -1,12 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Nav, Button, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { css} from '@emotion/react';
 import PropTypes from 'prop-types';
 
 
-function FrontNavBarFilter ({toutes, sports, informatique, maison, livres}) {
+function FrontNavBarFilter ({allCategories}) {
+
+    const [categoryLinks, setCategoryLinks] = useState([]);
+
+    useEffect(() => {
+        const categoryArray = [];
+
+        allCategories.forEach(
+            element => categoryArray.push(
+                <Col key={element.category} xs={12} md={4} lg={"auto"}>
+                    <Nav.Item>
+                        {/* <Link to={"/products?category="+element.uri+"&page=1"}> */}
+                        <Link to={element.uri}> 
+                            <Button  css={css`font-size: 22px;`} variant="link">{element.category.toUpperCase()}</Button>
+                        </Link> 
+                    </Nav.Item>
+                </Col>
+            )
+        );
+
+        setCategoryLinks(categoryArray);
+    
+    }, [allCategories])
     
     return <Nav 
         fill 
@@ -16,46 +38,12 @@ function FrontNavBarFilter ({toutes, sports, informatique, maison, livres}) {
             margin-top: 20px;
         `}
     >
-        <Col xs={12} md={4} lg={"auto"}>
-            <Nav.Item>
-                <Link to={toutes}><Button  css={css`font-size: 22px;`} variant="link">Toutes</Button></Link> 
-            </Nav.Item>
-        </Col>
-
-        <Col xs={12} md={4} lg={"auto"}>
-            <Nav.Item>
-                <Link to={sports}><Button css={css`font-size: 22px;`} variant="link">Sports/Vêtements</Button></Link> 
-            </Nav.Item>
-        </Col>
-
-        <Col xs={12} md={4} lg={"auto"}>
-            <Nav.Item>
-                <Link to={informatique}><Button css={css`font-size: 22px;`} variant="link">Informatique/High-tech</Button></Link> 
-            </Nav.Item>
-        </Col>
-
-        <Col xs={12} md={4} lg={"auto"}>
-            <Nav.Item>
-                <Link to={maison}><Button css={css`font-size: 22px;`} variant="link">Maison</Button></Link> 
-          </Nav.Item>
-        </Col>
-
-        <Col xs={0} md={4} lg={"auto"}></Col>
-
-        <Col xs={12} md={4} lg={"auto"}>
-            <Nav.Item>
-                <Link to={livres}><Button css={css`font-size: 22px;`} variant="link" >Livres</Button></Link> 
-            </Nav.Item>
-        </Col>
+        {categoryLinks}
     </Nav>
 }
 
 FrontNavBarFilter.propTypes = {
-    toutes : PropTypes.string.isRequired,
-    sports : PropTypes.string.isRequired,
-    informatique : PropTypes.string.isRequired,
-    maison : PropTypes.string.isRequired,
-    livres : PropTypes.string.isRequired,
+    allCategories : PropTypes.array.isRequired
 }
 
 export default FrontNavBarFilter;

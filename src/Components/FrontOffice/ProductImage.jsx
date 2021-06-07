@@ -18,7 +18,7 @@ function ProductImage ({image}) {
 }
 
 ProductImage.propTypes = {
-    image : PropTypes.string.isRequired
+    image : PropTypes.string
 }
 
 export default ProductImage;

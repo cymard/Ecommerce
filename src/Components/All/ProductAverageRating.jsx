@@ -16,7 +16,7 @@ function ProductAverageRating({data}){
 }
 
 ProductAverageRating.propTypes = {
-    ProductAverageRating : PropTypes.string.isRequired
+    ProductAverageRating : PropTypes.string
 }
 
 export default ProductAverageRating;

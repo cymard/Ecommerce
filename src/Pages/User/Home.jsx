@@ -9,116 +9,105 @@ import Space from '../../Components/All/Space.jsx';
 import {
     useLocation,
     useHistory,
-    Link
   } from "react-router-dom";
-import ReturnPaginationButtons from "../../Components/All/ReturnPaginationButtons.jsx"; 
+import PaginationButtons from "../../Components/All/PaginationButtons.jsx"; 
 
 function Home(){
 
-    const [data, setData] = useState({status : false, data: "", filter: ""});
+    const [data, setData] = useState({status : false, data: ""});
     const location = useLocation();
     const history = useHistory();
 
     // récuperation et séparation des valeurs de l'uri
     const query = new URLSearchParams(location.search);
-    const searchValue = query.get('search');
-    const categoryValue = query.get('category');
-    const pageValue = query.get('page');
+    const querySearchValue = query.get('search');
+    const queryCategoryValue = query.get('category');
+    const queryPageValue = query.get('page');
 
-    // encoder la recherche
-    let encodedUri = "?search=" + encodeURIComponent(searchValue) + "&page=" + pageValue;
-
-    const displayProductsWithCategory = useCallback(
-        () => {
-            axios.get(`https://127.0.0.1:8000${location.pathname}${location.search}`)
+    const displayProducts = useCallback(
+        (uriParam) => {
+            axios.get(`https://127.0.0.1:8000/products?${uriParam}&page=${queryPageValue}`)
             .then(function (response){
-
-                setData({
-                    status: true, 
-                    data: response.data.pageContent, 
-                    filter: response.data.category, 
-                    totalPageNumber: response.data.totalPageNumber,  
-                    allProductsNumber: response.data.allProductsNumber
-                })
-            })
-            .catch(function (error) {
-
-                console.log(error);
-                history.push("/products?category=all&page=1");
-            })
-        }
-        ,[location,history]
-    )
-
-
-    const displayProductsWithSearch = useCallback(
-        () => {
-            axios.get(`https://127.0.0.1:8000${location.pathname}${encodedUri}`)
-            .then(function(res){
-                if(res.status && res.data.data.length > 0){
+                if(response.data.allProductsNumber === 0) {
                     setData({
-                        status: true, 
-                        data: res.data.data, 
-                        filter: res.data.search, 
-                        totalPageNumber: res.data.totalPageNumber,  
-                        allProductsNumber: res.data.allProductsNumber
+                        status : "nothing"
                     })
                 }else{
                     setData({
-                        status: "nothing"
+                        status: true, 
+                        data: response.data.content, 
+                        totalPageNumber: response.data.totalPageNumber,  
+                        allProductsNumber: response.data.allProductsNumber
                     })
                 }
+                
             })
-            .catch(function(err){
-                console.log(err);
+            .catch(function (error) {
+                console.warn(error);
+                history.push("/products?category=all&page=1");
             })
-        },[location,encodedUri]
+        },
+        [queryPageValue, history],
     )
 
-
     useEffect(()=>{
+        // if(queryCategoryValue === null && querySearchValue !== null &&  querySearchValue !== ''){
+        //     // Recherche des produits via le champs recherche 
+        //     displayProducts(`search=${querySearchValue}`);
+        // }else{
+        //     displayProducts(`category=${queryCategoryValue}`);
+        // }
+        
         // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category" 
-        if(location.pathname === "/"){
-            history.push("/products?category=all&page=1");
-        
-        }else if(searchValue === null && categoryValue !== null){
+        if(querySearchValue === null && queryCategoryValue !== null){
             // Recherche de produit via les catégories
-            displayProductsWithCategory();
+            displayProducts(`category=${queryCategoryValue}`);
 
-        }else if(categoryValue === null && searchValue !== null &&  searchValue !== ''){
+        }else if(queryCategoryValue === null && querySearchValue !== null &&  querySearchValue !== ''){
             // Recherche des produits via le champs recherche 
-            displayProductsWithSearch();
-        
+            displayProducts(`search=${querySearchValue}`);
+
         }else{
             history.push("/products?category=all&page=1");
         }
         
-    },[location, pageValue, searchValue, categoryValue,history,displayProductsWithCategory,displayProductsWithSearch])
+    },[location, queryPageValue, querySearchValue, queryCategoryValue, history, displayProducts])
 
 
-
-    const [allLinks, setAllLinks] = useState([])
+ 
+    const [allPageUris, setAllPageUris] = useState([])
     const [firstQueryParam, setFirstQueryParam] = useState();
 
     useEffect(() => {
-        if(categoryValue === null){
-            setFirstQueryParam(`search=${searchValue}`);
+        if(queryCategoryValue === null){
+            setFirstQueryParam(`search=${querySearchValue}`);
         }else{
-            setFirstQueryParam(`category=${categoryValue}`);
+            setFirstQueryParam(`category=${queryCategoryValue}`);
         }
-    }, [categoryValue,searchValue])
+    }, [queryCategoryValue,querySearchValue])
         
 
     useEffect(() => {
-        const links = []
+        const uris = []
 
         for(let i = 1;i<=data.totalPageNumber; i++){
-            links.push(<Link key={i} to={`/products?${firstQueryParam}&page=${i}`}></Link>)
+            uris.push({
+                uri: `/products?${firstQueryParam}&page=${i}`,
+                key: i
+            })
         }
 
-        setAllLinks(links)
-    }, [categoryValue, data.totalPageNumber, firstQueryParam])
+        setAllPageUris(uris)
+    }, [queryCategoryValue, data.totalPageNumber, firstQueryParam])
 
+
+    const categories = [
+        {category: "toutes", uri:`/products?category=all&page=1`},
+        {category: "maison", uri:`/products?category=maison&page=1`},
+        {category: "livres", uri:`/products?category=livres&page=1`},
+        {category: "informatique", uri:`/products?category=informatique&page=1`},
+        {category: "sports", uri:`/products?category=sports&page=1`}
+    ]
 
     return<> 
     <Container 
@@ -127,13 +116,7 @@ function Home(){
         `}
         className="d-flex justify-content-around flex-wrap"
     >
-        <FrontNavBarFilter
-            toutes={`/products?category=all&page=1`}
-            maison={`/products?category=maison&page=1`}
-            livres={`/products?category=livres&page=1`}
-            informatique={`/products?category=informatique&page=1`}
-            sports={`/products?category=sports&page=1`}
-        ></FrontNavBarFilter>
+        <FrontNavBarFilter allCategories={categories}></FrontNavBarFilter>
         <Space></Space>
 
         { data.status === "nothing" ?
@@ -146,17 +129,16 @@ function Home(){
                 <h3 className="text-center">Aucun produit trouvé pour votre recherche...</h3> 
             </div>
         :
-            <DisplayProductHome data={data}></DisplayProductHome>
+            <DisplayProductHome isLoading={data.status} products={data.data}></DisplayProductHome>
         }
     </Container>
 
-    { data.status === "nothing"  ?
-        <></>
-    :
-        <ReturnPaginationButtons 
+    { data.status !== "nothing"  &&
+        <PaginationButtons 
             totalPageNumber={data.totalPageNumber} 
-            allLinks={allLinks} 
-        ></ReturnPaginationButtons>
+            allPageUris={allPageUris} 
+            pageValue={queryPageValue}
+        ></PaginationButtons>
     }
     </>
 }

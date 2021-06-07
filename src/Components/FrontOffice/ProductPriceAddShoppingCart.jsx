@@ -8,7 +8,7 @@ import {Link,useParams} from "react-router-dom";
 import RedirectModal from '../All/RedirectModal.jsx';
 import axios from 'axios';
 
-function ProductPriceAddShoppingCart ({price, stock}){
+function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert}){
 
     const informationUser = useContext(UserContext);
     const token = informationUser.token;
@@ -41,11 +41,25 @@ function ProductPriceAddShoppingCart ({price, stock}){
             axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
                 "quantity" : 1
             })
-              .then(function (response) {
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+            .then(function (response) {
+                // alert
+                setAlertState({
+                    isOpen: true,
+                    text: "Produit ajouté au panier.",
+                    variant: "success"
+                })
+                closeAlert()
+            })
+            .catch(function (error) {
+                console.warn(error);
+                // alert
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de l'ajout du produit au panier.",
+                    variant: "danger"
+                })
+                closeAlert()
+            });
 
         }
 
@@ -111,7 +125,7 @@ function ProductPriceAddShoppingCart ({price, stock}){
 
 ProductPriceAddShoppingCart.propTypes = {
     price : PropTypes.number.isRequired,
-    stock : PropTypes.number.isRequired
+    stock : PropTypes.number
 }
 
 export default ProductPriceAddShoppingCart;

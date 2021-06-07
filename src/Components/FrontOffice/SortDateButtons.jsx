@@ -49,8 +49,8 @@ function SortDateButtons ({data, setData}){
 }
 
 SortDateButtons.propTypes = {
-    data : PropTypes.object.isRequired,
-    setData : PropTypes.element.isRequired
+    data : PropTypes.object,
+    setData : PropTypes.element
 }
 
 export default SortDateButtons;

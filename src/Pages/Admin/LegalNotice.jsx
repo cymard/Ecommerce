@@ -1,11 +1,11 @@
 import React from 'react';
 import {Container} from 'react-bootstrap';
-import TitleH1 from '../../Components/All/TitleH1.jsx';
+import Title from '../../Components/All/Title.jsx';
 import LegalNoticeText from '../../Components/FrontOffice/LegalNoticeText.jsx';
 
 function LegalNotice (){
     return <Container>
-        <TitleH1>Mentions Légales</TitleH1>
+        <Title>Mentions Légales</Title>
         <LegalNoticeText></LegalNoticeText>
     </Container>
 }

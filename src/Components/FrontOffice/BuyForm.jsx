@@ -323,7 +323,7 @@ function BuyForm ({amount, userInformation}) {
 }
 
 BuyForm.propTypes = {
-    amount : PropTypes.number.isRequired,
+    amount : PropTypes.number,
     userInformation : PropTypes.object.isRequired
 }
 

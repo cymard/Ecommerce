@@ -1,23 +1,19 @@
 import React, {useEffect, useContext, useState, useCallback} from 'react';
 import { Container } from 'react-bootstrap';
 import BuyForm from "../../Components/FrontOffice/BuyForm.jsx"
-import TitleH1 from "../../Components/All/TitleH1.jsx";
+import Title from "../../Components/All/Title.jsx";
 import {UserContext} from "../../Components/Context/UserContext.jsx";
 import axios from 'axios';
 
 
 function Buy(){
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token
-    const email = informationUser.email
-
+    const {token, email} = useContext(UserContext);
     const [amount, setAmount] = useState();
     const [userInformation, setUserInformation] = useState({status: false})
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
     const getUserInformation = useCallback(
         () => {
-           
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
@@ -34,28 +30,33 @@ function Buy(){
                     password: response.data.password,
                     paymentMethod: response.data.paymentMethod
                 })
-                
-            
             })
             .catch(function (error) {
-                console.log(error);
+                console.warn(error);
             });
         },[setUserInformation]
     )
 
+    const getCartTotalPrice = useCallback(
+        () => {
+            axios.get('https://127.0.0.1:8000/api/cart/products')
+            .then(function (response) {
+                setAmount(response.data.totalPrice)
+            })
+            .catch(function (error) {
+                console.warn(error);
+            });
+        },
+        []
+    )
+
     useEffect(()=>{
         getUserInformation()
-        axios.get('https://127.0.0.1:8000/api/cart/products')
-        .then(function (response) {
-            setAmount(response.data.totalPrice)
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    },[token,email,getUserInformation])
+        getCartTotalPrice()
+    },[token,email,getUserInformation,getCartTotalPrice])
 
     return <Container>
-        <TitleH1>Formulaire de Paiement</TitleH1>
+        <Title>Formulaire de Paiement</Title>
         <BuyForm 
             amount={amount}
             userInformation={userInformation}

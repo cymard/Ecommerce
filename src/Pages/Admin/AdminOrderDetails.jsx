@@ -15,8 +15,7 @@ function AdminOrderDetails () {
 
     let { orderId } = useParams();
 
-    const adminInformation = useContext(UserAdminContext);
-    const token = adminInformation.token
+    const {token} = useContext(UserAdminContext);
 
     const [data, setData] = useState({status: false})
     const [informationOrder, setInformationOrder] = useState({status: false})
@@ -29,11 +28,10 @@ function AdminOrderDetails () {
                 setData({
                     status: true,
                     products: response.data.data
-                    
                 })
             })
             .catch(function(error){
-                console.log(error);
+                console.warn(error);
             })
         },
         [orderId]
@@ -49,7 +47,7 @@ function AdminOrderDetails () {
                 })
             })
             .catch(function(error){
-                console.log(error);
+                console.warn(error);
             })
         },
         [orderId]
@@ -77,6 +75,7 @@ function AdminOrderDetails () {
             {informationOrder.status ? 
                 <>
                 <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
+                
                     {data.status === true ? 
                         <div className="d-flex justify-content-center">
                             {data.products.map(product => 

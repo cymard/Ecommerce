@@ -35,8 +35,11 @@ function ModifiedLinksRouter ({color, to, children, onClick}){
 ModifiedLinksRouter.propTypes = {
     color: PropTypes.oneOf(['white', 'black']).isRequired,
     to: PropTypes.string.isRequired,
-    children : PropTypes.string,
-    onClick : PropTypes.func.isRequired
+    children : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
+    onClick : PropTypes.func
 }
 
 export default ModifiedLinksRouter;

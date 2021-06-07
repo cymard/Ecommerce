@@ -18,24 +18,23 @@ function ChangePassword () {
     const modifyPassword = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.put('https://127.0.0.1:8000/api/modify/password',
-                dataPassword 
-            )
+            axios.put('https://127.0.0.1:8000/api/modify/password',dataPassword )
             .then(function(response) {
                 setChangePassword({
                     message: response.data.message
                 })
-                history.push('/home')
 
+                history.push('/home')
             })
             .catch(function(error) {
-                console.log(error);
+                console.warn(error);
+
                 setChangePassword({
                     message: error.response.data.message
                 })
+
             })
-        },
-        [token, history]
+        },[token, history]
     )
 
 

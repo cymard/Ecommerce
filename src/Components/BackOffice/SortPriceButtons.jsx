@@ -73,7 +73,7 @@ function SortPriceButtons ({data, setData}) {
 
 SortPriceButtons.propTypes = {
     data : PropTypes.object.isRequired,
-    setData : PropTypes.element.isRequired
+    setData : PropTypes.func.isRequired
 }
 
 export default SortPriceButtons;

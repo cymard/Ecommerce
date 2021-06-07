@@ -39,7 +39,11 @@ function PersonalOrderInformations({informationOrder}){
 }
 
 PersonalOrderInformations.propTypes = {
-    informationOrder : PropTypes.string.isRequired
+    informationOrder : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+    ])
 }
 
 export default PersonalOrderInformations;

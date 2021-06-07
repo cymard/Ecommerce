@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 let yup = require('yup');
 
-function ConnectedAccountForm ({userInformation}) {
+function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
     
     let schema = yup.object({
         firstName: yup.string().required(),
@@ -61,9 +61,22 @@ function ConnectedAccountForm ({userInformation}) {
                 cardExpirationDate: values.cardExpirationDate
             })
             .then(function (response) {
+                // alert
+                setAlertState({
+                    isOpen: true,
+                    text: "Informations mises à jour.",
+                    variant: "success"
+                });
+                closeAlert()
             })
             .catch(function (error) {
-                console.log(error);
+                console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue de la mise à jour des informations.",
+                    variant: "danger"
+                });
+                closeAlert()
             });
         }}
 
@@ -232,7 +245,9 @@ function ConnectedAccountForm ({userInformation}) {
 }
 
 ConnectedAccountForm.propTypes = {
-    userInformation : PropTypes.object.isRequired
+    userInformation : PropTypes.object.isRequired,
+    closeAlert : PropTypes.func,
+    setAlertState : PropTypes.func
 }
 
 export default ConnectedAccountForm;

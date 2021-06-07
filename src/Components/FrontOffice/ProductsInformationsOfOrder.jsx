@@ -28,7 +28,7 @@ function ProductsInformationsOfOrder ({product}){
 }
 
 ProductsInformationsOfOrder.propTypes = {
-    product : PropTypes.array.isRequired
+    product : PropTypes.object.isRequired
 }
 
 export default ProductsInformationsOfOrder;

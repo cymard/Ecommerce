@@ -56,7 +56,7 @@ function AdminHomeTableOptions ({handleRemove, querySearchValue, children}) {
 
 AdminHomeTableOptions.propTypes = {
     handleRemove : PropTypes.func.isRequired,
-    querySearchValue : PropTypes.string.isRequired,
+    querySearchValue : PropTypes.string,
     children : PropTypes.element.isRequired
 }
 

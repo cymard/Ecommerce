@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Container} from "react-bootstrap";
-import TitleH1 from "../../Components/All/TitleH1.jsx";
+import Title from "../../Components/All/Title.jsx";
 import { css} from '@emotion/react';
 import LoginAdminForm from '../../Components/FrontOffice/LoginAdminForm.jsx'
 
@@ -13,7 +13,7 @@ function LoginAdmin() {
             width: 100%;
         `}
     >
-        <TitleH1>Connexion au panneau d'administration</TitleH1>
+        <Title>Connexion au panneau d'administration</Title>
         <LoginAdminForm></LoginAdminForm>
     </div>
 </Container>

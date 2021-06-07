@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import RegisterForm from '../../Components/FrontOffice/RegisterForm.jsx'
-import TitleH1 from "../../Components/All/TitleH1.jsx";
+import Title from "../../Components/All/Title.jsx";
 import { css} from '@emotion/react';
 
 function Compte(){
@@ -13,7 +13,7 @@ function Compte(){
                 width: 100%;
             `}
         >
-            <TitleH1>Creer votre compte</TitleH1>
+            <Title>Creer votre compte</Title>
             <RegisterForm></RegisterForm>
         </div>
     </Container>

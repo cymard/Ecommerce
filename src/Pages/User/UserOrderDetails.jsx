@@ -13,14 +13,12 @@ import PersonalOrderInformations from '../../Components/All/PersonalOrderInforma
 function UserOrderDetails () {
 
     let { orderId } = useParams();
-    const userInformation = useContext(UserContext)
-    const token = userInformation.token
+    const {token} = useContext(UserContext)
     axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
 
     const [data, setData] = useState({status: false})
     const [informationOrder, setInformationOrder] = useState({status: false})
-
-    const [errorMessage, setErrorMessage] = useState({status : false})
+    const [isError, setIsError] = useState({status : false})
 
     const getProducts = useCallback(
         () => {
@@ -33,17 +31,16 @@ function UserOrderDetails () {
             })
             .catch(function(error){
                 if(error.response.status === 401){
-                    setErrorMessage({
+                    setIsError({
                         status: true, 
                         message: error.response.data.message
                     })
                 }
             })
-        },
-        [orderId]
+        },[orderId]
     )
 
-    const getInformationOrder = useCallback(
+    const getOrderInformation = useCallback(
         () => {
             axios.get(`https://127.0.0.1:8000/api/order/${orderId}`)
             .then(function(response){
@@ -53,7 +50,7 @@ function UserOrderDetails () {
                 })
             })
             .catch(function(error){
-                console.log(error);
+                console.warn(error);
             })
         },
         [orderId]
@@ -63,8 +60,8 @@ function UserOrderDetails () {
 
     useEffect(()=>{
         getProducts()
-        getInformationOrder()
-    },[getProducts,getInformationOrder])
+        getOrderInformation()
+    },[getProducts,getOrderInformation])
 
     return <Container fluid
         css={css`
@@ -73,7 +70,7 @@ function UserOrderDetails () {
     >
             <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
 
-            {errorMessage.status === true ? 
+            {isError.status ? 
                 // error message
                 <p 
                     css={css`
@@ -83,25 +80,25 @@ function UserOrderDetails () {
                         padding: 100px;
                     `}
                 >
-                    {errorMessage.message}
+                    {isError.message}
                 </p>
             :
                 <>
-                <h2 className="text-center mb-5">Les produits commandés : </h2>
+                    <h2 className="text-center mb-5">Les produits commandés : </h2>
 
-                {informationOrder.status && data.status ? 
-                    <>
-                    <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
-                    <div className="d-flex justify-content-center flex-wrap">
-                        {data.products.map(product => 
-                            <ProductsInformationsOfOrder product={product} key={product.product.id}></ProductsInformationsOfOrder>
-                        )}
-                    </div>
-                    <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
-                    </>
-                : 
-                    <CenteredSpinner></CenteredSpinner>
-                }
+                    {informationOrder.status && data.status ? 
+                        <>
+                            <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
+                            <div className="d-flex justify-content-center flex-wrap">
+                                {data.products.map(product => 
+                                    <ProductsInformationsOfOrder product={product} key={product.product.id}></ProductsInformationsOfOrder>
+                                )}
+                            </div>
+                            <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
+                        </>
+                    : 
+                        <CenteredSpinner></CenteredSpinner>
+                    }
                 </>
             }     
     </Container>

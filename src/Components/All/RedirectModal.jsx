@@ -15,7 +15,7 @@ function RedirectModal({show, onHide, children,firstButton, secondButton}){
 }
 
 RedirectModal.propTypes = {
-    show : PropTypes.bool.isRequired,
+    show : PropTypes.bool,
     onHide : PropTypes.func.isRequired,
     children : PropTypes.string.isRequired,
     firstButton : PropTypes.element,

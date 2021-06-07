@@ -21,7 +21,8 @@ function AdminHomeTable ({data, querySearchValue, setData, setSelectAllChecked, 
         }
     }
 
-    return <Table className="text-center" hover>
+return <> 
+<Table className="text-center" hover>
     <thead>
         <tr>
             <th>
@@ -48,26 +49,9 @@ function AdminHomeTable ({data, querySearchValue, setData, setSelectAllChecked, 
             <th>Modifier</th>
         </tr>
     </thead>
-    <tbody>
-        { data.status === "nothing" ?
-        
-            <td 
-                colSpan="7"
-                className="w-100 text-center"
-            >
-                <h3 
-                    css={css`
-                        text-align: center;
-                        margin-top: 200px;
-                        margin-bottom: 200px;
-                    `}
-                >
-                    Aucun produit trouvé pour votre recherche...
-                </h3> 
-            </td>
-        
-        : 
-            <>
+
+    { data.status !== "nothing" &&
+        <tbody>
             {data.productsList.length > 0 ?
                 <ProductsListAdmin 
                     selectedProducts={selectedProducts} 
@@ -77,19 +61,34 @@ function AdminHomeTable ({data, querySearchValue, setData, setSelectAllChecked, 
             :  
                 <tr><th>Chargement ...</th></tr>
             }
-            </>
-        }
-    </tbody>
+        </tbody>
+    }
 </Table>
+{ data.status === "nothing" &&
+    <div 
+        className="d-flex justify-content-center align-items-center"
+    >
+        <h3 
+            css={css`
+                text-align: center;
+                margin-top: 200px;
+                margin-bottom: 200px;
+            `}
+        >
+            Aucun produit trouvé pour votre recherche...
+        </h3> 
+    </div>
+}
+</>
 }
 
 AdminHomeTable.propTypes = {
     data : PropTypes.object.isRequired, 
-    querySearchValue : PropTypes.string.isRequired, 
-    setData : PropTypes.element.isRequired,
-    setSelectAllChecked : PropTypes.element.isRequired, 
-    isSelectAllChecked : PropTypes.bool.isRequired, 
-    setSelectedProducts : PropTypes.element.isRequired, 
+    querySearchValue : PropTypes.string, 
+    setData : PropTypes.func.isRequired,
+    setSelectAllChecked : PropTypes.func.isRequired, 
+    isSelectAllChecked : PropTypes.bool, 
+    setSelectedProducts : PropTypes.func.isRequired, 
     selectedProducts : PropTypes.array.isRequired
 }
 

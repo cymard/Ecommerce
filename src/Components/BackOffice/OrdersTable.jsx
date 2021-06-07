@@ -43,9 +43,9 @@ function OrdersTable ({data, handleClickSelectAll, checkedSelectAll, selectedOrd
 OrdersTable.propTypes = {
     data : PropTypes.object.isRequired,
     handleClickSelectAll : PropTypes.func.isRequired,
-    checkedSelectAll : PropTypes.bool.isRequired,
+    checkedSelectAll : PropTypes.bool,
     selectedOrders : PropTypes.array.isRequired,
-    setSelectedOrders : PropTypes.element.isRequired
+    setSelectedOrders : PropTypes.func.isRequired
 }
 
 export default OrdersTable;

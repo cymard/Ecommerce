@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Button, Col, Card } from "react-bootstrap";
 import { Formik } from 'formik';
 import { css} from '@emotion/react'
-import TitleH1 from '../All/TitleH1.jsx';
+import Title from '../All/Title.jsx';
 import PropTypes from 'prop-types';
 
 let yup = require('yup');
@@ -44,7 +44,7 @@ function ChangePasswordForm ({request, changePassword}) {
         `}
         className="d-flex flex-column align-items-center"
     >
-        <TitleH1>Modifier votre mot de passe</TitleH1>
+        <Title>Modifier votre mot de passe</Title>
         <Card>
             <Card.Body>
                 <Form noValidate onSubmit={handleSubmit}>

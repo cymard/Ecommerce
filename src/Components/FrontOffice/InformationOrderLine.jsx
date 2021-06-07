@@ -18,7 +18,11 @@ function InformationOrderLine ({children,informationOrder}){
 
 InformationOrderLine.propTypes = {
     children : PropTypes.string.isRequired,
-    informationOrder : PropTypes.object.isRequired
+    informationOrder : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+      ])
 }
 
 export default InformationOrderLine;

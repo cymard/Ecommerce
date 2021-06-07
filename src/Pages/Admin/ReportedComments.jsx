@@ -3,7 +3,7 @@ import React,{useEffect, useState, useContext, useCallback} from 'react'
 import {css} from '@emotion/react';
 import {Container, Button, Spinner} from 'react-bootstrap'
 import axios from 'axios';
-import TitleH1 from "../../Components/All/TitleH1.jsx";
+import Title from "../../Components/All/Title.jsx";
 import AdminNavBar from "../../Components/BackOffice/AdminNavBar.jsx";
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
 import ProductComment from '../../Components/FrontOffice/ProductComment.jsx'
@@ -13,11 +13,10 @@ function ReportedComments (){
    
     const [data, setData] = useState({status: false})
 
-    const userAdminInformation = useContext(UserAdminContext);
-    const token = userAdminInformation.token
+    const {token} = useContext(UserAdminContext);
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
-    const displayReportedComments = useCallback(() => {
+    const getReportedComments = useCallback(() => {
         
         axios.get(`https://127.0.0.1:8000/admin/comments/reported`)
         .then(function (response) {
@@ -32,32 +31,32 @@ function ReportedComments (){
     },[])
 
     useEffect(()=>{
-        displayReportedComments()
-    },[displayReportedComments])
+        getReportedComments()
+    },[getReportedComments])
 
 
     const handleDelete = useCallback(
         (e) => {
             axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
-                displayReportedComments()
+                getReportedComments()
             })
             .catch(function (error) {
-                console.log(error);
+                console.warn(error);
             })
-        },[displayReportedComments]
+        },[getReportedComments]
     )
 
     const handleIgnore =  useCallback(
         (e) => {
             axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
             .then(function (response) {
-                displayReportedComments()
+                getReportedComments()
             })
             .catch(function (error) {
-                console.log(error);
+                console.warn(error);
             })
-        },[displayReportedComments]
+        },[getReportedComments]
     )
 
 
@@ -69,7 +68,7 @@ function ReportedComments (){
         <AdminNavBar/>
 
         <Container fluid>
-            <TitleH1>Commentaires Signalés</TitleH1>
+            <Title>Commentaires Signalés</Title>
             {data.status === true ? 
                 data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  buttons={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
             :

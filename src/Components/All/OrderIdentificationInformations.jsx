@@ -14,7 +14,7 @@ function OrderIdentificationInformations({informationOrder}){
 }
 
 OrderIdentificationInformations.propTypes = {
-    informationOrder : PropTypes.string.isRequired
+    informationOrder : PropTypes.object.isRequired
 }
 
 export default OrderIdentificationInformations;

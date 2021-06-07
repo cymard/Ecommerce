@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import {Container} from 'react-bootstrap';
-import TitleH1 from '../../Components/All/TitleH1.jsx';
+import Title from '../../Components/All/Title.jsx';
 import SaleConditionsText from '../../Components/FrontOffice/SaleConditionsText.jsx';
 
 function SaleConditions (){
     return <Container>
-    <TitleH1>Conditions générales de vente</TitleH1>
+    <Title>Conditions générales de vente</Title>
     <SaleConditionsText></SaleConditionsText>
 </Container>
 }

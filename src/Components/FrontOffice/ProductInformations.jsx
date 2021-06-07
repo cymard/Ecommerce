@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import TitleH1 from "../All/TitleH1.jsx";
+import Title from "../All/Title.jsx";
 import ProductImageDescription from "./ProductImageDescription.jsx";
 import ProductPriceAddShoppingCart from './ProductPriceAddShoppingCart.jsx';
 import ProductStock from './ProductStock.jsx';
@@ -9,9 +9,9 @@ import ProductAverageRating from '../All/ProductAverageRating.jsx';
 import PropTypes from 'prop-types';
 
 
-function ProductInformations({data, informationProduct, name, content, price}){
+function ProductInformations({data, name, content, price, setAlertState, closeAlert}){
     return <>
-    <TitleH1>{data.status ? data.product.name : name}</TitleH1>
+    <Title>{data.status ? data.product.name : name}</Title>
 
     <ProductImageDescription 
         image={data.status ? data.product.image : screen}
@@ -23,27 +23,28 @@ function ProductInformations({data, informationProduct, name, content, price}){
         stock={data.status ? data.product.stock : "chargement"}
     ></ProductStock>
 
-    {data.status ?  
+    {data.status &&
         <ProductAverageRating data={data}></ProductAverageRating>
-    : 
-        <div></div>
     }
 
-    {
-        informationProduct.stock > 0 ?
-            <ProductPriceAddShoppingCart stock={data.status ? data.product.stock : undefined}  price={data.status ? data.product.price : parseInt(price)}></ProductPriceAddShoppingCart>
-        :
-            <></>
+    {data.stock > 0 && <ProductPriceAddShoppingCart 
+            stock={data.status ? data.product.stock : undefined}  
+            price={data.status ? data.product.price : parseInt(price)}
+            setAlertState={setAlertState}
+            closeAlert={closeAlert}
+        ></ProductPriceAddShoppingCart>
     }
 </>
 }
 
 ProductInformations.propTypes = {
-    data :  PropTypes.object.isRequired,
-    informationProduct :  PropTypes.object.isRequired,
-    name :  PropTypes.string.isRequired,
-    content :  PropTypes.string.isRequired,
-    price :  PropTypes.number.isRequired,
+    data :  PropTypes.object,
+    informationProduct :  PropTypes.object,
+    name :  PropTypes.string,
+    content :  PropTypes.string,
+    price :  PropTypes.number,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default ProductInformations;

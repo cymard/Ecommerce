@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import {Container} from "react-bootstrap";
+import {Container, Alert} from "react-bootstrap";
 import ConnectedAccountForm from '../../Components/FrontOffice/ConnectedAccountForm.jsx';
-import TitleH1 from "../../Components/All/TitleH1.jsx";
+import Title from "../../Components/All/Title.jsx";
 import ConnectedAccountDisconnection from "../../Components/FrontOffice/ConnectedAccountDisconnection.jsx";
 import {css} from '@emotion/react';
 import axios from 'axios'
@@ -17,12 +17,17 @@ function ConnectedAccount () {
     const itemEmail = <FontAwesomeIcon icon={faEnvelope} size="7x" />
 
     const [userInformation, setUserInformation] = useState({status: false})
-
     const [userOrderNumber, setUserOrderNumber] = useState({status: false})
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token
+    const {token} = useContext(UserContext);
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
+    const isUserHaveAtLeastOneOrder = userOrderNumber.status && userOrderNumber.orderNumber > 0;
 
     const getUserInformation = useCallback(
         () => {
@@ -42,11 +47,9 @@ function ConnectedAccount () {
                     password: response.data.password,
                     paymentMethod: response.data.paymentMethod
                 })
-                
-            
             })
             .catch(function (error) {
-                console.log(error);
+                console.warn(error);
             });
         },[]
     )
@@ -61,10 +64,22 @@ function ConnectedAccount () {
                     orderNumber: response.data.orderNumber 
                 })
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function(error){
+                console.warn(error);
             });
         },[setUserOrderNumber]
+    )
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
     )
 
 
@@ -76,22 +91,35 @@ function ConnectedAccount () {
 
 
     return <Container>
-        <TitleH1>Mon Compte</TitleH1>
+        <Alert 
+            variant={alertState.variant}
+            show={alertState.isOpen}
+            css={css`
+                position: sticky; 
+                top: 100px;  
+                text-align: center;
+                min-width: 10px;              
+                max-width: 400px;
+                z-index: 1;
+                box-shadow: 1px 1px 1px black;
+            `}
+        >
+            {alertState.text}
+        </Alert>
+        <Title>Mon Compte</Title>
         <ConnectedAccountDisconnection></ConnectedAccountDisconnection>
 
         {/* Return ce lien uniquement si le client a au moins une commande */}
-        {userOrderNumber.status && userOrderNumber.orderNumber > 0 ?
-            <>
-                <ConnectedAccountCard
-                    item={itemTruck} 
-                    text="Cliquez pour acceder à vos commandes" 
-                    to="/api/orders?page=1&date=desc"
-                >
-                    Mes Commandes :
-                </ConnectedAccountCard>
-            </>
-        :
-            <></>
+        {isUserHaveAtLeastOneOrder &&
+            
+            <ConnectedAccountCard
+                item={itemTruck} 
+                text="Cliquez pour acceder à vos commandes" 
+                to="/api/orders?page=1&date=desc"
+            >
+                Mes Commandes :
+            </ConnectedAccountCard>
+            
         }
 
         <ConnectedAccountCard
@@ -121,7 +149,11 @@ function ConnectedAccount () {
                 Mes Informations :
             </h2>
         </div>
-        <ConnectedAccountForm userInformation={userInformation}></ConnectedAccountForm>
+        <ConnectedAccountForm 
+            userInformation={userInformation} 
+            closeAlert={closeAlert} 
+            setAlertState={setAlertState}
+        ></ConnectedAccountForm>
     </Container>
 }
 

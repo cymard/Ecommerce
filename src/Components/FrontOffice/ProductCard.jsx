@@ -39,7 +39,7 @@ ProductCard.propTypes = {
     link : PropTypes.string,
     urlImage : PropTypes.string,
     title : PropTypes.string,
-    textButton : PropTypes.element
+    textButton : PropTypes.string
 }
 
 ProductCard.defaultProps = {

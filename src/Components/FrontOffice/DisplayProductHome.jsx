@@ -3,10 +3,10 @@ import ProductCard from './ProductCard.jsx';
 import CenteredSpinner from '../All/CenteredSpinner.jsx';
 import PropTypes from 'prop-types';
 
-function DisplayProductHome ({data}) {
+function DisplayProductHome ({isLoading, products}) {
     return <>
-        {data.status ?
-            data.data.map(product =><ProductCard link={`/product/${product.id}`} urlImage={product.image} key={product.id} title={product.name}></ProductCard>)
+        {isLoading ?
+            products.map(product =><ProductCard link={`/product/${product.id}`} urlImage={product.image} key={product.id} title={product.name}></ProductCard>)
             :
             <CenteredSpinner/>
         }
@@ -14,7 +14,12 @@ function DisplayProductHome ({data}) {
 }
 
 DisplayProductHome.propTypes = {
-    data : PropTypes.array.isRequired
+    isLoading : PropTypes.bool.isRequired,
+    products : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.array
+    ])
 }
 
 export default DisplayProductHome;

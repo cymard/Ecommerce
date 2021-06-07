@@ -63,8 +63,8 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
 }
 
 OrdersListAdmin.propTypes = {
-    orders : PropTypes.object.isRequired,
-    setSelectedOrders : PropTypes.element.isRequired,
+    orders : PropTypes.array.isRequired,
+    setSelectedOrders : PropTypes.func.isRequired,
     selectedOrders : PropTypes.array.isRequired
 }
 

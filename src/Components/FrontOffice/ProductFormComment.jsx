@@ -26,7 +26,9 @@ function ProductFormComment ({reFetch}) {
     });
       
     useEffect(()=>{
-        setPseudoEmail(informationUser.email.split("@")[0]);
+        if(informationUser.email !== null){
+            setPseudoEmail(informationUser.email.split("@")[0]);
+        }
     },[informationUser])
 
 
@@ -122,8 +124,7 @@ function ProductFormComment ({reFetch}) {
                     />
                 </Form.Group>
 
-                {informationUser.email === null && informationUser.token === null
-                ?
+                {informationUser.email === null && informationUser.token === null ?
                     <Link to="/login"><Button  variant="primary" size="lg"
                         css={css`
                             width: 100%; 

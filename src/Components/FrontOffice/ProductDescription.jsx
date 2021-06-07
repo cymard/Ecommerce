@@ -47,7 +47,7 @@ function ProductDescription ({children, refRow}) {
 
 ProductDescription.propTypes = {
     children : PropTypes.string.isRequired,
-    refRow : PropTypes.element.isRequired
+    refRow : PropTypes.object.isRequired
 }
 
 export default ProductDescription;

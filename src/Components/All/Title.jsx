@@ -2,7 +2,7 @@ import React from 'react';
 import  "react-bootstrap";
 import PropTypes from 'prop-types'
 
-function TitleH1 ({children}) {
+function Title ({children}) {
 
     return <div className="d-flex justify-content-center mb-5 mt-5 text-center ">
         <h1> {children} :</h1>
@@ -10,7 +10,7 @@ function TitleH1 ({children}) {
 
 }
 
-TitleH1.propTypes = {
+Title.propTypes = {
     children : PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -18,8 +18,8 @@ TitleH1.propTypes = {
     ])
 }
 
-TitleH1.defaultProps = {
+Title.defaultProps = {
     children : "title h1"
 }
 
-export default TitleH1
+export default Title
