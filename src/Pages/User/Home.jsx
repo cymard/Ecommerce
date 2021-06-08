@@ -63,7 +63,7 @@ function Home(){
             // Recherche de produit via les catégories
             displayProducts(`category=${queryCategoryValue}`);
 
-        }else if(queryCategoryValue === null && querySearchValue !== null &&  querySearchValue !== ''){
+        }else if(querySearchValue !== ''){
             // Recherche des produits via le champs recherche 
             displayProducts(`search=${querySearchValue}`);
 
@@ -71,7 +71,7 @@ function Home(){
             history.push("/products?category=all&page=1");
         }
         
-    },[location, queryPageValue, querySearchValue, queryCategoryValue, history, displayProducts])
+    },[querySearchValue, queryCategoryValue, history, displayProducts])
 
 
  
@@ -98,7 +98,7 @@ function Home(){
         }
 
         setAllPageUris(uris)
-    }, [queryCategoryValue, data.totalPageNumber, firstQueryParam])
+    }, [data.totalPageNumber, firstQueryParam])
 
 
     const categories = [

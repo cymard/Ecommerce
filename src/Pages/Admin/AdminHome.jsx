@@ -71,8 +71,8 @@ function AdminHome () {
 
                 })
                 .catch(function (error) {
-                    console.warn(error);   
-                    history.push("/admin/login");
+                    console.warn(error);
+                    // history.push("/admin/login");
                 }) 
             }   
     }, [history,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])

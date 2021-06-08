@@ -24,6 +24,7 @@ function UserAdminContextProvider({ children }) {
         if (userAdminInformationData.token) {
             localStorage.setItem('token_admin', userAdminInformationData.token);
         } else {
+            // redirection vers /admin/login
             localStorage.removeItem('token_admin');
         }
 
