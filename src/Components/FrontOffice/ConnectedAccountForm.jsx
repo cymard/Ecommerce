@@ -76,7 +76,6 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
                     text: "Une erreur est survenue de la mise à jour des informations.",
                     variant: "danger"
                 });
-                closeAlert()
             });
         }}
 

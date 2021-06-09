@@ -10,7 +10,7 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
 
-function ProductFormComment ({reFetch}) {
+function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
 
     const [pseudoEmail, setPseudoEmail] = useState('')
 
@@ -53,10 +53,26 @@ function ProductFormComment ({reFetch}) {
                     content: values.content,
                     product: parseInt(id),
                     isReported: false
+                })
+                .then(function (response) {
+                    setAlertState({
+                        isOpen: true,
+                        text: "Commentaire posté.",
+                        variant: "success"
+                    })
+                    closeAlert()
+                    actions.resetForm()
+                    actions.setSubmitting(false);
+                    reFetch()
+                })
+                .catch(function (error) {
+                    console.warn(error);
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue, impossible de poster le commentaire.",
+                        variant: "danger"
+                    })
                 });
-                actions.resetForm()
-                actions.setSubmitting(false);
-                reFetch()
             }, 1000);
    
           }}

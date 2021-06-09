@@ -9,6 +9,7 @@ import axios from 'axios';
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
 import EditProductForm from '../../Components/BackOffice/EditProductForm.jsx';
 import { useHistory } from "react-router-dom";
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 function EditProduct () {
@@ -18,6 +19,24 @@ function EditProduct () {
     const [dataProduct, setDataProduct] = useState({}) 
 
     const {token} = useContext(UserAdminContext);
+
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+    
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
     const getProductInformation = useCallback(
         () => {
@@ -34,6 +53,11 @@ function EditProduct () {
                 })
                 .catch(function (error) {
                     console.warn(error);
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue lors de la récupération des informations du produit.",
+                        variant: "danger"
+                    });
                 })
         },[id]
     )
@@ -50,12 +74,22 @@ function EditProduct () {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
             axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
                 .then(function(response){
+                    setAlertState({
+                        isOpen: true,
+                        text: "Formulaire envoyé.",
+                        variant: "success"
+                    });
+                    closeAlert();
                     history.push("/admin/home?category=all&page=1&sorting=default");
                 })
                 .catch(function(error){
                     console.warn(error);
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue lors de la soumission du formulaire.",
+                        variant: "danger"
+                    });
                 })
-            
         } catch (err) {
             console.error(err.message);
         }
@@ -63,7 +97,14 @@ function EditProduct () {
 
 
 
-    return <div     
+    return<> 
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <div     
         css={css`
             display: flex;
         `}
@@ -75,6 +116,7 @@ function EditProduct () {
         </Container>
 
     </div>
+    </>
 }
 
 export default EditProduct;

@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import UserOrdersTable from '../../Components/FrontOffice/UserOrdersTable.jsx';
 import PaginationButtons from '../../Components/All/PaginationButtons.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function UserOrders (){
 
@@ -20,6 +21,11 @@ function UserOrders (){
     const {token} = useContext(UserContext);
 
     const [data, setData] = useState({status: false})
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
@@ -41,6 +47,11 @@ function UserOrders (){
             })
             .catch(function(error){
                 console.warn(error)
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur empêche de récuperer les informations des commandes de l'utilisateur.",
+                    variant: "danger"
+                });
             })
         },[token, queryPageValue, queryDateValue]
     )
@@ -72,7 +83,14 @@ function UserOrders (){
         setAllPageUris(uris)
     }, [queryDateValue, data.totalPageNumber])
 
-    return <Container
+    return <>
+     <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <Container
         css={css`
             min-height: 90vh;
         `}
@@ -85,7 +103,7 @@ function UserOrders (){
             pageValue={queryPageValue}
         ></PaginationButtons>
     </Container>
-    
+    </>
 }
 
 export default UserOrders

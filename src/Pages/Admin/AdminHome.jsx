@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext,useCallback} from 'react';
 import {css} from '@emotion/react';
-import {Container, Alert} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import AdminNavBar from "../../Components/BackOffice/AdminNavBar.jsx";
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
@@ -12,7 +12,7 @@ import {
 import AdminHomeTable from '../../Components/BackOffice/AdminHomeTable.jsx';
 import AdminHomeTableOptions from '../../Components/BackOffice/AdminHomeTableOptions.jsx';
 import PaginationButtons from '../../Components/All/PaginationButtons.jsx';
-
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function AdminHome () {
 
@@ -28,6 +28,18 @@ function AdminHome () {
     let history = useHistory();
 
     const {token} = useContext(UserAdminContext);
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
     useEffect(() => {
         // déclenchement du select all lorsque tous les checkbox sont séléctionnés
@@ -72,10 +84,16 @@ function AdminHome () {
                 })
                 .catch(function (error) {
                     console.warn(error);
-                    // history.push("/admin/login");
+                    // Impossible d'afficher les produits
+                    setAlertState({
+                        isOpen: true,
+                        text: "Impossible de récuperer les informations des produits.",
+                        variant: "danger"
+                    });
+                    history.push("/admin/login");
                 }) 
             }   
-    }, [history,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
+    }, [history,closeAlert,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
 
     
     const handleRemove = () => {
@@ -103,7 +121,6 @@ function AdminHome () {
                 text: "Une erreur est survenue lors de la suppression de produit.",
                 variant: "danger"
             });
-            closeAlert();
         })
     }
 
@@ -131,36 +148,14 @@ function AdminHome () {
         setAllPageUris(uris)
     }, [firstQueryParam, queryCategoryValue, querySortingValue, data.totalPageNumber, querySearchValue])
 
-    
-    const closeAlert = useCallback(
-        () => {
-            setTimeout(()=>{
-                setAlertState({
-                    isOpen: false,
-                    text: undefined,
-                    variant: undefined
-                });
-            }, 3000)
-        },[]
-    )
 
     return <>
-        <Alert 
+        <UserAlert
             variant={alertState.variant}
-            show={alertState.isOpen}
-            css={css`
-                position: sticky; 
-                top: 100px;
-                left: 300px;  
-                text-align: center;
-                min-width: 10px;              
-                max-width: 400px;
-                z-index: 1;
-                box-shadow: 1px 1px 1px black;
-            `}
+            isOpen={alertState.isOpen}
         >
             {alertState.text}
-        </Alert>
+        </UserAlert>
         <div     
             css={css`
                 display: flex;

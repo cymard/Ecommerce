@@ -4,6 +4,7 @@ import { UserContext } from '../../Components/Context/UserContext';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import ChangePasswordForm from '../../Components/FrontOffice/ChangePasswordForm.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 
@@ -13,6 +14,23 @@ function ChangePassword () {
     const token = informationUser.token;
 
     const [changePassword, setChangePassword] = useState({})
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
 
     const modifyPassword = useCallback(
@@ -23,25 +41,45 @@ function ChangePassword () {
                 setChangePassword({
                     message: response.data.message
                 })
+                setAlertState({
+                    isOpen: true,
+                    text: "Mot de passe modifié.",
+                    variant: "success"
+                });
+                closeAlert();
 
                 history.push('/home')
             })
             .catch(function(error) {
                 console.warn(error);
 
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue dans la modification du mot de passe.",
+                    variant: "danger"
+                });
+
                 setChangePassword({
                     message: error.response.data.message
                 })
 
             })
-        },[token, history]
+        },[token, history, closeAlert]
     )
 
 
-    return <ChangePasswordForm 
+    return <>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <ChangePasswordForm 
         request={modifyPassword} 
         changePassword={changePassword}
     ></ChangePasswordForm>
+    </>
 }
 
 export default ChangePassword;

@@ -42,23 +42,19 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
                 "quantity" : 1
             })
             .then(function (response) {
-                // alert
                 setAlertState({
                     isOpen: true,
                     text: "Produit ajouté au panier.",
                     variant: "success"
                 })
-                closeAlert()
             })
             .catch(function (error) {
                 console.warn(error);
-                // alert
                 setAlertState({
                     isOpen: true,
                     text: "Une erreur est survenue lors de l'ajout du produit au panier.",
                     variant: "danger"
                 })
-                closeAlert()
             });
 
         }

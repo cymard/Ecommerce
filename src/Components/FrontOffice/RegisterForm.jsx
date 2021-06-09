@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, {useState} from 'react';
+import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import {css} from '@emotion/react';
@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom'
 let yup = require('yup');
 
 
-function RegisterForm () {
+function RegisterForm ({setAlertState, closeAlert}) {
 
     let history = useHistory();
 
@@ -18,20 +18,33 @@ function RegisterForm () {
         confirmPassword: yup.string().required()
     });
 
-    const [messageError, setMessageError] = useState("");
-
     const handleOnSubmit = async (values) => {
         await axios.post('https://127.0.0.1:8000/register', {
             "email": values.email,
             "password": values.password
         })
         .then(function (response) {
-            return history.push('/login');
+            setAlertState({
+                isOpen: true,
+                text: "Compte créé.",
+                variant: "success"
+            });
+            closeAlert();
+            history.push('/login');
         })
         .catch(function (error) {
-            console.log(error);
+            console.warn(error);
+            setAlertState({
+                isOpen: true,
+                text: "Une erreur est survenue, impossible de creer le compte.",
+                variant: "danger"
+            });
             if(error.response){
-                setMessageError(error.response.data.violations[0].title);
+                setAlertState({
+                    isOpen: true,
+                    text: error.response.data.violations[0].title,
+                    variant: "danger"
+                });
             }
         });
     }
@@ -49,13 +62,6 @@ function RegisterForm () {
         {({handleChange, handleSubmit, errors, values, touched})=>(
            
             <Form noValidate onSubmit={handleSubmit}>
-                <p
-                    css={css`
-                        color: red;
-                    `}
-                >
-                    {messageError}
-                </p>
                 <Form.Group controlId="email">
                     <Form.Label>Adresse Email</Form.Label>
                     <Form.Control

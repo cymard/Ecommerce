@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 
 let yup = require('yup');
 
-function LoginForm () {
+function LoginForm ({setAlertState, closeAlert}) {
 
     let history = useHistory();
 
@@ -40,15 +40,28 @@ function LoginForm () {
                     email: values.formBasicEmail,
                     token: response.data.token
                 }); 
-                
+                setAlertState({
+                    isOpen: true,
+                    text: "Vous êtes connécté.",
+                    variant: "success"
+                });
+                closeAlert();
                 return history.push('/');
 
             }else{
-                setResponse("La connexion a échouée, merci de réessayer");
+                setAlertState({
+                    isOpen: true,
+                    text: "La connexion a échouée, merci de réessayer.",
+                    variant: "danger"
+                });
             }   
         
         } catch (err) {
-            setResponse("La connexion a échouée, merci de réessayer");
+            setAlertState({
+                isOpen: true,
+                text: "La connexion a échouée, merci de réessayer.",
+                variant: "danger"
+            });
             console.error(err.message);
         }
     };

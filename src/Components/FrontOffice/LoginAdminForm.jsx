@@ -9,7 +9,7 @@ import { UserAdminContext } from '../Context/UserAdminContext.jsx'
 
 let yup = require('yup');
 
-function LoginAdminForm () {
+function LoginAdminForm ({setAlertState, closeAlert}) {
 
     let history = useHistory();
 
@@ -40,15 +40,30 @@ function LoginAdminForm () {
                     email: values.formBasicEmail,
                     token: response.data.token
                 }); 
+
+                setAlertState({
+                    isOpen: true,
+                    text: "Vous êtes connécté.",
+                    variant: "success"
+                });
+                closeAlert();
                 
                 history.push('/admin/home?category=all&page=1&sorting=default')
 
             }else{
-                setResponse("La connexion a échouée, merci de réessayer");
+                setAlertState({
+                    isOpen: true,
+                    text: "La connexion a échouée, merci de réessayer.",
+                    variant: "danger"
+                });
             }   
         
         } catch (err) {
-            setResponse("La connexion a échouée, merci de réessayer");
+            setAlertState({
+                isOpen: true,
+                text: "La connexion a échouée, merci de réessayer.",
+                variant: "danger"
+            });
             console.error(err.message);
         }
     };

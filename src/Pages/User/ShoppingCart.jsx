@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, {useContext,useEffect, useCallback, useState} from 'react';
-import { Container, Alert } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import ShoppingCartProduct from '../../Components/FrontOffice/ShoppingCartProduct.jsx'
 import ShoppingCartTotal from '../../Components/FrontOffice/ShoppingCartTotal.jsx'
 import {UserContext} from "../../Components/Context/UserContext.jsx";
@@ -8,6 +8,7 @@ import {css} from '@emotion/react';
 import RedirectLoginRegister from '../../Components/FrontOffice/RedirectLoginRegister';
 import axios from 'axios';
 import CenteredSpinner from '../../Components/All/CenteredSpinner.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function ShoppingCart(){
 
@@ -19,6 +20,17 @@ function ShoppingCart(){
         variant: undefined
     })
     const isCurrentUserConnected = email === null && token === null;
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
     const displayArticles = useCallback(() => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
@@ -33,6 +45,11 @@ function ShoppingCart(){
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue, impossible de récuperer les informations des produits du panier.",
+                    variant: "danger"
+                });
             })
     },[token])
 
@@ -40,39 +57,18 @@ function ShoppingCart(){
         displayArticles()
     },[displayArticles])
 
-    const closeAlert = useCallback(
-        () => {
-            setTimeout(()=>{
-                setAlertState({
-                    isOpen: false,
-                    text: undefined,
-                    variant: undefined
-                });
-            }, 3000)
-        },[]
-    )
-
 
     return <Container
         css={css`
             min-height: 90vh; 
         `}
     >
-        <Alert 
+       <UserAlert
             variant={alertState.variant}
-            show={alertState.isOpen}
-            css={css`
-                position: sticky;
-                top: 100px;
-                min-width: 10px;
-                max-width: 300px;
-                text-align: center;
-                z-index: 1;
-                box-shadow: 1px 1px 1px black;
-            `}
+            isOpen={alertState.isOpen}
         >
             {alertState.text}
-        </Alert>
+        </UserAlert>
         <div 
             css={css`
                 display: flex;

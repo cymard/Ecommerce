@@ -4,6 +4,7 @@ import BuyForm from "../../Components/FrontOffice/BuyForm.jsx"
 import Title from "../../Components/All/Title.jsx";
 import {UserContext} from "../../Components/Context/UserContext.jsx";
 import axios from 'axios';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 function Buy(){
@@ -11,6 +12,12 @@ function Buy(){
     const [amount, setAmount] = useState();
     const [userInformation, setUserInformation] = useState({status: false})
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
     const getUserInformation = useCallback(
         () => {
@@ -33,6 +40,11 @@ function Buy(){
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récupèration de vos informations.",
+                    variant: "danger"
+                });
             });
         },[setUserInformation]
     )
@@ -45,6 +57,11 @@ function Buy(){
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lros de la récupération du prix total.",
+                    variant: "danger"
+                });
             });
         },
         []
@@ -56,6 +73,13 @@ function Buy(){
     },[token,email,getUserInformation,getCartTotalPrice])
 
     return <Container>
+        <UserAlert
+            variant={alertState.variant}
+            isOpen={alertState.isOpen}
+        >
+            {alertState.text}
+        </UserAlert>
+
         <Title>Formulaire de Paiement</Title>
         <BuyForm 
             amount={amount}

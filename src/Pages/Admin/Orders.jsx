@@ -2,7 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext,useCallback} from 'react'
 import {css} from '@emotion/react';
-import {Container, Button, Alert} from 'react-bootstrap';
+import {Container, Button} from 'react-bootstrap';
 import axios from 'axios';
 import AdminNavBar from "../../Components/BackOffice/AdminNavBar.jsx";
 import SearchBar from '../../Components/BackOffice/SearchBar.jsx';
@@ -13,11 +13,30 @@ import {
     useHistory
 } from "react-router-dom";
 import OrdersTable from '../../Components/BackOffice/OrdersTable.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function Orders() {
     
     let location = useLocation();
     let history = useHistory();
+
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+    
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
     // selectionner ou pas le checkbox selectAll
     const [checkedSelectAll, setCheckedSelectAll] = useState();
@@ -26,11 +45,6 @@ function Orders() {
     const [selectedOrders, setSelectedOrders] = useState([])
 
     const [data, setData] = useState({status: false})
-    const [alertState, setAlertState] = useState({
-        isOpen: false,
-        text: undefined,
-        variant: undefined
-    })
 
     const {token} = useContext(UserAdminContext);
 
@@ -63,6 +77,11 @@ function Orders() {
             })
             .catch(function(error){
                 console.warn(error)
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récuperation des commandes.",
+                    variant: "danger"
+                });
             })
 
         }
@@ -126,17 +145,6 @@ function Orders() {
         })
     }
 
-    const closeAlert = useCallback(
-        () => {
-            setTimeout(()=>{
-                setAlertState({
-                    isOpen: false,
-                    text: undefined,
-                    variant: undefined
-                });
-            }, 3000)
-        },[]
-    )
 
     const handleDelete = useCallback(
         () => {
@@ -164,7 +172,6 @@ function Orders() {
                     text: "Une erreur est survenue lors de la suppression de commande.",
                     variant: "danger"
                 });
-                closeAlert();
             })
         },[closeAlert, history, selectedOrders]
     )
@@ -174,22 +181,12 @@ function Orders() {
 
 
     return <> 
-    <Alert 
+    <UserAlert
         variant={alertState.variant}
-        show={alertState.isOpen}
-        css={css`
-            position: sticky; 
-            top: 100px;  
-            left: 300px;
-            text-align: center;
-            min-width: 10px;              
-            max-width: 400px;
-            z-index: 1;
-            box-shadow: 1px 1px 1px black;
-        `}
+        isOpen={alertState.isOpen}
     >
         {alertState.text}
-    </Alert>
+    </UserAlert>
     <div     
         css={css`
             display: flex;

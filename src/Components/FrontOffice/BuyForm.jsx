@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React,{useContext} from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
-import { Formik } from 'formik';
-import { css} from '@emotion/react'
+import {Formik} from 'formik';
+import {css} from '@emotion/react'
 import axios from 'axios'
 import {UserContext} from '../Context/UserContext.jsx';
 import {useHistory} from 'react-router-dom'
@@ -35,6 +35,7 @@ function BuyForm ({amount, userInformation}) {
 
 
     return userInformation.firstName !== undefined ? <div>
+
         <Formik 
            
             initialValues={{
@@ -56,47 +57,8 @@ function BuyForm ({amount, userInformation}) {
             validationSchema={schema}
 
             onSubmit={values => {
-                if(values.bankData === true){
-                    axios.post('https://127.0.0.1:8000/api/order', {
-                        "firstName" :values.firstName,
-                        "lastName" :values.lastName,
-                        "city" :values.city,
-                        "address" :values.address,
-                        "email" :values.email,
-                        "paymentMethod" :values.paymentMethod,
-                        "cardName" :values.cardName,
-                        "cardNumber" : parseInt(values.cardNumber),
-                        "cardExpirationDate" :values.cardExpirationDate,
-                        "cryptogram" :parseInt(values.cryptogram),
-                        "amount" : amount
-                    })
-                    .then(function (response) {
-                        axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
-                            "firstName" :values.firstName,
-                            "lastName" :values.lastName,
-                            "city" :values.city,
-                            "address" :values.address,
-                            "email" :values.email,
-                            "paymentMethod" :values.paymentMethod,
-                            "cardName" :values.cardName,
-                            "cardNumber" : parseInt(values.cardNumber),
-                            "cardExpirationDate" :values.cardExpirationDate,
-                            "cryptogram" :parseInt(values.cryptogram)
-                        })
-                        .then(function (response) {
-                            return history.push('/');
-                        })
-                        .catch(function (error) {
-                           
-                        });
-                    
-                    })
-                    .catch(function (error) {
-                       
-                    });
 
                 
-                }else{
                     axios.post('https://127.0.0.1:8000/api/order', {
                         "firstName" :values.firstName,
                         "lastName" :values.lastName,
@@ -111,14 +73,37 @@ function BuyForm ({amount, userInformation}) {
                         "amount" : amount
                     })
                     .then(function (response) {
-                       
+                        if(values.bankData === true){
+                            console.log("enregistrement des infos de paiement")
+                            axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
+                                "firstName" :values.firstName,
+                                "lastName" :values.lastName,
+                                "city" :values.city,
+                                "address" :values.address,
+                                "email" :values.email,
+                                "paymentMethod" :values.paymentMethod,
+                                "cardName" :values.cardName,
+                                "cardNumber" : parseInt(values.cardNumber),
+                                "cardExpirationDate" :values.cardExpirationDate,
+                                "cryptogram" :parseInt(values.cryptogram)
+                            })
+                            .then(function (response) {
+                                return history.push('/');
+                            })
+                            .catch(function (error) {
+                            // problème d'enregistrement des informations de paiement
+                            });
+                        }else{
+                            console.log("pas d'enregistrement des infos de paiement")
+                        }
                         return history.push('/');
+
                     })
                     .catch(function (error) {
-                        
+                        // problème d'envoie des informations de paiement    
                     });
                 }
-            }}
+            }
         >
             {({handleChange, handleSubmit,values,touched,errors}) => (
 

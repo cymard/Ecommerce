@@ -41,7 +41,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                         text: "Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.",
                         variant: "danger"
                     })
-                    closeAlert()
                     setQuantityToBuy(response.data.number);
                 }
                 reFetch();
@@ -55,7 +54,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                     text: "Une erreur est survenue lors de la mise à jour du panier.",
                     variant: "danger"
                 })
-                closeAlert()
             })
         },
         [token,quantityToBuy,id,reFetch,closeAlert,setAlertState]
@@ -82,7 +80,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                     text: "Une erreur est survenue lors de la mise à jour du panier.",
                     variant: "danger"
                 })
-                closeAlert()
             })
         },
         [token,id,reFetch,closeAlert,setAlertState],
