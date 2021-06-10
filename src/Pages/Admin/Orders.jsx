@@ -112,10 +112,7 @@ function Orders() {
 
         for(let i = 1;i<=data.totalPageNumber; i++){
             // changer l'id dans l'url
-            uris.push({
-                uri: `/admin/orders?page=${i}&search=${querySearchValue}`,
-                key: i
-            })
+            uris.push(`/admin/orders?page=${i}&search=${querySearchValue}`)
         }
 
        setAllPageUris(uris)

@@ -121,7 +121,10 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
 
 ProductPriceAddShoppingCart.propTypes = {
     price : PropTypes.number.isRequired,
-    stock : PropTypes.number
+    stock : PropTypes.number,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
+
 
 export default ProductPriceAddShoppingCart;

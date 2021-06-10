@@ -14,8 +14,8 @@ function FrontNavBarFilter ({allCategories}) {
         const categoryArray = [];
 
         allCategories.forEach(
-            element => categoryArray.push(
-                <Col key={element.category} xs={12} md={4} lg={"auto"}>
+            (element, index) => categoryArray.push(
+                <Col key={index} xs={12} md={4} lg={"auto"}>
                     <Nav.Item>
                         {/* <Link to={"/products?category="+element.uri+"&page=1"}> */}
                         <Link to={element.uri}> 

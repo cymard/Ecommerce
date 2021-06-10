@@ -139,10 +139,7 @@ function AdminHome () {
 
         for(let i = 1;i<=data.totalPageNumber; i++){
             // changer l'id dans l'url
-            uris.push({
-                uri: `/admin/home?${firstQueryParam}&page=${i}&sorting=${querySortingValue}`,
-                key: i
-            })
+            uris.push(`/admin/home?${firstQueryParam}&page=${i}&sorting=${querySortingValue}`)
         }
 
         setAllPageUris(uris)

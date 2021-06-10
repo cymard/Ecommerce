@@ -74,17 +74,14 @@ function UserOrders (){
 
         for(let i = 1;i<=data.totalPageNumber; i++){
             // changer l'id dans l'url
-            uris.push({
-                uri: `/api/orders?page=${i}&date=${queryDateValue}`,
-                key: i
-            })
+            uris.push(`/api/orders?page=${i}&date=${queryDateValue}`)
         }
 
         setAllPageUris(uris)
     }, [queryDateValue, data.totalPageNumber])
 
     return <>
-     <UserAlert
+    <UserAlert
         variant={alertState.variant}
         isOpen={alertState.isOpen}
     >

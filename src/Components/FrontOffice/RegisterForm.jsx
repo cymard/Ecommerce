@@ -4,7 +4,8 @@ import {Form, Button} from 'react-bootstrap';
 import { Formik } from 'formik';
 import {css} from '@emotion/react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 let yup = require('yup');
 
 
@@ -114,6 +115,11 @@ function RegisterForm ({setAlertState, closeAlert}) {
             </Form>
         )}
     </Formik>
+}
+
+RegisterForm.propTypes = {
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default RegisterForm;

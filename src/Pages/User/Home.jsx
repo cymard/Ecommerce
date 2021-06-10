@@ -96,10 +96,7 @@ function Home(){
         const uris = []
 
         for(let i = 1;i<=data.totalPageNumber; i++){
-            uris.push({
-                uri: `/products?${firstQueryParam}&page=${i}`,
-                key: i
-            })
+            uris.push(`/products?${firstQueryParam}&page=${i}`)
         }
 
         setAllPageUris(uris)

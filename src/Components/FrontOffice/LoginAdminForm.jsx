@@ -5,7 +5,9 @@ import { Formik } from 'formik';
 import { css} from '@emotion/react';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
-import { UserAdminContext } from '../Context/UserAdminContext.jsx'
+import { UserAdminContext } from '../Context/UserAdminContext.jsx';
+import PropTypes from 'prop-types';
+
 
 let yup = require('yup');
 
@@ -122,6 +124,11 @@ function LoginAdminForm ({setAlertState, closeAlert}) {
         </Form>
     )}
 </Formik>
+}
+
+LoginAdminForm.propTypes = {
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default LoginAdminForm;

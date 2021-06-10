@@ -6,6 +6,7 @@ import { css} from '@emotion/react';
 import {UserContext} from '../Context/UserContext';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 let yup = require('yup');
 
@@ -121,6 +122,11 @@ function LoginForm ({setAlertState, closeAlert}) {
         </Form>
     )}
 </Formik>
+}
+
+LoginForm.propTypes = {
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default LoginForm;

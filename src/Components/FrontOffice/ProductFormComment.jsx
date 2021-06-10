@@ -159,7 +159,9 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
 }
 
 ProductFormComment.propTypes = {
-    reFetch : PropTypes.func.isRequired
+    reFetch : PropTypes.func.isRequired,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default ProductFormComment;
