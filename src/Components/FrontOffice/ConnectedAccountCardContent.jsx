@@ -19,7 +19,6 @@ ConnectedAccountCardContent.propTypes = {
     text : PropTypes.string,
     to : PropTypes.string.isRequired,
     item : PropTypes.element,
-
 }
 
 export default ConnectedAccountCardContent;

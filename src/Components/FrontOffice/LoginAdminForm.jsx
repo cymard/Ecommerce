@@ -66,7 +66,7 @@ function LoginAdminForm ({setAlertState, closeAlert}) {
                 text: "La connexion a échouée, merci de réessayer.",
                 variant: "danger"
             });
-            console.error(err.message);
+            console.warn(err.message);
         }
     };
 

@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import {Link,useParams} from "react-router-dom";
 import RedirectModal from '../All/RedirectModal.jsx';
 import axios from 'axios';
+import PriceAddShoppingCartButton from './PriceAddShoppingCartButton.jsx';
 
 function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert}){
 
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token;
+    const {token, email} = useContext(UserContext);
+    const isUserDisconnected = email === null && token === null;
 
     let { id } = useParams();
 
@@ -80,39 +81,17 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
                 Prix : {price} €
             </Card.Title>
         
-                {informationUser.email === null && informationUser.token === null ?
+                {isUserDisconnected ?
                     <>
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={displayModal}
-                            
-                        >
-                            Ajouter au panier
-                        </Button>
+                        <PriceAddShoppingCartButton clickEffect={displayModal} isDisabled={false}/>
                     </>
                 :
                     disabledAdd ? 
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={handleClick}
-                            disabled
-                        >
-                            Ajouter au panier
-                        </Button>
+                        <PriceAddShoppingCartButton clickEffect={handleClick} isDisabled={true}/>
                     :
                   
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={handleClick}
-                            >
-                            Ajouter au panier
-                        </Button>
+                    <PriceAddShoppingCartButton  clickEffect={handleClick} isDisabled={false}/>
+
                 }
         </Card.Body>
     </Card>

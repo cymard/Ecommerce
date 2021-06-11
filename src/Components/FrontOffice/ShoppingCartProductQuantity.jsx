@@ -32,7 +32,12 @@ function ShoppingCartProductQuantity ({quantityToBuyChange, quantityToBuy, updat
                 >
                     Quantité : 
                 </Form.Label>
-                <Form.Control id="quantityToBuy" value={quantityToBuy} onChange={quantityToBuyChange} className="ml-3 mr-3" type="text" 
+                <Form.Control 
+                    id="quantityToBuy" 
+                    value={quantityToBuy} 
+                    onChange={quantityToBuyChange} 
+                    className="ml-3 mr-3" 
+                    type="text" 
                     css={css`
                         width: 60px;
                     `}

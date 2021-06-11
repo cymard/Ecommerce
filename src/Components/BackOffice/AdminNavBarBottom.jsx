@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 
 function AdminNavBarBottom ({disconnection}) {
     return <div
-    css={css`
-        display: flex;
-        flex-direction: column;
-    `} 
->
-    <LinkAdminNavBar url="/">ACCÉDER AU SITE</LinkAdminNavBar>
-    <LinkAdminNavBar url="/" onClick={disconnection}>DÉCONNEXION</LinkAdminNavBar>
-</div>
+        css={css`
+            display: flex;
+            flex-direction: column;
+        `} 
+    >
+        <LinkAdminNavBar url="/">ACCÉDER AU SITE</LinkAdminNavBar>
+        <LinkAdminNavBar url="/" onClick={disconnection}>DÉCONNEXION</LinkAdminNavBar>
+    </div>
 }
 
 AdminNavBarBottom.propTypes = {

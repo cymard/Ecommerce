@@ -13,7 +13,7 @@ function HeaderNavBar () {
     const searchIcon = <FontAwesomeIcon icon={faSearch} />
     const itemHome = <FontAwesomeIcon icon={faHome} size="2x" />;
 
-    const userInformations = useContext(UserContext);
+    const {email} = useContext(UserContext);
 
     const [value, setValue] = useState();
     const searchInput = useRef(null);
@@ -25,7 +25,12 @@ function HeaderNavBar () {
     return <Navbar css={css`box-shadow: 1px 2px 3px gray;`} collapseOnSelect fixed="top" bg="light" expand="lg" > 
 
         <Navbar.Brand>
-            <ModifiedLinksRouter color="black" to="/">{itemHome}</ModifiedLinksRouter>
+            <ModifiedLinksRouter 
+                color="black" 
+                to="/"
+            >
+                {itemHome}
+            </ModifiedLinksRouter>
         </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -44,11 +49,12 @@ function HeaderNavBar () {
             </Form>
         
             <Nav className="mr-auto">
-                {userInformations.email ? 
+                {email ? 
                     <ModifiedLinksRouter color="black" to="/api/connectedAccount">Compte</ModifiedLinksRouter> 
                 : 
                     <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
                 }
+
                 <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
                 
                 <Nav.Link className="p-0" href="https://127.0.0.1:8000/contact">

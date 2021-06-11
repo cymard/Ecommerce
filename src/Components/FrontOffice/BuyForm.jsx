@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React,{useContext} from 'react';
+import React,{useContext, useCallback} from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
 import {Formik} from 'formik';
 import {css} from '@emotion/react'
@@ -7,10 +7,11 @@ import axios from 'axios'
 import {UserContext} from '../Context/UserContext.jsx';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
+import CenteredSpinner from '../All/CenteredSpinner.jsx';
 
 let yup = require('yup');
 
-function BuyForm ({amount, userInformation}) {
+function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
 
     const schema = yup.object({
         firstName: yup.string().required(),
@@ -32,6 +33,29 @@ function BuyForm ({amount, userInformation}) {
     const email = informationUser.email
     let history = useHistory();
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+
+    const savePaymentInformations = useCallback(
+        (userInformations) => {
+            axios.put('https://127.0.0.1:8000/api/user/paymentInformations', userInformations)
+            .then(function (response) {
+                setAlertState({
+                    isOpen: true,
+                    text: "Informations de paiement enregistrées.",
+                    variant: "success"
+                });
+                closeAlert();
+                return history.push('/');
+            })
+            .catch(function (error) {
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de l'enregistrement des informations de paiement.",
+                    variant: "danger"
+                });
+            });
+        },
+        [closeAlert, history, setAlertState]
+    )
 
 
     return userInformation.firstName !== undefined ? <div>
@@ -57,50 +81,33 @@ function BuyForm ({amount, userInformation}) {
             validationSchema={schema}
 
             onSubmit={values => {
-
-                
-                    axios.post('https://127.0.0.1:8000/api/order', {
-                        "firstName" :values.firstName,
-                        "lastName" :values.lastName,
-                        "city" :values.city,
-                        "address" :values.address,
-                        "email" :values.email,
-                        "paymentMethod" :values.paymentMethod,
-                        "cardName" :values.cardName,
-                        "cardNumber" : parseInt(values.cardNumber),
-                        "cardExpirationDate" :values.cardExpirationDate,
-                        "cryptogram" :parseInt(values.cryptogram),
-                        "amount" : amount
-                    })
+                const userInformations = {
+                    "firstName" :values.firstName,
+                    "lastName" :values.lastName,
+                    "city" :values.city,
+                    "address" :values.address,
+                    "email" :values.email,
+                    "paymentMethod" :values.paymentMethod,
+                    "cardName" :values.cardName,
+                    "cardNumber" : parseInt(values.cardNumber),
+                    "cardExpirationDate" :values.cardExpirationDate,
+                    "cryptogram" :parseInt(values.cryptogram),
+                    "amount" : amount
+                }
+                    axios.post('https://127.0.0.1:8000/api/order', userInformations)
                     .then(function (response) {
                         if(values.bankData === true){
-                            console.log("enregistrement des infos de paiement")
-                            axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
-                                "firstName" :values.firstName,
-                                "lastName" :values.lastName,
-                                "city" :values.city,
-                                "address" :values.address,
-                                "email" :values.email,
-                                "paymentMethod" :values.paymentMethod,
-                                "cardName" :values.cardName,
-                                "cardNumber" : parseInt(values.cardNumber),
-                                "cardExpirationDate" :values.cardExpirationDate,
-                                "cryptogram" :parseInt(values.cryptogram)
-                            })
-                            .then(function (response) {
-                                return history.push('/');
-                            })
-                            .catch(function (error) {
-                            // problème d'enregistrement des informations de paiement
-                            });
+                            savePaymentInformations(userInformations)
                         }else{
-                            console.log("pas d'enregistrement des infos de paiement")
+                            return history.push('/');
                         }
-                        return history.push('/');
-
                     })
                     .catch(function (error) {
-                        // problème d'envoie des informations de paiement    
+                        setAlertState({
+                            isOpen: true,
+                            text: "Une erreur est survenue lors de l'envoie des informations de paiement.",
+                            variant: "danger"
+                        });
                     });
                 }
             }
@@ -304,12 +311,15 @@ function BuyForm ({amount, userInformation}) {
         </Formik>
     </div>
     :
-    <div>Chargement ...</div>
+    <CenteredSpinner/>
 }
 
 BuyForm.propTypes = {
     amount : PropTypes.number,
-    userInformation : PropTypes.object.isRequired
+    userInformation : PropTypes.object.isRequired,
+    closeAlert : PropTypes.func, 
+    setAlertState : PropTypes.func
+
 }
 
 export default BuyForm

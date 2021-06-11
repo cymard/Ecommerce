@@ -17,8 +17,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
         setQuantityToBuy(e.target.value)
     }
 
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token;
+    const {token} = useContext(UserContext);
 
     const updateQuantity = useCallback(
         (e) => {
@@ -86,10 +85,10 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
     )
 
 
-    return <div className="d-flex mb-5" 
+    return <div 
+        className="d-flex mb-5" 
         css={css`
             width: 100%;
-
         `}
     >
         <Row

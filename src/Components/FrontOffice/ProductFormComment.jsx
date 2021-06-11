@@ -15,8 +15,7 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
     const [pseudoEmail, setPseudoEmail] = useState('')
 
     let { id } = useParams();
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token
+    const {token, email} = useContext(UserContext);
 
     let schema = yup.object().shape({
         title: yup.string().min(2, 'Trop Court!').max(255, 'Trop Long!').required(),
@@ -26,12 +25,13 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
     });
       
     useEffect(()=>{
-        if(informationUser.email !== null){
-            setPseudoEmail(informationUser.email.split("@")[0]);
+        if(email !== null){
+            setPseudoEmail(email.split("@")[0]);
         }
-    },[informationUser])
+    },[email])
 
-
+    const isUserDisconnected = email === null && token === null
+    
     return <Formik
         enableReinitialize={true}
         validationSchema={schema}
@@ -140,14 +140,27 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
                     />
                 </Form.Group>
 
-                {informationUser.email === null && informationUser.token === null ?
-                    <Link to="/login"><Button  variant="primary" size="lg"
-                        css={css`
-                            width: 100%; 
-                        `}
-                    >Poster</Button></Link>
+                {isUserDisconnected ?
+                    <Link to="/login">
+                        <Button  
+                            variant="primary" 
+                            size="lg"
+                            css={css`
+                                width: 100%; 
+                            `}
+                        >
+                            Poster
+                        </Button>
+                    </Link>
                 :
-                    <Button type="submit" variant="primary" size="lg" block>Poster</Button>
+                    <Button 
+                        type="submit" 
+                        variant="primary" 
+                        size="lg" 
+                        block
+                    >
+                        Poster
+                    </Button>
                 }
                 
             </Form>

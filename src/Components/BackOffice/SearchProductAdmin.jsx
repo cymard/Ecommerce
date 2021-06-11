@@ -11,6 +11,7 @@ function SearchProductAdmin (){
 
     const [searchValue, setSearchValue] = useState("");
     let history = useHistory();
+    
     const handleChangeSearch = useCallback(
         (e) => {
             setSearchValue(e.target.value);

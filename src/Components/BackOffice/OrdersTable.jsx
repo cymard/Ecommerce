@@ -31,7 +31,11 @@ function OrdersTable ({data, handleClickSelectAll, checkedSelectAll, selectedOrd
     <tbody>
 
         {data.status === true && data.allOrdersNumber !== 0?
-            <OrdersListAdmin orders={data.orders} setSelectedOrders={setSelectedOrders} selectedOrders={selectedOrders}></OrdersListAdmin>
+            <OrdersListAdmin 
+                orders={data.orders} 
+                setSelectedOrders={setSelectedOrders} 
+                selectedOrders={selectedOrders}
+            ></OrdersListAdmin>
         :  
             <tr><th>Aucune commande trouvée </th></tr>
         }

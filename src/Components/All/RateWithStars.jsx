@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {faStar as faStarRegular} from '@fortawesome/free-regular-svg-icons';
+import CenteredSpinner from './CenteredSpinner.jsx';
 import PropTypes from 'prop-types';
 
 function RateWithStars ({rate}) {
@@ -9,13 +10,13 @@ function RateWithStars ({rate}) {
     const [solidStatus, setSolidStatus] = useState({status : false, stars : undefined})
     const [regularStatus, setRegularStatus] = useState({status : false, stars : undefined})
 
-    useEffect(( ) => {
+    useEffect(() => {
 
         let solidStarsArray = [] // tableau contenant le nombre d'étoile correspondant à la note sur 5
-        let regularStarsArray = [] // les étoiles non colorées lorsque la note est inférieure à la note maximale
+        let regularStarsArray = [] // les étoiles non colorées (lorsque la note est inférieure à la note maximale)
         const regularStarsNumber = 5-rate
 
-        // envoie du nombre d'étoile colorées dans le state
+        // Envoie du nombre d'étoile colorées dans le state
         if(rate === 0 ){
             setSolidStatus({status : true, stars : []})
         }else{
@@ -29,7 +30,7 @@ function RateWithStars ({rate}) {
         }
 
 
-        // envoie du nombre d'étoile non colorées dans le state
+        // Envoie du nombre d'étoile non colorées dans le state
         if(regularStarsNumber === 0 ){
             setRegularStatus({status : true, stars : []})
         }else{
@@ -46,13 +47,13 @@ function RateWithStars ({rate}) {
 
 
     // permet de concatener 2 tableaux de données
-    const displayRateWithStars = (array1,array2) =>  {
-        let array = array1.concat(array2)
-        return array
+    const displayRateWithStars = (solidStarsArray,regularStarsArray) =>  {
+        let concatenatedArray = solidStarsArray.concat(regularStarsArray)
+        return concatenatedArray
     }
 
 
-    return solidStatus.status === true && regularStatus.status === true ?  displayRateWithStars(solidStatus.stars, regularStatus.stars) : "chargement"
+    return solidStatus.status === true && regularStatus.status === true ?  displayRateWithStars(solidStatus.stars, regularStatus.stars) : <CenteredSpinner/>
 }
 
 RateWithStars.propTypes = {

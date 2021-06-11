@@ -14,10 +14,21 @@ function ShoppingCartTotal ({price}) {
                 <Col sm={12} lg={3} className="text-center">
                     {price !== 0 ? 
                         <ModifiedLinksRouter color="white" to="/Buy">
-                            <Button className="w-100" variant="success">Passer la commande</Button>  
+                            <Button 
+                                className="w-100" 
+                                variant="success"
+                            >
+                                Passer la commande
+                            </Button>  
                         </ModifiedLinksRouter> 
                     :
-                        <Button disabled className="w-100" variant="success">Passer la commande</Button>  
+                        <Button 
+                            disabled 
+                            className="w-100" 
+                            variant="success"
+                        >
+                            Passer la commande
+                        </Button>  
                     }
                 </Col>
             </Row>

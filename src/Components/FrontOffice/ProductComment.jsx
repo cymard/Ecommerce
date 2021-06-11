@@ -38,7 +38,9 @@ function ProductComment ({pseudo, content, note, date, title, buttons}) {
         
         <Card.Footer >
             <Row>
-                <Col lg={3} md={3}><p>Publié le {date}</p></Col>
+                <Col lg={3} md={3}>
+                    <p>Publié le {date}</p>
+                </Col>
                 <Col sm={0} md={7} lg={7}></Col>
                 <Col lg={2} md={2}>{buttons}</Col>
             </Row>

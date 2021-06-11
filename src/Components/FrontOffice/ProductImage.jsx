@@ -8,7 +8,10 @@ import PropTypes from 'prop-types';
 
 function ProductImage ({image}) {
     return  <div  className="col-lg-4 col-md-12 d-flex justify-content-center align-items-center ">
-    <Image className="m-2" src={image !== null ? image : screen} rounded 
+    <Image 
+        className="m-2" 
+        src={image !== null ? image : screen} 
+        rounded 
         css={css`
             max-height: 318px;
             max-width: 318px;

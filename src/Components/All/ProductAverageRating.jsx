@@ -3,7 +3,6 @@ import RateWithStars from './RateWithStars.jsx';
 import {Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-
 function ProductAverageRating({data}){
     return <Card className="mt-4">
     <Card.Body className=" d-flex justify-content-around align-items-center">

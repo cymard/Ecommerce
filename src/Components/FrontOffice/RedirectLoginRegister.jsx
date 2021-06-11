@@ -42,9 +42,7 @@ function RedirectLoginRegister ({children}) {
             <Col sm={12} lg={6}>
                 <Link  to="/Register"><Button className="w-100" variant="warning">Inscrivez-vous maintenant</Button></Link>
             </Col>
-
         </Row>
-
     </div>
         
 }

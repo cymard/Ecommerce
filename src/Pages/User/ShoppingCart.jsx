@@ -45,11 +45,17 @@ function ShoppingCart(){
             })
             .catch(function (error) {
                 console.warn(error);
-                setAlertState({
-                    isOpen: true,
-                    text: "Une erreur est survenue, impossible de récuperer les informations des produits du panier.",
-                    variant: "danger"
-                });
+                console.log(error.response.status)
+                if(error.response.status === 401){
+                    // Ne pas envoyer de message d'erreur, une div s'affiche déjà lorsque l'utilisateur n'est pas connecté.    
+                }else{
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue, impossible de récuperer les informations des produits du panier.",
+                        variant: "danger"
+                    });
+                }
+               
             })
     },[token])
 

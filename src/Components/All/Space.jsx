@@ -2,11 +2,11 @@
 import {css} from '@emotion/react';
 import React from 'react';
 
-function Space(){
+function Space({height}){
     return  <div 
         css={css`
             width: 100%; 
-            height: 20px;
+            height: ${height}px;
         `}
     ></div>
 }

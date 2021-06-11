@@ -25,9 +25,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
         cryptogram: yup.number().positive().moreThan(99).lessThan(1000).required()
     });
 
-
-    const contextInformations = useContext(UserContext);
-    const token = contextInformations.token
+    const {email, token} = useContext(UserContext);
 
     return userInformation.firstName !== undefined ? <Formik
         initialValues={{ 
@@ -35,7 +33,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
             lastName: userInformation.lastName, 
             city: userInformation.city , 
             address: userInformation.address, 
-            email: contextInformations.email, 
+            email: email, 
             paymentMethod: userInformation.paymentMethod, 
             cardName: userInformation.cardName, 
             cardNumber: userInformation.cardNumber, 

@@ -3,9 +3,7 @@ import React from 'react';
 import {Card,Button} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {css} from '@emotion/react';
-import {
-    Link
-  } from "react-router-dom";
+import {Link} from "react-router-dom";
 import screen from '../../images/screen.jpg';
 
 function ProductCard ({link, urlImage,title,textButton}) {
@@ -30,7 +28,9 @@ function ProductCard ({link, urlImage,title,textButton}) {
                 `}
             />
             <Card.Body className="m-auto">
-                <Link to={link}><Button>{textButton}</Button></Link>
+                <Link to={link}>
+                    <Button>{textButton}</Button>
+                </Link>
             </Card.Body>
         </Card>
 }

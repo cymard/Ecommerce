@@ -19,6 +19,18 @@ function Buy(){
         variant: undefined
     })
 
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
+
     const getUserInformation = useCallback(
         () => {
             axios.get('https://127.0.0.1:8000/api/connectedAccount')
@@ -59,7 +71,7 @@ function Buy(){
                 console.warn(error);
                 setAlertState({
                     isOpen: true,
-                    text: "Une erreur est survenue lros de la récupération du prix total.",
+                    text: "Une erreur est survenue lors de la récupération du prix total.",
                     variant: "danger"
                 });
             });
@@ -84,6 +96,8 @@ function Buy(){
         <BuyForm 
             amount={amount}
             userInformation={userInformation}
+            setAlertState={setAlertState}
+            closeAlert={closeAlert}
         ></BuyForm>
     </Container>
 

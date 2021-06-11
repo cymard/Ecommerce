@@ -16,20 +16,19 @@ function ChangeEmailForm({request, changeEmail}){
     });
 
     return <Formik
+        initialValues={{ 
+            password: '',
+            newEmail: ''
+        }}
 
-    initialValues={{ 
-        password: '',
-        newEmail: ''
-    }}
+        validationSchema={schema}
 
-    validationSchema={schema}
-
-    onSubmit={values => {
-        request({
-            password: values.password,
-            newEmail: values.newEmail,
-        });
-    }}
+        onSubmit={values => {
+            request({
+                password: values.password,
+                newEmail: values.newEmail,
+            });
+        }}
     >
     {({handleChange, handleSubmit, values, errors, touched }) => (
     <div

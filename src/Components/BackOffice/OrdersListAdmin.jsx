@@ -17,7 +17,7 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
             return;
         }
         
-        if(e.target.checked === true ){
+        if(e.target.checked){
             // on ajoute la valeur de l'id dans le tableau
             setSelectedOrders([...selectedOrders, orderId])
         }else{
@@ -27,7 +27,6 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
                 const newSelectedOrders = [...selectedOrders];
                 newSelectedOrders.splice(index, 1);
                 setSelectedOrders(newSelectedOrders);
-
             }
         }
     }
@@ -52,7 +51,13 @@ function OrdersListAdmin ({orders,setSelectedOrders,selectedOrders}) {
                 <td>{order.firstName}</td>
                 <td>{order.email}</td>
                 <td>{order.createdDate}</td>
-                <td><Link to={`/admin/order/${order.id}/cart`}><Button>{zoomItem}</Button></Link></td>
+                <td>
+                    <Link to={`/admin/order/${order.id}/cart`}>
+                        <Button>
+                            {zoomItem}
+                        </Button>
+                    </Link>
+                </td>
             </tr>)
             :
             <p>aucun data</p>

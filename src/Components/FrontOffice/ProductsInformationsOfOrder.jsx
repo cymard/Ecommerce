@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
 
 
 function ProductsInformationsOfOrder ({product}){
-    return <Card className="mr-2 ml-2" style={{ width: '18rem' }}>
+    return <Card 
+        className="mr-2 ml-2" 
+        style={{ width: '18rem' }}
+    >
         <Card.Img 
             variant="top"
             src={product.product.image || screen} 

@@ -20,7 +20,7 @@ function RegisterForm ({setAlertState, closeAlert}) {
     });
 
     const handleOnSubmit = async (values) => {
-        await axios.post('https://127.0.0.1:8000/register', {
+        axios.post('https://127.0.0.1:8000/register', {
             "email": values.email,
             "password": values.password
         })

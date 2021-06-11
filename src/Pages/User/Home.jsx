@@ -126,7 +126,7 @@ function Home(){
         className="d-flex justify-content-around flex-wrap"
     >
         <FrontNavBarFilter allCategories={categories}></FrontNavBarFilter>
-        <Space></Space>
+        <Space height={20}></Space>
 
         { data.status === "nothing" ?
             <div
