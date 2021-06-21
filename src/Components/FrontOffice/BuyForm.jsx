@@ -36,7 +36,7 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
 
     const savePaymentInformations = useCallback(
         (userInformations) => {
-            axios.put('https://127.0.0.1:8000/api/user/paymentInformations', userInformations)
+            axios.put('https://protected-taiga-91617.herokuapp.com/api/user/paymentInformations', userInformations)
             .then(function (response) {
                 setAlertState({
                     isOpen: true,
@@ -94,7 +94,7 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                     "cryptogram" :parseInt(values.cryptogram),
                     "amount" : amount
                 }
-                    axios.post('https://127.0.0.1:8000/api/order', userInformations)
+                    axios.post('https://protected-taiga-91617.herokuapp.com/api/order', userInformations)
                     .then(function (response) {
                         if(values.bankData === true){
                             savePaymentInformations(userInformations)

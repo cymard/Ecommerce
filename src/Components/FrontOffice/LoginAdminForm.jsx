@@ -28,7 +28,7 @@ function LoginAdminForm ({setAlertState, closeAlert}) {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://127.0.0.1:8000/admin/login_admin_check', {
+            const response = await axios.post('https://protected-taiga-91617.herokuapp.com/admin/login_admin_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });

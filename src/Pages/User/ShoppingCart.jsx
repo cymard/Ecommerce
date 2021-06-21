@@ -34,7 +34,7 @@ function ShoppingCart(){
 
     const displayArticles = useCallback(() => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.get('https://127.0.0.1:8000/api/cart/products')
+        axios.get('https://protected-taiga-91617.herokuapp.com/api/cart/products')
             .then(function (response) {
                 setData({
                     status: true,

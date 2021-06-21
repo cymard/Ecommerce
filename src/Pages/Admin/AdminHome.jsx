@@ -65,7 +65,7 @@ function AdminHome () {
             }else{
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                 let isSearching = querySearchValue !== null ? `search=${encodeURIComponent(querySearchValue)}&` : ""
-                let url = `https://127.0.0.1:8000/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
+                let url = `https://protected-taiga-91617.herokuapp.com/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
 
                 axios.get(url)
                 .then(function (response){
@@ -97,7 +97,7 @@ function AdminHome () {
 
     
     const handleRemove = () => {
-        axios.delete(`https://127.0.0.1:8000/admin/product`,{
+        axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/product`,{
             data:{
                 selectedProducts
             }

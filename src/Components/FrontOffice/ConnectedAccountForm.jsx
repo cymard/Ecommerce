@@ -47,7 +47,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
         onSubmit={values => {
             // change tout sauf l'email et le password
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put('https://127.0.0.1:8000/api/user/paymentInformations',{
+            axios.put('https://protected-taiga-91617.herokuapp.com/api/user/paymentInformations',{
                 firstName: values.firstName,
                 lastName: values.lastName,
                 city: values.city,

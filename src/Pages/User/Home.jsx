@@ -34,7 +34,7 @@ function Home(){
 
     const getProducts = useCallback(
         (uriParam) => {
-            axios.get(`https://127.0.0.1:8000/products?${uriParam}&page=${queryPageValue}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/products?${uriParam}&page=${queryPageValue}`)
             .then(function (response){
                 if(response.data.allProductsNumber === 0) {
                     setData({

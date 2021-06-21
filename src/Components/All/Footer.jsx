@@ -13,7 +13,7 @@ function Footer(){
         <Link to="/informations/condition_de_vente" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONDITIONS GENERALES DE VENTE</Link> ,
         <Nav.Link 
             className="pr-4 pt-1 pb-1" 
-            href="https://127.0.0.1:8000/contact"
+            href="https://protected-taiga-91617.herokuapp.com/contact"
             css={css`
                 color: white;
                 &:hover{

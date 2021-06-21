@@ -36,7 +36,7 @@ function CreateProduct(){
     const submitForm = useCallback(
         (data) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.post('https://127.0.0.1:8000/admin/products', data)
+            axios.post('https://protected-taiga-91617.herokuapp.com/admin/products', data)
             .then(function (response) {
                 history.push("/admin/home?category=all&page=1&sorting=default");
                 setAlertState({

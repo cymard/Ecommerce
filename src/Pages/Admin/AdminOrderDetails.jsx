@@ -29,7 +29,7 @@ function AdminOrderDetails () {
 
     const getProducts = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}/cart`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/order/${orderId}/cart`)
             .then(function(response){
                 setData({
                     status: true,
@@ -50,7 +50,7 @@ function AdminOrderDetails () {
 
     const getInformationOrder = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
                     status: true,

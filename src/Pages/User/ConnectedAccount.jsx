@@ -32,7 +32,7 @@ function ConnectedAccount () {
 
     const getUserInformation = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/connectedAccount')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
                     status: true,
@@ -63,7 +63,7 @@ function ConnectedAccount () {
 
     const getUserOrderNumber = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/user/order')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/user/order')
             .then(function (response) {
                 setUserOrderNumber({
                     status: true,

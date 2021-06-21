@@ -36,7 +36,7 @@ function ChangeEmail () {
     const modifyEmail = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.put('https://127.0.0.1:8000/api/modify/email', dataPassword)
+            axios.put('https://protected-taiga-91617.herokuapp.com/api/modify/email', dataPassword)
             .then(function(response) {
                 setChangeEmail({
                     message: response.data.message

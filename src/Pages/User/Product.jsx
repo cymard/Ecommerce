@@ -41,7 +41,7 @@ function Product() {
 
     const getProduct = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/product/${id}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/product/${id}`)
                 .then(function (res) {
                     setData({
                         status: true,
@@ -72,7 +72,7 @@ function Product() {
     const handleReport = useCallback(
         (e) => {
             axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-            axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
+            axios.put(`https://protected-taiga-91617.herokuapp.com/api/comment/${e.target.id}`)
                 .then(() => {
                     setAlertState({
                         isOpen: true,

@@ -40,7 +40,7 @@ function EditProduct () {
 
     const getProductInformation = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/product/${id}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/product/${id}`)
                 .then(function (response) {
                     setDataProduct({
                         name: response.data.product.name,
@@ -72,7 +72,7 @@ function EditProduct () {
 
         try {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put(`https://127.0.0.1:8000/admin/product/${id}/edit`,data)
+            axios.put(`https://protected-taiga-91617.herokuapp.com/admin/product/${id}/edit`,data)
                 .then(function(response){
                     setAlertState({
                         isOpen: true,

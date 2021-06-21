@@ -39,7 +39,7 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
             ClickCounter()
 
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
+            axios.post(`https://protected-taiga-91617.herokuapp.com/api/cart/product/${id}`,{
                 "quantity" : 1
             })
             .then(function (response) {

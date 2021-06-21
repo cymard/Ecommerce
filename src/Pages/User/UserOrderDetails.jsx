@@ -29,7 +29,7 @@ function UserOrderDetails () {
 
     const getProducts = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/api/order/${orderId}/cart`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/api/order/${orderId}/cart`)
             .then(function(response){
                 setData({
                     status: true,
@@ -56,7 +56,7 @@ function UserOrderDetails () {
 
     const getOrderInformation = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/api/order/${orderId}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/api/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
                     status: true,
