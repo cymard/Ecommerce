@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import {Link,useParams} from "react-router-dom";
 import RedirectModal from '../All/RedirectModal.jsx';
 import axios from 'axios';
+import PriceAddShoppingCartButton from './PriceAddShoppingCartButton.jsx';
 
 function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert}){
 
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token;
+    const {token, email} = useContext(UserContext);
+    const isUserDisconnected = email === null && token === null;
 
     let { id } = useParams();
 
@@ -38,27 +39,23 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
             ClickCounter()
 
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.post(`https://127.0.0.1:8000/api/cart/product/${id}`,{
+            axios.post(`https://protected-taiga-91617.herokuapp.com/api/cart/product/${id}`,{
                 "quantity" : 1
             })
             .then(function (response) {
-                // alert
                 setAlertState({
                     isOpen: true,
                     text: "Produit ajouté au panier.",
                     variant: "success"
                 })
-                closeAlert()
             })
             .catch(function (error) {
                 console.warn(error);
-                // alert
                 setAlertState({
                     isOpen: true,
                     text: "Une erreur est survenue lors de l'ajout du produit au panier.",
                     variant: "danger"
                 })
-                closeAlert()
             });
 
         }
@@ -84,39 +81,17 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
                 Prix : {price} €
             </Card.Title>
         
-                {informationUser.email === null && informationUser.token === null ?
+                {isUserDisconnected ?
                     <>
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={displayModal}
-                            
-                        >
-                            Ajouter au panier
-                        </Button>
+                        <PriceAddShoppingCartButton clickEffect={displayModal} isDisabled={false}/>
                     </>
                 :
                     disabledAdd ? 
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={handleClick}
-                            disabled
-                        >
-                            Ajouter au panier
-                        </Button>
+                        <PriceAddShoppingCartButton clickEffect={handleClick} isDisabled={true}/>
                     :
                   
-                        <Button
-                            css={css`
-                                color: white;
-                            `}
-                            onClick={handleClick}
-                            >
-                            Ajouter au panier
-                        </Button>
+                    <PriceAddShoppingCartButton  clickEffect={handleClick} isDisabled={false}/>
+
                 }
         </Card.Body>
     </Card>
@@ -125,7 +100,10 @@ function ProductPriceAddShoppingCart ({price, stock, setAlertState, closeAlert})
 
 ProductPriceAddShoppingCart.propTypes = {
     price : PropTypes.number.isRequired,
-    stock : PropTypes.number
+    stock : PropTypes.number,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
+
 
 export default ProductPriceAddShoppingCart;

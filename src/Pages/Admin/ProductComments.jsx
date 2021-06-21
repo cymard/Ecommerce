@@ -11,6 +11,7 @@ import {
     useHistory,
     useParams
 } from "react-router-dom";
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 function ProductComments () {
@@ -19,12 +20,28 @@ function ProductComments () {
     let { id } = useParams();
     const {token} = useContext(UserAdminContext);
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
     let history = useHistory();
 
     const getProductComments = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/product/${id}/comments`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/product/${id}/comments`)
             .then(function (response){
                 setData({
                     status: true, 
@@ -34,6 +51,11 @@ function ProductComments () {
             .catch(function (error) {
                 console.warn(error); 
                 history.push("/admin/home")
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récupèration des commentaires du produit.",
+                    variant: "danger"
+                });
             })
         },
         [history, id]
@@ -47,21 +69,39 @@ function ProductComments () {
     const handleRemove = useCallback(
         (e) => {
             // supprimer le commentaire
-            axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/comment/${e.target.id}`)
             .then(function (response){
                 getProductComments()
+                setAlertState({
+                    isOpen: true,
+                    text: "Suppression effectuée.",
+                    variant: "success"
+                });
+                closeAlert();
             })
             .catch(function (error) {
                 console.warn(error); 
-    
+                setAlertState({
+                    isOpen: true,
+                    text: "une erreur est survenu lors de la suppression de produit.",
+                    variant: "danger"
+                });
             });
         
         },
-        [getProductComments]
+        [getProductComments, closeAlert]
     )
     
 
-    return <div     
+    return<> 
+        <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+
+    <div     
     css={css`
         min-height: calc(100vh - 64px);
         display: flex;
@@ -83,6 +123,7 @@ function ProductComments () {
             )}
         </Container> 
     </div>
+</>
 }
 
 export default ProductComments;

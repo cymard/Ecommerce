@@ -25,18 +25,18 @@ function PaginationButtons ({allPageUris, totalPageNumber, pageValue}) {
             const allButtons = []
 
             allPageUris.forEach(
-                (element, index) => allButtons.push(<Link to={element.uri} key={index}>
+                (element, index) => allButtons.push(<Link to={element} key={index+1}>
                     <Button
                         css={css`
                             margin: 0 2px;
                             border-color: grey;
                         `}
                         variant="outline-dark" 
-                        key={index} 
+                        key={index+1} 
                         onClick={handleActive} 
-                        active={activedButton === parseInt(index)}
+                        active={activedButton === parseInt(index+1)}
                     >
-                        {index}
+                        {index+1}
                     </Button>
                 </Link>)
             );

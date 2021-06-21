@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React,{useContext} from 'react';
+import React,{useContext, useCallback} from 'react';
 import {Form, Button, Col} from 'react-bootstrap';
-import { Formik } from 'formik';
-import { css} from '@emotion/react'
+import {Formik} from 'formik';
+import {css} from '@emotion/react'
 import axios from 'axios'
 import {UserContext} from '../Context/UserContext.jsx';
 import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types';
+import CenteredSpinner from '../All/CenteredSpinner.jsx';
 
 let yup = require('yup');
 
-function BuyForm ({amount, userInformation}) {
+function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
 
     const schema = yup.object({
         firstName: yup.string().required(),
@@ -33,8 +34,32 @@ function BuyForm ({amount, userInformation}) {
     let history = useHistory();
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
+    const savePaymentInformations = useCallback(
+        (userInformations) => {
+            axios.put('https://protected-taiga-91617.herokuapp.com/api/user/paymentInformations', userInformations)
+            .then(function (response) {
+                setAlertState({
+                    isOpen: true,
+                    text: "Informations de paiement enregistrées.",
+                    variant: "success"
+                });
+                closeAlert();
+                return history.push('/');
+            })
+            .catch(function (error) {
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de l'enregistrement des informations de paiement.",
+                    variant: "danger"
+                });
+            });
+        },
+        [closeAlert, history, setAlertState]
+    )
+
 
     return userInformation.firstName !== undefined ? <div>
+
         <Formik 
            
             initialValues={{
@@ -56,69 +81,36 @@ function BuyForm ({amount, userInformation}) {
             validationSchema={schema}
 
             onSubmit={values => {
-                if(values.bankData === true){
-                    axios.post('https://127.0.0.1:8000/api/order', {
-                        "firstName" :values.firstName,
-                        "lastName" :values.lastName,
-                        "city" :values.city,
-                        "address" :values.address,
-                        "email" :values.email,
-                        "paymentMethod" :values.paymentMethod,
-                        "cardName" :values.cardName,
-                        "cardNumber" : parseInt(values.cardNumber),
-                        "cardExpirationDate" :values.cardExpirationDate,
-                        "cryptogram" :parseInt(values.cryptogram),
-                        "amount" : amount
-                    })
+                const userInformations = {
+                    "firstName" :values.firstName,
+                    "lastName" :values.lastName,
+                    "city" :values.city,
+                    "address" :values.address,
+                    "email" :values.email,
+                    "paymentMethod" :values.paymentMethod,
+                    "cardName" :values.cardName,
+                    "cardNumber" : parseInt(values.cardNumber),
+                    "cardExpirationDate" :values.cardExpirationDate,
+                    "cryptogram" :parseInt(values.cryptogram),
+                    "amount" : amount
+                }
+                    axios.post('https://protected-taiga-91617.herokuapp.com/api/order', userInformations)
                     .then(function (response) {
-                        axios.put('https://127.0.0.1:8000/api/user/paymentInformations', {
-                            "firstName" :values.firstName,
-                            "lastName" :values.lastName,
-                            "city" :values.city,
-                            "address" :values.address,
-                            "email" :values.email,
-                            "paymentMethod" :values.paymentMethod,
-                            "cardName" :values.cardName,
-                            "cardNumber" : parseInt(values.cardNumber),
-                            "cardExpirationDate" :values.cardExpirationDate,
-                            "cryptogram" :parseInt(values.cryptogram)
-                        })
-                        .then(function (response) {
+                        if(values.bankData === true){
+                            savePaymentInformations(userInformations)
+                        }else{
                             return history.push('/');
-                        })
-                        .catch(function (error) {
-                           
+                        }
+                    })
+                    .catch(function (error) {
+                        setAlertState({
+                            isOpen: true,
+                            text: "Une erreur est survenue lors de l'envoie des informations de paiement.",
+                            variant: "danger"
                         });
-                    
-                    })
-                    .catch(function (error) {
-                       
-                    });
-
-                
-                }else{
-                    axios.post('https://127.0.0.1:8000/api/order', {
-                        "firstName" :values.firstName,
-                        "lastName" :values.lastName,
-                        "city" :values.city,
-                        "address" :values.address,
-                        "email" :values.email,
-                        "paymentMethod" :values.paymentMethod,
-                        "cardName" :values.cardName,
-                        "cardNumber" : parseInt(values.cardNumber),
-                        "cardExpirationDate" :values.cardExpirationDate,
-                        "cryptogram" :parseInt(values.cryptogram),
-                        "amount" : amount
-                    })
-                    .then(function (response) {
-                       
-                        return history.push('/');
-                    })
-                    .catch(function (error) {
-                        
                     });
                 }
-            }}
+            }
         >
             {({handleChange, handleSubmit,values,touched,errors}) => (
 
@@ -319,12 +311,15 @@ function BuyForm ({amount, userInformation}) {
         </Formik>
     </div>
     :
-    <div>Chargement ...</div>
+    <CenteredSpinner/>
 }
 
 BuyForm.propTypes = {
     amount : PropTypes.number,
-    userInformation : PropTypes.object.isRequired
+    userInformation : PropTypes.object.isRequired,
+    closeAlert : PropTypes.func, 
+    setAlertState : PropTypes.func
+
 }
 
 export default BuyForm

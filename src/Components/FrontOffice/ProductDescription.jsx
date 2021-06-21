@@ -14,11 +14,7 @@ function ProductDescription ({children, refRow}) {
     const [showText, setShowText] = useState(false);
 
     const handleClick = () => {
-        if(showText === true){
-            setShowText(false)
-        }else{
-            setShowText(true)
-        }
+        setShowText(showText => !showText);
     }
 
     return <div className="col-lg-7 col-md-12">

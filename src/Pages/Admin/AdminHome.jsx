@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect,useState,useContext,useCallback} from 'react';
 import {css} from '@emotion/react';
-import {Container, Alert} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import axios from 'axios';
 import AdminNavBar from "../../Components/BackOffice/AdminNavBar.jsx";
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
@@ -12,7 +12,7 @@ import {
 import AdminHomeTable from '../../Components/BackOffice/AdminHomeTable.jsx';
 import AdminHomeTableOptions from '../../Components/BackOffice/AdminHomeTableOptions.jsx';
 import PaginationButtons from '../../Components/All/PaginationButtons.jsx';
-
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function AdminHome () {
 
@@ -28,6 +28,18 @@ function AdminHome () {
     let history = useHistory();
 
     const {token} = useContext(UserAdminContext);
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
 
     useEffect(() => {
         // déclenchement du select all lorsque tous les checkbox sont séléctionnés
@@ -53,7 +65,7 @@ function AdminHome () {
             }else{
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
                 let isSearching = querySearchValue !== null ? `search=${encodeURIComponent(querySearchValue)}&` : ""
-                let url = `https://127.0.0.1:8000/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
+                let url = `https://protected-taiga-91617.herokuapp.com/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
 
                 axios.get(url)
                 .then(function (response){
@@ -72,14 +84,20 @@ function AdminHome () {
                 })
                 .catch(function (error) {
                     console.warn(error);
-                    // history.push("/admin/login");
+                    // Impossible d'afficher les produits
+                    setAlertState({
+                        isOpen: true,
+                        text: "Impossible de récuperer les informations des produits.",
+                        variant: "danger"
+                    });
+                    history.push("/admin/login");
                 }) 
             }   
-    }, [history,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
+    }, [history,closeAlert,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
 
     
     const handleRemove = () => {
-        axios.delete(`https://127.0.0.1:8000/admin/product`,{
+        axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/product`,{
             data:{
                 selectedProducts
             }
@@ -103,7 +121,6 @@ function AdminHome () {
                 text: "Une erreur est survenue lors de la suppression de produit.",
                 variant: "danger"
             });
-            closeAlert();
         })
     }
 
@@ -122,45 +139,20 @@ function AdminHome () {
 
         for(let i = 1;i<=data.totalPageNumber; i++){
             // changer l'id dans l'url
-            uris.push({
-                uri: `/admin/home?${firstQueryParam}&page=${i}&sorting=${querySortingValue}`,
-                key: i
-            })
+            uris.push(`/admin/home?${firstQueryParam}&page=${i}&sorting=${querySortingValue}`)
         }
 
         setAllPageUris(uris)
     }, [firstQueryParam, queryCategoryValue, querySortingValue, data.totalPageNumber, querySearchValue])
 
-    
-    const closeAlert = useCallback(
-        () => {
-            setTimeout(()=>{
-                setAlertState({
-                    isOpen: false,
-                    text: undefined,
-                    variant: undefined
-                });
-            }, 3000)
-        },[]
-    )
 
     return <>
-        <Alert 
+        <UserAlert
             variant={alertState.variant}
-            show={alertState.isOpen}
-            css={css`
-                position: sticky; 
-                top: 100px;
-                left: 300px;  
-                text-align: center;
-                min-width: 10px;              
-                max-width: 400px;
-                z-index: 1;
-                box-shadow: 1px 1px 1px black;
-            `}
+            isOpen={alertState.isOpen}
         >
             {alertState.text}
-        </Alert>
+        </UserAlert>
         <div     
             css={css`
                 display: flex;

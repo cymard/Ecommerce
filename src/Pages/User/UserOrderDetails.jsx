@@ -9,6 +9,7 @@ import CenteredSpinner from '../../Components/All/CenteredSpinner.jsx';
 import OrderIdentificationInformations from '../../Components/All/OrderIdentificationInformations.jsx';
 import ProductsInformationsOfOrder from '../../Components/FrontOffice/ProductsInformationsOfOrder.jsx';
 import PersonalOrderInformations from '../../Components/All/PersonalOrderInformations.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function UserOrderDetails () {
 
@@ -18,11 +19,17 @@ function UserOrderDetails () {
 
     const [data, setData] = useState({status: false})
     const [informationOrder, setInformationOrder] = useState({status: false})
-    const [isError, setIsError] = useState({status : false})
+
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+
 
     const getProducts = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/api/order/${orderId}/cart`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/api/order/${orderId}/cart`)
             .then(function(response){
                 setData({
                     status: true,
@@ -31,10 +38,17 @@ function UserOrderDetails () {
             })
             .catch(function(error){
                 if(error.response.status === 401){
-                    setIsError({
-                        status: true, 
-                        message: error.response.data.message
-                    })
+                    setAlertState({
+                        isOpen: true,
+                        text: error.response.data.message,
+                        variant: "danger"
+                    });
+                }else{
+                    setAlertState({
+                        isOpen: true,
+                        text: " Une erreur est survenue lors de la récuperation des produits.",
+                        variant: "danger"
+                    });
                 }
             })
         },[orderId]
@@ -42,7 +56,7 @@ function UserOrderDetails () {
 
     const getOrderInformation = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/api/order/${orderId}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/api/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
                     status: true,
@@ -51,6 +65,11 @@ function UserOrderDetails () {
             })
             .catch(function(error){
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur empêche de récuperer les informations de la commande.",
+                    variant: "danger"
+                });
             })
         },
         [orderId]
@@ -63,46 +82,38 @@ function UserOrderDetails () {
         getOrderInformation()
     },[getProducts,getOrderInformation])
 
-    return <Container fluid
+    return <>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    
+    <Container fluid
         css={css`
             min-height: 90vh;
         `}
     >
-            <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
+        <h1 className="text-center mt-4 mb-5">Détails de la commande</h1>
 
-            {isError.status ? 
-                // error message
-                <p 
-                    css={css`
-                        color: red;
-                        text-align: center;
-                        font-size: 20px;
-                        padding: 100px;
-                    `}
-                >
-                    {isError.message}
-                </p>
-            :
-                <>
-                    <h2 className="text-center mb-5">Les produits commandés : </h2>
+        <h2 className="text-center mb-5">Les produits commandés : </h2>
 
-                    {informationOrder.status && data.status ? 
-                        <>
-                            <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
-                            <div className="d-flex justify-content-center flex-wrap">
-                                {data.products.map(product => 
-                                    <ProductsInformationsOfOrder product={product} key={product.product.id}></ProductsInformationsOfOrder>
-                                )}
-                            </div>
-                            <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
-                        </>
-                    : 
-                        <CenteredSpinner></CenteredSpinner>
-                    }
-                </>
-            }     
+        {informationOrder.status && data.status ? 
+            <>
+                <OrderIdentificationInformations informationOrder={informationOrder}></OrderIdentificationInformations>
+                <div className="d-flex justify-content-center flex-wrap">
+                    {data.products.map(product => 
+                        <ProductsInformationsOfOrder product={product} key={product.product.id}></ProductsInformationsOfOrder>
+                    )}
+                </div>
+                <PersonalOrderInformations informationOrder={informationOrder}></PersonalOrderInformations>
+            </>
+        : 
+            <CenteredSpinner></CenteredSpinner>
+        }     
     </Container>
-
+</>
 }
 
 export default UserOrderDetails;

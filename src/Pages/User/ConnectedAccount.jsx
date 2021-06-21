@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React,{useEffect, useCallback, useContext, useState} from "react";
-import {Container, Alert} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import ConnectedAccountForm from '../../Components/FrontOffice/ConnectedAccountForm.jsx';
 import Title from "../../Components/All/Title.jsx";
 import ConnectedAccountDisconnection from "../../Components/FrontOffice/ConnectedAccountDisconnection.jsx";
@@ -10,6 +10,7 @@ import {UserContext} from '../../Components/Context/UserContext.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLock, faTruck, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import ConnectedAccountCard from '../../Components/FrontOffice/ConnectedAccountCard.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function ConnectedAccount () {
     const itemPassword = <FontAwesomeIcon icon={faLock} size="7x" /> 
@@ -31,7 +32,7 @@ function ConnectedAccount () {
 
     const getUserInformation = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/connectedAccount')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
                     status: true,
@@ -50,6 +51,11 @@ function ConnectedAccount () {
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenu lors de la récupération des informations de l'utilisateur.",
+                    variant: "danger"
+                });
             });
         },[]
     )
@@ -57,7 +63,7 @@ function ConnectedAccount () {
 
     const getUserOrderNumber = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/user/order')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/user/order')
             .then(function (response) {
                 setUserOrderNumber({
                     status: true,
@@ -66,6 +72,11 @@ function ConnectedAccount () {
             })
             .catch(function(error){
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur empeche de récuperer le nombre de commandes de l'utilisateur.",
+                    variant: "danger"
+                });
             });
         },[setUserOrderNumber]
     )
@@ -91,21 +102,12 @@ function ConnectedAccount () {
 
 
     return <Container>
-        <Alert 
+        <UserAlert
             variant={alertState.variant}
-            show={alertState.isOpen}
-            css={css`
-                position: sticky; 
-                top: 100px;  
-                text-align: center;
-                min-width: 10px;              
-                max-width: 400px;
-                z-index: 1;
-                box-shadow: 1px 1px 1px black;
-            `}
+            isOpen={alertState.isOpen}
         >
             {alertState.text}
-        </Alert>
+        </UserAlert>
         <Title>Mon Compte</Title>
         <ConnectedAccountDisconnection></ConnectedAccountDisconnection>
 

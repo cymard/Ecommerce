@@ -11,6 +11,7 @@ import {
     useHistory,
   } from "react-router-dom";
 import PaginationButtons from "../../Components/All/PaginationButtons.jsx"; 
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function Home(){
 
@@ -18,15 +19,22 @@ function Home(){
     const location = useLocation();
     const history = useHistory();
 
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+
+
     // récuperation et séparation des valeurs de l'uri
     const query = new URLSearchParams(location.search);
     const querySearchValue = query.get('search');
     const queryCategoryValue = query.get('category');
     const queryPageValue = query.get('page');
 
-    const displayProducts = useCallback(
+    const getProducts = useCallback(
         (uriParam) => {
-            axios.get(`https://127.0.0.1:8000/products?${uriParam}&page=${queryPageValue}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/products?${uriParam}&page=${queryPageValue}`)
             .then(function (response){
                 if(response.data.allProductsNumber === 0) {
                     setData({
@@ -44,6 +52,11 @@ function Home(){
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récupération des produits.",
+                    variant: "danger"
+                });
                 history.push("/products?category=all&page=1");
             })
         },
@@ -51,27 +64,19 @@ function Home(){
     )
 
     useEffect(()=>{
-        // if(queryCategoryValue === null && querySearchValue !== null &&  querySearchValue !== ''){
-        //     // Recherche des produits via le champs recherche 
-        //     displayProducts(`search=${querySearchValue}`);
-        // }else{
-        //     displayProducts(`category=${queryCategoryValue}`);
-        // }
-        
-        // Pour faire l'appel il faut regarder si le location.pathname commence par "search" ou par "category" 
         if(querySearchValue === null && queryCategoryValue !== null){
-            // Recherche de produit via les catégories
-            displayProducts(`category=${queryCategoryValue}`);
+            // Recherche de produits via les catégories
+            getProducts(`category=${queryCategoryValue}`);
 
-        }else if(querySearchValue !== ''){
+        }else if( querySearchValue !== null && querySearchValue !== ''){
             // Recherche des produits via le champs recherche 
-            displayProducts(`search=${querySearchValue}`);
+            getProducts(`search=${querySearchValue}`);
 
         }else{
             history.push("/products?category=all&page=1");
         }
         
-    },[querySearchValue, queryCategoryValue, history, displayProducts])
+    },[querySearchValue, queryCategoryValue, history, getProducts])
 
 
  
@@ -91,10 +96,7 @@ function Home(){
         const uris = []
 
         for(let i = 1;i<=data.totalPageNumber; i++){
-            uris.push({
-                uri: `/products?${firstQueryParam}&page=${i}`,
-                key: i
-            })
+            uris.push(`/products?${firstQueryParam}&page=${i}`)
         }
 
         setAllPageUris(uris)
@@ -110,6 +112,13 @@ function Home(){
     ]
 
     return<> 
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+
     <Container 
         css={css`
             min-height: 90vh;
@@ -117,7 +126,7 @@ function Home(){
         className="d-flex justify-content-around flex-wrap"
     >
         <FrontNavBarFilter allCategories={categories}></FrontNavBarFilter>
-        <Space></Space>
+        <Space height={20}></Space>
 
         { data.status === "nothing" ?
             <div
@@ -129,7 +138,10 @@ function Home(){
                 <h3 className="text-center">Aucun produit trouvé pour votre recherche...</h3> 
             </div>
         :
-            <DisplayProductHome isLoading={data.status} products={data.data}></DisplayProductHome>
+            <DisplayProductHome 
+                isLoading={data.status} 
+                products={data.data}
+            ></DisplayProductHome>
         }
     </Container>
 

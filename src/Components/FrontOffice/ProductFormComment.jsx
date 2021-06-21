@@ -10,13 +10,12 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
 
-function ProductFormComment ({reFetch}) {
+function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
 
     const [pseudoEmail, setPseudoEmail] = useState('')
 
     let { id } = useParams();
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token
+    const {token, email} = useContext(UserContext);
 
     let schema = yup.object().shape({
         title: yup.string().min(2, 'Trop Court!').max(255, 'Trop Long!').required(),
@@ -26,12 +25,13 @@ function ProductFormComment ({reFetch}) {
     });
       
     useEffect(()=>{
-        if(informationUser.email !== null){
-            setPseudoEmail(informationUser.email.split("@")[0]);
+        if(email !== null){
+            setPseudoEmail(email.split("@")[0]);
         }
-    },[informationUser])
+    },[email])
 
-
+    const isUserDisconnected = email === null && token === null
+    
     return <Formik
         enableReinitialize={true}
         validationSchema={schema}
@@ -46,17 +46,33 @@ function ProductFormComment ({reFetch}) {
 
             setTimeout(() => {
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-                axios.post(`https://127.0.0.1:8000/api/product/${id}/comment`,  {
+                axios.post(`https://protected-taiga-91617.herokuapp.com/api/product/${id}/comment`,  {
                     title: values.title,
                     username: values.pseudo,
                     note: parseInt(values.note),
                     content: values.content,
                     product: parseInt(id),
                     isReported: false
+                })
+                .then(function (response) {
+                    setAlertState({
+                        isOpen: true,
+                        text: "Commentaire posté.",
+                        variant: "success"
+                    })
+                    closeAlert()
+                    actions.resetForm()
+                    actions.setSubmitting(false);
+                    reFetch()
+                })
+                .catch(function (error) {
+                    console.warn(error);
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue, impossible de poster le commentaire.",
+                        variant: "danger"
+                    })
                 });
-                actions.resetForm()
-                actions.setSubmitting(false);
-                reFetch()
             }, 1000);
    
           }}
@@ -124,14 +140,27 @@ function ProductFormComment ({reFetch}) {
                     />
                 </Form.Group>
 
-                {informationUser.email === null && informationUser.token === null ?
-                    <Link to="/login"><Button  variant="primary" size="lg"
-                        css={css`
-                            width: 100%; 
-                        `}
-                    >Poster</Button></Link>
+                {isUserDisconnected ?
+                    <Link to="/login">
+                        <Button  
+                            variant="primary" 
+                            size="lg"
+                            css={css`
+                                width: 100%; 
+                            `}
+                        >
+                            Poster
+                        </Button>
+                    </Link>
                 :
-                    <Button type="submit" variant="primary" size="lg" block>Poster</Button>
+                    <Button 
+                        type="submit" 
+                        variant="primary" 
+                        size="lg" 
+                        block
+                    >
+                        Poster
+                    </Button>
                 }
                 
             </Form>
@@ -143,7 +172,9 @@ function ProductFormComment ({reFetch}) {
 }
 
 ProductFormComment.propTypes = {
-    reFetch : PropTypes.func.isRequired
+    reFetch : PropTypes.func.isRequired,
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default ProductFormComment;

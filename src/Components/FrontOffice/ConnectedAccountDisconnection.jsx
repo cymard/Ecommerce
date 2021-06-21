@@ -20,7 +20,6 @@ function ConnectedAccountDisconnection () {
         });
         
        return history.push("/");
-        
     }
 
     return <Card className="d-flex p-2">
@@ -34,11 +33,14 @@ function ConnectedAccountDisconnection () {
                 <h3>Se déconnecter : </h3>
             </Col>
             <Col lg={2} className="text-center">
-                <Button className="w-100" onClick={handleClick}>Déconnexion</Button>
+                <Button 
+                    className="w-100" 
+                    onClick={handleClick}
+                >
+                    Déconnexion
+                </Button>
             </Col>
-            
         </Row>
-        
     </Card>
 }
 

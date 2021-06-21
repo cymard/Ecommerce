@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from "react-router-dom";
 
 const userAdminDefaultInformation = {
     email: localStorage.getItem('email_admin'),
@@ -10,6 +11,7 @@ const UserAdminContext = React.createContext(userAdminDefaultInformation);
 
 function UserAdminContextProvider({ children }) {
     const [userAdminInformation, setUserAdminInformation] = useState(userAdminDefaultInformation);
+    let history = useHistory();
 
     // set le localStorage si l'email est remplie, ou le supprime
     const setUserAdminInformationData = (userAdminInformationData) => {
@@ -25,6 +27,7 @@ function UserAdminContextProvider({ children }) {
             localStorage.setItem('token_admin', userAdminInformationData.token);
         } else {
             // redirection vers /admin/login
+            history.push('/admin/login');
             localStorage.removeItem('token_admin');
         }
 

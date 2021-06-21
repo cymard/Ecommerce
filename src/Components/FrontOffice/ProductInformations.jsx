@@ -10,26 +10,26 @@ import PropTypes from 'prop-types';
 
 
 function ProductInformations({data, name, content, price, setAlertState, closeAlert}){
+    const isDataLoaded = data.status;
+
     return <>
-    <Title>{data.status ? data.product.name : name}</Title>
+    <Title>{isDataLoaded ? data.product.name : name}</Title>
 
     <ProductImageDescription 
-        image={data.status ? data.product.image : screen}
+        image={isDataLoaded ? data.product.image : screen}
     >
-        {data.status ? data.product.description : content}
+        {isDataLoaded ? data.product.description : content}
     </ProductImageDescription> 
 
     <ProductStock 
-        stock={data.status ? data.product.stock : "chargement"}
+        stock={isDataLoaded ? data.product.stock : "chargement..."}
     ></ProductStock>
 
-    {data.status &&
-        <ProductAverageRating data={data}></ProductAverageRating>
-    }
+    {isDataLoaded && <ProductAverageRating data={data}></ProductAverageRating>}
 
     {data.stock > 0 && <ProductPriceAddShoppingCart 
-            stock={data.status ? data.product.stock : undefined}  
-            price={data.status ? data.product.price : parseInt(price)}
+            stock={isDataLoaded ? data.product.stock : undefined}  
+            price={isDataLoaded ? data.product.price : parseInt(price)}
             setAlertState={setAlertState}
             closeAlert={closeAlert}
         ></ProductPriceAddShoppingCart>

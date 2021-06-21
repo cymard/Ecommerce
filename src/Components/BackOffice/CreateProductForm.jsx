@@ -19,7 +19,7 @@ function CreateProductForm ({submitForm}) {
     const target = useRef(null);
 
     const handleEditorChange = (content, editor) => {
-        let schemaDescription =  yup.string().min(3).max(5000).required();
+        const schemaDescription =  yup.string().min(3).max(5000).required();
  
         schemaDescription.validate(content)
         .then(function (valid) {

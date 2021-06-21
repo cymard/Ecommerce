@@ -10,8 +10,14 @@ import OrderIdentificationInformations from '../../Components/All/OrderIdentific
 import ProductsInformationsOfOrder from '../../Components/FrontOffice/ProductsInformationsOfOrder.jsx';
 import PersonalOrderInformations from '../../Components/All/PersonalOrderInformations.jsx';
 import CenteredSpinner from '../../Components/All/CenteredSpinner.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function AdminOrderDetails () {
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
     let { orderId } = useParams();
 
@@ -23,7 +29,7 @@ function AdminOrderDetails () {
 
     const getProducts = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}/cart`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/order/${orderId}/cart`)
             .then(function(response){
                 setData({
                     status: true,
@@ -32,6 +38,11 @@ function AdminOrderDetails () {
             })
             .catch(function(error){
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "impossible de récuperer les informations des produits.",
+                    variant: "danger"
+                });
             })
         },
         [orderId]
@@ -39,7 +50,7 @@ function AdminOrderDetails () {
 
     const getInformationOrder = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/admin/order/${orderId}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/order/${orderId}`)
             .then(function(response){
                 setInformationOrder({
                     status: true,
@@ -48,6 +59,11 @@ function AdminOrderDetails () {
             })
             .catch(function(error){
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "impossible de récuperer les informations des commandes.",
+                    variant: "danger"
+                });
             })
         },
         [orderId]
@@ -60,12 +76,21 @@ function AdminOrderDetails () {
         getInformationOrder()
     },[getProducts,getInformationOrder])
 
-    return <div     
+    return <>
+        <UserAlert
+            variant={alertState.variant}
+            isOpen={alertState.isOpen}
+        >
+            {alertState.text}
+        </UserAlert>
+    
+    <div     
         css={css`
             min-height: 90vh;
             display: flex;
         `}
     >
+
         <AdminNavBar/>
 
         <Container fluid>
@@ -95,6 +120,7 @@ function AdminOrderDetails () {
 
         </Container>
     </div>
+    </>
 }
 
 export default AdminOrderDetails;

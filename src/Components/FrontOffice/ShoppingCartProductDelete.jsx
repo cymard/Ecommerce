@@ -4,7 +4,6 @@ import { Button ,Row} from 'react-bootstrap';
 import {css} from '@emotion/react';
 import PropTypes from 'prop-types';
 
-
 function ShoppingCartProductDelete ({handleClickDelete}) {
     return <Row className="h-auto d-flex justify-content-center">
     <Button

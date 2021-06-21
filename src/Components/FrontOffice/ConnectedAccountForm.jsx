@@ -25,9 +25,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
         cryptogram: yup.number().positive().moreThan(99).lessThan(1000).required()
     });
 
-
-    const contextInformations = useContext(UserContext);
-    const token = contextInformations.token
+    const {email, token} = useContext(UserContext);
 
     return userInformation.firstName !== undefined ? <Formik
         initialValues={{ 
@@ -35,7 +33,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
             lastName: userInformation.lastName, 
             city: userInformation.city , 
             address: userInformation.address, 
-            email: contextInformations.email, 
+            email: email, 
             paymentMethod: userInformation.paymentMethod, 
             cardName: userInformation.cardName, 
             cardNumber: userInformation.cardNumber, 
@@ -49,7 +47,7 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
         onSubmit={values => {
             // change tout sauf l'email et le password
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put('https://127.0.0.1:8000/api/user/paymentInformations',{
+            axios.put('https://protected-taiga-91617.herokuapp.com/api/user/paymentInformations',{
                 firstName: values.firstName,
                 lastName: values.lastName,
                 city: values.city,
@@ -76,7 +74,6 @@ function ConnectedAccountForm ({userInformation, closeAlert, setAlertState}) {
                     text: "Une erreur est survenue de la mise à jour des informations.",
                     variant: "danger"
                 });
-                closeAlert()
             });
         }}
 

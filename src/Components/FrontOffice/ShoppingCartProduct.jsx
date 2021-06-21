@@ -17,13 +17,12 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
         setQuantityToBuy(e.target.value)
     }
 
-    const informationUser = useContext(UserContext);
-    const token = informationUser.token;
+    const {token} = useContext(UserContext);
 
     const updateQuantity = useCallback(
         (e) => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.put(`https://127.0.0.1:8000/api/cart/product/${id}/quantity`,{
+            axios.put(`https://protected-taiga-91617.herokuapp.com/api/cart/product/${id}/quantity`,{
                 "quantity" : quantityToBuy
             })
             .then(function (response){
@@ -41,7 +40,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                         text: "Impossible d'éffectuer cette action, La quantité demandée est supérieure au stock disponibles.",
                         variant: "danger"
                     })
-                    closeAlert()
                     setQuantityToBuy(response.data.number);
                 }
                 reFetch();
@@ -55,7 +53,6 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                     text: "Une erreur est survenue lors de la mise à jour du panier.",
                     variant: "danger"
                 })
-                closeAlert()
             })
         },
         [token,quantityToBuy,id,reFetch,closeAlert,setAlertState]
@@ -63,7 +60,7 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
 
     const handleClickDelete = useCallback(
         (e) => {
-            axios.delete(`https://127.0.0.1:8000/api/cart/product/${id}/delete`,{
+            axios.delete(`https://protected-taiga-91617.herokuapp.com/api/cart/product/${id}/delete`,{
                 headers:{'Authorization': `Bearer ${token}`}
             })
             .then(function (response){
@@ -82,17 +79,16 @@ function ShoppingCartProduct ({reFetch, image, title, price, quantity, id, close
                     text: "Une erreur est survenue lors de la mise à jour du panier.",
                     variant: "danger"
                 })
-                closeAlert()
             })
         },
         [token,id,reFetch,closeAlert,setAlertState],
     )
 
 
-    return <div className="d-flex mb-5" 
+    return <div 
+        className="d-flex mb-5" 
         css={css`
             width: 100%;
-
         `}
     >
         <Row

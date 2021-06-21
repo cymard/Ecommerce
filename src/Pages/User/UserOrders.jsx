@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import UserOrdersTable from '../../Components/FrontOffice/UserOrdersTable.jsx';
 import PaginationButtons from '../../Components/All/PaginationButtons.jsx';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function UserOrders (){
 
@@ -20,6 +21,11 @@ function UserOrders (){
     const {token} = useContext(UserContext);
 
     const [data, setData] = useState({status: false})
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
 
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
@@ -29,7 +35,7 @@ function UserOrders (){
     const getUserOrders = useCallback(
         () => {
             axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-            axios.get(`https://127.0.0.1:8000/api/orders?page=${queryPageValue}&date=${queryDateValue}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/api/orders?page=${queryPageValue}&date=${queryDateValue}`)
             .then(function(response){
                 setData({
                     status: true,
@@ -41,6 +47,11 @@ function UserOrders (){
             })
             .catch(function(error){
                 console.warn(error)
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur empêche de récuperer les informations des commandes de l'utilisateur.",
+                    variant: "danger"
+                });
             })
         },[token, queryPageValue, queryDateValue]
     )
@@ -49,7 +60,7 @@ function UserOrders (){
 
     useEffect(() => {
         if(location.pathname === "/api/orders" && location.search === "" ){ // redirection en cas de mauvaise url
-            history.push('https://127.0.0.1:8000/api/orders?page=1&date=desc')
+            history.push('https://protected-taiga-91617.herokuapp.com/api/orders?page=1&date=desc')
         }else{
             getUserOrders();
         }
@@ -63,16 +74,20 @@ function UserOrders (){
 
         for(let i = 1;i<=data.totalPageNumber; i++){
             // changer l'id dans l'url
-            uris.push({
-                uri: `/api/orders?page=${i}&date=${queryDateValue}`,
-                key: i
-            })
+            uris.push(`/api/orders?page=${i}&date=${queryDateValue}`)
         }
 
         setAllPageUris(uris)
     }, [queryDateValue, data.totalPageNumber])
 
-    return <Container
+    return <>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <Container
         css={css`
             min-height: 90vh;
         `}
@@ -85,7 +100,7 @@ function UserOrders (){
             pageValue={queryPageValue}
         ></PaginationButtons>
     </Container>
-    
+    </>
 }
 
 export default UserOrders

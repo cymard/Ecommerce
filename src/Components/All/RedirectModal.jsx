@@ -2,7 +2,6 @@ import React from 'react';
 import {Modal} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 
-
 function RedirectModal({show, onHide, children,firstButton, secondButton}){
     return <Modal centered={true} show={show} onHide={onHide}>
     <Modal.Header closeButton></Modal.Header>
@@ -21,4 +20,5 @@ RedirectModal.propTypes = {
     firstButton : PropTypes.element,
     secondButton : PropTypes.element
 }
+
 export default RedirectModal;

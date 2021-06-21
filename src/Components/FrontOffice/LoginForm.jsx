@@ -6,10 +6,11 @@ import { css} from '@emotion/react';
 import {UserContext} from '../Context/UserContext';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 let yup = require('yup');
 
-function LoginForm () {
+function LoginForm ({setAlertState, closeAlert}) {
 
     let history = useHistory();
 
@@ -26,7 +27,7 @@ function LoginForm () {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
+            const response = await axios.post('https://protected-taiga-91617.herokuapp.com/api/login_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
@@ -40,15 +41,28 @@ function LoginForm () {
                     email: values.formBasicEmail,
                     token: response.data.token
                 }); 
-                
+                setAlertState({
+                    isOpen: true,
+                    text: "Vous êtes connécté.",
+                    variant: "success"
+                });
+                closeAlert();
                 return history.push('/');
 
             }else{
-                setResponse("La connexion a échouée, merci de réessayer");
+                setAlertState({
+                    isOpen: true,
+                    text: "La connexion a échouée, merci de réessayer.",
+                    variant: "danger"
+                });
             }   
         
         } catch (err) {
-            setResponse("La connexion a échouée, merci de réessayer");
+            setAlertState({
+                isOpen: true,
+                text: "La connexion a échouée, merci de réessayer.",
+                variant: "danger"
+            });
             console.error(err.message);
         }
     };
@@ -108,6 +122,11 @@ function LoginForm () {
         </Form>
     )}
 </Formik>
+}
+
+LoginForm.propTypes = {
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default LoginForm;

@@ -4,6 +4,7 @@ import BuyForm from "../../Components/FrontOffice/BuyForm.jsx"
 import Title from "../../Components/All/Title.jsx";
 import {UserContext} from "../../Components/Context/UserContext.jsx";
 import axios from 'axios';
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 function Buy(){
@@ -12,9 +13,27 @@ function Buy(){
     const [userInformation, setUserInformation] = useState({status: false})
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
+
     const getUserInformation = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/connectedAccount')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
                     status: true,
@@ -33,18 +52,28 @@ function Buy(){
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récupèration de vos informations.",
+                    variant: "danger"
+                });
             });
         },[setUserInformation]
     )
 
     const getCartTotalPrice = useCallback(
         () => {
-            axios.get('https://127.0.0.1:8000/api/cart/products')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/cart/products')
             .then(function (response) {
                 setAmount(response.data.totalPrice)
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la récupération du prix total.",
+                    variant: "danger"
+                });
             });
         },
         []
@@ -56,10 +85,19 @@ function Buy(){
     },[token,email,getUserInformation,getCartTotalPrice])
 
     return <Container>
+        <UserAlert
+            variant={alertState.variant}
+            isOpen={alertState.isOpen}
+        >
+            {alertState.text}
+        </UserAlert>
+
         <Title>Formulaire de Paiement</Title>
         <BuyForm 
             amount={amount}
             userInformation={userInformation}
+            setAlertState={setAlertState}
+            closeAlert={closeAlert}
         ></BuyForm>
     </Container>
 

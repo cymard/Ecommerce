@@ -50,7 +50,7 @@ return <>
         </tr>
     </thead>
 
-    { data.status !== "nothing" &&
+    {data.status !== "nothing" &&
         <tbody>
             {data.productsList.length > 0 ?
                 <ProductsListAdmin 
@@ -64,6 +64,7 @@ return <>
         </tbody>
     }
 </Table>
+
 { data.status === "nothing" &&
     <div 
         className="d-flex justify-content-center align-items-center"

@@ -9,13 +9,12 @@ import {useLocation} from "react-router-dom";
 import PropTypes from 'prop-types';
 
 
-function SortDateButtons ({data, setData}){
+function SortDateButtons (){
     const arrowUpIcon = <FontAwesomeIcon icon={faAngleUp} />
     const arrowDownIcon = <FontAwesomeIcon icon={faAngleDown} />
 
     const useQuery = () => new URLSearchParams(useLocation().search);
     let query = useQuery();
-    
     let page = query.get("page")
 
 

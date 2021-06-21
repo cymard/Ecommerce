@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from "react-router-dom";
 
 const userDefaultInformation = {
     email: localStorage.getItem('email'),
@@ -10,7 +11,7 @@ const UserContext = React.createContext(userDefaultInformation);
 
 function UserContextProvider({ children }) {
     const [userInformation, setUserInformation] = useState(userDefaultInformation);
-
+    let history = useHistory();
     // set le localStorage si l'email est remplie, ou le supprime
     const setUserInformationData = (userInformationData) => {
         // email dans le localstorage
@@ -24,6 +25,7 @@ function UserContextProvider({ children }) {
         if (userInformationData.token) {
             localStorage.setItem('token', userInformationData.token);
         } else {
+            history.push('/login');
             localStorage.removeItem('token');
         }
 

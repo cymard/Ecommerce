@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState, useContext, useCallback } from 'react';
-import { Container, Button, Alert } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import ProductComment from '../../Components/FrontOffice/ProductComment.jsx';
 import axios from 'axios';
 import { UserContext } from '../../Components/Context/UserContext.jsx';
@@ -9,11 +9,12 @@ import { Link, useParams } from "react-router-dom";
 import { css } from '@emotion/react';
 import ProductFormComment from '../../Components/FrontOffice/ProductFormComment.jsx';
 import ProductInformations from "../../Components/FrontOffice/ProductInformations.jsx";
+import UserAlert from "../../Components/All/UserAlert.jsx";
 
 function Product() {
 
     const { token, email } = useContext(UserContext);
-    const currentUserIsConnected = email === null && token === null;
+    const currentUserIsConnected = email !== null && token !== null;
     const [data, setData] = useState({ status: false })
     let { id } = useParams();
 
@@ -24,12 +25,23 @@ function Product() {
         text: undefined,
         variant: undefined
     })
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
     const handleClose = () => setIsOpen(false);
     const displayModal = () => setIsOpen(true)
 
     const getProduct = useCallback(
         () => {
-            axios.get(`https://127.0.0.1:8000/product/${id}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/product/${id}`)
                 .then(function (res) {
                     setData({
                         status: true,
@@ -42,21 +54,15 @@ function Product() {
                 })
                 .catch(function (error) {
                     console.warn(error)
+                    setAlertState({
+                        isOpen: true,
+                        text: "Une erreur est survenue lors de la récuperation des informations du produit.",
+                        variant: "danger"
+                    });
                 })
         },[id]
     )
 
-    const closeAlert = useCallback(
-        () => {
-            setTimeout(()=>{
-                setAlertState({
-                    isOpen: false,
-                    text: undefined,
-                    variant: undefined
-                });
-            }, 3000)
-        },[]
-    )
     
 
     useEffect(() => {
@@ -66,7 +72,7 @@ function Product() {
     const handleReport = useCallback(
         (e) => {
             axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-            axios.put(`https://127.0.0.1:8000/api/comment/${e.target.id}`)
+            axios.put(`https://protected-taiga-91617.herokuapp.com/api/comment/${e.target.id}`)
                 .then(() => {
                     setAlertState({
                         isOpen: true,
@@ -83,7 +89,6 @@ function Product() {
                         text: "Une erreur est survenue lors du signalement.",
                         variant: "danger"
                     });
-                    closeAlert();
                 });
         },
         [token, closeAlert])
@@ -93,22 +98,12 @@ function Product() {
             min-height: 90vh;
         `}
     >
-        <Alert 
+         <UserAlert
             variant={alertState.variant}
-            show={alertState.isOpen}
-            css={css`
-                position: sticky; 
-                top: 100px;  
-                text-align: center;
-                min-width: 10px;              
-                max-width: 400px;
-                z-index: 1;
-                box-shadow: 1px 1px 1px black;
-            `}
+            isOpen={alertState.isOpen}
         >
             {alertState.text}
-        </Alert>
-
+        </UserAlert>
 
         <ProductInformations 
             content={"Description de l'objet"} 
@@ -128,7 +123,11 @@ function Product() {
                         `}
                     > Ecrire un commentaire :</h2>
                 </div>
-                <ProductFormComment reFetch={getProduct}></ProductFormComment>
+                <ProductFormComment 
+                    closeAlert={closeAlert}
+                    setAlertState={setAlertState}
+                    reFetch={getProduct}
+                ></ProductFormComment>
             </>
         }
 

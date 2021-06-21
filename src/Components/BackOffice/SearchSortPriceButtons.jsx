@@ -1,11 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import {css} from '@emotion/react';
 import {faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import SortPriceButtonDesign from './SortPriceButtonDesign.jsx';
 import PropTypes from 'prop-types';
 
 
@@ -47,27 +45,15 @@ function SearchSortPriceButtons ({data, setData}) {
     return <div className="d-flex justify-content-center align-items-center"> Prix 
     <div className="ml-2 d-flex flex-column">
         <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=desc`}>
-            <Button onClick={handleClickArrowUp} variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
-            css={css`
-                background-color: white;
-                border: 1px black solid;
-                color: black;
-            `}
-            >
+            <SortPriceButtonDesign handleClick={handleClickArrowUp}>
                 {arrowUpIcon}
-            </Button>
+            </SortPriceButtonDesign>
         </Link>
         
         <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=asc`}>
-            <Button onClick={handleClickArrowDown}  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
-                css={css`
-                    background-color: white;
-                    border: 1px black solid;
-                    color: black;
-                `}
-            >
+            <SortPriceButtonDesign handleClick={handleClickArrowDown}>
                 {arrowDownIcon}
-            </Button>
+            </SortPriceButtonDesign>
         </Link>
     </div>
 </div>

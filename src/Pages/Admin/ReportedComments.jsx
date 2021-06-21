@@ -7,6 +7,7 @@ import Title from "../../Components/All/Title.jsx";
 import AdminNavBar from "../../Components/BackOffice/AdminNavBar.jsx";
 import {UserAdminContext} from '../../Components/Context/UserAdminContext.jsx';
 import ProductComment from '../../Components/FrontOffice/ProductComment.jsx'
+import UserAlert from '../../Components/All/UserAlert.jsx';
 
 
 function ReportedComments (){
@@ -16,9 +17,27 @@ function ReportedComments (){
     const {token} = useContext(UserAdminContext);
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
+    const [alertState, setAlertState] = useState({
+        isOpen: false,
+        text: undefined,
+        variant: undefined
+    })
+
+    const closeAlert = useCallback(
+        () => {
+            setTimeout(()=>{
+                setAlertState({
+                    isOpen: false,
+                    text: undefined,
+                    variant: undefined
+                });
+            }, 3000)
+        },[]
+    )
+
     const getReportedComments = useCallback(() => {
         
-        axios.get(`https://127.0.0.1:8000/admin/comments/reported`)
+        axios.get(`https://protected-taiga-91617.herokuapp.com/admin/comments/reported`)
         .then(function (response) {
             setData({
                 status: true,
@@ -27,6 +46,11 @@ function ReportedComments (){
         })
         .catch(function (error) {
             console.log(error);
+            setAlertState({
+                isOpen: true,
+                text: "  Une erreur est survenue lors de la récupèration des commentaires signalés.",
+                variant: "danger"
+            });
         })
     },[])
 
@@ -37,30 +61,59 @@ function ReportedComments (){
 
     const handleDelete = useCallback(
         (e) => {
-            axios.delete(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
+                setAlertState({
+                    isOpen: true,
+                    text: "Suppression effectuée.",
+                    variant: "success"
+                });
+                closeAlert();
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Une erreur est survenue lors de la suppression.",
+                    variant: "danger"
+                });
             })
-        },[getReportedComments]
+        },[getReportedComments, closeAlert]
     )
 
     const handleIgnore =  useCallback(
         (e) => {
-            axios.put(`https://127.0.0.1:8000/admin/comment/${e.target.id}`)
+            axios.put(`https://protected-taiga-91617.herokuapp.com/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
+                setAlertState({
+                    isOpen: true,
+                    text: "Signalement ignoré.",
+                    variant: "success"
+                });
+                closeAlert();
             })
             .catch(function (error) {
                 console.warn(error);
+                setAlertState({
+                    isOpen: true,
+                    text: "Impossible d'ignorer le signalement.",
+                    variant: "danger"
+                });
             })
-        },[getReportedComments]
+        },[getReportedComments, closeAlert]
     )
 
 
-    return <div    
+    return <> 
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <div    
         css={css`
             display: flex;
         `}
@@ -78,6 +131,7 @@ function ReportedComments (){
             }
         </Container>
 </div>
+</>
 }
 
 export default ReportedComments

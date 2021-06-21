@@ -5,11 +5,13 @@ import { Formik } from 'formik';
 import { css} from '@emotion/react';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
-import { UserAdminContext } from '../Context/UserAdminContext.jsx'
+import { UserAdminContext } from '../Context/UserAdminContext.jsx';
+import PropTypes from 'prop-types';
+
 
 let yup = require('yup');
 
-function LoginAdminForm () {
+function LoginAdminForm ({setAlertState, closeAlert}) {
 
     let history = useHistory();
 
@@ -26,7 +28,7 @@ function LoginAdminForm () {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://127.0.0.1:8000/admin/login_admin_check', {
+            const response = await axios.post('https://protected-taiga-91617.herokuapp.com/admin/login_admin_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });
@@ -40,16 +42,31 @@ function LoginAdminForm () {
                     email: values.formBasicEmail,
                     token: response.data.token
                 }); 
+
+                setAlertState({
+                    isOpen: true,
+                    text: "Vous êtes connécté.",
+                    variant: "success"
+                });
+                closeAlert();
                 
                 history.push('/admin/home?category=all&page=1&sorting=default')
 
             }else{
-                setResponse("La connexion a échouée, merci de réessayer");
+                setAlertState({
+                    isOpen: true,
+                    text: "La connexion a échouée, merci de réessayer.",
+                    variant: "danger"
+                });
             }   
         
         } catch (err) {
-            setResponse("La connexion a échouée, merci de réessayer");
-            console.error(err.message);
+            setAlertState({
+                isOpen: true,
+                text: "La connexion a échouée, merci de réessayer.",
+                variant: "danger"
+            });
+            console.warn(err.message);
         }
     };
 
@@ -107,6 +124,11 @@ function LoginAdminForm () {
         </Form>
     )}
 </Formik>
+}
+
+LoginAdminForm.propTypes = {
+    setAlertState : PropTypes.func,
+    closeAlert : PropTypes.func
 }
 
 export default LoginAdminForm;
