@@ -108,7 +108,7 @@ function Product() {
         <ProductInformations 
             content={"Description de l'objet"} 
             price={10} 
-            name={"Nom de l'objet" } 
+            name={"Nom de l'objet"} 
             data={data} 
             setAlertState={setAlertState}
             closeAlert={closeAlert}

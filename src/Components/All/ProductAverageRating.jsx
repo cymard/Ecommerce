@@ -8,7 +8,11 @@ function ProductAverageRating({data}){
     <Card.Body className=" d-flex justify-content-around align-items-center">
         Note moyenne du produit : 
         <div>
-            <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
+            { data.rateNumber === 0 ?
+                "Pas de note"
+            :
+                <RateWithStars rate={Math.round(data.averaging)}></RateWithStars>
+            }
         </div> 
     </Card.Body> 
 </Card> 
