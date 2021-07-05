@@ -145,7 +145,7 @@ function CreateProductForm ({submitForm}) {
         >
             <Editor
                 apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
-                outputFormat='text'
+                outputFormat='html'
                 init={{
                     
                     height: 500,

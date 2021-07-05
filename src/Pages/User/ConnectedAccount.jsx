@@ -101,13 +101,14 @@ function ConnectedAccount () {
     }, [ getUserInformation,getUserOrderNumber])
 
 
-    return <Container>
-        <UserAlert
-            variant={alertState.variant}
-            isOpen={alertState.isOpen}
-        >
-            {alertState.text}
-        </UserAlert>
+    return <>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <Container>
         <Title>Mon Compte</Title>
         <ConnectedAccountDisconnection></ConnectedAccountDisconnection>
 
@@ -157,6 +158,7 @@ function ConnectedAccount () {
             setAlertState={setAlertState}
         ></ConnectedAccountForm>
     </Container>
+    </>
 }
 
 export default ConnectedAccount

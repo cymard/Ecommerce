@@ -9,13 +9,13 @@ function UserAlert ({variant, isOpen, children}) {
         variant={variant}
         show={isOpen}
         css={css`
-            position: sticky; 
-            top: 100px;
-            left: 300px;  
+            position: fixed; 
+            bottom: 5px;
+            right: 5px;
             text-align: center;
             min-width: 10px;              
             max-width: 400px;
-            z-index: 1;
+            z-index: 2000;
             box-shadow: 1px 1px 1px black;
         `}
     >

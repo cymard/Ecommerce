@@ -146,7 +146,7 @@ function EditProductForm ({dataProduct,submitForm}) {
         >
             <Editor
                 apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
-                outputFormat='html'
+                outputFormat='html'  //html ou text
                 init={{
                     height: 500,
                     menubar: false,

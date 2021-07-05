@@ -39,13 +39,15 @@ function Footer(){
             display: flex;
             justify-content: center;
             align-items: center;
-            
+            position: absolute;
+            bottom: 0;
         `}
     >
         <Row className="m-0">
             <FooterLinks links={links}></FooterLinks>
         </Row>
     </div>
+    
 }
 
 export default Footer;

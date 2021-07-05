@@ -64,17 +64,18 @@ function ShoppingCart(){
     },[displayArticles])
 
 
-    return <Container
+    return<>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <Container
         css={css`
             min-height: 90vh; 
         `}
     >
-       <UserAlert
-            variant={alertState.variant}
-            isOpen={alertState.isOpen}
-        >
-            {alertState.text}
-        </UserAlert>
         <div 
             css={css`
                 display: flex;
@@ -104,6 +105,7 @@ function ShoppingCart(){
         }
         
     </Container>
+    </>
 }
 
 export default ShoppingCart;

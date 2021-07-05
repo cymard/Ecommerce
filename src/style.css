@@ -1,3 +1,29 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    min-height: 100vh;
+}
+
+#root {
+    min-height: 100vh;
+    padding-bottom: 55px;
+    position: relative;
+}
+
 .table thead th, .table th, .table td{
     vertical-align: middle;
+}
+
+@media(max-width:992px){
+    #root {
+        min-height: 100vh;
+        padding-bottom: 195px;
+        position: relative;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
 }

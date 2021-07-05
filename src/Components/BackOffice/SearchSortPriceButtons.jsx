@@ -45,15 +45,27 @@ function SearchSortPriceButtons ({data, setData}) {
     return <div className="d-flex justify-content-center align-items-center"> Prix 
     <div className="ml-2 d-flex flex-column">
         <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=desc`}>
-            <SortPriceButtonDesign handleClick={handleClickArrowUp}>
-                {arrowUpIcon}
-            </SortPriceButtonDesign>
+            {data.productsList ?
+                <SortPriceButtonDesign handleClick={handleClickArrowUp}>
+                    {arrowUpIcon}
+                </SortPriceButtonDesign>
+                :
+                <SortPriceButtonDesign>
+                    {arrowUpIcon}
+                </SortPriceButtonDesign>
+            }
         </Link>
         
         <Link to={`/admin/home?search=${search}&category=${category}&page=${page}&sorting=asc`}>
-            <SortPriceButtonDesign handleClick={handleClickArrowDown}>
-                {arrowDownIcon}
-            </SortPriceButtonDesign>
+            {data.productsList ?
+                <SortPriceButtonDesign handleClick={handleClickArrowDown}>
+                    {arrowDownIcon}
+                </SortPriceButtonDesign>
+            :
+                <SortPriceButtonDesign handleClick={handleClickArrowDown}>
+                    {arrowDownIcon}
+                </SortPriceButtonDesign>
+            }
         </Link>
     </div>
 </div>

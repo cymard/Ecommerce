@@ -120,9 +120,6 @@ function Home(){
     </UserAlert>
 
     <Container 
-        css={css`
-            min-height: 90vh;
-        `}
         className="d-flex justify-content-around flex-wrap"
     >
         <FrontNavBarFilter allCategories={categories}></FrontNavBarFilter>

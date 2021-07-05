@@ -20,7 +20,8 @@ function SearchProductAdmin (){
     )
 
     const handleClickSubmitSearch = useCallback(
-        () => {
+        (e) => {
+            e.preventDefault();
             history.push(`/admin/home?search=${encodeURIComponent(searchValue)}&category=all&page=1&sorting=default`);
         },
         [searchValue,history],
@@ -32,7 +33,7 @@ function SearchProductAdmin (){
         <Form.Label>Rechercher :</Form.Label>
         <div className="d-flex">
             <Form.Control className="mr-1" onChange={handleChangeSearch} type="text" value={searchValue}/>
-            <Button onClick={handleClickSubmitSearch}>{itemSearch}</Button>
+            <Button type="submit" onClick={handleClickSubmitSearch}>{itemSearch}</Button>
         </div>
     </Form.Group>
 </Form>

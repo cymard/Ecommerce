@@ -52,14 +52,14 @@ return <>
 
     {data.status !== "nothing" &&
         <tbody>
-            {data.productsList.length > 0 ?
+            {data.productsList && data.productsList.length > 0 ?
                 <ProductsListAdmin 
                     selectedProducts={selectedProducts} 
                     setSelectedProducts={setSelectedProducts} 
                     data={data.productsList}
                 ></ProductsListAdmin>
             :  
-                <tr><th>Chargement ...</th></tr>
+                <tr><th>Aucun produit trouvé pour votre recherche.</th></tr>
             }
         </tbody>
     }

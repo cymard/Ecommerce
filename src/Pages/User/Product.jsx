@@ -51,6 +51,8 @@ function Product() {
                         rateNumber: res.data.rateNumber,
                         stock: res.data.product.stock
                     })
+
+                    console.log(res.data.comments);
                 })
                 .catch(function (error) {
                     console.warn(error)
@@ -93,17 +95,18 @@ function Product() {
         },
         [token, closeAlert])
 
-    return <Container className="d-flex flex-column justify-content-around"
+    return<>
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <Container className="d-flex flex-column justify-content-around"
         css={css`
             min-height: 90vh;
         `}
     >
-         <UserAlert
-            variant={alertState.variant}
-            isOpen={alertState.isOpen}
-        >
-            {alertState.text}
-        </UserAlert>
 
         <ProductInformations 
             content={"Description de l'objet"} 
@@ -145,13 +148,14 @@ function Product() {
             Vous devez être connecté pour effectuer cette action.
         </RedirectModal>
 
-        {data.status ?
+        {data.status && data.comments > 0?
             data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button className="w-100" id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button className="w-100" variant="primary" onClick={displayModal}>Signaler</Button>} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
             :
-            <div>chargement...</div>
+            <div className="text-center mb-4">Aucun commentaire posté.</div>
         }
 
     </Container>
+    </>
 }
 
 export default Product;

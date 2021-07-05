@@ -135,7 +135,8 @@ function Orders() {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         history.push({
             pathname: HistoryPushPathname,
             search: `?page=1&search=${searchValue}`

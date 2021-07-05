@@ -146,50 +146,45 @@ function AdminHome () {
     }, [firstQueryParam, queryCategoryValue, querySortingValue, data.totalPageNumber, querySearchValue])
 
 
-    return <>
-        <UserAlert
-            variant={alertState.variant}
-            isOpen={alertState.isOpen}
-        >
-            {alertState.text}
-        </UserAlert>
-        <div     
-            css={css`
-                display: flex;
-                min-height: 90vh;  
-            `}
-        >
-            <AdminNavBar/>
+    return<> 
+    <UserAlert
+        variant={alertState.variant}
+        isOpen={alertState.isOpen}
+    >
+        {alertState.text}
+    </UserAlert>
+    <div     
+        css={css`
+            display: flex;
+        `}
+    >
+        <AdminNavBar></AdminNavBar> 
+        <Container fluid>
+            <h1 className="text-center mt-4 mb-5">Administration</h1>
 
-            <Container fluid>
-                <h1 className="text-center mt-4 mb-5">Administration</h1>
-
-                <AdminHomeTableOptions
+            <AdminHomeTableOptions
+                querySearchValue={querySearchValue}
+                handleRemove={handleRemove}
+            >
+                <AdminHomeTable 
                     querySearchValue={querySearchValue}
-                    handleRemove={handleRemove}
-                >
-                    <AdminHomeTable 
-                        querySearchValue={querySearchValue}
-                        isSelectAllChecked={isSelectAllChecked}
-                        setSelectAllChecked={setSelectAllChecked}
-                        setSelectedProducts={setSelectedProducts} 
-                        selectedProducts={selectedProducts}
-                        data={data} 
-                        setData={setData} 
-                    ></AdminHomeTable>
-                </AdminHomeTableOptions>
-                
-                <PaginationButtons  
-                    totalPageNumber={data.totalPageNumber} 
-                    allPageUris={allPageUris}
-                    pageValue={queryPageValue}
-                ></PaginationButtons>
-                
-            </Container>
-        </div>
+                    isSelectAllChecked={isSelectAllChecked}
+                    setSelectAllChecked={setSelectAllChecked}
+                    setSelectedProducts={setSelectedProducts} 
+                    selectedProducts={selectedProducts}
+                    data={data} 
+                    setData={setData} 
+                ></AdminHomeTable>
+            </AdminHomeTableOptions>
+            
+            <PaginationButtons  
+                totalPageNumber={data.totalPageNumber} 
+                allPageUris={allPageUris}
+                pageValue={queryPageValue}
+            ></PaginationButtons>
+        </Container>
+    </div>
     </>
-
-   
 }
 
 export default AdminHome;

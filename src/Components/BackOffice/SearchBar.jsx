@@ -16,7 +16,7 @@ function SearchBar ({searchValue, handleClearSearch, handleSubmit, changeSearchV
             <FormControl onChange={changeSearchValue} value={searchValue} id="inlineFormInputGroupUsername" placeholder="Email" />
         </div>
         <Button onClick={handleClearSearch} className=" mr-1" variant="outline-dark">X</Button>
-        <Button onClick={handleSubmit}>{searchItem}</Button>
+        <Button type="submit" onClick={handleSubmit}>{searchItem}</Button>
     </Form.Group>
 </Form>
 }

@@ -102,25 +102,34 @@ function ProductComments () {
     </UserAlert>
 
     <div     
-    css={css`
-        min-height: calc(100vh - 64px);
-        display: flex;
-    `}
+        css={css`
+            min-height: calc(100vh - 64px);
+            display: flex;
+        `}
     >
         <AdminNavBar/>
         <Container fluid>
             <Title>Commentaires</Title>
-            {data.status === false ? <div>Chargement ...</div> : data.comments.map( comment => 
-                <ProductComment
-                    key={comment.id}
-                    pseudo={comment.username} 
-                    content={comment.content} 
-                    note={comment.note} 
-                    date={comment.date} 
-                    title={comment.title}
-                    buttons={<Button className="w-100" id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
-                ></ProductComment>
-            )}
+            {data.status === false ? 
+                <div>Chargement ...</div> 
+            : 
+                (data.comments.length >0 ?
+                    data.comments.map( comment => 
+                        <ProductComment
+                            key={comment.id}
+                            pseudo={comment.username} 
+                            content={comment.content} 
+                            note={comment.note} 
+                            date={comment.date} 
+                            title={comment.title}
+                            buttons={<Button className="w-100" id={comment.id} variant="danger" onClick={handleRemove}>Supprimer</Button>}
+                        ></ProductComment>
+                    )
+                :
+                    <p className="text-center">Aucun commentaire pour ce produit.</p>
+                )
+            }
+
         </Container> 
     </div>
 </>

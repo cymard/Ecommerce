@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from './FrontOffice/Header.jsx'
-import Footer from './All/Footer.jsx'
 import Home from '../Pages/User/Home.jsx'
 import Login from '../Pages/User/Login.jsx'
 import LoginAdmin from '../Pages/User/LoginAdmin.jsx'
@@ -22,9 +20,9 @@ import UserOrders from '../Pages/User/UserOrders.jsx'
 import UserOrderDetails from '../Pages/User/UserOrderDetails.jsx'
 import ChangePassword from '../Pages/User/ChangePassword.jsx'
 import ChangeEmail from '../Pages/User/ChangeEmail.jsx'
-import FooterSmallPage from './All/FooterSmallPage.jsx'
 import LegalNotice from "../Pages/Admin/LegalNotice.jsx"
 import SaleConditions from "../Pages/User/SaleConditions.jsx"
+import FrontOfficeLayout from './FrontOffice/FrontOfficeLayout.jsx'
 import {
     BrowserRouter as Router,
     Switch,
@@ -40,65 +38,65 @@ function App(){
                 <UserContextProvider>
                     <Switch>
                         <Route exact path="/Login">
-                            <Header></Header>
-                            <Login></Login>
-                            <FooterSmallPage></FooterSmallPage>
+                            <FrontOfficeLayout>
+                                <Login/>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/Register">
-                            <Header></Header>
-                            <Register></Register>
-                            <FooterSmallPage></FooterSmallPage>
+                            <FrontOfficeLayout>
+                                <Register></Register>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/ShoppingCart">
-                            <Header></Header>
-                            <ShoppingCart></ShoppingCart>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <ShoppingCart></ShoppingCart>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/Product/:id">
-                            <Header></Header>
-                            <Product></Product>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <Product></Product>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/Buy">
-                            <Header></Header>
-                            <Buy></Buy> 
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <Buy></Buy> 
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/informations/mentions_legales">
-                            <Header></Header>
-                            <LegalNotice></LegalNotice> 
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <LegalNotice></LegalNotice> 
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/informations/condition_de_vente">
-                            <Header></Header>
-                            <SaleConditions></SaleConditions> 
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <SaleConditions></SaleConditions> 
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/api/connectedAccount">
-                            <Header></Header>
-                            <ConnectedAccount></ConnectedAccount>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <ConnectedAccount></ConnectedAccount>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/api/orders">
-                            <Header></Header>
-                            <UserOrders></UserOrders>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <UserOrders></UserOrders>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/api/order/:orderId/details">
-                            <Header></Header>
-                            <UserOrderDetails></UserOrderDetails>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <UserOrderDetails></UserOrderDetails>
+                            </FrontOfficeLayout>
                         </Route>
                         <Route exact path="/api/modify/password">
-                            <Header></Header>
-                            <ChangePassword></ChangePassword>
-                            <FooterSmallPage></FooterSmallPage>
+                            <FrontOfficeLayout>
+                                <ChangePassword></ChangePassword>
+                            </FrontOfficeLayout>
                         </Route>
 
                         <Route exact path="/api/modify/email">
-                            <Header></Header>
-                            <ChangeEmail></ChangeEmail>
-                            <FooterSmallPage></FooterSmallPage>
+                            <FrontOfficeLayout>
+                                <ChangeEmail></ChangeEmail>
+                            </FrontOfficeLayout>
                         </Route>
 
                         <Route exact path="/admin/product/:id/edit">
@@ -110,9 +108,9 @@ function App(){
                         </Route>
                         
                         <Route exact path="/admin/login">
-                            <Header></Header>
-                            <LoginAdmin></LoginAdmin>
-                            <FooterSmallPage></FooterSmallPage>
+                            <FrontOfficeLayout>
+                                <LoginAdmin></LoginAdmin>
+                            </FrontOfficeLayout>
                         </Route>
 
                         <Route exact path="/admin/comments/reported">
@@ -135,12 +133,10 @@ function App(){
                             <AdminHome></AdminHome>
                         </Route>
 
-                        
-
                         <Route path={["/products","/"]}>
-                            <Header></Header>
-                            <Home></Home>
-                            <Footer></Footer>
+                            <FrontOfficeLayout>
+                                <Home></Home>
+                            </FrontOfficeLayout>
                         </Route>
                     </Switch>
                 </UserContextProvider>

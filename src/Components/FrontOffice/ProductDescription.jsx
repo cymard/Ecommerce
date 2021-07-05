@@ -17,7 +17,7 @@ function ProductDescription ({children, refRow}) {
         setShowText(showText => !showText);
     }
 
-    return <div className="col-lg-7 col-md-12">
+    return  <div className="col-lg-7 col-md-12">
         <Card>
             <Card.Body className="d-flex flex-column justify-content-center align-items-center">
                 {children.length > 200 && refRow.current.clientWidth < 500 ?

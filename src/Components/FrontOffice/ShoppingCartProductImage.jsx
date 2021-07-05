@@ -25,7 +25,7 @@ function ShoppingCartProductImage({image}) {
 }
 
 ShoppingCartProductImage.propTypes = {
-    image : PropTypes.string.isRequired
+    image : PropTypes.string
 }
 
 export default ShoppingCartProductImage;

@@ -123,7 +123,11 @@ function ReportedComments (){
         <Container fluid>
             <Title>Commentaires Signalés</Title>
             {data.status === true ? 
+                (
+                data.comments >0 ?
                 data.comments.map(comment => <ProductComment key={comment.id} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date} title={comment.title}  buttons={<div><Button className="ml-2" variant="danger" id={comment.id} onClick={handleDelete}>Supprimer</Button> <Button id={comment.id} onClick={handleIgnore}>Ignorer</Button></div>}></ProductComment>)
+                :<p className="text-center">Aucun commentaire signalé.</p>
+                )
             :
                 <Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>

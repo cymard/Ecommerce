@@ -44,7 +44,7 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                     variant: "success"
                 });
                 closeAlert();
-                return history.push('/');
+                return history.push('/api/orders?page=1&date=desc');
             })
             .catch(function (error) {
                 setAlertState({
@@ -99,7 +99,8 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                         if(values.bankData === true){
                             savePaymentInformations(userInformations)
                         }else{
-                            return history.push('/');
+                            // return history.push('/');
+                            return history.push('/api/orders?page=1&date=desc');
                         }
                     })
                     .catch(function (error) {
@@ -299,7 +300,10 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                         />
                     </Form.Group>
 
-                    <Button className="mt-3 mb-5" variant="primary" type="submit"
+                    <Button 
+                        className="mt-3 mb-5" 
+                        variant="primary" 
+                        type="submit"
                         css={css`
                             width: 100%;
                         `}
@@ -319,7 +323,6 @@ BuyForm.propTypes = {
     userInformation : PropTypes.object.isRequired,
     closeAlert : PropTypes.func, 
     setAlertState : PropTypes.func
-
 }
 
 export default BuyForm
