@@ -34,7 +34,7 @@ function Home(){
 
     const getProducts = useCallback(
         (uriParam) => {
-            axios.get(`https://relaxed-sammet-0deed4.netlify.app/products?${uriParam}&page=${queryPageValue}`)
+            axios.get(`https://protected-taiga-91617.herokuapp.com/products?${uriParam}&page=${queryPageValue}`)
             .then(function (response){
                 if(response.data.allProductsNumber === 0) {
                     setData({

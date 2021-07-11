@@ -55,7 +55,7 @@ function ConnectedAccount () {
 
     const getUserInformation = useCallback(
         () => {
-            axios.get('https://relaxed-sammet-0deed4.netlify.app/api/connectedAccount')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
                     status: true,
@@ -92,7 +92,7 @@ function ConnectedAccount () {
 
     const getUserOrderNumber = useCallback(
         () => {
-            axios.get('https://relaxed-sammet-0deed4.netlify.app/api/user/order')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/user/order')
             .then(function (response) {
                 setUserOrderNumber({
                     status: true,

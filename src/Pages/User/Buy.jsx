@@ -33,7 +33,7 @@ function Buy(){
 
     const getUserInformation = useCallback(
         () => {
-            axios.get('https://relaxed-sammet-0deed4.netlify.app/api/connectedAccount')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/connectedAccount')
             .then(function (response) {
                 setUserInformation({
                     status: true,
@@ -63,7 +63,7 @@ function Buy(){
 
     const getCartTotalPrice = useCallback(
         () => {
-            axios.get('https://relaxed-sammet-0deed4.netlify.app/api/cart/products')
+            axios.get('https://protected-taiga-91617.herokuapp.com/api/cart/products')
             .then(function (response) {
                 setAmount(response.data.totalPrice)
             })

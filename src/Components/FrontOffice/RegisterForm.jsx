@@ -20,7 +20,7 @@ function RegisterForm ({setAlertState, closeAlert}) {
     });
 
     const handleOnSubmit = async (values) => {
-        axios.post('https://relaxed-sammet-0deed4.netlify.app/register', {
+        axios.post('https://protected-taiga-91617.herokuapp.com/register', {
             "email": values.email,
             "password": values.password
         })

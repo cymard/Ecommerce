@@ -74,7 +74,7 @@ function Header () {
 
                 <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
                 
-                <Nav.Link className="p-0" href="https://relaxed-sammet-0deed4.netlify.app/contact">
+                <Nav.Link className="p-0" href="https://protected-taiga-91617.herokuapp.com/contact">
                     <div className="d-flex justify-content-center align-items-center p-1" 
                         css={css`
                             white-space: nowrap;

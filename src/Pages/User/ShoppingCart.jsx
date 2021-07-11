@@ -36,7 +36,7 @@ function ShoppingCart(){
 
     const displayArticles = useCallback(() => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${userInformations.token}`}
-        axios.get('https://relaxed-sammet-0deed4.netlify.app/api/cart/products')
+        axios.get('https://protected-taiga-91617.herokuapp.com/api/cart/products')
             .then(function (response) {
                 setData({
                     status: true,

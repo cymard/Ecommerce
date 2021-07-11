@@ -37,7 +37,7 @@ function ReportedComments (){
 
     const getReportedComments = useCallback(() => {
         
-        axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/comments/reported`)
+        axios.get(`https://protected-taiga-91617.herokuapp.com/admin/comments/reported`)
         .then(function (response) {
             setData({
                 status: true,
@@ -61,7 +61,7 @@ function ReportedComments (){
 
     const handleDelete = useCallback(
         (e) => {
-            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/comment/${e.target.id}`)
+            axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
                 setAlertState({
@@ -84,7 +84,7 @@ function ReportedComments (){
 
     const handleIgnore =  useCallback(
         (e) => {
-            axios.put(`https://relaxed-sammet-0deed4.netlify.app/admin/comment/${e.target.id}`)
+            axios.put(`https://protected-taiga-91617.herokuapp.com/admin/comment/${e.target.id}`)
             .then(function (response) {
                 getReportedComments()
                 setAlertState({

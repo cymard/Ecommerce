@@ -65,7 +65,7 @@ function AdminHome () {
             }else{
                 axios.defaults.headers.common = {'Authorization': `Bearer ${userAdminInformations.token}`}
                 let isSearching = querySearchValue !== null ? `search=${encodeURIComponent(querySearchValue)}&` : ""
-                let url = `https://relaxed-sammet-0deed4.netlify.app/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
+                let url = `https://protected-taiga-91617.herokuapp.com/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
 
                 axios.get(url)
                 .then(function (response){
@@ -111,7 +111,7 @@ function AdminHome () {
 
     
     const handleRemove = () => {
-        axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/product`,{
+        axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/product`,{
             data:{
                 selectedProducts
             }
