@@ -12,14 +12,16 @@ import UserAlert from '../../Components/All/UserAlert.jsx';
 
 function ShoppingCart(){
 
-    const {token, email} = useContext(UserContext);
+    const userInformations = useContext(UserContext);
     const [data, setData] = useState({status: false})
     const [alertState, setAlertState] = useState({
         isOpen: false,
         text: undefined,
         variant: undefined
     })
-    const isCurrentUserConnected = email === null && token === null;
+    const isCurrentUserConnected = userInformations.email === null && userInformations.token === null;
+
+
     const closeAlert = useCallback(
         () => {
             setTimeout(()=>{
@@ -33,8 +35,8 @@ function ShoppingCart(){
     )
 
     const displayArticles = useCallback(() => {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-        axios.get('https://protected-taiga-91617.herokuapp.com/api/cart/products')
+        axios.defaults.headers.common = {'Authorization': `Bearer ${userInformations.token}`}
+        axios.get('https://relaxed-sammet-0deed4.netlify.app/api/cart/products')
             .then(function (response) {
                 setData({
                     status: true,
@@ -45,9 +47,12 @@ function ShoppingCart(){
             })
             .catch(function (error) {
                 console.warn(error);
-                console.log(error.response.status)
                 if(error.response.status === 401){
                     // Ne pas envoyer de message d'erreur, une div s'affiche déjà lorsque l'utilisateur n'est pas connecté.    
+                    userInformations.setUserInformation({
+                        email: null,
+                        token: null
+                    });
                 }else{
                     setAlertState({
                         isOpen: true,
@@ -57,7 +62,7 @@ function ShoppingCart(){
                 }
                
             })
-    },[token])
+    },[userInformations])
 
     useEffect(()=>{
         displayArticles()

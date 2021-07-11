@@ -64,29 +64,40 @@ function PaginationButtons ({allPageUris, totalPageNumber, pageValue}) {
     }
 
     const slicedButtonsPagination = () => {
+
         if(startSliceButton >= totalPageNumber){
             setStartSliceButton(0)
-        }
-
-        if(startSliceButton < 0){
+        }else if(startSliceButton < 0){
             setStartSliceButton(totalPageNumber-6)
         }
 
+        // console.log("totalPageNumber :" + totalPageNumber);
+        // console.log("startSliceButton : " + startSliceButton);
+        // console.log("resultat : " );
+
+        // if(totalPageNumber - startSliceButton <= 6){
+        //     // totalPageNumber = (startSliceButton-6)
+        //     console.log("nope");
+        //     setStartSliceButton(totalPageNumber-6)
+        // }
+
         const last = startSliceButton+6
-        return buttons.slice(startSliceButton, last)
+        return buttons.slice(startSliceButton, last);
     }
 
 
     const createButtonsPagination = () => {
-        if(totalPageNumber < 6){
+        if(totalPageNumber <= 6){
             return slicedButtonsPagination()
         }else{
             if(startSliceButton === 0 ){
-                return [slicedButtonsPagination(), <Pagination.Last  onClick={handleClickButtonLast}  key={"last"} />]
+ 
+                return [slicedButtonsPagination(), <Pagination.Ellipsis key={100}/>, buttons[totalPageNumber-1], <Pagination.Next  onClick={handleClickButtonLast}  key={"last"} />]
+                
             }else if(startSliceButton >= totalPageNumber-6){
-                return [<Pagination.First onClick={handleClickButtonFirst} key={0} />, slicedButtonsPagination()]
+                return [<Pagination.Prev onClick={handleClickButtonFirst} key={0} />, buttons[0], <Pagination.Ellipsis key={100}/>, slicedButtonsPagination()]
             }else {
-                return [<Pagination.First onClick={handleClickButtonFirst} key={0} />,  slicedButtonsPagination(), <Pagination.Last onClick={handleClickButtonLast}  key={"last"} />]
+                return [<Pagination.Prev onClick={handleClickButtonFirst} key={0} />, buttons[0], <Pagination.Ellipsis key={100} />, slicedButtonsPagination(), <Pagination.Ellipsis key={1000}/>, buttons[totalPageNumber-1], <Pagination.Next onClick={handleClickButtonLast}  key={"last"} />]
             }
         }
     }

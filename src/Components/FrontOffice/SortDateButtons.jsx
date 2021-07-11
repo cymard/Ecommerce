@@ -20,7 +20,7 @@ function SortDateButtons (){
 
     return <div className="d-flex justify-content-center align-items-center">
         <div className="ml-2 d-flex flex-column">
-            <Link to={`/api/orders?page=${page}&date=asc`}>
+            <Link to={`/orders?page=${page}&date=asc`}>
                 <Button variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
                     css={css`
                         background-color: white;
@@ -32,7 +32,7 @@ function SortDateButtons (){
                 </Button>
             </Link>
             
-            <Link to={`/api/orders?page=${page}&date=desc`}>
+            <Link to={`/orders?page=${page}&date=desc`}>
                 <Button  variant="secondary" className="p-0 pl-1 pr-1 rounded-0"
                     css={css`
                         background-color: white;

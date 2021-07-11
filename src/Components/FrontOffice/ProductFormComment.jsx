@@ -46,7 +46,7 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
 
             setTimeout(() => {
                 axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
-                axios.post(`https://protected-taiga-91617.herokuapp.com/api/product/${id}/comment`,  {
+                axios.post(`https://relaxed-sammet-0deed4.netlify.app/api/product/${id}/comment`,  {
                     title: values.title,
                     username: values.pseudo,
                     note: parseInt(values.note),

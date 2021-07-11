@@ -33,7 +33,7 @@ function UserOrdersTable ({data}) {
                     <td>{order.id}</td>
                     <td>{order.createdDate}</td>
                     <td>{order.amount}€</td>
-                    <td><Link to={`/api/order/${order.id}/details`}><Button>{zoomItem}</Button></Link></td>
+                    <td><Link to={`/order/${order.id}/details`}><Button>{zoomItem}</Button></Link></td>
                 </tr>)
             :
                 <p>Aucune commande trouvée</p>

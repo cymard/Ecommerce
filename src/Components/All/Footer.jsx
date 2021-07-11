@@ -13,7 +13,7 @@ function Footer(){
         <Link to="/informations/condition_de_vente" css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">CONDITIONS GENERALES DE VENTE</Link> ,
         <Nav.Link 
             className="pr-4 pt-1 pb-1" 
-            href="https://protected-taiga-91617.herokuapp.com/contact"
+            href="https://relaxed-sammet-0deed4.netlify.app/contact"
             css={css`
                 color: white;
                 &:hover{
@@ -24,7 +24,7 @@ function Footer(){
         >
             CONTACT
         </Nav.Link>,
-        <Link to={"/api/connectedAccount"} css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">MON COMPTE</Link>,
+        <Link to={"/connectedAccount"} css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">MON COMPTE</Link>,
         <Link to={"/ShoppingCart"} css={css`color:white; &:hover{color: white;}`} className="pr-4 pt-1 pb-1">PANIER</Link>
     ]
 

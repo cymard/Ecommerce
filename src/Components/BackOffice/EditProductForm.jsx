@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React,{useState, useEffect, useRef} from 'react';
-import {Form,Row,Col,Card,Button,Overlay} from 'react-bootstrap';
+import {Form,Row,Col,Card,Button,Overlay, Image} from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import {css} from '@emotion/react';
 import {Formik} from 'formik';
 import PropTypes from 'prop-types';
+import screen from '../../images/screen.jpg';
 
 function EditProductForm ({dataProduct,submitForm}) {
     let yup = require('yup');
-
     // value wysiwyg tinymce react
     const [descriptionValue, setDescriptionValue] = useState(null);
 
@@ -19,19 +19,19 @@ function EditProductForm ({dataProduct,submitForm}) {
     const target = useRef(null);
 
     const handleEditorChange = (content, editor) => {
-            let schemaDescription =  yup.string().min(3).max(5000).required();
- 
-            schemaDescription.validate(content)
-            .then(function (valid) {
-                setValidated(true)
-                setDescriptionValue(content);
-            })
-            .catch(function (err) {
-                // ValidationError
-                setValidated(false)
-                setShow(true)
-            });
+        let schemaDescription =  yup.string().min(3).max(5000).required();
+
+        schemaDescription.validate(content)
+        .then(function (valid) {
+            setValidated(true)
             setDescriptionValue(content);
+        })
+        .catch(function (err) {
+            // ValidationError
+            setValidated(false)
+            setShow(true)
+        });
+        setDescriptionValue(content);
     }
 
 
@@ -128,12 +128,23 @@ function EditProductForm ({dataProduct,submitForm}) {
                 />
             </Col>
         </Form.Group>
-
-        <Form.Group  className="d-flex justify-content-center" controlId="formulary">
-            <Form.File 
-                onChange={handleImageChange}
+        <Col className="d-flex justify-content-around p-4 align-items-center">
+            <Image 
+                css={css`
+                        max-height: 100px;
+                    `}
+                src={dataProduct.image === null ? screen : dataProduct.image} 
+                rounded 
             />
-        </Form.Group>
+
+            <Form.Group  controlId="formulary">
+                <Form.File 
+                    onChange={handleImageChange}
+                />
+            </Form.Group>
+        </Col>
+        
+        
         
         {/* description du produit (WYSIWYG) */}
         <Card 
@@ -146,7 +157,7 @@ function EditProductForm ({dataProduct,submitForm}) {
         >
             <Editor
                 apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
-                outputFormat='html'  //html ou text
+                outputFormat='text'  //html ou text
                 init={{
                     height: 500,
                     menubar: false,
@@ -155,7 +166,8 @@ function EditProductForm ({dataProduct,submitForm}) {
                         'searchreplace visualblocks code fullscreen',
                         'insertdatetime media table paste code help wordcount'
                     ],
-                    toolbar:'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                    toolbar:''
+                    // undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help
                 }}
 
                 value={descriptionValue}

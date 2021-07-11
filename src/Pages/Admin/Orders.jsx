@@ -65,7 +65,7 @@ function Orders() {
         }else{
 
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.get(`https://protected-taiga-91617.herokuapp.com/admin/orders?page=${queryPageValue}&search=${querySearchValue}`)
+            axios.get(`https://relaxed-sammet-0deed4.netlify.app/admin/orders?page=${queryPageValue}&search=${querySearchValue}`)
             .then(function(response){
                 setData({
                     status: true,
@@ -146,7 +146,7 @@ function Orders() {
 
     const handleDelete = useCallback(
         () => {
-            axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/order`,{
+            axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/order`,{
                 data:{
                     selectedOrders
                 }

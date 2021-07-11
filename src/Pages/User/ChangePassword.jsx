@@ -36,7 +36,7 @@ function ChangePassword () {
     const modifyPassword = useCallback(
         (dataPassword) => {
             axios.defaults.headers.common = {'Authorization' : `Bearer ${token}`}
-            axios.put('https://protected-taiga-91617.herokuapp.com/api/modify/password',dataPassword )
+            axios.put('https://relaxed-sammet-0deed4.netlify.app/api/modify/password',dataPassword )
             .then(function(response) {
                 setChangePassword({
                     message: response.data.message

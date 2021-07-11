@@ -72,28 +72,28 @@ function App(){
                                 <SaleConditions></SaleConditions> 
                             </FrontOfficeLayout>
                         </Route>
-                        <Route exact path="/api/connectedAccount">
+                        <Route exact path="/connectedAccount">
                             <FrontOfficeLayout>
                                 <ConnectedAccount></ConnectedAccount>
                             </FrontOfficeLayout>
                         </Route>
-                        <Route exact path="/api/orders">
+                        <Route exact path="/orders">
                             <FrontOfficeLayout>
                                 <UserOrders></UserOrders>
                             </FrontOfficeLayout>
                         </Route>
-                        <Route exact path="/api/order/:orderId/details">
+                        <Route exact path="/order/:orderId/details">
                             <FrontOfficeLayout>
                                 <UserOrderDetails></UserOrderDetails>
                             </FrontOfficeLayout>
                         </Route>
-                        <Route exact path="/api/modify/password">
+                        <Route exact path="/password/modify">
                             <FrontOfficeLayout>
                                 <ChangePassword></ChangePassword>
                             </FrontOfficeLayout>
                         </Route>
 
-                        <Route exact path="/api/modify/email">
+                        <Route exact path="/email/modify">
                             <FrontOfficeLayout>
                                 <ChangeEmail></ChangeEmail>
                             </FrontOfficeLayout>

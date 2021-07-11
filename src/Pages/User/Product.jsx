@@ -41,7 +41,7 @@ function Product() {
 
     const getProduct = useCallback(
         () => {
-            axios.get(`https://protected-taiga-91617.herokuapp.com/product/${id}`)
+            axios.get(`https://relaxed-sammet-0deed4.netlify.app/product/${id}`)
                 .then(function (res) {
                     setData({
                         status: true,
@@ -51,8 +51,6 @@ function Product() {
                         rateNumber: res.data.rateNumber,
                         stock: res.data.product.stock
                     })
-
-                    console.log(res.data.comments);
                 })
                 .catch(function (error) {
                     console.warn(error)
@@ -74,7 +72,7 @@ function Product() {
     const handleReport = useCallback(
         (e) => {
             axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-            axios.put(`https://protected-taiga-91617.herokuapp.com/api/comment/${e.target.id}`)
+            axios.put(`https://relaxed-sammet-0deed4.netlify.app/api/comment/${e.target.id}`)
                 .then(() => {
                     setAlertState({
                         isOpen: true,
@@ -148,7 +146,7 @@ function Product() {
             Vous devez être connecté pour effectuer cette action.
         </RedirectModal>
 
-        {data.status && data.comments > 0?
+        {data.status && data.comments.length > 0?
             data.comments.map(comment => <ProductComment key={comment.id} buttons={token != null ? <Button className="w-100" id={comment.id} variant="primary" onClick={handleReport}>Signaler</Button> : <Button className="w-100" variant="primary" onClick={displayModal}>Signaler</Button>} title={comment.title} pseudo={comment.username} content={comment.content} note={comment.note} date={comment.date}></ProductComment>)
             :
             <div className="text-center mb-4">Aucun commentaire posté.</div>

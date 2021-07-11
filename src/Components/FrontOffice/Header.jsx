@@ -67,14 +67,14 @@ function Header () {
         
             <Nav className="mr-auto">
                 {email ? 
-                    <ModifiedLinksRouter color="black" to="/api/connectedAccount">Compte</ModifiedLinksRouter> 
+                    <ModifiedLinksRouter color="black" to="/connectedAccount">Compte</ModifiedLinksRouter> 
                 : 
                     <ModifiedLinksRouter color="black" to="/Login">Se Connecter</ModifiedLinksRouter>
                 }
 
                 <ModifiedLinksRouter color="black" to="/ShoppingCart">Panier </ModifiedLinksRouter>
                 
-                <Nav.Link className="p-0" href="https://protected-taiga-91617.herokuapp.com/contact">
+                <Nav.Link className="p-0" href="https://relaxed-sammet-0deed4.netlify.app/contact">
                     <div className="d-flex justify-content-center align-items-center p-1" 
                         css={css`
                             white-space: nowrap;

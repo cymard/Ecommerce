@@ -27,7 +27,7 @@ function LoginForm ({setAlertState, closeAlert}) {
     const submitForm = async (values) => {
 
         try {
-            const response = await axios.post('https://protected-taiga-91617.herokuapp.com/api/login_check', {
+            const response = await axios.post('https://relaxed-sammet-0deed4.netlify.app/api/login_check', {
                 email: values.formBasicEmail,
                 password: values.formBasicPassword
             });

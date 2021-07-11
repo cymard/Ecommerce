@@ -27,7 +27,7 @@ function AdminHome () {
 
     let history = useHistory();
 
-    const {token} = useContext(UserAdminContext);
+    const userAdminInformations = useContext(UserAdminContext);
 
     const closeAlert = useCallback(
         () => {
@@ -63,9 +63,9 @@ function AdminHome () {
             if((location.pathname === "/admin/home" && location.search === "" ) || querySearchValue === ""){ // redirection en cas de mauvaise url
                 history.push('/admin/home?category=all&page=1&sorting=default');
             }else{
-                axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
+                axios.defaults.headers.common = {'Authorization': `Bearer ${userAdminInformations.token}`}
                 let isSearching = querySearchValue !== null ? `search=${encodeURIComponent(querySearchValue)}&` : ""
-                let url = `https://protected-taiga-91617.herokuapp.com/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
+                let url = `https://relaxed-sammet-0deed4.netlify.app/admin/home?`+isSearching+`category=${queryCategoryValue}&page=${queryPageValue}&sorting=${querySortingValue}`;
 
                 axios.get(url)
                 .then(function (response){
@@ -85,19 +85,33 @@ function AdminHome () {
                 .catch(function (error) {
                     console.warn(error);
                     // Impossible d'afficher les produits
-                    setAlertState({
-                        isOpen: true,
-                        text: "Impossible de récuperer les informations des produits.",
-                        variant: "danger"
-                    });
+
+                    if(error.response.status === 401){
+                        setAlertState({
+                            isOpen: true,
+                            text: "Vous n'êtes pas autorisé(e) à accéder à ce contenu.",
+                            variant: "danger"
+                        });
+
+                        userAdminInformations.setUserAdminInformation({
+                            email: null,
+                            token: null
+                        })
+                    }else{
+                        setAlertState({
+                            isOpen: true,
+                            text: "Impossible de récuperer les informations des produits.",
+                            variant: "danger"
+                        });
+                    }
                     history.push("/admin/login");
                 }) 
             }   
-    }, [history,closeAlert,location,token,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
+    }, [history,closeAlert,location,userAdminInformations,querySearchValue,queryCategoryValue,queryPageValue,querySortingValue])
 
     
     const handleRemove = () => {
-        axios.delete(`https://protected-taiga-91617.herokuapp.com/admin/product`,{
+        axios.delete(`https://relaxed-sammet-0deed4.netlify.app/admin/product`,{
             data:{
                 selectedProducts
             }

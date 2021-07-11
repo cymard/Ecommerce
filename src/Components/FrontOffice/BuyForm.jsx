@@ -36,7 +36,7 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
 
     const savePaymentInformations = useCallback(
         (userInformations) => {
-            axios.put('https://protected-taiga-91617.herokuapp.com/api/user/paymentInformations', userInformations)
+            axios.put('https://relaxed-sammet-0deed4.netlify.app/api/user/paymentInformations', userInformations)
             .then(function (response) {
                 setAlertState({
                     isOpen: true,
@@ -44,7 +44,7 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                     variant: "success"
                 });
                 closeAlert();
-                return history.push('/api/orders?page=1&date=desc');
+                return history.push('/orders?page=1&date=desc');
             })
             .catch(function (error) {
                 setAlertState({
@@ -93,14 +93,13 @@ function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
                     "cardExpirationDate" :values.cardExpirationDate,
                     "cryptogram" :parseInt(values.cryptogram),
                     "amount" : amount
-                }
-                    axios.post('https://protected-taiga-91617.herokuapp.com/api/order', userInformations)
+                } 
+                    axios.post('https://relaxed-sammet-0deed4.netlify.app/api/order', userInformations)
                     .then(function (response) {
                         if(values.bankData === true){
                             savePaymentInformations(userInformations)
                         }else{
-                            // return history.push('/');
-                            return history.push('/api/orders?page=1&date=desc');
+                            return history.push('/orders?page=1&date=desc');
                         }
                     })
                     .catch(function (error) {
