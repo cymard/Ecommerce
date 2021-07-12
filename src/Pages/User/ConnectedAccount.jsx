@@ -76,7 +76,6 @@ function ConnectedAccount () {
 
                 if(error.response.status === 401){
                     disconnectUser();
-                    history.push("/login");
                 }else{
                     setAlertState({
                         isOpen: true,
