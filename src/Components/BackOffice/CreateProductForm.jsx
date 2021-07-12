@@ -145,7 +145,7 @@ function CreateProductForm ({submitForm}) {
         >
             <Editor
                 apiKey="ryydk6te5fo3bx1ed2e0ecz8h338i23rnnyh24gf8izrwfd1"
-                outputFormat='html'
+                outputFormat='text'
                 init={{
                     
                     height: 500,
@@ -155,7 +155,7 @@ function CreateProductForm ({submitForm}) {
                         'searchreplace visualblocks code fullscreen',
                         'insertdatetime media table paste code help wordcount'
                     ],
-                    toolbar:'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                    toolbar:''
                 }}
 
                 value={descriptionValue}

@@ -52,7 +52,7 @@ RedirectLoginRegister.propTypes = {
 }
 
 RedirectLoginRegister.defaultProps = {
-    children: 'Pour accéder à votre panier vous devez être connecté'
+    children: 'Pour accéder à cette page vous devez être connecté'
 };
 
 export default RedirectLoginRegister;
