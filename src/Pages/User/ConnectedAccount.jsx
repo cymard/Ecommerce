@@ -47,8 +47,7 @@ function ConnectedAccount () {
                 email: null,
                 token: null
             });
-            
-           history.push("/login");
+
         },
         [history, userInformations],
     )
@@ -77,7 +76,7 @@ function ConnectedAccount () {
 
                 if(error.response.status === 401){
                     disconnectUser();
-
+                    history.push("/login");
                 }else{
                     setAlertState({
                         isOpen: true,

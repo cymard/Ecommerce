@@ -35,6 +35,8 @@ function UserOrderDetails () {
                     status: true,
                     products: response.data.data
                 })
+
+                console.log(response.data.data);
             })
             .catch(function(error){
                 if(error.response.status === 401){
