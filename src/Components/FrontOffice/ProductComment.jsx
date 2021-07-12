@@ -40,7 +40,7 @@ function ProductComment ({pseudo, content, note, date, title, buttons}) {
         <Card.Footer >
             <Row>
                 <Col lg={3} md={3}>
-                    <p>Publié le {dateFormat(date, "UTC:mm/dd/yyyy à HH:MM:ss")}</p>
+                    <p>Publié le {dateFormat(date, "mm/dd/yyyy à HH:MM:ss")}</p>
                 </Col>
                 <Col sm={0} md={7} lg={7}></Col>
                 <Col lg={2} md={2}>{buttons}</Col>
