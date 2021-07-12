@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLock, faTruck, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import ConnectedAccountCard from '../../Components/FrontOffice/ConnectedAccountCard.jsx';
 import UserAlert from '../../Components/All/UserAlert.jsx';
-import { useHistory } from "react-router-dom";
 import RedirectLoginRegister from "../../Components/FrontOffice/RedirectLoginRegister.jsx";
 
 function ConnectedAccount () {
@@ -28,7 +27,6 @@ function ConnectedAccount () {
     })
 
     const userInformations = useContext(UserContext);
-    let history = useHistory();
     axios.defaults.headers.common = {'Authorization': `Bearer ${userInformations.token}`}
 
     const isCurrentUserConnected = userInformations.email === null && userInformations.token === null;
@@ -49,7 +47,7 @@ function ConnectedAccount () {
             });
 
         },
-        [history, userInformations],
+        [userInformations],
     )
 
     const getUserInformation = useCallback(
