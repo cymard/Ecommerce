@@ -14,15 +14,15 @@ let yup = require('yup');
 function BuyForm ({amount, userInformation, closeAlert, setAlertState}) {
 
     const schema = yup.object({
-        firstName: yup.string().required(),
-        lastName: yup.string().required(),
-        city: yup.string().required(),
-        address: yup.string().required(),
-        email: yup.string().email().required(),
-        paymentMethod: yup.string().required(),
-        cardName: yup.string().required(),
-        cardNumber: yup.number().positive().required(),
-        cardExpirationDate: yup.string().matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
+        firstName: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        lastName: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        city: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        address: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        email: yup.string().max(255, "Nombre de caractères trop important.").email().required(),
+        paymentMethod: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        cardName: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        cardNumber: yup.number().max(9999999999999999, "Nombre de caractères trop important.").positive().required(),
+        cardExpirationDate: yup.string().max(255, "Nombre de caractères trop important.").matches(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/ , 'format incorrect').required(), //^\d{2}\/\d{2}$       
         cryptogram: yup.number().positive().required(),
         bankData: yup.boolean(),
         termsAndConditions: yup.boolean().required()

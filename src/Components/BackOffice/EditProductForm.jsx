@@ -50,7 +50,9 @@ function EditProductForm ({dataProduct,submitForm}) {
             .trim("Trop d'espaces inutiles")
             .required('Champs requis'),
         category: yup.string()
+            .max(255, "Nombre de caractères trop important.")
             .required('Champs requis'),
+            
         price: yup.string()
             .matches(/^\d+(.\d{1,2})?$/, "Le prix doit être sous la form pppp.pp")
             .trim("Trop d'espaces inutiles")
@@ -90,7 +92,7 @@ function EditProductForm ({dataProduct,submitForm}) {
             title: dataProduct.name ? dataProduct.name : "" ,
             category: dataProduct.category ? dataProduct.category : "",
             price: dataProduct.price ? dataProduct.price : "",
-            stock: dataProduct.stock ? dataProduct.stock : ""
+            stock: dataProduct.stock ? dataProduct.stock : 0
         }}
 
         validationSchema={yupSchema}

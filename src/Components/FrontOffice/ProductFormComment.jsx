@@ -19,9 +19,9 @@ function ProductFormComment ({reFetch, setAlertState, closeAlert}) {
 
     let schema = yup.object().shape({
         title: yup.string().min(2, 'Trop Court!').max(255, 'Trop Long!').required(),
-        pseudo: yup.string().required(),
+        pseudo: yup.string().max(255, "Nombre de caractères trop important.").required(),
         note: yup.number().required(),
-        content: yup.string().min(2, 'Trop Court!').required()
+        content: yup.string().min(2, 'Trop Court!').max(255, "Nombre de caractères trop important.").required()
     });
       
     useEffect(()=>{

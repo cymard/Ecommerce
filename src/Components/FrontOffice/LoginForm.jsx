@@ -19,8 +19,8 @@ function LoginForm ({setAlertState, closeAlert}) {
     const [response, setResponse] = useState("");
 
     let schema = yup.object({
-        formBasicEmail: yup.string().email().required(),
-        formBasicPassword: yup.string().required(),
+        formBasicEmail: yup.string().max(255, "Nombre de caractères trop important.").email().required(),
+        formBasicPassword: yup.string().max(255, "Nombre de caractères trop important.").required(),
     });
 
 

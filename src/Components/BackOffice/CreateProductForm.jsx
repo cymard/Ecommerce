@@ -42,6 +42,7 @@ function CreateProductForm ({submitForm}) {
             .trim("Trop d'espaces inutiles")
             .required('Champs requis'),
         category: yup.string()
+            .max(255, "Nombre de caractères trop important.")
             .required('Champs requis'),
         price: yup.string()
             .matches(/^\d+(.\d{1,2})?$/, "Le prix doit être sous la form pppp.pp")

@@ -12,7 +12,7 @@ function ChangeEmailForm({request, changeEmail}){
     
     let schema = yup.object({
         password: yup.string().min(2).max(30).required(),
-        newEmail: yup.string().email().min(2).max(30).required(),
+        newEmail: yup.string().email().min(2).max(255, "Nombre de caractères trop important.").required(),
     });
 
     return <Formik

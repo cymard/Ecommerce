@@ -11,7 +11,7 @@ let yup = require('yup');
 function ChangePasswordForm ({request, changePassword}) {
 
     let schema = yup.object({
-        oldPassword: yup.string().required(),
+        oldPassword: yup.string().max(255, "Nombre de caractères trop important.").required(),
         newPasswordOne: yup.string().min(2).max(30).required(),
         newPasswordTwo: yup.string().min(2).max(30).required(),
     });

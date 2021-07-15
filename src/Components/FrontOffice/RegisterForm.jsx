@@ -14,9 +14,9 @@ function RegisterForm ({setAlertState, closeAlert}) {
     let history = useHistory();
 
     let schema = yup.object().shape({
-        email: yup.string().email().required(),
-        password: yup.string().required(),
-        confirmPassword: yup.string().required()
+        email: yup.string().max(255, "Nombre de caractères trop important.").email().required(),
+        password: yup.string().max(255, "Nombre de caractères trop important.").required(),
+        confirmPassword: yup.string().max(255, "Nombre de caractères trop important.").required()
     });
 
     const handleOnSubmit = async (values) => {
